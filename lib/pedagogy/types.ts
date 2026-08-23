@@ -1,0 +1,367 @@
+/**
+ * Types du cœur pédagogique — source de vérité unique pour toute forme de
+ * données pédagogiques dans le projet (pas de types parallèles ailleurs).
+ * Architecture : Niveau CECRL -> Module -> Lesson (étape) -> Activity -> Exercise -> Question.
+ * Le contenu concret vit dans `data/`, le calcul dérivé dans `logic/`.
+ */
+
+export type CEFRLevel = "A1" | "A2" | "B1" | "B2";
+
+export const CEFR_LEVELS: CEFRLevel[] = ["A1", "A2", "B1", "B2"];
+
+export type SkillDomain =
+  | "comprehension_ecrite"
+  | "comprehension_orale"
+  | "grammaire"
+  | "vocabulaire"
+  | "production_ecrite"
+  | "preparation_examen";
+
+export interface Skill {
+  id: string;
+  domain: SkillDomain;
+  name: string;
+  description: string;
+}
+
+/** Retour pédagogique détaillé, jamais limité à "Faux". */
+export interface Correction {
+  correctAnswer: string;
+  explanation: string;
+  rappelRegle?: string;
+  notionAssociee?: string;
+  conseil?: string;
+}
+
+export interface QuestionChoice {
+  id: string;
+  text: string;
+}
+
+/**
+ * Sous-question d'une compréhension écrite/orale (section E/F d'un module).
+ * Les contenus réels mélangent QCM, vrai/faux et questions ouvertes — d'où
+ * cette union plutôt qu'une forme unique imposant des choix à tout.
+ */
+export interface QcmSubQuestion {
+  kind: "qcm";
+  id: string;
+  prompt: string;
+  choices: QuestionChoice[];
+  correctChoiceId: string;
+  correction: Correction;
+}
+
+export interface VraiFauxSubQuestion {
+  kind: "vrai_faux";
+  id: string;
+  prompt: string;
+  correctAnswer: boolean;
+  correction: Correction;
+}
+
+/** Question ouverte : pas de correction automatique fiable, réponse à comparer soi-même. */
+export interface LibreSubQuestion {
+  kind: "libre";
+  id: string;
+  prompt: string;
+  expectedAnswer: string;
+  correction: Correction;
+}
+
+export type Question = QcmSubQuestion | VraiFauxSubQuestion | LibreSubQuestion;
+
+export type ExerciseType =
+  | "qcm"
+  | "vrai_faux"
+  | "texte_a_trous"
+  | "remise_en_ordre"
+  | "association"
+  | "comprehension_ecrite"
+  | "comprehension_orale"
+  | "reponse_courte"
+  | "production_ecrite";
+
+interface ExerciseBase {
+  id: string;
+  skillId: string;
+  difficulty: CEFRLevel;
+  instructions: string;
+}
+
+export interface QcmExercise extends ExerciseBase {
+  type: "qcm";
+  question: QcmSubQuestion;
+}
+
+export interface VraiFauxExercise extends ExerciseBase {
+  type: "vrai_faux";
+  statement: string;
+  correctAnswer: boolean;
+  correction: Correction;
+}
+
+export interface TexteATrousExercise extends ExerciseBase {
+  type: "texte_a_trous";
+  /** Texte contenant des espaces réservés du type {{1}}, {{2}}... */
+  textWithBlanks: string;
+  blanks: { id: string; answer: string }[];
+  correction: Correction;
+}
+
+export interface RemiseEnOrdreExercise extends ExerciseBase {
+  type: "remise_en_ordre";
+  items: { id: string; text: string }[];
+  /** Ordre correct, exprimé comme une liste d'identifiants d'items. */
+  correctOrder: string[];
+  correction: Correction;
+}
+
+export interface AssociationExercise extends ExerciseBase {
+  type: "association";
+  pairs: { id: string; left: string; right: string }[];
+  correction: Correction;
+}
+
+export interface ComprehensionEcriteExercise extends ExerciseBase {
+  type: "comprehension_ecrite";
+  text: string;
+  questions: Question[];
+}
+
+export interface ComprehensionOraleExercise extends ExerciseBase {
+  type: "comprehension_orale";
+  /** Chemin vers un audio préenregistré, ou placeholder si absent. */
+  audioSrc: string;
+  transcript?: string;
+  questions: Question[];
+}
+
+export interface ReponseCourteExercise extends ExerciseBase {
+  type: "reponse_courte";
+  question: string;
+  acceptedAnswers: string[];
+  correction: Correction;
+}
+
+/** Champs prêts pour une correction IA future, non implémentée ici. */
+export interface ProductionEcriteExercise extends ExerciseBase {
+  type: "production_ecrite";
+  consigne: string;
+  minWords: number;
+  maxWords?: number;
+  correctionCriteria: string[];
+  aiCorrectionAvailable: boolean;
+}
+
+export type Exercise =
+  | QcmExercise
+  | VraiFauxExercise
+  | TexteATrousExercise
+  | RemiseEnOrdreExercise
+  | AssociationExercise
+  | ComprehensionEcriteExercise
+  | ComprehensionOraleExercise
+  | ReponseCourteExercise
+  | ProductionEcriteExercise;
+
+/** Regroupement d'exercices autour d'un même contenu pédagogique. */
+export interface Activity {
+  id: string;
+  title: string;
+  skillDomain: SkillDomain;
+  exercises: Exercise[];
+}
+
+export type LessonStepType =
+  | "decouvrir"
+  | "comprendre"
+  | "entrainement"
+  | "ecoute"
+  | "ecriture"
+  | "evaluation";
+
+/** Une étape d'un module (Découvrir, Comprendre, S'entraîner...). */
+export interface Lesson {
+  id: string;
+  type: LessonStepType;
+  title: string;
+  optional: boolean;
+  activities: Activity[];
+}
+
+export type VocabularyCategory = "principal" | "expression" | "verbe" | "connecteur";
+
+export interface VocabularyEntry {
+  term: string;
+  category: VocabularyCategory;
+}
+
+/** Un point de grammaire expliqué dans la section "Point de langue" d'un module. */
+export interface LanguagePoint {
+  title: string;
+  explanation: string;
+}
+
+export interface Module {
+  id: string;
+  slug: string;
+  level: CEFRLevel;
+  title: string;
+  description: string;
+  objectives: string[];
+  domain: SkillDomain;
+  estimatedMinutes: number;
+  lessons: Lesson[];
+  /** Champs de contenu réel (module rédigé) — absents sur un module minimal. */
+  situation?: string;
+  vocabulary?: VocabularyEntry[];
+  languagePoints?: LanguagePoint[];
+  examLinks?: string[];
+  /** Score minimum (sur 10) pour valider la mini-évaluation du module. */
+  miniEvaluationThreshold?: number;
+}
+
+// --- Progression ---
+
+export interface SkillProgress {
+  skillId: string;
+  domain: SkillDomain;
+  totalExercises: number;
+  completedExercises: number;
+  correctExercises: number;
+  successRate: number;
+}
+
+export interface ModuleProgress {
+  moduleId: string;
+  completed: boolean;
+  completedLessonIds: string[];
+  completedExerciseIds: string[];
+  correctExerciseIds: string[];
+  lastActivityAt: string | null;
+}
+
+export interface UserProgress {
+  userId: string;
+  level: CEFRLevel;
+  goalId?: LearningGoalId;
+  moduleProgress: ModuleProgress[];
+  skillProgress: SkillProgress[];
+  globalSuccessRate: number;
+  lastActivityAt: string | null;
+  weakSkillIds: string[];
+}
+
+// --- Séance recommandée ---
+
+export interface DailySession {
+  goalLevel: CEFRLevel;
+  moduleId: string;
+  moduleTitle: string;
+  lessonId: string;
+  lessonTitle: string;
+  exerciseCount: number;
+  includesListening: boolean;
+  includesWriting: boolean;
+  focusSkillId: string | null;
+  reason: string;
+}
+
+// --- Test de positionnement ---
+
+export interface PlacementQuestion {
+  id: string;
+  level: CEFRLevel;
+  domain: SkillDomain;
+  prompt: string;
+  choices: QuestionChoice[];
+  correctChoiceId: string;
+}
+
+export interface PlacementAnswer {
+  questionId: string;
+  choiceId: string;
+}
+
+export interface PlacementDomainScore {
+  domain: SkillDomain;
+  correct: number;
+  total: number;
+  successRate: number;
+}
+
+/** Statut pédagogique d'un niveau au sein du test de positionnement. */
+export type PlacementLevelStatus = "acquired" | "partial" | "gap";
+
+export interface PlacementLevelScore {
+  level: CEFRLevel;
+  correct: number;
+  total: number;
+  successRate: number;
+  /** "acquired" (>= seuil de réussite), "gap" (lacune critique), "partial" (entre les deux). */
+  status: PlacementLevelStatus;
+}
+
+/** Résultat indicatif : "niveau estimé", pas une certification CECRL officielle. */
+export interface PlacementResult {
+  estimatedLevel: CEFRLevel;
+  globalScore: number;
+  levelScores: PlacementLevelScore[];
+  domainScores: PlacementDomainScore[];
+  strengths: SkillDomain[];
+  weaknesses: SkillDomain[];
+}
+
+// --- Objectifs utilisateur ---
+
+export type LearningGoalId =
+  | "ameliorer_francais"
+  | "vivre_en_france"
+  | "carte_sejour"
+  | "carte_resident"
+  | "naturalisation"
+  | "etudes"
+  | "travail"
+  | "delf"
+  | "tcf_irn";
+
+/**
+ * Structure éditable : le niveau recommandé n'encode aucune règle juridique
+ * définitive et doit pouvoir être mis à jour si la réglementation change.
+ */
+export interface LearningGoal {
+  id: LearningGoalId;
+  title: string;
+  description: string;
+  recommendedLevel: CEFRLevel;
+  note?: string;
+}
+
+// --- Examens ---
+
+export type ExamType = "delf" | "tcf_irn" | "interne";
+
+export interface ExamSection {
+  id: string;
+  title: string;
+  domain: SkillDomain;
+  durationMinutes: number;
+  maxScore: number;
+  exercises: Exercise[];
+}
+
+export interface Exam {
+  id: string;
+  slug: string;
+  title: string;
+  type: ExamType;
+  level: CEFRLevel;
+  description: string;
+  sections: ExamSection[];
+  durationMinutes: number;
+  maxScore: number;
+  passingScore: number;
+  /** true = examen blanc complet, false = entraînement ciblé. */
+  isBlanc: boolean;
+}
