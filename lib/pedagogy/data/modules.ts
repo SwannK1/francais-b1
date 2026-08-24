@@ -2550,6 +2550,1853 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-decrire-vie-quotidienne",
+    slug: "decrire-vie-quotidienne",
+    level: "B1",
+    title: "Décrire sa vie quotidienne et ses habitudes",
+    description:
+      "À la fin de ce module, tu pourras décrire ton quotidien, tes habitudes et ton organisation avec précision.",
+    objectives: [
+      "Décrire une habitude",
+      "Exprimer une fréquence",
+      "Comparer un avant et un maintenant",
+    ],
+    domain: "vocabulaire",
+    estimatedMinutes: 28,
+    situation:
+      "Léa vient d'emménager en colocation. Sa colocataire Fatou lui propose d'organiser ensemble le ménage et les repas de la semaine.",
+    vocabulary: [
+      { term: "une habitude", category: "principal" },
+      { term: "une routine", category: "principal" },
+      { term: "le quotidien", category: "principal" },
+      { term: "une tâche ménagère", category: "principal" },
+      { term: "le ménage", category: "principal" },
+      { term: "les courses", category: "principal" },
+      { term: "un repas équilibré", category: "principal" },
+      { term: "l'organisation", category: "principal" },
+      { term: "une corvée", category: "principal" },
+      { term: "un emploi du temps", category: "principal" },
+      { term: "« d'habitude »", category: "expression" },
+      { term: "« en général »", category: "expression" },
+      { term: "« de temps en temps »", category: "expression" },
+      { term: "« ça dépend des jours »", category: "expression" },
+      { term: "se lever", category: "verbe" },
+      { term: "se coucher", category: "verbe" },
+      { term: "faire les courses", category: "verbe" },
+      { term: "faire le ménage", category: "verbe" },
+      { term: "ranger", category: "verbe" },
+      { term: "partager (une tâche)", category: "verbe" },
+      { term: "toujours", category: "connecteur" },
+      { term: "souvent", category: "connecteur" },
+      { term: "parfois", category: "connecteur" },
+      { term: "rarement", category: "connecteur" },
+      { term: "ne...jamais", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Le présent pour parler d'habitudes",
+        explanation:
+          "Le présent + un adverbe de fréquence décrit une habitude : Je me lève toujours à 7h. Elle fait souvent les courses le samedi. L'adverbe se place en général juste après le verbe conjugué.",
+      },
+      {
+        title: "Les articles partitifs et la négation",
+        explanation:
+          "Pour une quantité indéfinie, on utilise du, de la, de l', des : Je mange du pain, de la salade. À la forme négative, du/de la/des deviennent « de » (ou « d' ») : Je ne mange pas de viande. On retrouve la même règle avec ne...plus et ne...jamais : Je n'achète plus de plats préparés.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral (documents de vie quotidienne)"],
+    miniEvaluationThreshold: 7,
+    lessons: [
+      {
+        id: "decrire-vie-quotidienne-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "decrire-vie-quotidienne-comprendre-activite",
+            title: "Lire le message de Léa",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "quotidien-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez le message, puis répondez aux questions.",
+                text:
+                  "Salut Fatou, comme promis, voici mon organisation habituelle ! En général, je me lève " +
+                  "vers 7h en semaine et je prends toujours un petit-déjeuner avant de partir. Le soir, je " +
+                  "fais souvent les courses en rentrant, sauf le vendredi : ce jour-là, je ne cuisine jamais, " +
+                  "on commande plutôt un repas. Le ménage, je le fais plutôt le week-end, de temps en temps " +
+                  "avec de la musique pour que ce soit moins une corvée ! Dis-moi ton emploi du temps et on " +
+                  "s'organise ensemble.",
+                questions: [
+                  {
+                    kind: "vrai_faux",
+                    id: "quotidien-e-q1",
+                    prompt: "Vrai ou faux : Léa cuisine tous les soirs de la semaine.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Le vendredi, elle ne cuisine jamais : ils commandent un repas.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "quotidien-e-q2",
+                    prompt: "Quand Léa fait-elle le ménage, en général ?",
+                    expectedAnswer: "Plutôt le week-end.",
+                    correction: {
+                      correctAnswer: "Plutôt le week-end.",
+                      explanation: "Elle le dit directement : « le ménage, je le fais plutôt le week-end ».",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "quotidien-e-q3",
+                    prompt: "Que fait Léa pour rendre le ménage moins pénible ?",
+                    expectedAnswer: "Elle met de la musique.",
+                    correction: {
+                      correctAnswer: "Elle écoute de la musique en le faisant.",
+                      explanation: "« de temps en temps avec de la musique pour que ce soit moins une corvée ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "decrire-vie-quotidienne-ecoute",
+        type: "ecoute",
+        title: "Compréhension orale",
+        optional: false,
+        activities: [
+          {
+            id: "decrire-vie-quotidienne-ecoute-activite",
+            title: "Écouter Léa et Fatou s'organiser",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "quotidien-f",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Écoutez le dialogue (« On s'organise ? », Léa et Fatou, 1 min 20), puis répondez.",
+                audioSrc: "/audio/b1/decrire-vie-quotidienne.mp3",
+                transcript:
+                  "Fatou — Bon, pour les courses, on fait comment ? Toutes les deux chacune son tour ?\n" +
+                  "Léa — Ça me va. Moi je peux y aller le mardi, j'ai moins cours ce jour-là.\n" +
+                  "Fatou — Parfait, et moi le samedi matin, avant que ce soit trop plein.\n" +
+                  "Léa — Et pour le ménage ? Moi, en semaine, j'ai vraiment jamais le temps.\n" +
+                  "Fatou — Pas de souci, on le fait le dimanche, toutes les deux, ça ira plus vite.\n" +
+                  "Léa — Bonne idée. Et la vaisselle, on ne la laisse jamais traîner, d'accord ?\n" +
+                  "Fatou — D'accord, chacune la sienne, tout de suite après manger.",
+                questions: [
+                  {
+                    kind: "libre",
+                    id: "quotidien-f-q1",
+                    prompt: "Quel jour Léa fait-elle les courses ?",
+                    expectedAnswer: "Le mardi.",
+                    correction: { correctAnswer: "Le mardi.", explanation: "Elle a moins cours ce jour-là." },
+                  },
+                  {
+                    kind: "libre",
+                    id: "quotidien-f-q2",
+                    prompt: "Pourquoi Fatou préfère-t-elle faire les courses le samedi matin ?",
+                    expectedAnswer: "Avant que le magasin soit trop plein.",
+                    correction: {
+                      correctAnswer: "Avant que ce soit trop plein.",
+                      explanation: "« avant que ce soit trop plein » : elle veut éviter l'affluence.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "quotidien-f-q3",
+                    prompt: "Quel jour font-elles le ménage ensemble ?",
+                    choices: [
+                      { id: "a", text: "Le samedi" },
+                      { id: "b", text: "Le dimanche" },
+                      { id: "c", text: "Le mardi" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "Le dimanche.", explanation: "« on le fait le dimanche, toutes les deux »." },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "quotidien-f-q4",
+                    prompt: "Vrai ou faux : elles décident de laisser parfois la vaisselle pour plus tard.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "« on ne la laisse jamais traîner » : chacune fait sa vaisselle tout de suite.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "decrire-vie-quotidienne-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "decrire-vie-quotidienne-entrainement-activite",
+            title: "Fréquence, partitifs et négation",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "quotidien-g1",
+                type: "qcm",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Choisissez l'adverbe qui convient.",
+                question: {
+                  kind: "qcm",
+                  id: "quotidien-g1-q",
+                  prompt: "« Le dimanche, il ne travaille ___. »",
+                  choices: [
+                    { id: "a", text: "toujours" },
+                    { id: "b", text: "jamais" },
+                    { id: "c", text: "souvent" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "jamais",
+                    explanation: "« ne...jamais » exprime une fréquence nulle : il ne travaille jamais le dimanche.",
+                  },
+                },
+              },
+              {
+                id: "quotidien-g2",
+                type: "texte_a_trous",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Complétez avec l'article partitif qui convient (du, de la, de l', ou « de » si négatif).",
+                textWithBlanks:
+                  "Le matin, je bois {{1}} café et je mange {{2}} pain. Le soir, je ne mange jamais {{3}} viande.",
+                blanks: [
+                  { id: "1", answer: "du" },
+                  { id: "2", answer: "du" },
+                  { id: "3", answer: "de" },
+                ],
+                correction: {
+                  correctAnswer: "du — du — de",
+                  explanation: "« café » et « pain » sont masculins (du) ; à la forme négative, l'article partitif devient « de ».",
+                },
+              },
+              {
+                id: "quotidien-g3",
+                type: "association",
+                skillId: "voc-vie-quotidienne",
+                difficulty: "B1",
+                instructions: "Associez chaque tâche à son moment habituel.",
+                pairs: [
+                  { id: "1", left: "Faire les courses", right: "en général le week-end" },
+                  { id: "2", left: "Se coucher", right: "vers 22h ou 23h" },
+                  { id: "3", left: "Faire la vaisselle", right: "juste après le repas" },
+                ],
+                correction: {
+                  correctAnswer:
+                    "Courses → week-end ; se coucher → 22h-23h ; vaisselle → après le repas.",
+                  explanation: "Ce sont des associations habituelles, pas des règles absolues, mais logiques dans un quotidien organisé.",
+                  notionAssociee: "voc-vie-quotidienne",
+                },
+              },
+              {
+                id: "quotidien-g4",
+                type: "remise_en_ordre",
+                skillId: "voc-vie-quotidienne",
+                difficulty: "B1",
+                instructions: "Remettez cette routine du matin dans l'ordre logique.",
+                items: [
+                  { id: "a", text: "Elle se lève." },
+                  { id: "b", text: "Elle prend son petit-déjeuner." },
+                  { id: "c", text: "Elle se douche et s'habille." },
+                  { id: "d", text: "Elle part au travail." },
+                ],
+                correctOrder: ["a", "c", "b", "d"],
+                correction: {
+                  correctAnswer: "a, c, b, d",
+                  explanation: "Se lever, puis se préparer, puis manger, puis partir : l'ordre le plus courant d'une routine matinale.",
+                },
+              },
+              {
+                id: "quotidien-g5",
+                type: "vrai_faux",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Vrai ou faux ?",
+                statement: "« Je ne bois plus de café le soir » signifie que j'ai arrêté d'en boire le soir.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "« ne...plus » indique l'arrêt d'une habitude passée.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "decrire-vie-quotidienne-ecriture",
+        type: "ecriture",
+        title: "Production écrite",
+        optional: false,
+        activities: [
+          {
+            id: "decrire-vie-quotidienne-ecriture-activite",
+            title: "Décrire sa semaine type",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "quotidien-h",
+                type: "production_ecrite",
+                skillId: "pe-decrire-quotidien",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Dans un message à un·e nouveau·elle colocataire, décris ta semaine type : tes habitudes, tes tâches ménagères et ton organisation. Utilise au moins trois adverbes de fréquence.",
+                minWords: 60,
+                maxWords: 120,
+                correctionCriteria: [
+                  "Au moins trois adverbes de fréquence (toujours, souvent, parfois, rarement, jamais)",
+                  "Au moins une tâche ménagère mentionnée",
+                  "Une négation correcte (ne...jamais, ne...plus...)",
+                  "Un texte organisé et compréhensible",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "decrire-vie-quotidienne-evaluation",
+        type: "evaluation",
+        title: "Mini-évaluation",
+        optional: true,
+        activities: [
+          {
+            id: "decrire-vie-quotidienne-evaluation-activite",
+            title: "Bilan du module (10 items, 7/10 pour valider)",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "quotidien-i1",
+                type: "qcm",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "quotidien-i1-q",
+                  prompt: "« Elle fait ___ les courses le samedi. »",
+                  choices: [
+                    { id: "a", text: "souvent" },
+                    { id: "b", text: "souvente" },
+                    { id: "c", text: "souventes" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "souvent", explanation: "L'adverbe « souvent » est invariable." },
+                },
+              },
+              {
+                id: "quotidien-i2",
+                type: "reponse_courte",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Item 2. Mettez à la forme négative avec « ne...jamais ».",
+                question: "« Je mange de la viande le soir. » → négatif :",
+                acceptedAnswers: ["je ne mange jamais de viande le soir", "je ne mange jamais de viande"],
+                correction: {
+                  correctAnswer: "Je ne mange jamais de viande le soir.",
+                  explanation: "À la forme négative, l'article partitif « de la » devient « de ».",
+                },
+              },
+              {
+                id: "quotidien-i3",
+                type: "vrai_faux",
+                skillId: "voc-vie-quotidienne",
+                difficulty: "B1",
+                instructions: "Item 3.",
+                statement: "Une « corvée » est une tâche qu'on adore faire.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Une corvée est au contraire une tâche pénible ou peu agréable.",
+                },
+              },
+              {
+                id: "quotidien-i4",
+                type: "reponse_courte",
+                skillId: "voc-vie-quotidienne",
+                difficulty: "B1",
+                instructions: "Item 4.",
+                question: "Donne un synonyme de « le quotidien ».",
+                acceptedAnswers: ["la routine", "la vie de tous les jours", "les habitudes"],
+                correction: {
+                  correctAnswer: "La routine / la vie de tous les jours.",
+                  explanation: "Ces expressions désignent toutes ce qu'on fait régulièrement, jour après jour.",
+                },
+              },
+              {
+                id: "quotidien-i5",
+                type: "texte_a_trous",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Item 5.",
+                textWithBlanks: "Le matin, je ne bois jamais {{1}} thé, je préfère {{2}} café.",
+                blanks: [
+                  { id: "1", answer: "de" },
+                  { id: "2", answer: "le" },
+                ],
+                correction: {
+                  correctAnswer: "de — le",
+                  explanation: "Négation → « de » ; après un verbe de préférence, on utilise l'article défini (« le café » en général).",
+                },
+              },
+              {
+                id: "quotidien-i6",
+                type: "reponse_courte",
+                skillId: "voc-vie-quotidienne",
+                difficulty: "B1",
+                instructions: "Item 6.",
+                question: "Cite deux tâches ménagères vues dans ce module.",
+                acceptedAnswers: [
+                  "le ménage et les courses",
+                  "les courses et la vaisselle",
+                  "le ménage et la vaisselle",
+                  "faire le ménage et faire les courses",
+                ],
+                correction: {
+                  correctAnswer: "Le ménage, les courses, la vaisselle...",
+                  explanation: "Toute paire de tâches ménagères mentionnées dans le module est acceptée.",
+                },
+              },
+              {
+                id: "quotidien-i7",
+                type: "qcm",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Item 7.",
+                question: {
+                  kind: "qcm",
+                  id: "quotidien-i7-q",
+                  prompt: "Quel adverbe exprime la fréquence la plus faible (hors « jamais ») ?",
+                  choices: [
+                    { id: "a", text: "toujours" },
+                    { id: "b", text: "rarement" },
+                    { id: "c", text: "souvent" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: { correctAnswer: "rarement", explanation: "« rarement » signifie presque jamais, mais pas totalement." },
+                },
+              },
+              {
+                id: "quotidien-i8",
+                type: "reponse_courte",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 8. D'après le dialogue de la partie « Compréhension orale ».",
+                question: "Qui fait les courses le samedi matin ?",
+                acceptedAnswers: ["fatou"],
+                correction: { correctAnswer: "Fatou.", explanation: "Elle préfère y aller avant que ce soit trop plein." },
+              },
+              {
+                id: "quotidien-i9",
+                type: "reponse_courte",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 9. D'après le message de Léa.",
+                question: "Que font Léa et sa coloc le vendredi soir au lieu de cuisiner ?",
+                acceptedAnswers: ["ils commandent un repas", "elles commandent un repas", "commander un repas"],
+                correction: { correctAnswer: "Ils commandent un repas.", explanation: "« ce jour-là, je ne cuisine jamais, on commande plutôt un repas »." },
+              },
+              {
+                id: "quotidien-i10",
+                type: "reponse_courte",
+                skillId: "pe-decrire-quotidien",
+                difficulty: "B1",
+                instructions: "Item 10 — production courte, réponse libre.",
+                question: "En une phrase, décris une de tes habitudes avec un adverbe de fréquence.",
+                acceptedAnswers: [],
+                correction: {
+                  correctAnswer: "Réponse libre.",
+                  explanation: "Évalue-toi : présent + adverbe de fréquence bien placé, phrase claire.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-prendre-rendez-vous",
+    slug: "prendre-rendez-vous",
+    level: "B1",
+    title: "Prendre rendez-vous",
+    description:
+      "À la fin de ce module, tu pourras prendre, modifier ou annuler un rendez-vous par téléphone ou par écrit.",
+    objectives: [
+      "Demander un rendez-vous",
+      "Proposer une date ou un horaire",
+      "Comprendre une confirmation de rendez-vous",
+    ],
+    domain: "grammaire",
+    estimatedMinutes: 27,
+    situation:
+      "Karim doit prendre rendez-vous chez le dentiste. Il appelle le cabinet, puis reçoit un message de confirmation.",
+    vocabulary: [
+      { term: "un rendez-vous", category: "principal" },
+      { term: "un cabinet (médical)", category: "principal" },
+      { term: "un créneau", category: "principal" },
+      { term: "la disponibilité", category: "principal" },
+      { term: "une confirmation", category: "principal" },
+      { term: "un empêchement", category: "principal" },
+      { term: "un secrétariat", category: "principal" },
+      { term: "une convocation", category: "principal" },
+      { term: "« Je vous appelle pour... »", category: "expression" },
+      { term: "« Est-ce que vous auriez... »", category: "expression" },
+      { term: "« Ça vous conviendrait ? »", category: "expression" },
+      { term: "« Je suis désolé·e, je ne peux pas venir. »", category: "expression" },
+      { term: "prendre rendez-vous", category: "verbe" },
+      { term: "confirmer", category: "verbe" },
+      { term: "annuler", category: "verbe" },
+      { term: "reporter", category: "verbe" },
+      { term: "déplacer (un rendez-vous)", category: "verbe" },
+      { term: "dans (+ durée)", category: "connecteur" },
+      { term: "avant (+ date)", category: "connecteur" },
+      { term: "à partir de", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Le futur proche : aller + infinitif",
+        explanation:
+          "Il annonce une action proche ou déjà décidée : Je vais appeler le cabinet demain. Le rendez-vous va être confirmé par SMS.",
+      },
+      {
+        title: "Le futur simple",
+        explanation:
+          "Il annonce une action plus lointaine ou moins certaine : Le docteur vous recevra à 15h. Radical de l'infinitif (souvent) + terminaisons -ai, -as, -a, -ons, -ez, -ont : je viendrai, vous recevrez.",
+      },
+      {
+        title: "Les expressions de temps : dans, avant, à partir de",
+        explanation:
+          "« dans » + durée = à la fin de cette durée (Je serai disponible dans deux jours). « avant » + date/heure = une limite à ne pas dépasser (Appelez avant 18h). « à partir de » = un point de départ (Le cabinet est ouvert à partir de 9h).",
+      },
+    ],
+    examLinks: ["TCF IRN — compréhension de l'oral (messages/répondeurs)"],
+    miniEvaluationThreshold: 7,
+    lessons: [
+      {
+        id: "prendre-rendez-vous-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "prendre-rendez-vous-comprendre-activite",
+            title: "Lire le SMS de confirmation",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "rdv-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez le message, puis répondez aux questions.",
+                text:
+                  "Cabinet dentaire Leroy : votre rendez-vous du mardi 14 à 10h30 est confirmé. Merci d'arriver " +
+                  "10 minutes avant, avec votre carte vitale. En cas d'empêchement, merci de prévenir le " +
+                  "secrétariat au moins 24h avant, au 01 23 45 67 89. À partir de 9h, une personne pourra " +
+                  "aussi vous répondre par téléphone.",
+                questions: [
+                  {
+                    kind: "libre",
+                    id: "rdv-e-q1",
+                    prompt: "À quelle heure Karim doit-il arriver au cabinet ?",
+                    expectedAnswer: "10h20, soit 10 minutes avant le rendez-vous de 10h30.",
+                    correction: {
+                      correctAnswer: "À 10h20 (10 minutes avant 10h30).",
+                      explanation: "Le message précise « merci d'arriver 10 minutes avant ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "rdv-e-q2",
+                    prompt: "Vrai ou faux : Karim peut annuler son rendez-vous la veille au soir sans problème.",
+                    correctAnswer: true,
+                    correction: {
+                      correctAnswer: "Vrai.",
+                      explanation: "« au moins 24h avant » : la veille au soir, pour un rendez-vous le matin, respecte ce délai.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "rdv-e-q3",
+                    prompt: "Que doit apporter Karim au rendez-vous ?",
+                    expectedAnswer: "Sa carte vitale.",
+                    correction: {
+                      correctAnswer: "Sa carte vitale.",
+                      explanation: "« avec votre carte vitale » est précisé juste après l'heure d'arrivée.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "prendre-rendez-vous-ecoute",
+        type: "ecoute",
+        title: "Compréhension orale",
+        optional: false,
+        activities: [
+          {
+            id: "prendre-rendez-vous-ecoute-activite",
+            title: "Écouter l'appel au secrétariat",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "rdv-f",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Écoutez l'appel (« Prendre rendez-vous », Karim et le secrétariat, 1 min), puis répondez.",
+                audioSrc: "/audio/b1/prendre-rendez-vous.mp3",
+                transcript:
+                  "Secrétariat — Cabinet Leroy, bonjour.\n" +
+                  "Karim — Bonjour, je vous appelle pour prendre rendez-vous, j'ai une douleur depuis deux jours.\n" +
+                  "Secrétariat — D'accord, est-ce que demain matin vous conviendrait ?\n" +
+                  "Karim — Ah non, désolé, je travaille toute la matinée. L'après-midi, ce sera possible ?\n" +
+                  "Secrétariat — Alors j'ai un créneau à 16h30.\n" +
+                  "Karim — Parfait, ça me va très bien.\n" +
+                  "Secrétariat — Très bien, c'est noté. Vous recevrez un SMS de confirmation dans quelques minutes.",
+                questions: [
+                  {
+                    kind: "libre",
+                    id: "rdv-f-q1",
+                    prompt: "Pourquoi Karim appelle-t-il le cabinet ?",
+                    expectedAnswer: "Il a une douleur depuis deux jours et veut un rendez-vous.",
+                    correction: {
+                      correctAnswer: "Il a une douleur depuis deux jours.",
+                      explanation: "Il le dit dès le début de l'appel.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "rdv-f-q2",
+                    prompt: "Pourquoi Karim refuse-t-il le rendez-vous du lendemain matin ?",
+                    choices: [
+                      { id: "a", text: "Il n'est pas encore levé le matin." },
+                      { id: "b", text: "Il travaille toute la matinée." },
+                      { id: "c", text: "Le cabinet est fermé le matin." },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "Il travaille toute la matinée.", explanation: "C'est la raison qu'il donne directement." },
+                  },
+                  {
+                    kind: "libre",
+                    id: "rdv-f-q3",
+                    prompt: "À quelle heure est finalement fixé le rendez-vous ?",
+                    expectedAnswer: "16h30.",
+                    correction: { correctAnswer: "16h30.", explanation: "Le secrétariat propose ce créneau et Karim l'accepte." },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "rdv-f-q4",
+                    prompt: "Vrai ou faux : Karim recevra une confirmation par courrier postal.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "« Vous recevrez un SMS de confirmation dans quelques minutes » : c'est par SMS, pas par courrier.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "prendre-rendez-vous-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "prendre-rendez-vous-entrainement-activite",
+            title: "Futur proche, futur simple et expressions de temps",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "rdv-g1",
+                type: "qcm",
+                skillId: "gr-futur-proche-simple",
+                difficulty: "B1",
+                instructions: "Choisissez la forme correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "rdv-g1-q",
+                  prompt: "« Le docteur vous ___ à 15h. » (recevoir, futur simple)",
+                  choices: [
+                    { id: "a", text: "recevra" },
+                    { id: "b", text: "recevrai" },
+                    { id: "c", text: "reçoit" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "recevra",
+                    explanation: "3e personne du singulier du futur simple de « recevoir » : il/elle recevra.",
+                  },
+                },
+              },
+              {
+                id: "rdv-g2",
+                type: "texte_a_trous",
+                skillId: "gr-futur-proche-simple",
+                difficulty: "B1",
+                instructions: "Complétez avec « dans », « avant » ou « à partir de ».",
+                textWithBlanks:
+                  "Le cabinet ouvre {{1}} 9h. Appelez {{2}} midi si possible. Je serai disponible {{3}} trois jours.",
+                blanks: [
+                  { id: "1", answer: "à partir de" },
+                  { id: "2", answer: "avant" },
+                  { id: "3", answer: "dans" },
+                ],
+                correction: {
+                  correctAnswer: "à partir de — avant — dans",
+                  explanation: "Point de départ → « à partir de » ; limite à ne pas dépasser → « avant » ; durée avant un moment futur → « dans ».",
+                },
+              },
+              {
+                id: "rdv-g3",
+                type: "remise_en_ordre",
+                skillId: "voc-rendez-vous",
+                difficulty: "B1",
+                instructions: "Remettez cet appel téléphonique dans l'ordre logique.",
+                items: [
+                  { id: "a", text: "« Bonjour, je vous appelle pour prendre rendez-vous. »" },
+                  { id: "b", text: "« Est-ce que jeudi après-midi vous conviendrait ? »" },
+                  { id: "c", text: "« Oui, parfait, ça me va. »" },
+                  { id: "d", text: "« Très bien, c'est noté, à jeudi. »" },
+                ],
+                correctOrder: ["a", "b", "c", "d"],
+                correction: {
+                  correctAnswer: "a, b, c, d",
+                  explanation: "On explique sa demande, on reçoit une proposition, on l'accepte, puis on confirme.",
+                },
+              },
+              {
+                id: "rdv-g4",
+                type: "association",
+                skillId: "voc-rendez-vous",
+                difficulty: "B1",
+                instructions: "Associez chaque action à sa définition.",
+                pairs: [
+                  { id: "1", left: "Reporter un rendez-vous", right: "le décaler à une autre date" },
+                  { id: "2", left: "Annuler un rendez-vous", right: "dire qu'on ne viendra pas du tout" },
+                  { id: "3", left: "Confirmer un rendez-vous", right: "dire qu'on sera bien présent" },
+                ],
+                correction: {
+                  correctAnswer: "Reporter → décaler ; annuler → ne pas venir ; confirmer → présence certaine.",
+                  explanation: "Trois actions différentes autour d'un même rendez-vous, à ne pas confondre.",
+                  notionAssociee: "voc-rendez-vous",
+                },
+              },
+              {
+                id: "rdv-g5",
+                type: "vrai_faux",
+                skillId: "gr-futur-proche-simple",
+                difficulty: "B1",
+                instructions: "Vrai ou faux ?",
+                statement: "« Je vais appeler le cabinet » est une phrase au futur simple.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "« aller » + infinitif est le futur proche, pas le futur simple (qui serait « j'appellerai »).",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "prendre-rendez-vous-ecriture",
+        type: "ecriture",
+        title: "Production écrite",
+        optional: false,
+        activities: [
+          {
+            id: "prendre-rendez-vous-ecriture-activite",
+            title: "Demander un rendez-vous par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "rdv-h",
+                type: "production_ecrite",
+                skillId: "pe-demander-rdv",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Écris un message pour demander un rendez-vous (médical ou administratif). Explique la raison de ta demande et propose un ou deux créneaux qui te conviennent.",
+                minWords: 50,
+                maxWords: 100,
+                correctionCriteria: [
+                  "La raison du rendez-vous est claire",
+                  "Au moins un créneau proposé (jour et/ou heure)",
+                  "Une formule de politesse en ouverture et en conclusion",
+                  "Un futur proche ou futur simple utilisé correctement",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "prendre-rendez-vous-evaluation",
+        type: "evaluation",
+        title: "Mini-évaluation",
+        optional: true,
+        activities: [
+          {
+            id: "prendre-rendez-vous-evaluation-activite",
+            title: "Bilan du module (10 items, 7/10 pour valider)",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "rdv-i1",
+                type: "qcm",
+                skillId: "gr-futur-proche-simple",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "rdv-i1-q",
+                  prompt: "« Nous ___ le rendez-vous à 14h. » (confirmer, futur simple)",
+                  choices: [
+                    { id: "a", text: "confirmerons" },
+                    { id: "b", text: "confirmons" },
+                    { id: "c", text: "confirmerions" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "confirmerons", explanation: "1re personne du pluriel du futur simple : nous confirmerons." },
+                },
+              },
+              {
+                id: "rdv-i2",
+                type: "reponse_courte",
+                skillId: "gr-futur-proche-simple",
+                difficulty: "B1",
+                instructions: "Item 2. Mettez au futur proche.",
+                question: "« Je prends rendez-vous demain. » → futur proche :",
+                acceptedAnswers: ["je vais prendre rendez-vous demain", "je vais prendre rendez-vous"],
+                correction: { correctAnswer: "Je vais prendre rendez-vous demain.", explanation: "Futur proche = aller (au présent) + infinitif." },
+              },
+              {
+                id: "rdv-i3",
+                type: "vrai_faux",
+                skillId: "voc-rendez-vous",
+                difficulty: "B1",
+                instructions: "Item 3.",
+                statement: "Un « créneau » est un horaire disponible pour un rendez-vous.",
+                correctAnswer: true,
+                correction: { correctAnswer: "Vrai.", explanation: "C'est exactement sa définition dans ce contexte." },
+              },
+              {
+                id: "rdv-i4",
+                type: "reponse_courte",
+                skillId: "voc-rendez-vous",
+                difficulty: "B1",
+                instructions: "Item 4.",
+                question: "Donne le contraire de « confirmer un rendez-vous ».",
+                acceptedAnswers: ["annuler un rendez-vous", "annuler"],
+                correction: { correctAnswer: "Annuler un rendez-vous.", explanation: "« confirmer » = dire qu'on vient ; « annuler » = dire qu'on ne vient plus." },
+              },
+              {
+                id: "rdv-i5",
+                type: "texte_a_trous",
+                skillId: "gr-futur-proche-simple",
+                difficulty: "B1",
+                instructions: "Item 5.",
+                textWithBlanks: "Le secrétariat vous {{1}} (rappeler) demain matin, {{2}} 9h.",
+                blanks: [
+                  { id: "1", answer: "rappellera" },
+                  { id: "2", answer: "avant" },
+                ],
+                correction: {
+                  correctAnswer: "rappellera — avant",
+                  explanation: "Futur simple de « rappeler » à la 3e personne ; « avant 9h » indique une limite.",
+                },
+              },
+              {
+                id: "rdv-i6",
+                type: "reponse_courte",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 6. D'après l'appel de la partie « Compréhension orale ».",
+                question: "Comment Karim recevra-t-il la confirmation de son rendez-vous ?",
+                acceptedAnswers: ["par sms", "un sms"],
+                correction: { correctAnswer: "Par SMS.", explanation: "« Vous recevrez un SMS de confirmation »." },
+              },
+              {
+                id: "rdv-i7",
+                type: "qcm",
+                skillId: "voc-rendez-vous",
+                difficulty: "B1",
+                instructions: "Item 7.",
+                question: {
+                  kind: "qcm",
+                  id: "rdv-i7-q",
+                  prompt: "Quel mot désigne un problème qui empêche de venir à un rendez-vous ?",
+                  choices: [
+                    { id: "a", text: "un empêchement" },
+                    { id: "b", text: "une confirmation" },
+                    { id: "c", text: "un créneau" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "un empêchement", explanation: "C'est le terme exact utilisé dans le message du cabinet." },
+                },
+              },
+              {
+                id: "rdv-i8",
+                type: "reponse_courte",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 8. D'après le message du cabinet.",
+                question: "Combien de temps à l'avance faut-il prévenir en cas d'empêchement ?",
+                acceptedAnswers: ["24h", "24 heures", "au moins 24h", "au moins 24 heures"],
+                correction: { correctAnswer: "Au moins 24 heures avant.", explanation: "C'est précisé explicitement dans le SMS de confirmation." },
+              },
+              {
+                id: "rdv-i9",
+                type: "vrai_faux",
+                skillId: "gr-futur-proche-simple",
+                difficulty: "B1",
+                instructions: "Item 9.",
+                statement: "« à partir de 9h » signifie qu'il faut appeler avant 9h.",
+                correctAnswer: false,
+                correction: { correctAnswer: "Faux.", explanation: "« à partir de 9h » indique au contraire le moment où ça devient possible." },
+              },
+              {
+                id: "rdv-i10",
+                type: "reponse_courte",
+                skillId: "pe-demander-rdv",
+                difficulty: "B1",
+                instructions: "Item 10 — production courte, réponse libre.",
+                question: "En une phrase, propose un créneau pour un rendez-vous, au futur proche ou au futur simple.",
+                acceptedAnswers: [],
+                correction: {
+                  correctAnswer: "Réponse libre.",
+                  explanation: "Évalue-toi : futur correctement formé, créneau (jour/heure) précisé.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-comprendre-un-courrier-simple",
+    slug: "comprendre-un-courrier-simple",
+    level: "B1",
+    title: "Comprendre un courrier simple",
+    description:
+      "À la fin de ce module, tu pourras comprendre un courrier administratif courant et identifier ce qu'on te demande de faire.",
+    objectives: [
+      "Comprendre un courrier administratif",
+      "Repérer une information précise dans un texte",
+      "Réagir à un courrier par écrit",
+    ],
+    domain: "comprehension_ecrite",
+    estimatedMinutes: 27,
+    situation:
+      "Amina reçoit un courrier de la CAF au sujet de son aide au logement : sa situation doit être mise à jour avant une date limite.",
+    vocabulary: [
+      { term: "un courrier", category: "principal" },
+      { term: "un organisme", category: "principal" },
+      { term: "une aide au logement", category: "principal" },
+      { term: "une situation (administrative)", category: "principal" },
+      { term: "une pièce justificative", category: "principal" },
+      { term: "une date limite", category: "principal" },
+      { term: "un dossier", category: "principal" },
+      { term: "un montant", category: "principal" },
+      { term: "« Nous vous informons que... »", category: "expression" },
+      { term: "« Merci de nous transmettre... »", category: "expression" },
+      { term: "« Sans réponse de votre part... »", category: "expression" },
+      { term: "« Veuillez agréer... »", category: "expression" },
+      { term: "mettre à jour", category: "verbe" },
+      { term: "transmettre", category: "verbe" },
+      { term: "joindre (un document)", category: "verbe" },
+      { term: "suspendre (un versement)", category: "verbe" },
+      { term: "d'ici", category: "connecteur" },
+      { term: "faute de", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Les formules figées de la correspondance administrative",
+        explanation:
+          "Certaines formules reviennent presque à l'identique d'un courrier à l'autre : « Nous vous informons que... » (annonce), « Merci de nous transmettre... » (demande polie), « Sans réponse de votre part avant le [date]... » (conséquence en cas d'inaction). Les reconnaître aide à comprendre vite l'essentiel d'un courrier.",
+      },
+      {
+        title: "Le futur proche pour annoncer une action à faire",
+        explanation:
+          "Dans un courrier, le futur proche annonce souvent ce qui va se passer si l'on ne réagit pas : Votre versement va être suspendu. Votre dossier va être clôturé. C'est un signal à prendre au sérieux : il indique une conséquence proche et concrète.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension des écrits (courrier administratif)"],
+    miniEvaluationThreshold: 7,
+    lessons: [
+      {
+        id: "comprendre-un-courrier-simple-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "comprendre-un-courrier-simple-comprendre-activite",
+            title: "Lire le courrier de la CAF",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "courrier-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Lisez le courrier, puis répondez aux questions.",
+                text:
+                  "Madame, Nous vous informons que votre dossier d'aide au logement doit être mis à jour : " +
+                  "votre dernière déclaration de ressources date de plus d'un an. Merci de nous transmettre, " +
+                  "d'ici le 30 septembre, votre dernier avis d'imposition ainsi qu'un justificatif de " +
+                  "domicile de moins de trois mois. Sans réponse de votre part avant cette date, le " +
+                  "versement de votre aide sera suspendu jusqu'à régularisation de votre dossier. Pour toute " +
+                  "question, un conseiller peut vous recevoir sur rendez-vous. Veuillez agréer, Madame, nos " +
+                  "salutations distinguées.",
+                questions: [
+                  {
+                    kind: "libre",
+                    id: "courrier-e-q1",
+                    prompt: "Pourquoi le dossier d'Amina doit-il être mis à jour ?",
+                    expectedAnswer: "Sa dernière déclaration de ressources date de plus d'un an.",
+                    correction: {
+                      correctAnswer: "Sa déclaration de ressources date de plus d'un an.",
+                      explanation: "C'est la raison donnée dès la première phrase du courrier.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "courrier-e-q2",
+                    prompt: "Quels documents Amina doit-elle envoyer ?",
+                    expectedAnswer: "Son dernier avis d'imposition et un justificatif de domicile de moins de trois mois.",
+                    correction: {
+                      correctAnswer: "L'avis d'imposition et un justificatif de domicile récent.",
+                      explanation: "Les deux documents sont listés juste après « merci de nous transmettre ».",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "courrier-e-q3",
+                    prompt: "Que se passe-t-il si Amina ne répond pas avant le 30 septembre ?",
+                    choices: [
+                      { id: "a", text: "Son dossier est automatiquement fermé." },
+                      { id: "b", text: "Le versement de son aide est suspendu." },
+                      { id: "c", text: "Rien de particulier ne se passe." },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Le versement de son aide sera suspendu.",
+                      explanation: "« sans réponse de votre part avant cette date, le versement de votre aide sera suspendu ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "comprendre-un-courrier-simple-ecoute",
+        type: "ecoute",
+        title: "Compréhension orale",
+        optional: false,
+        activities: [
+          {
+            id: "comprendre-un-courrier-simple-ecoute-activite",
+            title: "Écouter Amina au téléphone avec la CAF",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "courrier-f",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Écoutez l'appel (« Mettre à jour son dossier », Amina et un conseiller, 1 min 10), puis répondez.",
+                audioSrc: "/audio/b1/comprendre-un-courrier-simple.mp3",
+                transcript:
+                  "Conseiller — Bonjour, CAF, j'écoute.\n" +
+                  "Amina — Bonjour, j'ai reçu un courrier qui me demande de mettre à jour mon dossier, mais " +
+                  "je ne suis pas sûre de tout comprendre.\n" +
+                  "Conseiller — Pas de souci. Il faut juste nous envoyer votre avis d'imposition et un " +
+                  "justificatif de domicile récent.\n" +
+                  "Amina — D'accord, et je peux les envoyer par internet ou seulement par courrier ?\n" +
+                  "Conseiller — Vous pouvez tout faire depuis votre espace en ligne, c'est plus rapide.\n" +
+                  "Amina — Très bien, et j'ai jusqu'à quand exactement ?\n" +
+                  "Conseiller — Jusqu'au 30 septembre. Après cette date, le versement sera mis en pause.",
+                questions: [
+                  {
+                    kind: "libre",
+                    id: "courrier-f-q1",
+                    prompt: "Pourquoi Amina appelle-t-elle la CAF ?",
+                    expectedAnswer: "Elle a reçu un courrier et ne comprend pas tout ce qu'on lui demande.",
+                    correction: { correctAnswer: "Elle n'est pas sûre de comprendre le courrier reçu.", explanation: "Elle le dit dès le début de l'appel." },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "courrier-f-q2",
+                    prompt: "Comment Amina peut-elle envoyer ses documents le plus rapidement ?",
+                    choices: [
+                      { id: "a", text: "Par courrier postal uniquement" },
+                      { id: "b", text: "Depuis son espace en ligne" },
+                      { id: "c", text: "En se déplaçant à l'agence" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "Depuis son espace en ligne.", explanation: "Le conseiller lui dit que c'est possible et « plus rapide »." },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "courrier-f-q3",
+                    prompt: "Vrai ou faux : le conseiller confirme la même date limite que dans le courrier.",
+                    correctAnswer: true,
+                    correction: { correctAnswer: "Vrai.", explanation: "Il confirme « jusqu'au 30 septembre », comme dans le courrier." },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "comprendre-un-courrier-simple-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "comprendre-un-courrier-simple-entrainement-activite",
+            title: "Vocabulaire et formules du courrier",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "courrier-g1",
+                type: "qcm",
+                skillId: "voc-courrier",
+                difficulty: "B1",
+                instructions: "Choisissez le mot qui convient.",
+                question: {
+                  kind: "qcm",
+                  id: "courrier-g1-q",
+                  prompt: "Un document qui prouve quelque chose (identité, domicile...) s'appelle :",
+                  choices: [
+                    { id: "a", text: "un montant" },
+                    { id: "b", text: "une pièce justificative" },
+                    { id: "c", text: "un organisme" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: { correctAnswer: "une pièce justificative", explanation: "C'est le terme administratif exact pour ce type de document." },
+                },
+              },
+              {
+                id: "courrier-g2",
+                type: "texte_a_trous",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Complétez avec le futur proche.",
+                textWithBlanks: "Sans réponse avant le 30 septembre, votre versement {{1}} (être) suspendu.",
+                blanks: [{ id: "1", answer: "va être" }],
+                correction: {
+                  correctAnswer: "va être",
+                  explanation: "Futur proche : aller (au présent) + infinitif « être ».",
+                },
+              },
+              {
+                id: "courrier-g3",
+                type: "association",
+                skillId: "voc-courrier",
+                difficulty: "B1",
+                instructions: "Associez chaque formule à sa fonction.",
+                pairs: [
+                  { id: "1", left: "« Nous vous informons que... »", right: "annoncer une information" },
+                  { id: "2", left: "« Merci de nous transmettre... »", right: "demander poliment un document" },
+                  { id: "3", left: "« Veuillez agréer... »", right: "clore poliment le courrier" },
+                ],
+                correction: {
+                  correctAnswer: "informer → annonce ; transmettre → demande ; agréer → formule de politesse finale.",
+                  explanation: "Ces trois formules reviennent très souvent dans les courriers administratifs français.",
+                  notionAssociee: "voc-courrier",
+                },
+              },
+              {
+                id: "courrier-g4",
+                type: "remise_en_ordre",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Remettez ces étapes de la démarche dans l'ordre logique.",
+                items: [
+                  { id: "a", text: "Recevoir le courrier de la CAF." },
+                  { id: "b", text: "Rassembler les documents demandés." },
+                  { id: "c", text: "Les envoyer avant la date limite." },
+                  { id: "d", text: "Recevoir la confirmation de mise à jour." },
+                ],
+                correctOrder: ["a", "b", "c", "d"],
+                correction: {
+                  correctAnswer: "a, b, c, d",
+                  explanation: "On reçoit le courrier, on prépare les documents, on les envoie, puis le dossier est mis à jour.",
+                },
+              },
+              {
+                id: "courrier-g5",
+                type: "vrai_faux",
+                skillId: "voc-courrier",
+                difficulty: "B1",
+                instructions: "Vrai ou faux ?",
+                statement: "« d'ici le 30 septembre » signifie « après le 30 septembre ».",
+                correctAnswer: false,
+                correction: { correctAnswer: "Faux.", explanation: "« d'ici » indique une limite à ne pas dépasser : avant ou au plus tard à cette date." },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "comprendre-un-courrier-simple-ecriture",
+        type: "ecriture",
+        title: "Production écrite",
+        optional: false,
+        activities: [
+          {
+            id: "comprendre-un-courrier-simple-ecriture-activite",
+            title: "Répondre au courrier",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "courrier-h",
+                type: "production_ecrite",
+                skillId: "pe-repondre-courrier",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Réponds au courrier de la CAF par un message court : confirme que tu as bien reçu le courrier, précise quand tu vas envoyer les documents demandés, et pose une question si besoin.",
+                minWords: 50,
+                maxWords: 100,
+                correctionCriteria: [
+                  "Confirmation claire de la réception du courrier",
+                  "Mention des documents à envoyer et d'un délai",
+                  "Une formule de politesse adaptée",
+                  "Un futur proche ou futur simple utilisé correctement",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "comprendre-un-courrier-simple-evaluation",
+        type: "evaluation",
+        title: "Mini-évaluation",
+        optional: true,
+        activities: [
+          {
+            id: "comprendre-un-courrier-simple-evaluation-activite",
+            title: "Bilan du module (10 items, 7/10 pour valider)",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "courrier-i1",
+                type: "qcm",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "courrier-i1-q",
+                  prompt: "« Nous vous informons que... » sert surtout à :",
+                  choices: [
+                    { id: "a", text: "poser une question" },
+                    { id: "b", text: "annoncer une information" },
+                    { id: "c", text: "s'excuser" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: { correctAnswer: "annoncer une information", explanation: "C'est une formule d'ouverture pour introduire une information importante." },
+                },
+              },
+              {
+                id: "courrier-i2",
+                type: "reponse_courte",
+                skillId: "voc-courrier",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Donne un synonyme de « pièce justificative ».",
+                acceptedAnswers: ["document", "un document", "justificatif", "un justificatif"],
+                correction: { correctAnswer: "Un document / un justificatif.", explanation: "Ce sont des synonymes courants dans le contexte administratif." },
+              },
+              {
+                id: "courrier-i3",
+                type: "vrai_faux",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Item 3.",
+                statement: "Un avis d'imposition est un document lié aux impôts.",
+                correctAnswer: true,
+                correction: { correctAnswer: "Vrai.", explanation: "C'est un document officiel qui indique les revenus déclarés et les impôts correspondants." },
+              },
+              {
+                id: "courrier-i4",
+                type: "reponse_courte",
+                skillId: "voc-courrier",
+                difficulty: "B1",
+                instructions: "Item 4.",
+                question: "Comment appelle-t-on la date à ne pas dépasser pour répondre ?",
+                acceptedAnswers: ["une date limite", "date limite", "délai"],
+                correction: { correctAnswer: "Une date limite (un délai).", explanation: "C'est le terme utilisé dans le courrier et le dialogue." },
+              },
+              {
+                id: "courrier-i5",
+                type: "texte_a_trous",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Item 5.",
+                textWithBlanks: "Faute de réponse, le dossier {{1}} (être) clôturé et l'aide {{2}} (être) suspendue.",
+                blanks: [
+                  { id: "1", answer: "va être" },
+                  { id: "2", answer: "va être" },
+                ],
+                correction: {
+                  correctAnswer: "va être — va être",
+                  explanation: "Le futur proche annonce ici une conséquence proche en cas d'inaction.",
+                },
+              },
+              {
+                id: "courrier-i6",
+                type: "reponse_courte",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Item 6. D'après le courrier de la CAF.",
+                question: "Pourquoi le dossier d'Amina doit-il être mis à jour ?",
+                acceptedAnswers: ["sa déclaration de ressources date de plus d'un an", "declaration de ressources trop ancienne"],
+                correction: { correctAnswer: "Sa déclaration de ressources date de plus d'un an.", explanation: "C'est la raison indiquée en tout début de courrier." },
+              },
+              {
+                id: "courrier-i7",
+                type: "qcm",
+                skillId: "voc-courrier",
+                difficulty: "B1",
+                instructions: "Item 7.",
+                question: {
+                  kind: "qcm",
+                  id: "courrier-i7-q",
+                  prompt: "« Veuillez agréer, Madame, nos salutations distinguées » est :",
+                  choices: [
+                    { id: "a", text: "une formule de politesse finale" },
+                    { id: "b", text: "une demande de document" },
+                    { id: "c", text: "une question" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "une formule de politesse finale", explanation: "C'est la formule classique pour terminer un courrier administratif." },
+                },
+              },
+              {
+                id: "courrier-i8",
+                type: "reponse_courte",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 8. D'après l'appel de la partie « Compréhension orale ».",
+                question: "Quel est le moyen le plus rapide d'envoyer les documents, selon le conseiller ?",
+                acceptedAnswers: ["l'espace en ligne", "en ligne", "internet"],
+                correction: { correctAnswer: "Depuis l'espace en ligne.", explanation: "Le conseiller précise que c'est « plus rapide »." },
+              },
+              {
+                id: "courrier-i9",
+                type: "vrai_faux",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Item 9.",
+                statement: "Amina doit envoyer ses documents avant le 30 septembre.",
+                correctAnswer: true,
+                correction: { correctAnswer: "Vrai.", explanation: "C'est la date limite indiquée à la fois dans le courrier et par le conseiller." },
+              },
+              {
+                id: "courrier-i10",
+                type: "reponse_courte",
+                skillId: "pe-repondre-courrier",
+                difficulty: "B1",
+                instructions: "Item 10 — production courte, réponse libre.",
+                question: "En une phrase, confirme la réception d'un courrier administratif.",
+                acceptedAnswers: [],
+                correction: {
+                  correctAnswer: "Réponse libre.",
+                  explanation: "Évalue-toi : formule claire, polie, qui confirme bien la réception.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-utiliser-les-transports",
+    slug: "utiliser-les-transports",
+    level: "B1",
+    title: "Utiliser les transports et comprendre une annonce",
+    description:
+      "À la fin de ce module, tu pourras comprendre une annonce dans les transports et expliquer un trajet ou un incident.",
+    objectives: [
+      "Comprendre une annonce publique",
+      "Décrire un trajet",
+      "Signaler un incident de transport",
+    ],
+    domain: "comprehension_orale",
+    estimatedMinutes: 27,
+    situation:
+      "Youssef prend le train pour se rendre à un entretien. Une annonce informe les voyageurs d'un changement de voie.",
+    vocabulary: [
+      { term: "un trajet", category: "principal" },
+      { term: "une voie", category: "principal" },
+      { term: "un quai", category: "principal" },
+      { term: "une correspondance", category: "principal" },
+      { term: "un retard", category: "principal" },
+      { term: "une perturbation", category: "principal" },
+      { term: "un billet", category: "principal" },
+      { term: "un composteur", category: "principal" },
+      { term: "« exceptionnellement »", category: "expression" },
+      { term: "« en raison de... »", category: "expression" },
+      { term: "« nous vous prions de nous excuser »", category: "expression" },
+      { term: "« merci de vous présenter... »", category: "expression" },
+      { term: "prendre (un train, un bus)", category: "verbe" },
+      { term: "descendre (à un arrêt)", category: "verbe" },
+      { term: "changer (de ligne, de quai)", category: "verbe" },
+      { term: "rater (un train)", category: "verbe" },
+      { term: "jusqu'à", category: "connecteur" },
+      { term: "en raison de", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Les prépositions de lieu et de déplacement",
+        explanation:
+          "à + lieu précis (Le train arrive à la gare de Lyon), vers + direction approximative (Il se dirige vers la sortie), jusqu'à + destination finale (Ce bus va jusqu'à l'aéroport). Elles permettent de décrire un trajet de façon précise.",
+      },
+      {
+        title: "Décrire un incident au passé composé",
+        explanation:
+          "Pour raconter un incident de transport déjà passé, on utilise le passé composé : Le train a eu vingt minutes de retard. J'ai raté ma correspondance. On précise souvent la cause avec « à cause de » ou « en raison de » : en raison d'un incident technique.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral (annonces publiques)"],
+    miniEvaluationThreshold: 7,
+    lessons: [
+      {
+        id: "utiliser-les-transports-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "utiliser-les-transports-comprendre-activite",
+            title: "Lire le panneau d'information voyageurs",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "transport-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez le panneau d'information, puis répondez aux questions.",
+                text:
+                  "Ligne B — En raison de travaux sur les voies, les trains circulent avec un retard moyen " +
+                  "de 15 minutes ce matin. Une correspondance est mise en place en gare de Nord pour les " +
+                  "voyageurs à destination du centre-ville. Nous vous prions de nous excuser pour la gêne " +
+                  "occasionnée.",
+                questions: [
+                  {
+                    kind: "libre",
+                    id: "transport-e-q1",
+                    prompt: "Pourquoi les trains ont-ils du retard ce matin ?",
+                    expectedAnswer: "Il y a des travaux sur les voies.",
+                    correction: { correctAnswer: "À cause de travaux sur les voies.", explanation: "C'est la première raison donnée sur le panneau." },
+                  },
+                  {
+                    kind: "libre",
+                    id: "transport-e-q2",
+                    prompt: "Que doivent faire les voyageurs qui vont au centre-ville ?",
+                    expectedAnswer: "Prendre une correspondance en gare de Nord.",
+                    correction: { correctAnswer: "Prendre la correspondance en gare de Nord.", explanation: "« Une correspondance est mise en place en gare de Nord pour les voyageurs à destination du centre-ville »." },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "transport-e-q3",
+                    prompt: "Quel est le retard moyen annoncé ?",
+                    choices: [
+                      { id: "a", text: "5 minutes" },
+                      { id: "b", text: "15 minutes" },
+                      { id: "c", text: "30 minutes" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "15 minutes.", explanation: "Le panneau indique « un retard moyen de 15 minutes »." },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "utiliser-les-transports-ecoute",
+        type: "ecoute",
+        title: "Compréhension orale",
+        optional: false,
+        activities: [
+          {
+            id: "utiliser-les-transports-ecoute-activite",
+            title: "Écouter l'annonce en gare",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "transport-f",
+                type: "comprehension_orale",
+                skillId: "co-annonces-publiques",
+                difficulty: "B1",
+                instructions: "Écoutez l'annonce (« Changement de voie », gare, 50 secondes), puis répondez.",
+                audioSrc: "/audio/b1/utiliser-les-transports.mp3",
+                transcript:
+                  "« Mesdames, messieurs, votre attention s'il vous plaît. En raison d'un incident technique, " +
+                  "le train à destination de Lyon partira exceptionnellement voie 4 au lieu de la voie 2. " +
+                  "Ce train est annoncé avec dix minutes de retard. Nous vous prions de nous excuser pour la " +
+                  "gêne occasionnée et vous remercions de votre compréhension. »",
+                questions: [
+                  {
+                    kind: "libre",
+                    id: "transport-f-q1",
+                    prompt: "Quel changement est annoncé pour le train à destination de Lyon ?",
+                    expectedAnswer: "Il part voie 4 au lieu de la voie 2.",
+                    correction: { correctAnswer: "Il partira voie 4 au lieu de la voie 2.", explanation: "C'est l'information centrale de l'annonce." },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "transport-f-q2",
+                    prompt: "Pourquoi ce changement a-t-il lieu ?",
+                    choices: [
+                      { id: "a", text: "Des travaux sur la voie 2" },
+                      { id: "b", text: "Un incident technique" },
+                      { id: "c", text: "Une grève des conducteurs" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "Un incident technique.", explanation: "« En raison d'un incident technique »." },
+                  },
+                  {
+                    kind: "libre",
+                    id: "transport-f-q3",
+                    prompt: "Quel est le retard annoncé pour ce train ?",
+                    expectedAnswer: "Dix minutes.",
+                    correction: { correctAnswer: "Dix minutes.", explanation: "« annoncé avec dix minutes de retard »." },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "transport-f-q4",
+                    prompt: "Vrai ou faux : le train est annulé.",
+                    correctAnswer: false,
+                    correction: { correctAnswer: "Faux.", explanation: "Le train n'est pas annulé, seulement retardé et déplacé sur une autre voie." },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "utiliser-les-transports-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "utiliser-les-transports-entrainement-activite",
+            title: "Vocabulaire et récit d'un trajet",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "transport-g1",
+                type: "qcm",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Choisissez le mot qui convient.",
+                question: {
+                  kind: "qcm",
+                  id: "transport-g1-q",
+                  prompt: "Le changement d'un train à un autre pour continuer son trajet s'appelle :",
+                  choices: [
+                    { id: "a", text: "une correspondance" },
+                    { id: "b", text: "un composteur" },
+                    { id: "c", text: "un quai" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "une correspondance", explanation: "C'est le terme exact pour un changement de train ou de ligne." },
+                },
+              },
+              {
+                id: "transport-g2",
+                type: "texte_a_trous",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Complétez au passé composé.",
+                textWithBlanks: "Hier, mon train {{1}} (avoir) vingt minutes de retard et j'{{2}} (rater) ma correspondance.",
+                blanks: [
+                  { id: "1", answer: "a eu" },
+                  { id: "2", answer: "ai raté" },
+                ],
+                correction: {
+                  correctAnswer: "a eu — ai raté",
+                  explanation: "Deux actions ponctuelles et terminées : le passé composé convient pour raconter cet incident.",
+                },
+              },
+              {
+                id: "transport-g3",
+                type: "association",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Associez chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "Un quai", right: "où on attend le train" },
+                  { id: "2", left: "Une voie", right: "le chemin sur lequel roule le train" },
+                  { id: "3", left: "Un billet", right: "le document qui donne le droit de voyager" },
+                ],
+                correction: {
+                  correctAnswer: "Quai → on attend ; voie → le train roule dessus ; billet → droit de voyager.",
+                  explanation: "Trois mots proches mais bien distincts dans le vocabulaire des transports.",
+                  notionAssociee: "voc-transports",
+                },
+              },
+              {
+                id: "transport-g4",
+                type: "remise_en_ordre",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Remettez ce petit récit d'incident dans l'ordre logique.",
+                items: [
+                  { id: "a", text: "J'ai entendu une annonce de changement de voie." },
+                  { id: "b", text: "Je suis arrivé sur le quai." },
+                  { id: "c", text: "J'ai couru jusqu'à la voie 4." },
+                  { id: "d", text: "Je suis monté dans le train juste à temps." },
+                ],
+                correctOrder: ["b", "a", "c", "d"],
+                correction: {
+                  correctAnswer: "b, a, c, d",
+                  explanation: "Arrivée sur le quai, puis annonce, puis course jusqu'à la bonne voie, puis montée dans le train.",
+                },
+              },
+              {
+                id: "transport-g5",
+                type: "vrai_faux",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Vrai ou faux ?",
+                statement: "« Rater un train » signifie arriver à temps pour le prendre.",
+                correctAnswer: false,
+                correction: { correctAnswer: "Faux.", explanation: "« Rater un train » signifie au contraire ne pas réussir à le prendre." },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "utiliser-les-transports-ecriture",
+        type: "ecriture",
+        title: "Production écrite",
+        optional: false,
+        activities: [
+          {
+            id: "utiliser-les-transports-ecriture-activite",
+            title: "Raconter un incident de trajet",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "transport-h",
+                type: "production_ecrite",
+                skillId: "pe-signaler-incident",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Dans un message à un ami ou un collègue, raconte un incident de trajet (retard, changement de voie, correspondance ratée...) que tu as vécu ou imaginé. Explique ce qui s'est passé et comment tu as réagi.",
+                minWords: 60,
+                maxWords: 120,
+                correctionCriteria: [
+                  "L'incident est clairement décrit (quoi, quand)",
+                  "Au moins un verbe correctement conjugué au passé composé",
+                  "Un vocabulaire des transports bien utilisé",
+                  "Une conclusion (comment ça s'est terminé)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "utiliser-les-transports-evaluation",
+        type: "evaluation",
+        title: "Mini-évaluation",
+        optional: true,
+        activities: [
+          {
+            id: "utiliser-les-transports-evaluation-activite",
+            title: "Bilan du module (10 items, 7/10 pour valider)",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "transport-i1",
+                type: "qcm",
+                skillId: "co-annonces-publiques",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "transport-i1-q",
+                  prompt: "« En raison de... » sert à introduire :",
+                  choices: [
+                    { id: "a", text: "une cause" },
+                    { id: "b", text: "une conséquence" },
+                    { id: "c", text: "une opposition" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "une cause", explanation: "« en raison de » = « à cause de », introduit toujours une cause." },
+                },
+              },
+              {
+                id: "transport-i2",
+                type: "reponse_courte",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Donne le contraire de « prendre un train » (ne pas réussir à le prendre).",
+                acceptedAnswers: ["rater un train", "rater le train", "rater"],
+                correction: { correctAnswer: "Rater un train.", explanation: "C'est l'expression exacte pour ne pas réussir à prendre son train." },
+              },
+              {
+                id: "transport-i3",
+                type: "vrai_faux",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Item 3.",
+                statement: "Une « perturbation » dans les transports est toujours annoncée à l'avance.",
+                correctAnswer: false,
+                correction: { correctAnswer: "Faux.", explanation: "Une perturbation peut être annoncée en direct, comme l'incident technique du dialogue." },
+              },
+              {
+                id: "transport-i4",
+                type: "reponse_courte",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Item 4.",
+                question: "Comment appelle-t-on le lieu où on attend le train sur le quai ?",
+                acceptedAnswers: ["le quai", "un quai"],
+                correction: { correctAnswer: "Le quai.", explanation: "C'est le terme précis pour cet endroit de la gare." },
+              },
+              {
+                id: "transport-i5",
+                type: "texte_a_trous",
+                skillId: "gr-present-habitudes",
+                difficulty: "B1",
+                instructions: "Item 5.",
+                textWithBlanks: "En raison d'un incident, le bus {{1}} (partir) exceptionnellement {{2}} l'arrêt voisin.",
+                blanks: [
+                  { id: "1", answer: "partira" },
+                  { id: "2", answer: "de" },
+                ],
+                correction: {
+                  correctAnswer: "partira — de",
+                  explanation: "Futur simple pour une annonce officielle ; « partir de » indique le point de départ.",
+                },
+              },
+              {
+                id: "transport-i6",
+                type: "reponse_courte",
+                skillId: "co-annonces-publiques",
+                difficulty: "B1",
+                instructions: "Item 6. D'après l'annonce de la partie « Compréhension orale ».",
+                question: "De quelle voie le train part-il finalement ?",
+                acceptedAnswers: ["voie 4", "la voie 4", "4"],
+                correction: { correctAnswer: "Voie 4.", explanation: "« partira exceptionnellement voie 4 au lieu de la voie 2 »." },
+              },
+              {
+                id: "transport-i7",
+                type: "qcm",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Item 7.",
+                question: {
+                  kind: "qcm",
+                  id: "transport-i7-q",
+                  prompt: "« jusqu'à » exprime :",
+                  choices: [
+                    { id: "a", text: "une destination finale" },
+                    { id: "b", text: "une cause" },
+                    { id: "c", text: "une opinion" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "une destination finale", explanation: "« Ce bus va jusqu'à l'aéroport » : point d'arrivée du trajet." },
+                },
+              },
+              {
+                id: "transport-i8",
+                type: "reponse_courte",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 8. D'après le panneau d'information voyageurs.",
+                question: "Où est mise en place la correspondance pour le centre-ville ?",
+                acceptedAnswers: ["en gare de nord", "gare de nord", "gare du nord"],
+                correction: { correctAnswer: "En gare de Nord.", explanation: "« Une correspondance est mise en place en gare de Nord »." },
+              },
+              {
+                id: "transport-i9",
+                type: "vrai_faux",
+                skillId: "co-annonces-publiques",
+                difficulty: "B1",
+                instructions: "Item 9.",
+                statement: "Dans l'annonce, le retard du train pour Lyon est de dix minutes.",
+                correctAnswer: true,
+                correction: { correctAnswer: "Vrai.", explanation: "« annoncé avec dix minutes de retard »." },
+              },
+              {
+                id: "transport-i10",
+                type: "reponse_courte",
+                skillId: "pe-signaler-incident",
+                difficulty: "B1",
+                instructions: "Item 10 — production courte, réponse libre.",
+                question: "En une phrase au passé composé, raconte un incident de trajet (réel ou imaginé).",
+                acceptedAnswers: [],
+                correction: {
+                  correctAnswer: "Réponse libre.",
+                  explanation: "Évalue-toi : passé composé bien formé, incident clairement décrit.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getModuleBySlug(slug: string): Module | undefined {
