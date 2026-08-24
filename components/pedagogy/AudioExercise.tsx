@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { HeadphonesIcon } from "@/components/ui/icons";
 import { buttonClasses } from "@/components/ui/button-styles";
 import { cn } from "@/lib/cn";
@@ -17,6 +17,25 @@ export default function AudioExercise({
   const [audioError, setAudioError] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
   const [answeredCorrect, setAnsweredCorrect] = useState<Record<string, boolean>>({});
+  const loadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function clearLoadTimeout() {
+    if (loadTimeoutRef.current) {
+      clearTimeout(loadTimeoutRef.current);
+      loadTimeoutRef.current = null;
+    }
+  }
+
+  // Filet de sécurité : pour une source audio manquante, certains navigateurs
+  // ne déclenchent ni `error` ni `loadstart` de façon fiable (le lecteur reste
+  // bloqué en "lecture" sans jamais charger de données) — sans ce timeout,
+  // il reste indéfiniment figé sans qu'aucun message ne s'affiche. `onPlay`
+  // se déclenche dès l'appel à `play()`, avant même le chargement des
+  // données, donc c'est le point d'ancrage le plus fiable pour armer le délai.
+  function handlePlay() {
+    clearLoadTimeout();
+    loadTimeoutRef.current = setTimeout(() => setAudioError(true), 4000);
+  }
 
   function handleAnswered(questionId: string, correct: boolean) {
     const next = { ...answeredCorrect, [questionId]: correct };
@@ -40,7 +59,15 @@ export default function AudioExercise({
             controls
             preload="none"
             src={exercise.audioSrc}
-            onError={() => setAudioError(true)}
+            onPlay={handlePlay}
+            onLoadStart={handlePlay}
+            onCanPlay={clearLoadTimeout}
+            onLoadedData={clearLoadTimeout}
+            onPlaying={clearLoadTimeout}
+            onError={() => {
+              clearLoadTimeout();
+              setAudioError(true);
+            }}
             className="w-full"
           >
             Votre navigateur ne prend pas en charge la lecture audio.
