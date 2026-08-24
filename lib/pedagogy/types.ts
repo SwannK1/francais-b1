@@ -251,6 +251,8 @@ export interface UserProgress {
   globalSuccessRate: number;
   lastActivityAt: string | null;
   weakSkillIds: string[];
+  /** Date du test de positionnement complété, ou null si jamais passé. */
+  placementCompletedAt: string | null;
 }
 
 // --- Séance recommandée ---

@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
       { source: "/demo/test-niveau", destination: "/test-niveau", permanent: false },
       { source: "/demo/parcours", destination: "/parcours", permanent: false },
       { source: "/demo/progression", destination: "/progression", permanent: false },
-      { source: "/demo/module/:slug", destination: "/module/:slug", permanent: false },
+      { source: "/demo/module/:slug", destination: "/parcours/module/:slug", permanent: false },
+      { source: "/module/:slug", destination: "/parcours/module/:slug", permanent: false },
     ];
   },
 };

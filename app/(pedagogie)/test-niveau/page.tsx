@@ -10,9 +10,11 @@ import { cn } from "@/lib/cn";
 import { PLACEMENT_QUESTIONS } from "@/lib/pedagogy/data/placement-questions";
 import { computePlacementResult } from "@/lib/pedagogy/logic/placement";
 import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
+import { useProgress } from "@/lib/pedagogy/useProgress";
 import type { PlacementAnswer } from "@/lib/pedagogy/types";
 
 export default function TestNiveauPage() {
+  const { markPlacementCompleted } = useProgress();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<PlacementAnswer[]>([]);
   const [finished, setFinished] = useState(false);
@@ -30,6 +32,7 @@ export default function TestNiveauPage() {
 
   function goNext() {
     if (isLastQuestion) {
+      markPlacementCompleted();
       setFinished(true);
     } else {
       setStep((s) => s + 1);

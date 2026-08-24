@@ -1,12 +1,14 @@
 import type { UserProgress } from "@/lib/pedagogy/types";
 
 /**
- * Progression mockée : aucune base de données dans ce chantier.
+ * État initial d'un nouvel apprenant : aucune base de données dans ce chantier,
+ * la progression réelle est persistée côté client (voir `lib/pedagogy/useProgress.ts`)
+ * et initialisée avec cette valeur au premier chargement.
  * Simule un utilisateur B1 qui a déjà terminé la compréhension écrite du
  * module « Donner son opinion » et s'est trompé sur un premier exercice de
  * pronoms compléments (illustre un point faible détecté par le moteur).
  */
-export const DEMO_USER_PROGRESS: UserProgress = {
+export const INITIAL_USER_PROGRESS: UserProgress = {
   userId: "demo-user",
   level: "B1",
   goalId: "naturalisation",
@@ -41,4 +43,5 @@ export const DEMO_USER_PROGRESS: UserProgress = {
   globalSuccessRate: 50,
   lastActivityAt: "2026-08-23T09:15:00.000Z",
   weakSkillIds: ["gr-pronoms-complements"],
+  placementCompletedAt: null,
 };

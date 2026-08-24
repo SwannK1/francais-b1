@@ -10,13 +10,10 @@ import LevelBadge from "@/components/pedagogy/LevelBadge";
 import ExerciseCard from "@/components/pedagogy/ExerciseCard";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
 import { cn } from "@/lib/cn";
-import { DEMO_USER_PROGRESS } from "@/lib/pedagogy/data/demo-user-progress";
+import { getStageForDomain } from "@/lib/pedagogy/data/parcours-stages";
 import { findExerciseInModule } from "@/lib/pedagogy/data/modules";
-import {
-  getModuleCompletionRate,
-  getModuleProgress,
-  recordExerciseResult,
-} from "@/lib/pedagogy/logic/progress";
+import { getModuleCompletionRate, getModuleProgress } from "@/lib/pedagogy/logic/progress";
+import { useProgress } from "@/lib/pedagogy/useProgress";
 import type { Lesson, LessonStepType, Module, VocabularyCategory } from "@/lib/pedagogy/types";
 
 const VOCAB_CATEGORY_LABELS: Record<VocabularyCategory, string> = {
@@ -42,6 +39,9 @@ type Step =
   | { kind: "vocabulary" }
   | { kind: "lesson"; lesson: Lesson };
 
+/** Référence stable pour éviter de recréer un tableau vide à chaque rendu (dépendance de useEffect). */
+const EMPTY_LESSON_IDS: string[] = [];
+
 function buildSteps(mod: Module): Step[] {
   const steps: Step[] = [];
   if (mod.situation) steps.push({ kind: "situation" });
@@ -66,17 +66,33 @@ function getInitialStepIndex(steps: Step[], completedLessonIds: string[]): numbe
 }
 
 export default function ModuleExperience({ mod }: { mod: Module }) {
-  const [progress, setProgress] = useState(DEMO_USER_PROGRESS);
+  const { progress, recordResult } = useProgress();
 
   const moduleProgress = getModuleProgress(progress, mod.id);
   const completionRate = getModuleCompletionRate(progress, mod);
-  const completedLessonIds = moduleProgress?.completedLessonIds ?? [];
+  const completedLessonIds = moduleProgress?.completedLessonIds ?? EMPTY_LESSON_IDS;
+  const stage = getStageForDomain(mod.domain);
+  const backHref = stage ? `/parcours/${stage.slug}` : "/parcours";
+  const backLabel = stage ? `← Retour à l'étape « ${stage.title} »` : "← Retour au parcours";
 
   const steps = useMemo(() => buildSteps(mod), [mod]);
   const [stepIndex, setStepIndex] = useState(() => getInitialStepIndex(steps, completedLessonIds));
   const step = steps[stepIndex];
   const isFirstStep = stepIndex === 0;
   const isLastStep = stepIndex === steps.length - 1;
+
+  // `useProgress` rend d'abord le snapshot serveur (vide, donc `completedLessonIds`
+  // vaut celui du seed initial) avant de se resynchroniser sur le vrai
+  // localStorage juste après hydratation, dans un rendu ultérieur — l'initialiseur
+  // paresseux de `stepIndex` ci-dessus peut donc démarrer sur une progression
+  // périmée. On recalcule le pas de départ à chaque fois que `completedLessonIds`
+  // change (donc aussi quand cette resynchronisation arrive), mais on s'arrête dès
+  // que l'apprenant navigue manuellement, pour ne jamais écraser son choix.
+  const hasUserNavigated = useRef(false);
+  useEffect(() => {
+    if (hasUserNavigated.current) return;
+    setStepIndex(getInitialStepIndex(steps, completedLessonIds));
+  }, [steps, completedLessonIds]);
 
   const headingRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
@@ -87,17 +103,18 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
   function handleExerciseCompleted(exerciseId: string, correct: boolean) {
     const exercise = findExerciseInModule(mod, exerciseId);
     if (!exercise) return;
-    setProgress((prev) => recordExerciseResult(prev, mod, exercise, correct));
+    recordResult(mod, exercise, correct);
   }
 
   function goTo(index: number) {
+    hasUserNavigated.current = true;
     setStepIndex(Math.min(Math.max(index, 0), steps.length - 1));
   }
 
   return (
     <div className="space-y-6">
-      <Link href="/parcours" className="text-sm font-medium text-primary hover:underline">
-        ← Retour au tableau de bord
+      <Link href={backHref} className="text-sm font-medium text-primary hover:underline">
+        {backLabel}
       </Link>
 
       <header>
