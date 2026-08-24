@@ -97,6 +97,78 @@ export const SKILLS: Skill[] = [
     name: "Demander une clarification par écrit",
     description: "Poser une question claire et polie sur une démarche administrative.",
   },
+  {
+    id: "voc-vie-quotidienne",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la vie quotidienne",
+    description: "Mots pour décrire ses habitudes, ses tâches ménagères et son organisation.",
+  },
+  {
+    id: "gr-present-habitudes",
+    domain: "grammaire",
+    name: "Présent, fréquence et négation",
+    description: "Décrire une habitude avec le présent, un adverbe de fréquence ou une négation.",
+  },
+  {
+    id: "pe-decrire-quotidien",
+    domain: "production_ecrite",
+    name: "Décrire son quotidien par écrit",
+    description: "Raconter une journée ou une semaine type de façon organisée.",
+  },
+  {
+    id: "gr-futur-proche-simple",
+    domain: "grammaire",
+    name: "Futur proche et futur simple",
+    description: "Annoncer une action à venir avec le futur proche ou le futur simple.",
+  },
+  {
+    id: "voc-rendez-vous",
+    domain: "vocabulaire",
+    name: "Vocabulaire du rendez-vous",
+    description: "Mots pour proposer, confirmer ou annuler un rendez-vous.",
+  },
+  {
+    id: "pe-demander-rdv",
+    domain: "production_ecrite",
+    name: "Demander un rendez-vous par écrit",
+    description: "Rédiger un message clair pour prendre ou modifier un rendez-vous.",
+  },
+  {
+    id: "ce-courrier-administratif",
+    domain: "comprehension_ecrite",
+    name: "Comprendre un courrier administratif",
+    description: "Identifier l'expéditeur, le sujet et ce qui est demandé dans un courrier.",
+  },
+  {
+    id: "voc-courrier",
+    domain: "vocabulaire",
+    name: "Vocabulaire du courrier",
+    description: "Mots utilisés dans un courrier administratif courant.",
+  },
+  {
+    id: "pe-repondre-courrier",
+    domain: "production_ecrite",
+    name: "Répondre à un courrier par écrit",
+    description: "Rédiger une réponse courte et adaptée à un courrier reçu.",
+  },
+  {
+    id: "co-annonces-publiques",
+    domain: "comprehension_orale",
+    name: "Comprendre une annonce publique",
+    description: "Comprendre l'essentiel d'une annonce dans un lieu public ou les transports.",
+  },
+  {
+    id: "voc-transports",
+    domain: "vocabulaire",
+    name: "Vocabulaire des transports",
+    description: "Mots pour décrire un trajet, une gare, un retard ou une correspondance.",
+  },
+  {
+    id: "pe-signaler-incident",
+    domain: "production_ecrite",
+    name: "Signaler un incident par écrit",
+    description: "Décrire clairement un incident de trajet et son effet.",
+  },
 ];
 
 export function getSkillById(id: string): Skill | undefined {
