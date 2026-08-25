@@ -5579,6 +5579,607 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-raconter-une-experience-personnelle",
+    slug: "raconter-une-experience-personnelle",
+    level: "B1",
+    title: "Raconter une expérience personnelle",
+    description:
+      "À la fin de ce module, tu pourras raconter une expérience marquante de façon simple et organisée, à l'oral comme à l'écrit.",
+    objectives: [
+      "Raconter une expérience",
+      "Organiser un récit avec des connecteurs chronologiques",
+      "Réagir au récit de quelqu'un d'autre",
+    ],
+    domain: "grammaire",
+    stageId: "b1-debut",
+    estimatedMinutes: 27,
+    situation:
+      "Pendant la pause déjeuner, une collègue demande à Karim de raconter son premier jour de travail en France.",
+    vocabulary: [
+      { term: "un souvenir", category: "principal" },
+      { term: "une expérience", category: "principal" },
+      { term: "un tournant", category: "principal" },
+      { term: "le trac", category: "principal" },
+      { term: "avoir le trac", category: "expression" },
+      { term: "être ému / émue", category: "principal" },
+      { term: "être impressionné(e)", category: "principal" },
+      { term: "se sentir à l'aise", category: "expression" },
+      { term: "marquant(e)", category: "principal" },
+      { term: "se lancer", category: "verbe" },
+      { term: "d'abord", category: "connecteur" },
+      { term: "ensuite", category: "connecteur" },
+      { term: "après", category: "connecteur" },
+      { term: "enfin", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Le passé composé pour raconter une expérience",
+        explanation:
+          "Pour raconter ce qu'on a vécu, on utilise le passé composé : je suis arrivé, on m'a présenté, j'ai eu du mal. Attention à l'accord du participe passé avec être (je suis arrivé / arrivée).",
+      },
+      {
+        title: "Les connecteurs chronologiques",
+        explanation:
+          "D'abord, ensuite, après, enfin permettent d'organiser un récit dans l'ordre où les choses se sont passées, pour que l'histoire soit facile à suivre.",
+      },
+    ],
+    examLinks: ["DELF B1 — production orale", "TCF IRN — expression orale, tâche 2"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "experience-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "experience-comprendre-activite",
+            title: "Lire le récit de Karim",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "exp-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez le message que Karim poste sur le forum de son entreprise, puis répondez.",
+                text:
+                  "Aujourd'hui, une collègue m'a demandé de raconter mon premier jour ici, alors je me lance ! " +
+                  "D'abord, je suis arrivé une heure en avance, tellement j'avais le trac à l'idée d'être en " +
+                  "retard. Ensuite, mon responsable m'a présenté à toute l'équipe, et j'étais très impressionné. " +
+                  "Après, on m'a montré mon poste de travail, et j'ai eu du mal à retrouver mes mots en français ! " +
+                  "Enfin, à midi, deux collègues m'ont invité à déjeuner avec eux, et là, je me suis enfin senti " +
+                  "à l'aise. C'était un vrai tournant pour moi.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "exp-e-q1",
+                    prompt: "Pourquoi Karim est-il arrivé en avance ?",
+                    choices: [
+                      { id: "a", text: "Il avait le trac à l'idée d'être en retard." },
+                      { id: "b", text: "Il voulait voir son responsable avant tout le monde." },
+                      { id: "c", text: "Il n'avait rien d'autre à faire ce matin-là." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Il avait le trac à l'idée d'être en retard.",
+                      explanation: "Il le dit directement au début de son message.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "exp-e-q2",
+                    prompt: "Vrai ou faux : Karim s'est senti à l'aise dès son arrivée.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Il ne s'est senti à l'aise qu'à midi, grâce au déjeuner avec ses collègues.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "exp-e-q3",
+                    prompt: "Qu'est-ce qui a aidé Karim à se sentir enfin à l'aise ?",
+                    expectedAnswer: "Le déjeuner avec ses collègues.",
+                    correction: {
+                      correctAnswer: "Le déjeuner avec ses collègues.",
+                      explanation: "C'est ce moment qu'il décrit juste avant de dire qu'il s'est senti à l'aise.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "exp-e-q4",
+                    prompt: "Quel connecteur Karim utilise-t-il pour introduire le dernier moment de la matinée ?",
+                    choices: [
+                      { id: "a", text: "D'abord" },
+                      { id: "b", text: "Ensuite" },
+                      { id: "c", text: "Enfin" },
+                    ],
+                    correctChoiceId: "c",
+                    correction: {
+                      correctAnswer: "Enfin",
+                      explanation: "« Enfin, à midi... » introduit le dernier événement du récit.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "experience-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "experience-entrainement-activite",
+            title: "Passé composé et connecteurs chronologiques",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "exp-g1",
+                type: "qcm",
+                skillId: "gr-passe-compose-imparfait",
+                difficulty: "B1",
+                instructions: "Choisis la bonne forme.",
+                question: {
+                  kind: "qcm",
+                  id: "exp-g1-q",
+                  prompt: "« Hier, je ___ en avance. »",
+                  choices: [
+                    { id: "a", text: "arrive" },
+                    { id: "b", text: "suis arrivé(e)" },
+                    { id: "c", text: "arrivais" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "suis arrivé(e)",
+                    explanation: "Pour raconter un événement passé et terminé, on utilise le passé composé.",
+                  },
+                },
+              },
+              {
+                id: "exp-g2",
+                type: "texte_a_trous",
+                skillId: "gr-connecteurs-chronologiques",
+                difficulty: "B1",
+                instructions: "Complète le récit avec le connecteur chronologique qui convient.",
+                textWithBlanks:
+                  "{{1}}, je me suis levé tôt. {{2}}, j'ai pris le bus. {{3}}, je suis arrivé au bureau avec " +
+                  "une heure d'avance.",
+                blanks: [
+                  { id: "1", answer: "D'abord" },
+                  { id: "2", answer: "Ensuite" },
+                  { id: "3", answer: "Enfin" },
+                ],
+                correction: {
+                  correctAnswer: "D'abord — Ensuite — Enfin",
+                  explanation: "Ces connecteurs placent les actions dans l'ordre où elles se sont passées.",
+                },
+              },
+              {
+                id: "exp-g3",
+                type: "association",
+                skillId: "voc-emotions-experiences",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "avoir le trac", right: "se sentir très nerveux avant un moment important" },
+                  { id: "2", left: "être ému(e)", right: "ressentir une émotion forte, parfois avec des larmes" },
+                  { id: "3", left: "un tournant", right: "un moment qui change beaucoup de choses dans une vie" },
+                ],
+                correction: {
+                  correctAnswer: "trac → nervosité ; ému → émotion forte ; tournant → moment qui change tout.",
+                  explanation: "Ces mots servent à décrire un ressenti fort lors d'un récit personnel.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "experience-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "experience-ecriture-activite",
+            title: "Raconter son expérience",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "exp-h",
+                type: "production_ecrite",
+                skillId: "pe-recit",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Racontez une expérience marquante de votre vie (arrivée dans un nouveau pays, premier jour " +
+                  "de travail, une rencontre...) en 5 à 8 phrases. Utilisez au moins deux connecteurs " +
+                  "chronologiques et le passé composé.",
+                minWords: 40,
+                maxWords: 90,
+                correctionCriteria: [
+                  "Au moins deux connecteurs chronologiques utilisés (/2)",
+                  "Passé composé correctement formé (/2)",
+                  "Chronologie claire et facile à suivre (/2)",
+                  "Un ressenti ou une émotion mentionnée (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "experience-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "experience-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "exp-i1",
+                type: "qcm",
+                skillId: "gr-connecteurs-chronologiques",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "exp-i1-q",
+                  prompt: "Quel connecteur introduit généralement la première action d'un récit ?",
+                  choices: [
+                    { id: "a", text: "D'abord" },
+                    { id: "b", text: "Enfin" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "D'abord",
+                    explanation: "« D'abord » ouvre la chronologie du récit.",
+                  },
+                },
+              },
+              {
+                id: "exp-i2",
+                type: "reponse_courte",
+                skillId: "voc-emotions-experiences",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne un moment qui change beaucoup de choses dans une vie ? (un ___)",
+                acceptedAnswers: ["tournant", "un tournant"],
+                correction: {
+                  correctAnswer: "un tournant",
+                  explanation: "« Un tournant » décrit un moment décisif dans une vie.",
+                },
+              },
+              {
+                id: "exp-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le récit de Karim.",
+                statement: "Karim a déjeuné seul ce jour-là.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Deux collègues l'ont invité à déjeuner avec eux.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-discuter-avec-un-proprietaire",
+    slug: "discuter-avec-un-proprietaire",
+    level: "B1",
+    title: "Discuter avec un propriétaire ou un voisin",
+    description:
+      "À la fin de ce module, tu pourras prendre contact avec un propriétaire, poser des questions précises et répondre à des objections simples.",
+    objectives: [
+      "Demander des informations sur un logement",
+      "Négocier poliment",
+      "Comprendre une conversation courante sur le logement",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-debut",
+    estimatedMinutes: 25,
+    situation:
+      "Amélie a repéré une annonce et appelle la propriétaire, Mme Lefèvre, pour visiter l'appartement et poser des questions avant de s'engager.",
+    vocabulary: [
+      { term: "un dossier (de location)", category: "principal" },
+      { term: "un garant / une garante", category: "principal" },
+      { term: "un état des lieux", category: "principal" },
+      { term: "un bail", category: "principal" },
+      { term: "disponible", category: "principal" },
+      { term: "insister", category: "verbe" },
+      { term: "négocier", category: "verbe" },
+      { term: "reporter (un rendez-vous)", category: "verbe" },
+      { term: "« serait-il possible de... ? »", category: "expression" },
+      { term: "« pourriez-vous... ? »", category: "expression" },
+      { term: "« ça vous irait ? »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Poser une question de façon soutenue",
+        explanation:
+          "À l'écrit ou dans un contexte poli, on peut inverser le sujet et le verbe : Êtes-vous disponible ? Serait-il possible de... ? Pourriez-vous... ? C'est plus formel qu'« Est-ce que... ? ».",
+      },
+      {
+        title: "Donner une instruction avec l'impératif",
+        explanation:
+          "Pour demander poliment de faire quelque chose, on utilise l'impératif, sans pronom sujet : Envoyez-moi votre dossier. N'hésitez pas à me rappeler. La forme « vous » est la plus courante dans un contexte formel.",
+      },
+    ],
+    examLinks: ["DELF B1 — production orale (interaction)", "TCF IRN — compréhension de l'oral"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "proprietaire-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "proprietaire-ecoute-activite",
+            title: "Écouter un appel à propos d'une visite",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "prop-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'appel entre Amélie et Mme Lefèvre (« Organiser une visite », 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/discuter-avec-un-proprietaire.mp3",
+                transcript:
+                  "Amélie — Bonjour madame, je vous appelle au sujet de l'annonce pour le studio rue des " +
+                  "Lilas. Est-ce qu'il est toujours disponible ?\n" +
+                  "Mme Lefèvre — Oui, tout à fait ! Vous voulez le visiter ?\n" +
+                  "Amélie — Avec plaisir. Serait-il possible de venir samedi matin ?\n" +
+                  "Mme Lefèvre — Samedi, je ne suis pas disponible, mais dimanche après-midi, ça vous irait ?\n" +
+                  "Amélie — Oui, parfait. Une dernière question : faut-il un garant pour ce logement ?\n" +
+                  "Mme Lefèvre — Oui, c'est obligatoire. Envoyez-moi votre dossier avant la visite si possible, " +
+                  "ça ira plus vite.\n" +
+                  "Amélie — Très bien, je vous l'envoie aujourd'hui. Merci beaucoup, à dimanche !",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "prop-e-q1",
+                    prompt: "Pourquoi Amélie appelle-t-elle Mme Lefèvre ?",
+                    choices: [
+                      { id: "a", text: "Pour savoir si le studio est toujours disponible." },
+                      { id: "b", text: "Pour se plaindre d'un problème dans le studio." },
+                      { id: "c", text: "Pour annuler sa visite." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Pour savoir si le studio est toujours disponible.",
+                      explanation: "C'est la première question qu'elle pose.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "prop-e-q2",
+                    prompt: "Vrai ou faux : Amélie visite l'appartement samedi.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Mme Lefèvre n'est pas disponible samedi ; la visite aura lieu dimanche après-midi.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "prop-e-q3",
+                    prompt: "Que doit faire Amélie avant la visite ?",
+                    expectedAnswer: "Envoyer son dossier.",
+                    correction: {
+                      correctAnswer: "Envoyer son dossier.",
+                      explanation: "Mme Lefèvre le lui demande explicitement.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "prop-e-q4",
+                    prompt: "Un garant est-il nécessaire pour ce logement ?",
+                    choices: [
+                      { id: "a", text: "Oui, c'est obligatoire." },
+                      { id: "b", text: "Non, ce n'est pas nécessaire." },
+                      { id: "c", text: "Mme Lefèvre ne sait pas encore." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Oui, c'est obligatoire.",
+                      explanation: "Mme Lefèvre le confirme directement.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "proprietaire-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "proprietaire-entrainement-activite",
+            title: "Questions soutenues et impératif",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "prop-g1",
+                type: "qcm",
+                skillId: "gr-questions",
+                difficulty: "B1",
+                instructions: "Transforme cette phrase en question soutenue (inversion).",
+                question: {
+                  kind: "qcm",
+                  id: "prop-g1-q",
+                  prompt: "« Vous êtes disponible demain. » devient :",
+                  choices: [
+                    { id: "a", text: "Êtes-vous disponible demain ?" },
+                    { id: "b", text: "Vous êtes-disponible demain ?" },
+                    { id: "c", text: "Est disponible vous demain ?" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Êtes-vous disponible demain ?",
+                    explanation: "La forme soutenue inverse le sujet et le verbe, reliés par un trait d'union.",
+                  },
+                },
+              },
+              {
+                id: "prop-g2",
+                type: "texte_a_trous",
+                skillId: "gr-imperatif",
+                difficulty: "B1",
+                instructions: "Complète avec la forme d'impératif qui convient (vouvoiement).",
+                textWithBlanks:
+                  "{{1}}-moi votre dossier avant la visite. {{2}} bien vos disponibilités pour dimanche. " +
+                  "N'{{3}} pas à me rappeler si besoin.",
+                blanks: [
+                  { id: "1", answer: "Envoyez" },
+                  { id: "2", answer: "Indiquez" },
+                  { id: "3", answer: "hésitez" },
+                ],
+                correction: {
+                  correctAnswer: "Envoyez — Indiquez — hésitez",
+                  explanation: "À l'impératif, la forme « vous » ne prend pas de pronom sujet.",
+                },
+              },
+              {
+                id: "prop-g3",
+                type: "association",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "un garant", right: "une personne qui s'engage à payer si le locataire ne peut pas" },
+                  { id: "2", left: "un dossier de location", right: "l'ensemble des documents à fournir pour louer" },
+                  { id: "3", left: "un état des lieux", right: "un document qui décrit l'état du logement à l'entrée et à la sortie" },
+                ],
+                correction: {
+                  correctAnswer:
+                    "garant → paie si besoin ; dossier → documents à fournir ; état des lieux → description du logement.",
+                  explanation: "Ces mots reviennent dans presque toutes les démarches de location.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "proprietaire-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "proprietaire-ecriture-activite",
+            title: "Reporter un rendez-vous poliment",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "prop-h",
+                type: "reponse_courte",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Réponds avec une phrase complète.",
+                question:
+                  "Vous deviez visiter un appartement dimanche, mais vous devez annuler. Écrivez une phrase " +
+                  "polie pour proposer un autre jour au propriétaire.",
+                acceptedAnswers: [],
+                correction: {
+                  correctAnswer:
+                    "Par exemple : « Bonjour, je suis désolé(e) mais je ne suis plus disponible dimanche. " +
+                    "Serait-il possible de reporter la visite à un autre jour ? »",
+                  explanation: "Une demande de report reste polie même quand on annule au dernier moment.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "proprietaire-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "proprietaire-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "prop-i1",
+                type: "qcm",
+                skillId: "gr-questions",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "prop-i1-q",
+                  prompt: "Quelle question est à la forme soutenue ?",
+                  choices: [
+                    { id: "a", text: "Pourriez-vous me rappeler demain ?" },
+                    { id: "b", text: "Est-ce que vous pouvez me rappeler demain ?" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Pourriez-vous me rappeler demain ?",
+                    explanation: "L'inversion sujet-verbe caractérise la forme soutenue.",
+                  },
+                },
+              },
+              {
+                id: "prop-i2",
+                type: "reponse_courte",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question:
+                  "Comment appelle-t-on la personne qui garantit le paiement du loyer si le locataire ne peut pas payer ? (un ___)",
+                acceptedAnswers: ["garant", "un garant"],
+                correction: {
+                  correctAnswer: "un garant",
+                  explanation: "Le garant s'engage à payer à la place du locataire en cas de besoin.",
+                },
+              },
+              {
+                id: "prop-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'appel entre Amélie et Mme Lefèvre.",
+                statement: "La visite aura lieu dimanche après-midi.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "Mme Lefèvre le propose et Amélie accepte.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getModuleBySlug(slug: string): Module | undefined {

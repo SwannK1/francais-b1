@@ -211,6 +211,24 @@ export const SKILLS: Skill[] = [
     name: "Vocabulaire des achats",
     description: "Mots pour comparer des produits, demander conseil et signaler un problème d'achat.",
   },
+  {
+    id: "gr-connecteurs-chronologiques",
+    domain: "grammaire",
+    name: "Connecteurs chronologiques",
+    description: "Organiser un récit dans le temps avec d'abord, ensuite, après, enfin.",
+  },
+  {
+    id: "voc-emotions-experiences",
+    domain: "vocabulaire",
+    name: "Vocabulaire des émotions et des expériences de vie",
+    description: "Mots pour décrire un ressenti et une expérience marquante.",
+  },
+  {
+    id: "gr-imperatif",
+    domain: "grammaire",
+    name: "Impératif (introduction)",
+    description: "Donner une instruction, un conseil ou une consigne simple.",
+  },
 ];
 
 export function getSkillById(id: string): Skill | undefined {
