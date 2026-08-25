@@ -6180,6 +6180,1179 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-comparer-modes-de-vie",
+    slug: "comparer-modes-de-vie",
+    level: "B1",
+    title: "Comparer des choses, des lieux, des modes de vie",
+    description:
+      "À la fin de ce module, tu pourras comparer deux situations, deux endroits ou deux façons de vivre, et justifier ta préférence.",
+    objectives: ["Comparer plusieurs possibilités", "Nuancer une comparaison", "Justifier une préférence"],
+    domain: "production_ecrite",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 28,
+    situation:
+      "Nadia échange avec un ami resté dans son pays d'origine sur ce qui change le plus depuis qu'elle vit en France.",
+    vocabulary: [
+      { term: "le coût de la vie", category: "principal" },
+      { term: "l'environnement", category: "principal" },
+      { term: "un mode de vie", category: "principal" },
+      { term: "un avantage", category: "principal" },
+      { term: "un inconvénient", category: "principal" },
+      { term: "s'adapter", category: "verbe" },
+      { term: "s'habituer (à)", category: "verbe" },
+      { term: "familier / familière", category: "principal" },
+      { term: "malgré tout", category: "expression" },
+      { term: "alors que", category: "connecteur" },
+      { term: "tandis que", category: "connecteur" },
+      { term: "par contre", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Le superlatif",
+        explanation:
+          "Le plus / le moins + adjectif expriment un degré maximal ou minimal : C'est la ville la plus animée que je connaisse. Devant un adjectif, l'article s'accorde (la plus, le plus, les plus) ; devant un adverbe ou un verbe, « le plus »/« le moins » restent invariables : c'est là que je me sens le plus à l'aise.",
+      },
+      {
+        title: "Le pronom relatif dont",
+        explanation:
+          "« Dont » remplace un complément introduit par « de » pour éviter une répétition : Le quartier dont je te parle (= je te parle DE ce quartier). Une ville dont j'apprécie l'ambiance (= j'apprécie l'ambiance DE cette ville).",
+      },
+    ],
+    examLinks: ["DELF B1 — production écrite (texte comparatif court)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "comparer-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "comparer-comprendre-activite",
+            title: "Lire le message de Nadia",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "cmp-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez le message que Nadia envoie à un ami resté dans son pays, puis répondez.",
+                text:
+                  "Ça fait maintenant deux ans que je vis en France, et honnêtement, le mode de vie est vraiment " +
+                  "différent d'ici et de chez nous. D'un côté, le coût de la vie est plus élevé, surtout le " +
+                  "logement : à Paris, un studio coûte bien plus cher qu'un grand appartement chez nous. Par " +
+                  "contre, les transports en commun sont beaucoup plus pratiques, et ça, c'est un vrai avantage. " +
+                  "Ce qui me manque le plus, c'est la vie de quartier : chez nous, les voisins se connaissent " +
+                  "tous, alors qu'ici, chacun reste plutôt chez soi. Malgré tout, je m'habitue petit à petit, et " +
+                  "il y a des choses dont je ne pourrais plus me passer, comme la tranquillité dans la rue le soir.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "cmp-e-q1",
+                    prompt: "Qu'est-ce qui est plus cher en France, selon Nadia ?",
+                    choices: [
+                      { id: "a", text: "Le logement." },
+                      { id: "b", text: "Les transports en commun." },
+                      { id: "c", text: "Rien de particulier." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Le logement.",
+                      explanation: "Elle précise qu'un studio à Paris coûte plus cher qu'un grand appartement chez elle.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "cmp-e-q2",
+                    prompt: "Vrai ou faux : selon Nadia, les voisins se connaissent mieux en France que dans son pays.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "C'est l'inverse : chez elle, les voisins se connaissent tous ; en France, chacun reste chez soi.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "cmp-e-q3",
+                    prompt: "De quoi Nadia dit-elle qu'elle ne pourrait plus se passer ?",
+                    expectedAnswer: "La tranquillité dans la rue le soir.",
+                    correction: {
+                      correctAnswer: "La tranquillité dans la rue le soir.",
+                      explanation: "C'est l'exemple qu'elle donne à la fin de son message.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "cmp-e-q4",
+                    prompt: "Quel mot Nadia utilise-t-elle pour introduire un avantage qui contraste avec ce qui précède ?",
+                    choices: [
+                      { id: "a", text: "Par contre" },
+                      { id: "b", text: "Malgré tout" },
+                      { id: "c", text: "Ce qui" },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Par contre",
+                      explanation: "« Par contre, les transports... » introduit un avantage qui s'oppose au coût de la vie plus élevé.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "comparer-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "comparer-entrainement-activite",
+            title: "Comparatif, superlatif et dont",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "cmp-g1",
+                type: "qcm",
+                skillId: "gr-comparatifs",
+                difficulty: "B1",
+                instructions: "Choisis la bonne comparaison.",
+                question: {
+                  kind: "qcm",
+                  id: "cmp-g1-q",
+                  prompt: "« Le logement est ___ cher ici que chez moi. »",
+                  choices: [
+                    { id: "a", text: "plus" },
+                    { id: "b", text: "aussi" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "plus",
+                    explanation: "Nadia précise que le coût de la vie, surtout le logement, est plus élevé en France.",
+                  },
+                },
+              },
+              {
+                id: "cmp-g2",
+                type: "texte_a_trous",
+                skillId: "gr-superlatif",
+                difficulty: "B1",
+                instructions: "Complète avec le superlatif qui convient.",
+                textWithBlanks:
+                  "De toutes les villes où j'ai vécu, c'est à Lyon que je me sens {{1}} à l'aise. Mais c'est " +
+                  "aussi la ville où il y a {{2}} d'espaces verts, malheureusement.",
+                blanks: [
+                  { id: "1", answer: "le plus" },
+                  { id: "2", answer: "le moins" },
+                ],
+                correction: {
+                  correctAnswer: "le plus — le moins",
+                  explanation: "Devant un adverbe (« à l'aise ») ou une quantité (« d'espaces verts »), le superlatif reste invariable.",
+                },
+              },
+              {
+                id: "cmp-g3",
+                type: "association",
+                skillId: "gr-relatifs-dont",
+                difficulty: "B1",
+                instructions: "Associe chaque phrase avec « dont » à sa reformulation avec « de ».",
+                pairs: [
+                  { id: "1", left: "Le quartier dont je te parle...", right: "Je te parle de ce quartier." },
+                  { id: "2", left: "Une ville dont j'apprécie l'ambiance", right: "J'apprécie l'ambiance de cette ville." },
+                  { id: "3", left: "Un ami dont je me souviens bien", right: "Je me souviens bien de cet ami." },
+                ],
+                correction: {
+                  correctAnswer: "1 → je te parle de ce quartier ; 2 → l'ambiance de cette ville ; 3 → je me souviens de cet ami.",
+                  explanation: "« Dont » remplace toujours un complément introduit par « de ».",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "comparer-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "comparer-ecriture-activite",
+            title: "Comparer deux modes de vie",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "cmp-h",
+                type: "production_ecrite",
+                skillId: "pe-exprimer-avis",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Comparez votre pays d'origine (ou une ville que vous connaissez bien) et votre lieu de vie " +
+                  "actuel. Donnez au moins deux différences et dites ce que vous préférez, en justifiant votre " +
+                  "choix. 5 à 8 phrases.",
+                minWords: 40,
+                maxWords: 90,
+                correctionCriteria: [
+                  "Au moins un comparatif ou superlatif utilisé (/2)",
+                  "Au moins une nuance ou opposition (malgré tout, par contre, alors que...) (/2)",
+                  "Préférence clairement justifiée (/2)",
+                  "Phrases reliées entre elles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "comparer-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "comparer-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "cmp-i1",
+                type: "reponse_courte",
+                skillId: "voc-modes-de-vie",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: "Quel mot désigne l'ensemble des dépenses nécessaires pour vivre quelque part ? (le ___)",
+                acceptedAnswers: ["coût de la vie", "cout de la vie"],
+                correction: {
+                  correctAnswer: "le coût de la vie",
+                  explanation: "C'est l'expression utilisée dans le message de Nadia.",
+                },
+              },
+              {
+                id: "cmp-i2",
+                type: "qcm",
+                skillId: "gr-superlatif",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: {
+                  kind: "qcm",
+                  id: "cmp-i2-q",
+                  prompt: "« C'est le quartier ___ cher de la ville. »",
+                  choices: [
+                    { id: "a", text: "le plus" },
+                    { id: "b", text: "plus" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "le plus",
+                    explanation: "Le superlatif se construit avec l'article défini : le plus, la plus, les plus.",
+                  },
+                },
+              },
+              {
+                id: "cmp-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le message de Nadia.",
+                statement: "Nadia trouve les transports en commun plus pratiques en France.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "Elle le présente comme un vrai avantage.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-parler-de-ses-projets",
+    slug: "parler-de-ses-projets",
+    level: "B1",
+    title: "Parler de ses projets",
+    description:
+      "À la fin de ce module, tu pourras présenter tes projets à court et moyen terme et expliquer les conditions pour les réaliser.",
+    objectives: ["Parler d'un projet personnel ou professionnel", "Exprimer une condition", "Expliquer les étapes prévues"],
+    domain: "grammaire",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 27,
+    situation: "Yassine rencontre une conseillère à la mission locale pour parler de son projet de formation.",
+    vocabulary: [
+      { term: "un projet", category: "principal" },
+      { term: "une formation", category: "principal" },
+      { term: "un objectif", category: "principal" },
+      { term: "une étape", category: "principal" },
+      { term: "une démarche en ligne", category: "principal" },
+      { term: "s'inscrire", category: "verbe" },
+      { term: "envisager", category: "verbe" },
+      { term: "prévoir", category: "verbe" },
+      { term: "un dossier", category: "principal" },
+      { term: "se renseigner", category: "verbe" },
+      { term: "concrètement", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Futur proche et futur simple pour parler de projets",
+        explanation:
+          "Le futur proche annonce une décision déjà prise ou une action très prochaine : je vais m'inscrire. Le futur simple annonce une action plus lointaine ou moins certaine : je commencerai la formation en septembre.",
+      },
+      {
+        title: "Si + présent pour une condition réelle",
+        explanation:
+          "Si + présent, futur simple exprime une condition qu'on pense réalisable : Si mon dossier est accepté, je commencerai la formation. La condition (après « si ») est toujours au présent, jamais au futur.",
+      },
+    ],
+    examLinks: ["DELF B1 — production orale (entretien dirigé, projets)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "projets-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "projets-ecoute-activite",
+            title: "Écouter un entretien avec une conseillère",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "prj-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'entretien entre Yassine et sa conseillère (« Un projet de formation », 40 secondes), puis répondez.",
+                audioSrc: "/audio/b1/parler-de-ses-projets.mp3",
+                transcript:
+                  "Conseillère — Bonjour Yassine, vous vouliez me parler de votre projet ?\n" +
+                  "Yassine — Oui, j'envisage de faire une formation en logistique l'année prochaine.\n" +
+                  "Conseillère — Très bien. Et concrètement, quelles sont les étapes ?\n" +
+                  "Yassine — D'abord, je vais m'inscrire en ligne avant la fin du mois. Ensuite, si mon dossier " +
+                  "est accepté, je commencerai la formation en septembre.\n" +
+                  "Conseillère — Et si votre dossier n'est pas accepté du premier coup ?\n" +
+                  "Yassine — Dans ce cas, je referai une demande l'année suivante. Mais je préfère rester positif !\n" +
+                  "Conseillère — C'est une bonne attitude. Je vais vous envoyer la liste des documents à préparer.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "prj-e-q1",
+                    prompt: "Quel projet Yassine envisage-t-il ?",
+                    choices: [
+                      { id: "a", text: "Une formation en logistique." },
+                      { id: "b", text: "Un changement de logement." },
+                      { id: "c", text: "Un voyage à l'étranger." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Une formation en logistique.",
+                      explanation: "Il le dit directement dès le début de l'entretien.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "prj-e-q2",
+                    prompt: "Vrai ou faux : Yassine commencera la formation en septembre, quoi qu'il arrive.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Il commencera en septembre seulement si son dossier est accepté.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "prj-e-q3",
+                    prompt: "Que fera Yassine si son dossier n'est pas accepté ?",
+                    expectedAnswer: "Il referra une demande l'année suivante.",
+                    correction: {
+                      correctAnswer: "Il referra une demande l'année suivante.",
+                      explanation: "C'est ce qu'il répond à la conseillère.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "prj-e-q4",
+                    prompt: "Que va envoyer la conseillère à Yassine ?",
+                    choices: [
+                      { id: "a", text: "La liste des documents à préparer." },
+                      { id: "b", text: "La date de son entretien." },
+                      { id: "c", text: "Le résultat de sa demande." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "La liste des documents à préparer.",
+                      explanation: "Elle le propose à la toute fin de l'entretien.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "projets-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "projets-entrainement-activite",
+            title: "Futur et condition réelle",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "prj-g1",
+                type: "qcm",
+                skillId: "gr-futur-proche-simple",
+                difficulty: "B1",
+                instructions: "Choisis la bonne forme.",
+                question: {
+                  kind: "qcm",
+                  id: "prj-g1-q",
+                  prompt: "« C'est décidé : demain, je ___ mon inscription. » (décision déjà prise)",
+                  choices: [
+                    { id: "a", text: "vais faire" },
+                    { id: "b", text: "ferai" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "vais faire",
+                    explanation: "Le futur proche annonce une décision déjà prise ou une action très prochaine.",
+                  },
+                },
+              },
+              {
+                id: "prj-g2",
+                type: "texte_a_trous",
+                skillId: "gr-si-condition",
+                difficulty: "B1",
+                instructions: "Complète avec « si » + présent, puis le futur simple.",
+                textWithBlanks:
+                  "{{1}} mon dossier est accepté, je {{2}} la formation en septembre.",
+                blanks: [
+                  { id: "1", answer: "Si" },
+                  { id: "2", answer: "commencerai" },
+                ],
+                correction: {
+                  correctAnswer: "Si — commencerai",
+                  explanation: "Après « si » exprimant une condition réelle, on utilise le présent ; la conséquence est au futur simple.",
+                },
+              },
+              {
+                id: "prj-g3",
+                type: "association",
+                skillId: "voc-projets",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "s'inscrire", right: "faire une demande officielle pour participer à quelque chose" },
+                  { id: "2", left: "envisager", right: "penser sérieusement à faire quelque chose dans le futur" },
+                  { id: "3", left: "un dossier", right: "l'ensemble des documents nécessaires pour une démarche" },
+                ],
+                correction: {
+                  correctAnswer: "s'inscrire → demande officielle ; envisager → penser à faire ; dossier → documents nécessaires.",
+                  explanation: "Ces mots reviennent souvent quand on parle d'un projet à réaliser.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "projets-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "projets-ecriture-activite",
+            title: "Présenter son projet",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "prj-h",
+                type: "production_ecrite",
+                skillId: "pe-presentation-professionnelle",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Présentez un projet que vous voulez réaliser dans l'année qui vient (formation, changement " +
+                  "de travail, voyage...). Expliquez au moins une condition nécessaire pour le réaliser et une " +
+                  "étape prévue. 5 à 8 phrases.",
+                minWords: 40,
+                maxWords: 90,
+                correctionCriteria: [
+                  "Projet clairement présenté (/2)",
+                  "Une condition avec si + présent (/2)",
+                  "Au moins une étape mentionnée (/2)",
+                  "Phrases reliées entre elles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "projets-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "projets-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "prj-i1",
+                type: "qcm",
+                skillId: "gr-si-condition",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "prj-i1-q",
+                  prompt: "« Si j'___ cette formation, je pourrai changer de métier. »",
+                  choices: [
+                    { id: "a", text: "obtiens" },
+                    { id: "b", text: "obtiendrai" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "obtiens",
+                    explanation: "Après « si » de condition réelle, le verbe est au présent, jamais au futur.",
+                  },
+                },
+              },
+              {
+                id: "prj-i2",
+                type: "reponse_courte",
+                skillId: "voc-projets",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne l'ensemble des documents nécessaires pour une démarche ? (un ___)",
+                acceptedAnswers: ["dossier", "un dossier"],
+                correction: {
+                  correctAnswer: "un dossier",
+                  explanation: "C'est le mot utilisé par la conseillère et par Yassine.",
+                },
+              },
+              {
+                id: "prj-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'entretien de Yassine.",
+                statement: "Yassine doit s'inscrire en ligne avant la fin du mois.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "C'est la première étape qu'il annonce.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-aller-chez-le-medecin",
+    slug: "aller-chez-le-medecin",
+    level: "B1",
+    title: "Aller chez le médecin et parler de sa santé",
+    description:
+      "À la fin de ce module, tu pourras décrire un symptôme, préciser depuis quand, et comprendre les conseils d'un médecin.",
+    objectives: ["Décrire un symptôme", "Préciser depuis quand", "Comprendre et reformuler une recommandation"],
+    domain: "comprehension_orale",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 27,
+    situation:
+      "Farida consulte un médecin généraliste car elle a mal à la gorge et un peu de fièvre depuis plusieurs jours.",
+    vocabulary: [
+      { term: "un symptôme", category: "principal" },
+      { term: "la fièvre", category: "principal" },
+      { term: "la gorge", category: "principal" },
+      { term: "tousser", category: "verbe" },
+      { term: "avoir mal à", category: "expression" },
+      { term: "une ordonnance", category: "principal" },
+      { term: "un médicament", category: "principal" },
+      { term: "se reposer", category: "verbe" },
+      { term: "empirer", category: "verbe" },
+      { term: "s'améliorer", category: "verbe" },
+      { term: "prescrire", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Depuis / il y a / ça fait + durée",
+        explanation:
+          "Pour préciser depuis quand une situation dure : j'ai mal à la gorge depuis trois jours. On peut aussi dire : ça fait trois jours que j'ai mal à la gorge. « Il y a » indique un moment précis dans le passé : je suis tombé malade il y a trois jours.",
+      },
+      {
+        title: "L'impératif pour donner un conseil médical",
+        explanation:
+          "Le médecin utilise l'impératif pour conseiller : Reposez-vous. Buvez beaucoup d'eau. Évitez de sortir dans le froid. La forme « vous » ne prend pas de pronom sujet.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral (dialogue médical simple)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "medecin-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "medecin-ecoute-activite",
+            title: "Écouter une consultation",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "med-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez la consultation de Farida chez le médecin (« Mal à la gorge », 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/aller-chez-le-medecin.mp3",
+                transcript:
+                  "Médecin — Bonjour madame, qu'est-ce qui vous amène ?\n" +
+                  "Farida — Bonjour docteur, j'ai mal à la gorge et un peu de fièvre depuis trois jours.\n" +
+                  "Médecin — Vous toussez aussi ?\n" +
+                  "Farida — Oui, surtout le soir. Et je me sens très fatiguée.\n" +
+                  "Médecin — D'accord. Est-ce que ça s'améliore, ou est-ce que ça empire depuis le début ?\n" +
+                  "Farida — Ça empire un peu, je trouve.\n" +
+                  "Médecin — Je vais vous prescrire un médicament contre la fièvre. Reposez-vous, buvez beaucoup " +
+                  "d'eau et évitez de sortir dans le froid. Si ça ne va pas mieux dans quatre jours, revenez me voir.\n" +
+                  "Farida — D'accord, merci docteur. Est-ce que je peux quand même aller travailler ?\n" +
+                  "Médecin — Je vous conseille de vous reposer deux jours, au moins.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "med-e-q1",
+                    prompt: "Depuis combien de temps Farida a-t-elle mal à la gorge ?",
+                    choices: [
+                      { id: "a", text: "Trois jours." },
+                      { id: "b", text: "Une semaine." },
+                      { id: "c", text: "Depuis ce matin." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Trois jours.",
+                      explanation: "Elle le précise dès sa première réponse au médecin.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "med-e-q2",
+                    prompt: "Vrai ou faux : selon Farida, son état s'améliore depuis le début.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle dit que ça empire un peu.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "med-e-q3",
+                    prompt: "Que doit faire Farida si elle ne va pas mieux dans quatre jours ?",
+                    expectedAnswer: "Retourner voir le médecin.",
+                    correction: {
+                      correctAnswer: "Retourner voir le médecin.",
+                      explanation: "Le médecin le lui demande explicitement.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "med-e-q4",
+                    prompt: "Que conseille le médecin à propos du travail ?",
+                    choices: [
+                      { id: "a", text: "De se reposer deux jours, au moins." },
+                      { id: "b", text: "De reprendre le travail immédiatement." },
+                      { id: "c", text: "De ne plus jamais travailler debout." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "De se reposer deux jours, au moins.",
+                      explanation: "C'est sa réponse à la dernière question de Farida.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "medecin-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "medecin-entrainement-activite",
+            title: "Durée et conseils médicaux",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "med-g1",
+                type: "qcm",
+                skillId: "gr-expression-duree",
+                difficulty: "B1",
+                instructions: "Choisis le mot qui convient.",
+                question: {
+                  kind: "qcm",
+                  id: "med-g1-q",
+                  prompt: "« J'ai mal à la tête ___ ce matin. »",
+                  choices: [
+                    { id: "a", text: "depuis" },
+                    { id: "b", text: "pendant" },
+                    { id: "c", text: "dans" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "depuis",
+                    explanation: "« Depuis » indique le point de départ d'une situation qui continue.",
+                  },
+                },
+              },
+              {
+                id: "med-g2",
+                type: "texte_a_trous",
+                skillId: "gr-imperatif",
+                difficulty: "B1",
+                instructions: "Complète les conseils du médecin avec l'impératif (vouvoiement).",
+                textWithBlanks:
+                  "{{1}}-vous bien pendant deux jours. {{2}} beaucoup d'eau. N'{{3}} pas à revenir si ça empire.",
+                blanks: [
+                  { id: "1", answer: "Reposez" },
+                  { id: "2", answer: "Buvez" },
+                  { id: "3", answer: "hésitez" },
+                ],
+                correction: {
+                  correctAnswer: "Reposez — Buvez — hésitez",
+                  explanation: "À l'impératif « vous », le verbe ne prend pas de pronom sujet.",
+                },
+              },
+              {
+                id: "med-g3",
+                type: "association",
+                skillId: "voc-sante",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "un symptôme", right: "un signe qui indique une maladie" },
+                  { id: "2", left: "une ordonnance", right: "le document du médecin qui indique les médicaments à prendre" },
+                  { id: "3", left: "empirer", right: "devenir pire, plus grave" },
+                ],
+                correction: {
+                  correctAnswer: "symptôme → signe de maladie ; ordonnance → document du médecin ; empirer → devenir pire.",
+                  explanation: "Ces mots reviennent dans presque toutes les consultations médicales.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "medecin-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "medecin-ecriture-activite",
+            title: "Décrire ses symptômes par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "med-h",
+                type: "production_ecrite",
+                skillId: "pe-expliquer-probleme",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Vous ne vous sentez pas bien depuis plusieurs jours. Écrivez un message à votre médecin pour " +
+                  "décrire vos symptômes, préciser depuis quand, et demander un rendez-vous. 4 à 6 phrases.",
+                minWords: 30,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Symptôme décrit clairement (/2)",
+                  "Durée précisée avec depuis / ça fait (/2)",
+                  "Demande de rendez-vous formulée poliment (/1)",
+                  "Phrases reliées entre elles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "medecin-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "medecin-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "med-i1",
+                type: "qcm",
+                skillId: "gr-expression-duree",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "med-i1-q",
+                  prompt: "« ___ trois jours que j'ai de la fièvre. »",
+                  choices: [
+                    { id: "a", text: "Ça fait" },
+                    { id: "b", text: "Il y a" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Ça fait",
+                    explanation: "« Ça fait + durée + que » exprime la même idée que « depuis + durée ».",
+                  },
+                },
+              },
+              {
+                id: "med-i2",
+                type: "reponse_courte",
+                skillId: "voc-sante",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel document le médecin donne-t-il pour indiquer les médicaments à prendre ? (une ___)",
+                acceptedAnswers: ["ordonnance", "une ordonnance"],
+                correction: {
+                  correctAnswer: "une ordonnance",
+                  explanation: "C'est le document remis à la fin de la consultation.",
+                },
+              },
+              {
+                id: "med-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après la consultation de Farida.",
+                statement: "Le médecin conseille à Farida de se reposer deux jours au moins.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "C'est sa réponse à la question de Farida sur le travail.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-faire-une-reclamation",
+    slug: "faire-une-reclamation",
+    level: "B1",
+    title: "Faire une réclamation",
+    description:
+      "À la fin de ce module, tu pourras expliquer un problème avec des faits précis, exprimer poliment ton mécontentement et demander une solution.",
+    objectives: [
+      "Expliquer un problème avec des faits précis",
+      "Demander une solution",
+      "Répondre à une proposition (accepter ou refuser)",
+    ],
+    domain: "production_ecrite",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 28,
+    situation: "Sofiane a reçu un colis endommagé et écrit au service client pour demander un remboursement.",
+    vocabulary: [
+      { term: "mécontent(e)", category: "principal" },
+      { term: "insister", category: "verbe" },
+      { term: "un dédommagement", category: "principal" },
+      { term: "regrettable", category: "principal" },
+      { term: "une réponse satisfaisante", category: "expression" },
+      { term: "« je me permets de vous écrire »", category: "expression" },
+      { term: "« à défaut de »", category: "expression" },
+      { term: "« dans les meilleurs délais »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "La négation renforcée",
+        explanation:
+          "Ne...aucun, ne...personne, ne...ni...ni renforcent ou précisent une négation : Je n'ai reçu aucune réponse. Ce produit ne fonctionne ni au démarrage ni en charge.",
+      },
+      {
+        title: "Le conditionnel de politesse",
+        explanation:
+          "Je voudrais, j'aimerais, pourriez-vous... adoucissent une demande, même en cas de désaccord : Je voudrais un remboursement. Pourriez-vous me confirmer la réception de ce message ?",
+      },
+    ],
+    examLinks: ["DELF B1 — production écrite (lettre de réclamation)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "reclamation-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "reclamation-comprendre-activite",
+            title: "Lire un e-mail de réclamation",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "rec-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez l'e-mail que Sofiane envoie au service client, puis répondez.",
+                text:
+                  "Madame, Monsieur, je me permets de vous écrire au sujet de ma commande n°4521, reçue hier. " +
+                  "Le colis est arrivé endommagé et l'objet à l'intérieur ne fonctionne ni au démarrage ni en " +
+                  "charge. Je n'ai reçu aucune information sur un éventuel problème de livraison. Je souhaiterais " +
+                  "un remboursement complet, ou à défaut, un échange rapide. Je vous remercie de bien vouloir me " +
+                  "répondre dans les meilleurs délais. Cordialement, Sofiane Benali.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "rec-e-q1",
+                    prompt: "Quel est le problème avec le colis de Sofiane ?",
+                    choices: [
+                      { id: "a", text: "Il est arrivé endommagé et l'objet ne fonctionne pas." },
+                      { id: "b", text: "Il n'est jamais arrivé." },
+                      { id: "c", text: "Il est arrivé en retard, mais en bon état." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Il est arrivé endommagé et l'objet ne fonctionne pas.",
+                      explanation: "C'est ce qu'elle décrit dès le début de son message.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "rec-e-q2",
+                    prompt: "Vrai ou faux : Sofiane demande uniquement un échange.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle demande d'abord un remboursement complet, et un échange seulement à défaut.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "rec-e-q3",
+                    prompt: "Sur quoi Sofiane dit-elle n'avoir reçu aucune information ?",
+                    expectedAnswer: "Un éventuel problème de livraison.",
+                    correction: {
+                      correctAnswer: "Un éventuel problème de livraison.",
+                      explanation: "Elle le précise juste après avoir décrit l'état du colis.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "rec-e-q4",
+                    prompt: "Quelle expression Sofiane utilise-t-elle pour demander une réponse rapide ?",
+                    choices: [
+                      { id: "a", text: "Dans les meilleurs délais." },
+                      { id: "b", text: "Le plus tard possible." },
+                      { id: "c", text: "Quand vous aurez le temps." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Dans les meilleurs délais.",
+                      explanation: "C'est la formule finale de son message, avant la formule de politesse.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "reclamation-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "reclamation-entrainement-activite",
+            title: "Négation renforcée et politesse",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "rec-g1",
+                type: "qcm",
+                skillId: "gr-negation-avancee",
+                difficulty: "B1",
+                instructions: "Choisis la bonne négation.",
+                question: {
+                  kind: "qcm",
+                  id: "rec-g1-q",
+                  prompt: "« Ce produit ___ fonctionne ___ le matin ___ le soir. »",
+                  choices: [
+                    { id: "a", text: "ne / ni / ni" },
+                    { id: "b", text: "ne / jamais / pas" },
+                    { id: "c", text: "ne / aucun / ni" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "ne / ni / ni",
+                    explanation: "« Ne...ni...ni » nie deux éléments à la fois : ni le matin, ni le soir.",
+                  },
+                },
+              },
+              {
+                id: "rec-g2",
+                type: "texte_a_trous",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Complète avec le conditionnel de politesse.",
+                textWithBlanks:
+                  "{{1}}-vous me confirmer la réception de ce message ? Je {{2}} un remboursement rapide.",
+                blanks: [
+                  { id: "1", answer: "Pourriez" },
+                  { id: "2", answer: "voudrais" },
+                ],
+                correction: {
+                  correctAnswer: "Pourriez — voudrais",
+                  explanation: "Le conditionnel adoucit une demande, même en cas de désaccord avec le service client.",
+                },
+              },
+              {
+                id: "rec-g3",
+                type: "association",
+                skillId: "voc-reclamation",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "à défaut de", right: "si ce n'est pas possible, sinon" },
+                  { id: "2", left: "un dédommagement", right: "une compensation pour un problème subi" },
+                  { id: "3", left: "dans les meilleurs délais", right: "le plus rapidement possible" },
+                ],
+                correction: {
+                  correctAnswer: "à défaut de → sinon ; dédommagement → compensation ; meilleurs délais → rapidement.",
+                  explanation: "Ces formules reviennent dans presque toutes les réclamations écrites.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "reclamation-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "reclamation-ecriture-activite",
+            title: "Rédiger une réclamation",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "rec-h",
+                type: "production_ecrite",
+                skillId: "pe-expliquer-probleme",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Vous avez reçu un produit ou un service qui ne correspond pas à ce qui était prévu (colis " +
+                  "endommagé, hôtel décevant, retard de livraison...). Écrivez une réclamation polie : expliquez " +
+                  "le problème avec des faits précis et demandez une solution claire. 5 à 8 phrases.",
+                minWords: 40,
+                maxWords: 90,
+                correctionCriteria: [
+                  "Problème décrit avec des faits précis (/2)",
+                  "Au moins une négation renforcée ou une formule de politesse (/2)",
+                  "Solution demandée clairement (/2)",
+                  "Ton poli malgré le désaccord (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "reclamation-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "reclamation-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "rec-i1",
+                type: "qcm",
+                skillId: "gr-negation-avancee",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "rec-i1-q",
+                  prompt: "« Je ___ ai reçu ___ réponse depuis mon message. »",
+                  choices: [
+                    { id: "a", text: "n' / aucune" },
+                    { id: "b", text: "ne / pas de" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "n' / aucune",
+                    explanation: "« Ne...aucun(e) » renforce l'absence totale de réponse.",
+                  },
+                },
+              },
+              {
+                id: "rec-i2",
+                type: "reponse_courte",
+                skillId: "voc-reclamation",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quelle expression signifie « si ce n'est pas possible » ? (à ___)",
+                acceptedAnswers: ["à défaut", "a défaut"],
+                correction: {
+                  correctAnswer: "à défaut",
+                  explanation: "« À défaut de » introduit une solution de remplacement.",
+                },
+              },
+              {
+                id: "rec-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'e-mail de Sofiane.",
+                statement: "Sofiane demande un remboursement en priorité.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "Elle mentionne l'échange seulement « à défaut » du remboursement.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getModuleBySlug(slug: string): Module | undefined {

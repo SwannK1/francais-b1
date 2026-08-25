@@ -229,6 +229,66 @@ export const SKILLS: Skill[] = [
     name: "Impératif (introduction)",
     description: "Donner une instruction, un conseil ou une consigne simple.",
   },
+  {
+    id: "gr-superlatif",
+    domain: "grammaire",
+    name: "Superlatif (le plus / le moins)",
+    description: "Exprimer un degré maximal ou minimal dans une comparaison.",
+  },
+  {
+    id: "gr-relatifs-dont",
+    domain: "grammaire",
+    name: "Le pronom relatif dont",
+    description: "Remplacer un complément introduit par « de » pour éviter une répétition.",
+  },
+  {
+    id: "voc-modes-de-vie",
+    domain: "vocabulaire",
+    name: "Vocabulaire des modes de vie",
+    description: "Mots pour comparer un coût de la vie, un environnement, une façon de vivre.",
+  },
+  {
+    id: "gr-si-condition",
+    domain: "grammaire",
+    name: "Si + présent (condition réelle)",
+    description: "Exprimer une condition réalisable et sa conséquence.",
+  },
+  {
+    id: "voc-projets",
+    domain: "vocabulaire",
+    name: "Vocabulaire des projets",
+    description: "Mots pour parler d'un projet, de ses étapes et des démarches associées.",
+  },
+  {
+    id: "gr-expression-duree",
+    domain: "grammaire",
+    name: "Depuis / il y a / ça fait (durée)",
+    description: "Préciser depuis combien de temps une situation dure.",
+  },
+  {
+    id: "voc-sante",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la santé",
+    description: "Mots pour décrire un symptôme et comprendre une recommandation médicale.",
+  },
+  {
+    id: "gr-negation-avancee",
+    domain: "grammaire",
+    name: "Négation renforcée (ne...aucun, ne...personne, ne...ni...ni)",
+    description: "Nuancer ou renforcer une négation dans un contexte de désaccord.",
+  },
+  {
+    id: "gr-conditionnel-politesse",
+    domain: "grammaire",
+    name: "Conditionnel de politesse",
+    description: "Formuler une demande de façon polie (je voudrais, pourriez-vous).",
+  },
+  {
+    id: "voc-reclamation",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la réclamation",
+    description: "Mots et formules pour rédiger une réclamation claire et polie.",
+  },
 ];
 
 export function getSkillById(id: string): Skill | undefined {
