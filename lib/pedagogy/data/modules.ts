@@ -21,6 +21,7 @@ export const MODULES: Module[] = [
       "Réagir à l'opinion d'une autre personne",
     ],
     domain: "production_ecrite",
+    stageId: "b1-intermediaire",
     estimatedMinutes: 33,
     situation:
       "Dans l'immeuble de Nadia, les voisins discutent d'un projet : installer des bacs à compost partagés dans la cour. Certains sont pour, d'autres contre. Nadia donne son avis à une réunion de copropriété.",
@@ -560,6 +561,7 @@ export const MODULES: Module[] = [
       "Distinguer premier plan (actions) et arrière-plan (contexte)",
     ],
     domain: "grammaire",
+    stageId: "b1-debut",
     estimatedMinutes: 33,
     situation:
       "Farid travaille dans une entreprise près de Lyon. Un matin, tout va mal : il se réveille en retard, les transports sont perturbés, et il a un entretien important à 9h. Il raconte cette matinée à sa collègue Sophie.",
@@ -1077,6 +1079,7 @@ export const MODULES: Module[] = [
       "Demander de l'aide de façon claire et polie",
     ],
     domain: "production_ecrite",
+    stageId: "b1-intermediaire",
     estimatedMinutes: 33,
     situation:
       "Depuis une semaine, Amélie n'a plus d'accès internet chez elle. Elle appelle le service technique de son fournisseur, puis elle écrit un message pour expliquer le problème.",
@@ -1575,6 +1578,7 @@ export const MODULES: Module[] = [
       "Présenter un projet professionnel",
     ],
     domain: "production_ecrite",
+    stageId: "b1-intermediaire",
     estimatedMinutes: 33,
     situation:
       "Karim vient de rejoindre une nouvelle équipe. Lors de la pause de midi, une collègue, Julie, lui demande de parler de son parcours et de ses projets.",
@@ -2068,6 +2072,7 @@ export const MODULES: Module[] = [
       "Poser une question de clarification",
     ],
     domain: "comprehension_ecrite",
+    stageId: "b1-intermediaire",
     estimatedMinutes: 33,
     situation:
       "Youssef doit renouveler son titre de séjour. Il consulte les informations disponibles, puis prend rendez-vous et pose des questions à un agent d'accueil.",
@@ -2563,6 +2568,7 @@ export const MODULES: Module[] = [
       "Comparer un avant et un maintenant",
     ],
     domain: "vocabulaire",
+    stageId: "b1-debut",
     estimatedMinutes: 28,
     situation:
       "Léa vient d'emménager en colocation. Sa colocataire Fatou lui propose d'organiser ensemble le ménage et les repas de la semaine.",
@@ -3052,6 +3058,7 @@ export const MODULES: Module[] = [
       "Comprendre une confirmation de rendez-vous",
     ],
     domain: "grammaire",
+    stageId: "b1-debut",
     estimatedMinutes: 27,
     situation:
       "Karim doit prendre rendez-vous chez le dentiste. Il appelle le cabinet, puis reçoit un message de confirmation.",
@@ -3521,6 +3528,7 @@ export const MODULES: Module[] = [
       "Réagir à un courrier par écrit",
     ],
     domain: "comprehension_ecrite",
+    stageId: "b1-debut",
     estimatedMinutes: 27,
     situation:
       "Amina reçoit un courrier de la CAF au sujet de son aide au logement : sa situation doit être mise à jour avant une date limite.",
@@ -3969,6 +3977,7 @@ export const MODULES: Module[] = [
       "Signaler un incident de transport",
     ],
     domain: "comprehension_orale",
+    stageId: "b1-consolidation",
     estimatedMinutes: 27,
     situation:
       "Youssef prend le train pour se rendre à un entretien. Une annonce informe les voyageurs d'un changement de voie.",
@@ -4405,6 +4414,7 @@ export const MODULES: Module[] = [
     description: "À la fin de ce module, tu pourras te présenter clairement et poser des questions pour connaître quelqu'un.",
     objectives: ["Donner des informations sur soi", "Parler de sa famille et de son parcours", "Poser des questions simples à quelqu'un"],
     domain: "grammaire",
+    stageId: "b1-debut",
     estimatedMinutes: 20,
     situation:
       "Léa vient d'emménager dans un nouvel appartement à Lyon. Dans l'escalier, elle croise son voisin, Thomas, et ils font connaissance.",
@@ -4696,6 +4706,7 @@ export const MODULES: Module[] = [
     description: "À la fin de ce module, tu pourras parler de ta routine, de tes loisirs et de ce que tu aimes ou non.",
     objectives: ["Décrire une habitude", "Exprimer une préférence", "Comparer deux goûts"],
     domain: "vocabulaire",
+    stageId: "b1-debut",
     estimatedMinutes: 20,
     situation:
       "Léa et Thomas, ses nouveaux voisins, discutent de leurs habitudes du week-end autour d'un café.",
@@ -4988,6 +4999,7 @@ export const MODULES: Module[] = [
     description: "À la fin de ce module, tu pourras lire une annonce immobilière et poser les bonnes questions avant de visiter.",
     objectives: ["Comprendre une annonce de logement", "Identifier les informations essentielles", "Poser des questions sur un logement"],
     domain: "comprehension_ecrite",
+    stageId: "b1-debut",
     estimatedMinutes: 20,
     situation: "Sophie cherche un studio à louer près de son travail. Elle trouve une annonce en ligne.",
     vocabulary: [
@@ -5285,6 +5297,7 @@ export const MODULES: Module[] = [
     description: "À la fin de ce module, tu pourras comparer des produits, demander de l'aide et signaler un problème lors d'un achat.",
     objectives: ["Comparer deux produits", "Demander un renseignement en magasin", "Faire une réclamation simple"],
     domain: "vocabulaire",
+    stageId: "b1-debut",
     estimatedMinutes: 20,
     situation: "Julien hésite entre deux ordinateurs portables dans un magasin et demande conseil à une vendeuse.",
     vocabulary: [

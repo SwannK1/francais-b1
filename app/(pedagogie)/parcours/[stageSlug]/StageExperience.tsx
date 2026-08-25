@@ -4,7 +4,6 @@ import Link from "next/link";
 import Card from "@/components/ui/Card";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
 import ModuleCard from "@/components/pedagogy/ModuleCard";
-import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
 import { getStageCompletionRate } from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
@@ -20,8 +19,6 @@ export default function StageExperience({
 }) {
   const { progress } = useProgress();
   const completionRate = getStageCompletionRate(stage, progress, modules);
-  const coveredDomains = new Set(modules.map((mod) => mod.domain));
-  const upcomingDomains = (stage.domains ?? []).filter((domain) => !coveredDomains.has(domain));
 
   return (
     <div className="space-y-6">
@@ -64,16 +61,6 @@ export default function StageExperience({
           </p>
         </Card>
       )}
-
-      {upcomingDomains.length > 0 ? (
-        <Card className="border-dashed">
-          <p className="text-sm font-semibold text-foreground">Bientôt disponible</p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {upcomingDomains.map((domain) => DOMAIN_LABELS[domain]).join(", ")} — ces contenus sont en
-            préparation et rejoindront cette étape prochainement.
-          </p>
-        </Card>
-      ) : null}
     </div>
   );
 }

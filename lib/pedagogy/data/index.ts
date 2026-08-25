@@ -18,4 +18,4 @@ export {
 export { PLACEMENT_QUESTIONS } from "./placement-questions";
 export { EXAMS, getExamBySlug } from "./exams";
 export { INITIAL_USER_PROGRESS } from "./initial-user-progress";
-export { PARCOURS_STAGES, getStageBySlug, getStageForDomain } from "./parcours-stages";
+export { PARCOURS_STAGES, getStageBySlug, getStageById } from "./parcours-stages";

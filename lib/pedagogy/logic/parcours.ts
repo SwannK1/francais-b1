@@ -5,10 +5,13 @@ import type { Module, UserProgress } from "@/lib/pedagogy/types";
 
 export type StageStatus = "a_commencer" | "en_cours" | "termine";
 
-/** Modules réels rattachés à une étape "content", triés comme dans `MODULES`. */
+/**
+ * Modules réels rattachés à une étape, triés comme dans `MODULES`. Source de
+ * vérité unique pour "quels modules appartiennent à cette étape" — dérivée
+ * exclusivement de `Module.stageId`, jamais du domaine ou de l'ordre.
+ */
 export function getStageModules(stage: ParcoursStage, modules: Module[]): Module[] {
-  if (!stage.domains) return [];
-  return modules.filter((mod) => stage.domains!.includes(mod.domain));
+  return modules.filter((mod) => mod.stageId === stage.id);
 }
 
 /**

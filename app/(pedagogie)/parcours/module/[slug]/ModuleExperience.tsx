@@ -10,7 +10,7 @@ import LevelBadge from "@/components/pedagogy/LevelBadge";
 import ExerciseCard from "@/components/pedagogy/ExerciseCard";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
 import { cn } from "@/lib/cn";
-import { getStageForDomain } from "@/lib/pedagogy/data/parcours-stages";
+import { getStageById } from "@/lib/pedagogy/data/parcours-stages";
 import { findExerciseInModule } from "@/lib/pedagogy/data/modules";
 import { getModuleCompletionRate, getModuleProgress } from "@/lib/pedagogy/logic/progress";
 import { useProgress } from "@/lib/pedagogy/useProgress";
@@ -71,7 +71,7 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
   const moduleProgress = getModuleProgress(progress, mod.id);
   const completionRate = getModuleCompletionRate(progress, mod);
   const completedLessonIds = moduleProgress?.completedLessonIds ?? EMPTY_LESSON_IDS;
-  const stage = getStageForDomain(mod.domain);
+  const stage = getStageById(mod.stageId);
   const backHref = stage ? `/parcours/${stage.slug}` : "/parcours";
   const backLabel = stage ? `← Retour à l'étape « ${stage.title} »` : "← Retour au parcours";
 

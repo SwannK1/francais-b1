@@ -203,6 +203,21 @@ export interface LanguagePoint {
   explanation: string;
 }
 
+/**
+ * Identifiants stables des grandes étapes du parcours B1 (voir
+ * `data/parcours-stages.ts` pour leur définition complète). Type fermé —
+ * plutôt qu'une chaîne libre — pour qu'une affectation de module vers une
+ * étape inexistante soit une erreur de compilation, pas une surprise en
+ * exécution.
+ */
+export type StageId =
+  | "faire-le-point"
+  | "b1-debut"
+  | "b1-intermediaire"
+  | "b1-consolidation"
+  | "preparation-examen"
+  | "pret-pour-le-b1";
+
 export interface Module {
   id: string;
   slug: string;
@@ -211,6 +226,13 @@ export interface Module {
   description: string;
   objectives: string[];
   domain: SkillDomain;
+  /**
+   * Étape du parcours à laquelle ce module est explicitement affecté.
+   * Source de vérité unique pour "quels modules appartiennent à quelle
+   * étape" — ne jamais redériver cette affectation depuis `domain`, l'ordre
+   * du tableau, ou l'identifiant du module.
+   */
+  stageId: StageId;
   estimatedMinutes: number;
   lessons: Lesson[];
   /** Champs de contenu réel (module rédigé) — absents sur un module minimal. */

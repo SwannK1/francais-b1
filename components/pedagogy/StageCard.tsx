@@ -12,16 +12,15 @@ import {
   TargetIcon,
   type IconProps,
 } from "@/components/ui/icons";
-import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import { cn } from "@/lib/cn";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 import type { StageStatus } from "@/lib/pedagogy/logic/parcours";
 
 const STAGE_ICONS: Record<string, (props: IconProps) => React.JSX.Element> = {
   "faire-le-point": TargetIcon,
-  "consolider-les-bases": GraduationCapIcon,
-  "comprendre-le-francais": HeadphonesIcon,
-  sexprimer: PenIcon,
+  "poser-les-bases": GraduationCapIcon,
+  "argumenter-et-echanger": PenIcon,
+  "consolider-le-b1": HeadphonesIcon,
   "preparation-examen": ExamIcon,
   "pret-pour-le-b1": FlagIcon,
 };
@@ -79,16 +78,6 @@ export default function StageCard({
 
           <h3 className="mt-1 text-lg font-semibold text-foreground">{stage.title}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{stage.objective}</p>
-
-          {stage.domains && stage.domains.length > 0 ? (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {stage.domains.map((domain) => (
-                <Badge key={domain} variant="neutral">
-                  {DOMAIN_LABELS[domain]}
-                </Badge>
-              ))}
-            </div>
-          ) : null}
 
           {showProgress ? (
             <ProgressBar value={completionRate} label="Progression" className="mt-4" />

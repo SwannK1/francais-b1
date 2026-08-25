@@ -11,7 +11,7 @@
  */
 export { computePlacementResult } from "./placement";
 export { recordExerciseResult, getModuleProgress, getModuleCompletionRate } from "./progress";
-export { computeDailySession } from "./recommendation";
+export { computeDailySession, getNextModule, type NextModuleTarget } from "./recommendation";
 export {
   getStageModules,
   getStageCompletionRate,
