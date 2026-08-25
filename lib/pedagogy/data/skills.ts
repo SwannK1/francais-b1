@@ -169,6 +169,48 @@ export const SKILLS: Skill[] = [
     name: "Signaler un incident par écrit",
     description: "Décrire clairement un incident de trajet et son effet.",
   },
+  {
+    id: "gr-questions",
+    domain: "grammaire",
+    name: "Poser une question avec est-ce que / qu'est-ce que",
+    description: "Former une question fermée ou ouverte pour connaître quelqu'un.",
+  },
+  {
+    id: "voc-identite",
+    domain: "vocabulaire",
+    name: "Vocabulaire de l'identité",
+    description: "Mots pour se présenter, parler de son parcours et de son origine.",
+  },
+  {
+    id: "pe-se-presenter",
+    domain: "production_ecrite",
+    name: "Se présenter par écrit",
+    description: "Rédiger un message de présentation clair et adapté au contexte.",
+  },
+  {
+    id: "gr-comparatifs",
+    domain: "grammaire",
+    name: "Comparatifs (plus/moins/aussi... que)",
+    description: "Comparer deux choses, deux personnes ou deux situations.",
+  },
+  {
+    id: "voc-loisirs-gouts",
+    domain: "vocabulaire",
+    name: "Vocabulaire des loisirs et des goûts",
+    description: "Mots pour parler de ses loisirs, de ses préférences et de ce qu'on aime ou non.",
+  },
+  {
+    id: "voc-logement",
+    domain: "vocabulaire",
+    name: "Vocabulaire du logement",
+    description: "Mots utilisés dans une annonce immobilière et pour chercher un logement.",
+  },
+  {
+    id: "voc-achats",
+    domain: "vocabulaire",
+    name: "Vocabulaire des achats",
+    description: "Mots pour comparer des produits, demander conseil et signaler un problème d'achat.",
+  },
 ];
 
 export function getSkillById(id: string): Skill | undefined {

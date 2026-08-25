@@ -4397,6 +4397,1175 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-se-presenter",
+    slug: "se-presenter",
+    level: "B1",
+    title: "Se présenter",
+    description: "À la fin de ce module, tu pourras te présenter clairement et poser des questions pour connaître quelqu'un.",
+    objectives: ["Donner des informations sur soi", "Parler de sa famille et de son parcours", "Poser des questions simples à quelqu'un"],
+    domain: "grammaire",
+    estimatedMinutes: 20,
+    situation:
+      "Léa vient d'emménager dans un nouvel appartement à Lyon. Dans l'escalier, elle croise son voisin, Thomas, et ils font connaissance.",
+    vocabulary: [
+      { term: "se présenter", category: "principal" },
+      { term: "s'appeler", category: "verbe" },
+      { term: "habiter", category: "verbe" },
+      { term: "déménager", category: "verbe" },
+      { term: "emménager", category: "verbe" },
+      { term: "venir de", category: "verbe" },
+      { term: "un parcours", category: "principal" },
+      { term: "une origine", category: "principal" },
+      { term: "un voisin / une voisine", category: "principal" },
+      { term: "faire connaissance", category: "expression" },
+      { term: "une colocation", category: "principal" },
+      { term: "« n'hésitez pas à... »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Poser une question avec « est-ce que »",
+        explanation:
+          "On place « est-ce que » devant une phrase affirmative pour poser une question : Tu habites ici. → Est-ce que tu habites ici ? C'est la façon la plus simple et la plus courante à l'oral comme à l'écrit.",
+      },
+      {
+        title: "Les verbes en -er du quotidien",
+        explanation:
+          "habiter, déménager, emménager, se présenter... se conjuguent comme « parler » au présent : j'habite, tu habites, il/elle habite, nous habitons, vous habitez, ils/elles habitent.",
+      },
+    ],
+    examLinks: ["DELF B1 — production orale (entretien dirigé)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "se-presenter-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "se-presenter-comprendre-activite",
+            title: "Lire un message de présentation",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "sp-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez le message que Léa poste dans le groupe WhatsApp de l'immeuble, puis répondez.",
+                text:
+                  "Bonjour à tous ! Je m'appelle Léa, je viens d'emménager au 3ème étage, appartement 8. Je suis " +
+                  "originaire de Bordeaux, mais j'habite à Lyon depuis cette semaine pour mon nouveau travail. Je " +
+                  "suis assez sociable et j'aime bien faire connaissance avec mes voisins, donc n'hésitez pas à " +
+                  "sonner si besoin ! Au fait, est-ce que quelqu'un connaît une bonne boulangerie dans le " +
+                  "quartier ? Merci et à bientôt, Léa",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "sp-e-q1",
+                    prompt: "Où habite Léa maintenant ?",
+                    choices: [
+                      { id: "a", text: "Bordeaux" },
+                      { id: "b", text: "Lyon" },
+                      { id: "c", text: "Paris" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Lyon",
+                      explanation: "Léa précise qu'elle habite à Lyon depuis cette semaine.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "sp-e-q2",
+                    prompt: "Vrai ou faux : Léa habite à Lyon depuis plusieurs années.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle vient d'emménager : elle habite à Lyon depuis cette semaine seulement.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "sp-e-q3",
+                    prompt: "Pourquoi Léa a-t-elle déménagé à Lyon ?",
+                    expectedAnswer: "Pour son nouveau travail.",
+                    correction: {
+                      correctAnswer: "Pour son nouveau travail.",
+                      explanation: "Elle le précise dans la deuxième phrase de son message.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "sp-e-q4",
+                    prompt: "Qu'est-ce que Léa demande à la fin de son message ?",
+                    choices: [
+                      { id: "a", text: "Une bonne boulangerie dans le quartier." },
+                      { id: "b", text: "L'adresse d'un de ses voisins." },
+                      { id: "c", text: "De l'aide pour son déménagement." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Une bonne boulangerie dans le quartier.",
+                      explanation: "Elle pose cette question juste avant de saluer.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "se-presenter-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "se-presenter-entrainement-activite",
+            title: "Se présenter et poser des questions",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "sp-g1",
+                type: "qcm",
+                skillId: "gr-questions",
+                difficulty: "B1",
+                instructions: "Transforme cette phrase en question avec « est-ce que ».",
+                question: {
+                  kind: "qcm",
+                  id: "sp-g1-q",
+                  prompt: "« Tu habites ici depuis longtemps. » devient :",
+                  choices: [
+                    { id: "a", text: "Est-ce que tu habites ici depuis longtemps ?" },
+                    { id: "b", text: "Habites-tu ici depuis longtemps est-ce que ?" },
+                    { id: "c", text: "Tu es-ce que habites ici depuis longtemps ?" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Est-ce que tu habites ici depuis longtemps ?",
+                    explanation: "« Est-ce que » se place tout au début de la phrase affirmative.",
+                  },
+                },
+              },
+              {
+                id: "sp-g2",
+                type: "texte_a_trous",
+                skillId: "gr-questions",
+                difficulty: "B1",
+                instructions: "Complète les questions avec « Est-ce que » ou « Qu'est-ce que ».",
+                textWithBlanks:
+                  "{{1}} tu habites ici ? — Oui, depuis une semaine. {{2}} tu fais comme travail ? — Je suis " +
+                  "infirmier. Et {{3}} tu viens d'emménager avec quelqu'un ?",
+                blanks: [
+                  { id: "1", answer: "Est-ce que" },
+                  { id: "2", answer: "Qu'est-ce que" },
+                  { id: "3", answer: "est-ce que" },
+                ],
+                correction: {
+                  correctAnswer: "Est-ce que — Qu'est-ce que — est-ce que",
+                  explanation:
+                    "« Est-ce que » introduit une question fermée (oui/non) ; « Qu'est-ce que » introduit une question sur une chose.",
+                },
+              },
+              {
+                id: "sp-g3",
+                type: "association",
+                skillId: "voc-identite",
+                difficulty: "B1",
+                instructions: "Associe chaque question à la réponse logique.",
+                pairs: [
+                  { id: "1", left: "Comment tu t'appelles ?", right: "Je m'appelle Thomas." },
+                  { id: "2", left: "D'où viens-tu ?", right: "Je viens de Marseille." },
+                  { id: "3", left: "Depuis quand tu habites ici ?", right: "Depuis trois mois." },
+                ],
+                correction: {
+                  correctAnswer: "1 → Thomas ; 2 → Marseille ; 3 → trois mois.",
+                  explanation: "Chaque question porte sur une information différente : le nom, l'origine, la durée.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "se-presenter-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "se-presenter-ecriture-activite",
+            title: "Se présenter par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "sp-h",
+                type: "production_ecrite",
+                skillId: "pe-se-presenter",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Vous venez d'emménager dans un nouvel immeuble. Écrivez un message de présentation pour le " +
+                  "groupe de vos voisins (nom, origine, ce que vous aimez faire) en 4 à 6 phrases.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Informations essentielles présentes : nom, origine (/2)",
+                  "Au moins une habitude ou un goût mentionné (/2)",
+                  "Phrases correctement construites (/2)",
+                  "Ton amical adapté à un message de voisinage (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "se-presenter-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "se-presenter-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "sp-i1",
+                type: "qcm",
+                skillId: "gr-questions",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "sp-i1-q",
+                  prompt: "Quelle question est correcte ?",
+                  choices: [
+                    { id: "a", text: "Est-ce que vous habitez à Lyon ?" },
+                    { id: "b", text: "Vous est-ce que habitez à Lyon ?" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Est-ce que vous habitez à Lyon ?",
+                    explanation: "« Est-ce que » se place en tête de phrase.",
+                  },
+                },
+              },
+              {
+                id: "sp-i2",
+                type: "reponse_courte",
+                skillId: "voc-identite",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel verbe utiliser pour dire qu'on arrive dans un nouveau logement : « ___ » ?",
+                acceptedAnswers: ["emménager", "emmenager"],
+                correction: {
+                  correctAnswer: "emménager",
+                  explanation: "« Emménager » = arriver dans un nouveau logement (à ne pas confondre avec « déménager »).",
+                },
+              },
+              {
+                id: "sp-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le message de Léa.",
+                statement: "Léa demande une adresse de boulangerie dans son message.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "Elle pose cette question à la fin de son message.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-habitudes-et-gouts",
+    slug: "habitudes-et-gouts",
+    level: "B1",
+    title: "Parler de ses habitudes et de ses goûts",
+    description: "À la fin de ce module, tu pourras parler de ta routine, de tes loisirs et de ce que tu aimes ou non.",
+    objectives: ["Décrire une habitude", "Exprimer une préférence", "Comparer deux goûts"],
+    domain: "vocabulaire",
+    estimatedMinutes: 20,
+    situation:
+      "Léa et Thomas, ses nouveaux voisins, discutent de leurs habitudes du week-end autour d'un café.",
+    vocabulary: [
+      { term: "une habitude", category: "principal" },
+      { term: "d'habitude", category: "expression" },
+      { term: "souvent", category: "principal" },
+      { term: "rarement", category: "principal" },
+      { term: "jamais", category: "principal" },
+      { term: "toujours", category: "principal" },
+      { term: "un loisir", category: "principal" },
+      { term: "un point commun", category: "principal" },
+      { term: "préférer", category: "verbe" },
+      { term: "aimer mieux", category: "verbe" },
+      { term: "se détendre", category: "verbe" },
+      { term: "sortir", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Les adverbes de fréquence",
+        explanation:
+          "Ils se placent en général juste après le verbe conjugué : Je sors souvent le vendredi. Je ne sors jamais le lundi (« jamais » s'utilise avec « ne »).",
+      },
+      {
+        title: "Comparer avec plus / moins / aussi... que",
+        explanation:
+          "Plus + adjectif + que = supériorité (C'est plus reposant que sortir). Moins + adjectif + que = infériorité (C'est moins amusant que voir des amis). Aussi + adjectif + que = égalité.",
+      },
+    ],
+    examLinks: ["TCF IRN — expression orale, tâche 1"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "habitudes-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "habitudes-comprendre-activite",
+            title: "Lire une conversation entre voisins",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "hab-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez la conversation entre Léa et Thomas, puis répondez.",
+                text:
+                  "Léa — Alors, qu'est-ce que tu fais d'habitude le week-end ?\n" +
+                  "Thomas — Le samedi, je fais toujours du sport le matin, en général du vélo. Et toi ?\n" +
+                  "Léa — Moi, je préfère rester à la maison et lire. Je sors rarement le samedi.\n" +
+                  "Thomas — Ah, on est différents alors ! Et le dimanche ?\n" +
+                  "Léa — Le dimanche, j'aime bien cuisiner. C'est plus reposant que sortir, pour moi.\n" +
+                  "Thomas — Moi c'est l'inverse : je trouve que rester à la maison toute la journée, c'est moins amusant que voir des amis.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "hab-e-q1",
+                    prompt: "Que fait Thomas le samedi matin, en général ?",
+                    choices: [
+                      { id: "a", text: "Il lit." },
+                      { id: "b", text: "Il fait du vélo." },
+                      { id: "c", text: "Il reste à la maison." },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Il fait du vélo.",
+                      explanation: "Il dit qu'il fait toujours du sport, en général du vélo.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "hab-e-q2",
+                    prompt: "Vrai ou faux : Léa sort souvent le samedi.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle dit qu'elle sort rarement le samedi.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "hab-e-q3",
+                    prompt: "Qu'aime faire Léa le dimanche ?",
+                    expectedAnswer: "Cuisiner.",
+                    correction: {
+                      correctAnswer: "Cuisiner.",
+                      explanation: "Elle le dit directement : « j'aime bien cuisiner ».",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "hab-e-q4",
+                    prompt: "Pour Thomas, rester à la maison toute la journée est...",
+                    choices: [
+                      { id: "a", text: "plus amusant que voir des amis." },
+                      { id: "b", text: "moins amusant que voir des amis." },
+                      { id: "c", text: "aussi amusant que voir des amis." },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "moins amusant que voir des amis.",
+                      explanation: "Il utilise « moins... que » pour comparer.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "habitudes-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "habitudes-entrainement-activite",
+            title: "Fréquence et comparaisons",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "hab-g1",
+                type: "qcm",
+                skillId: "gr-comparatifs",
+                difficulty: "B1",
+                instructions: "Choisis le bon comparatif.",
+                question: {
+                  kind: "qcm",
+                  id: "hab-g1-q",
+                  prompt: "« Pour moi, cuisiner est ___ reposant ___ sortir. »",
+                  choices: [
+                    { id: "a", text: "plus ... que" },
+                    { id: "b", text: "moins ... de" },
+                    { id: "c", text: "aussi ... de" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "plus ... que",
+                    explanation: "On dit « plus + adjectif + que ».",
+                  },
+                },
+              },
+              {
+                id: "hab-g2",
+                type: "texte_a_trous",
+                skillId: "voc-loisirs-gouts",
+                difficulty: "B1",
+                instructions: "Complète avec un adverbe de fréquence logique, d'après la conversation.",
+                textWithBlanks:
+                  "Le samedi, Thomas fait {{1}} du sport : c'est une habitude pour lui. Léa, elle, sort {{2}} " +
+                  "le samedi, elle préfère rester chez elle.",
+                blanks: [
+                  { id: "1", answer: "toujours" },
+                  { id: "2", answer: "rarement" },
+                ],
+                correction: {
+                  correctAnswer: "toujours — rarement",
+                  explanation:
+                    "La conversation dit que Thomas fait « toujours » du sport le samedi, et que Léa sort « rarement » ce jour-là.",
+                },
+              },
+              {
+                id: "hab-g3",
+                type: "association",
+                skillId: "voc-loisirs-gouts",
+                difficulty: "B1",
+                instructions: "Associe chaque activité à son moment, d'après la conversation.",
+                pairs: [
+                  { id: "1", left: "Faire du vélo", right: "Le samedi matin (Thomas)" },
+                  { id: "2", left: "Lire à la maison", right: "Le samedi (Léa)" },
+                  { id: "3", left: "Cuisiner", right: "Le dimanche (Léa)" },
+                ],
+                correction: {
+                  correctAnswer: "vélo → samedi matin ; lire → samedi (Léa) ; cuisiner → dimanche (Léa).",
+                  explanation: "Chaque personnage associe une activité précise à un moment du week-end.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "habitudes-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "habitudes-ecriture-activite",
+            title: "Décrire son week-end",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "hab-h",
+                type: "production_ecrite",
+                skillId: "pe-decrire-quotidien",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Décrivez votre week-end typique en 4 à 6 phrases. Utilisez au moins un adverbe de fréquence " +
+                  "(souvent, rarement...) et un comparatif (plus/moins/aussi... que).",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Au moins un adverbe de fréquence utilisé (/2)",
+                  "Au moins un comparatif utilisé (/2)",
+                  "Deux activités ou habitudes différentes décrites (/2)",
+                  "Phrases correctement construites (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "habitudes-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "habitudes-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "hab-i1",
+                type: "qcm",
+                skillId: "gr-comparatifs",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "hab-i1-q",
+                  prompt:
+                    "« Le samedi, Thomas sort ___ souvent ___ Léa. » (Thomas sort très souvent, Léa très rarement)",
+                  choices: [
+                    { id: "a", text: "plus ... que" },
+                    { id: "b", text: "aussi ... que" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "plus ... que",
+                    explanation: "« Plus... que » exprime une différence claire entre les deux fréquences.",
+                  },
+                },
+              },
+              {
+                id: "hab-i2",
+                type: "reponse_courte",
+                skillId: "voc-loisirs-gouts",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel est le contraire de « souvent » ?",
+                acceptedAnswers: ["rarement", "jamais"],
+                correction: {
+                  correctAnswer: "rarement (ou jamais)",
+                  explanation: "« Rarement » et « jamais » expriment une fréquence basse ou nulle, à l'opposé de « souvent ».",
+                },
+              },
+              {
+                id: "hab-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après la conversation.",
+                statement: "Léa et Thomas ont exactement les mêmes habitudes du week-end.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Thomas est plutôt sportif et sociable, Léa préfère rester à la maison : ils sont différents.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-chercher-un-logement",
+    slug: "chercher-un-logement",
+    level: "B1",
+    title: "Chercher un logement",
+    description: "À la fin de ce module, tu pourras lire une annonce immobilière et poser les bonnes questions avant de visiter.",
+    objectives: ["Comprendre une annonce de logement", "Identifier les informations essentielles", "Poser des questions sur un logement"],
+    domain: "comprehension_ecrite",
+    estimatedMinutes: 20,
+    situation: "Sophie cherche un studio à louer près de son travail. Elle trouve une annonce en ligne.",
+    vocabulary: [
+      { term: "une annonce", category: "principal" },
+      { term: "louer", category: "verbe" },
+      { term: "un loyer", category: "principal" },
+      { term: "les charges", category: "principal" },
+      { term: "« charges comprises »", category: "expression" },
+      { term: "un studio", category: "principal" },
+      { term: "meublé", category: "principal" },
+      { term: "disponible", category: "principal" },
+      { term: "une caution", category: "principal" },
+      { term: "un propriétaire / une propriétaire", category: "principal" },
+      { term: "visiter", category: "verbe" },
+      { term: "lumineux", category: "principal" },
+    ],
+    languagePoints: [
+      {
+        title: "Comprendre une annonce immobilière",
+        explanation:
+          "Une annonce donne les informations essentielles dans un ordre logique : type de logement, surface, prix, disponibilité, contact. Repérer les chiffres (m², €, étage) aide à comprendre rapidement.",
+      },
+      {
+        title: "Poser une question polie à un propriétaire",
+        explanation:
+          "Pour demander une information par écrit, on peut utiliser : « Est-ce que... ? », « Est-il possible de... ? » ou « Pourriez-vous me dire... ? » (plus formel).",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension des écrits"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "logement-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "logement-comprendre-activite",
+            title: "Lire une annonce de location",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "log-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez l'annonce, puis répondez aux questions.",
+                text:
+                  "À LOUER — Studio meublé, quartier Part-Dieu (Lyon)\n" +
+                  "Studio de 22 m², lumineux, au 4ème étage sans ascenseur. Cuisine équipée, salle de bain avec " +
+                  "douche. Loyer : 550 € charges comprises. Caution demandée : un mois de loyer. Disponible à " +
+                  "partir du 1er septembre. Proche des transports : métro à 5 minutes à pied. Animaux non " +
+                  "acceptés. Pour une visite, contactez l'agence Bellevue au 04 78 XX XX XX.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "log-e-q1",
+                    prompt: "Quelle est la surface du studio ?",
+                    choices: [
+                      { id: "a", text: "12 m²" },
+                      { id: "b", text: "22 m²" },
+                      { id: "c", text: "42 m²" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "22 m²",
+                      explanation: "L'annonce précise « Studio de 22 m² ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "log-e-q2",
+                    prompt: "Vrai ou faux : le loyer ne comprend pas les charges.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "L'annonce précise « 550 € charges comprises ».",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "log-e-q3",
+                    prompt: "À partir de quelle date le studio est-il disponible ?",
+                    expectedAnswer: "À partir du 1er septembre.",
+                    correction: {
+                      correctAnswer: "À partir du 1er septembre.",
+                      explanation: "C'est indiqué juste après le montant de la caution.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "log-e-q4",
+                    prompt: "Combien de temps faut-il pour aller au métro à pied ?",
+                    choices: [
+                      { id: "a", text: "5 minutes" },
+                      { id: "b", text: "15 minutes" },
+                      { id: "c", text: "L'annonce ne le dit pas." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "5 minutes",
+                      explanation: "L'annonce précise « métro à 5 minutes à pied ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "log-e-q5",
+                    prompt: "Vrai ou faux : les animaux sont acceptés dans ce studio.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "L'annonce précise « Animaux non acceptés ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "logement-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "logement-entrainement-activite",
+            title: "Vocabulaire du logement",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "log-g1",
+                type: "qcm",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Choisis le bon mot.",
+                question: {
+                  kind: "qcm",
+                  id: "log-g1-q",
+                  prompt: "La somme d'argent versée en garantie avant d'emménager s'appelle...",
+                  choices: [
+                    { id: "a", text: "le loyer" },
+                    { id: "b", text: "la caution" },
+                    { id: "c", text: "les charges" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "la caution",
+                    explanation: "La caution est rendue au locataire s'il n'y a pas de dégâts.",
+                  },
+                },
+              },
+              {
+                id: "log-g2",
+                type: "texte_a_trous",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Complète l'annonce avec le mot qui convient.",
+                textWithBlanks:
+                  "Studio {{1}} (avec des meubles), {{2}} à partir du 1er octobre. {{3}} : 500 € par mois, " +
+                  "charges non comprises.",
+                blanks: [
+                  { id: "1", answer: "meublé" },
+                  { id: "2", answer: "disponible" },
+                  { id: "3", answer: "Loyer" },
+                ],
+                correction: {
+                  correctAnswer: "meublé — disponible — Loyer",
+                  explanation: "Ce sont des mots-clés typiques d'une annonce de location.",
+                },
+              },
+              {
+                id: "log-g3",
+                type: "association",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "un studio", right: "un petit appartement avec une seule pièce principale" },
+                  { id: "2", left: "la caution", right: "une somme versée en garantie, rendue plus tard" },
+                  { id: "3", left: "les charges", right: "les frais en plus du loyer (eau, entretien...)" },
+                ],
+                correction: {
+                  correctAnswer: "studio → petit appartement ; caution → somme rendue ; charges → frais en plus.",
+                  explanation: "Ces trois mots reviennent dans presque toutes les annonces de logement.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "logement-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "logement-ecriture-activite",
+            title: "Poser une question au propriétaire",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "log-h",
+                type: "reponse_courte",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Réponds avec une phrase complète.",
+                question:
+                  "Vous voulez visiter le studio de l'annonce. Écrivez une question polie à poser au propriétaire " +
+                  "pour demander si l'eau et l'électricité sont vraiment comprises dans le loyer.",
+                acceptedAnswers: [],
+                correction: {
+                  correctAnswer:
+                    "Par exemple : « Est-ce que l'eau et l'électricité sont vraiment comprises dans les charges ? »",
+                  explanation: "Une question polie et précise permet d'obtenir une information utile avant de s'engager.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "logement-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "logement-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "log-i1",
+                type: "qcm",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "log-i1-q",
+                  prompt: "Quel mot désigne les frais d'eau, d'électricité ou d'entretien, en plus du loyer ?",
+                  choices: [
+                    { id: "a", text: "la caution" },
+                    { id: "b", text: "les charges" },
+                    { id: "c", text: "l'annonce" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "les charges",
+                    explanation: "Les charges sont les frais supplémentaires, parfois « comprises » dans le loyer.",
+                  },
+                },
+              },
+              {
+                id: "log-i2",
+                type: "reponse_courte",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel est le contraire de « meublé » ?",
+                acceptedAnswers: ["non meublé", "vide", "non-meublé"],
+                correction: {
+                  correctAnswer: "non meublé (ou vide)",
+                  explanation: "Un logement « non meublé » n'a pas de meubles fournis par le propriétaire.",
+                },
+              },
+              {
+                id: "log-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'annonce du studio Part-Dieu.",
+                statement: "Ce studio a un ascenseur.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "L'annonce précise « au 4ème étage sans ascenseur ».",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-faire-des-achats",
+    slug: "faire-des-achats",
+    level: "B1",
+    title: "Faire des achats et comparer",
+    description: "À la fin de ce module, tu pourras comparer des produits, demander de l'aide et signaler un problème lors d'un achat.",
+    objectives: ["Comparer deux produits", "Demander un renseignement en magasin", "Faire une réclamation simple"],
+    domain: "vocabulaire",
+    estimatedMinutes: 20,
+    situation: "Julien hésite entre deux ordinateurs portables dans un magasin et demande conseil à une vendeuse.",
+    vocabulary: [
+      { term: "un vendeur / une vendeuse", category: "principal" },
+      { term: "un rayon", category: "principal" },
+      { term: "« en solde »", category: "expression" },
+      { term: "le prix", category: "principal" },
+      { term: "la qualité", category: "principal" },
+      { term: "la garantie", category: "principal" },
+      { term: "échanger", category: "verbe" },
+      { term: "rembourser", category: "verbe" },
+      { term: "un reçu", category: "principal" },
+      { term: "un défaut", category: "principal" },
+      { term: "se renseigner", category: "verbe" },
+      { term: "comparer", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Comparer deux produits",
+        explanation:
+          "Plus cher / moins cher / aussi cher que ; plus léger, plus puissant... que. On peut aussi dire : « Celui-ci coûte plus que celui-là » sans répéter l'adjectif.",
+      },
+      {
+        title: "Expliquer un problème avec un achat",
+        explanation:
+          "Pour signaler un défaut, on peut dire : « Ce produit a un défaut. », « Il ne fonctionne pas. », « Je voudrais l'échanger ou me faire rembourser. »",
+      },
+    ],
+    examLinks: ["TCF IRN — expression orale, tâche 2"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "achats-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "achats-comprendre-activite",
+            title: "Lire un échange chez le vendeur",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "ach-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez l'échange entre Julien et la vendeuse, puis répondez.",
+                text:
+                  "Julien — Bonjour, je cherche un ordinateur portable, mais j'hésite entre deux modèles.\n" +
+                  "Vendeuse — Bien sûr ! Celui-ci coûte 599 €, il est plus léger, mais la garantie n'est que d'un an.\n" +
+                  "Julien — Et l'autre ?\n" +
+                  "Vendeuse — Il coûte un peu plus cher, 699 €, mais il est plus puissant et la garantie dure deux ans.\n" +
+                  "Julien — D'accord... Et si j'ai un problème après l'achat, je peux le rapporter ?\n" +
+                  "Vendeuse — Oui, vous avez 15 jours pour l'échanger ou vous faire rembourser, avec le reçu.\n" +
+                  "Julien — Parfait, je vais réfléchir un peu. Merci beaucoup !",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "ach-e-q1",
+                    prompt: "Combien coûte le premier ordinateur ?",
+                    choices: [
+                      { id: "a", text: "599 €" },
+                      { id: "b", text: "699 €" },
+                      { id: "c", text: "550 €" },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "599 €",
+                      explanation: "La vendeuse annonce ce prix pour le premier modèle.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "ach-e-q2",
+                    prompt: "Vrai ou faux : le deuxième ordinateur est moins cher que le premier.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Il coûte 699 €, donc plus cher que le premier (599 €).",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "ach-e-q3",
+                    prompt: "Combien de temps dure la garantie du deuxième ordinateur ?",
+                    expectedAnswer: "Deux ans.",
+                    correction: {
+                      correctAnswer: "Deux ans.",
+                      explanation: "La vendeuse le précise directement.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "ach-e-q4",
+                    prompt: "Combien de jours Julien a-t-il pour échanger un produit ?",
+                    choices: [
+                      { id: "a", text: "7 jours" },
+                      { id: "b", text: "15 jours" },
+                      { id: "c", text: "30 jours" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "15 jours",
+                      explanation: "La vendeuse indique « 15 jours ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "achats-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "achats-entrainement-activite",
+            title: "Comparer et parler d'un problème",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "ach-g1",
+                type: "qcm",
+                skillId: "gr-comparatifs",
+                difficulty: "B1",
+                instructions: "Choisis la bonne comparaison.",
+                question: {
+                  kind: "qcm",
+                  id: "ach-g1-q",
+                  prompt:
+                    "Le premier ordinateur coûte 599 €, le deuxième coûte 699 €. Donc le premier est...",
+                  choices: [
+                    { id: "a", text: "plus cher que le deuxième." },
+                    { id: "b", text: "moins cher que le deuxième." },
+                    { id: "c", text: "aussi cher que le deuxième." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "moins cher que le deuxième.",
+                    explanation: "599 € est inférieur à 699 €, donc « moins cher que ».",
+                  },
+                },
+              },
+              {
+                id: "ach-g2",
+                type: "texte_a_trous",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Complète avec le mot qui convient.",
+                textWithBlanks:
+                  "Si le produit a un {{1}}, vous pouvez l'{{2}} contre un autre, ou demander à être {{3}}, avec le reçu.",
+                blanks: [
+                  { id: "1", answer: "défaut" },
+                  { id: "2", answer: "échanger" },
+                  { id: "3", answer: "remboursé" },
+                ],
+                correction: {
+                  correctAnswer: "défaut — échanger — remboursé",
+                  explanation: "Ce sont les trois mots-clés pour gérer un problème avec un achat.",
+                },
+              },
+              {
+                id: "ach-g3",
+                type: "association",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "la garantie", right: "la période où le vendeur répare ou remplace gratuitement" },
+                  { id: "2", left: "un reçu", right: "le document qui prouve l'achat" },
+                  { id: "3", left: "en solde", right: "vendu moins cher pendant une période limitée" },
+                ],
+                correction: {
+                  correctAnswer: "garantie → réparation gratuite ; reçu → preuve d'achat ; en solde → vendu moins cher.",
+                  explanation: "Ces mots reviennent souvent dans un magasin.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "achats-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "achats-ecriture-activite",
+            title: "Faire une réclamation",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "ach-h",
+                type: "reponse_courte",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Réponds avec une phrase complète.",
+                question:
+                  "Vous avez acheté un ordinateur, mais il ne fonctionne pas bien après une semaine. Écrivez une " +
+                  "phrase pour expliquer le problème au vendeur et demander une solution.",
+                acceptedAnswers: [],
+                correction: {
+                  correctAnswer:
+                    "Par exemple : « Bonjour, mon ordinateur a un défaut : il s'éteint tout seul. Je voudrais l'échanger ou être remboursé. »",
+                  explanation: "Une bonne réclamation décrit le problème précisément et propose une solution.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "achats-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "achats-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "ach-i1",
+                type: "qcm",
+                skillId: "gr-comparatifs",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "ach-i1-q",
+                  prompt:
+                    "« Ce modèle est ___ puissant ___ l'autre, mais il coûte le même prix. » (= un niveau équivalent)",
+                  choices: [
+                    { id: "a", text: "aussi ... que" },
+                    { id: "b", text: "plus ... que" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "aussi ... que",
+                    explanation: "« Aussi + adjectif + que » exprime une égalité.",
+                  },
+                },
+              },
+              {
+                id: "ach-i2",
+                type: "reponse_courte",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel document faut-il garder pour pouvoir échanger un produit ?",
+                acceptedAnswers: ["le reçu", "un reçu", "reçu"],
+                correction: {
+                  correctAnswer: "le reçu",
+                  explanation: "Le reçu prouve la date et le lieu de l'achat.",
+                },
+              },
+              {
+                id: "ach-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'échange chez le vendeur.",
+                statement: "Julien achète immédiatement un des deux ordinateurs.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Il dit qu'il va « réfléchir un peu » avant de se décider.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getModuleBySlug(slug: string): Module | undefined {
