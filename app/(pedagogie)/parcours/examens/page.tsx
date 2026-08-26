@@ -4,11 +4,13 @@ import ExamCard from "@/components/pedagogy/ExamCard";
 import { EXAMS } from "@/lib/pedagogy/data/exams";
 import { getStageBySlug } from "@/lib/pedagogy/data/parcours-stages";
 import { canAccess } from "@/lib/commerce/access";
+import { getCurrentUser } from "@/lib/auth/dal";
 
 export const metadata = { title: "Préparation examen — ParcoursFR" };
 
-export default function ExamensPage() {
+export default async function ExamensPage() {
   const stage = getStageBySlug("preparation-examen");
+  const user = await getCurrentUser();
 
   return (
     <div className="space-y-6">
@@ -33,7 +35,7 @@ export default function ExamensPage() {
                 key={exam.id}
                 exam={exam}
                 href={`/parcours/examens/${exam.slug}`}
-                locked={!canAccess({ kind: "exam", slug: exam.slug })}
+                locked={!canAccess({ kind: "exam", slug: exam.slug }, user?.premiumUntil)}
               />
             ))}
           </div>

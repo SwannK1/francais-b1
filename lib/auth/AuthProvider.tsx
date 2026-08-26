@@ -5,6 +5,8 @@ import { createContext, useCallback, useContext, useMemo, useState, type ReactNo
 export interface SessionUser {
   id: string;
   email: string;
+  /** Voir `AuthUser.premiumUntil` (lib/auth/users.ts) — même contrat, exposé côté client. */
+  premiumUntil: string | null;
 }
 
 interface AuthContextValue {

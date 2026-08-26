@@ -8,11 +8,15 @@ import { CheckIcon } from "@/components/ui/icons";
 import CheckoutButton from "@/components/commerce/CheckoutButton";
 import { MAIN_PLAN, FREE_PLAN_FEATURES } from "@/lib/commerce/plans";
 import { isPaymentConfigured } from "@/lib/commerce/stripe";
+import { isPremiumActive } from "@/lib/commerce/access";
+import { getCurrentUser } from "@/lib/auth/dal";
 
 export const metadata: Metadata = { title: "Offre — ParcoursFR" };
 
-export default function OffrePage() {
+export default async function OffrePage() {
   const paymentReady = isPaymentConfigured();
+  const user = await getCurrentUser();
+  const alreadyPremium = isPremiumActive(user?.premiumUntil);
 
   return (
     <>
@@ -65,7 +69,14 @@ export default function OffrePage() {
                 ))}
               </ul>
 
-              {paymentReady ? (
+              {alreadyPremium ? (
+                <p className="mt-8 rounded-lg bg-success/10 p-3 text-sm font-medium text-success">
+                  Tu as déjà l&apos;accès complet
+                  {user?.premiumUntil
+                    ? ` — actif jusqu'au ${new Date(user.premiumUntil).toLocaleDateString("fr-FR")}.`
+                    : "."}
+                </p>
+              ) : paymentReady ? (
                 <CheckoutButton label={MAIN_PLAN.ctaLabel} className="mt-8 w-full" />
               ) : (
                 <p className="mt-8 rounded-lg bg-muted p-3 text-sm text-muted-foreground">

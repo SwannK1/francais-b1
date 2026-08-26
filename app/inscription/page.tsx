@@ -10,7 +10,10 @@ export const metadata: Metadata = {
   title: "Créer un compte — ParcoursFR",
 };
 
-export default function InscriptionPage() {
+export default async function InscriptionPage({ searchParams }: PageProps<"/inscription">) {
+  const { next } = await searchParams;
+  const nextHref = typeof next === "string" && next.startsWith("/") ? next : undefined;
+
   return (
     <>
       <Header />
@@ -22,11 +25,14 @@ export default function InscriptionPage() {
             votre nouveau compte.
           </p>
           <Card className="mt-6">
-            <SignupForm />
+            <SignupForm next={nextHref} />
           </Card>
           <p className="mt-4 text-sm text-muted-foreground">
             Déjà un compte ?{" "}
-            <Link href="/connexion" className="font-medium text-primary hover:underline">
+            <Link
+              href={nextHref ? `/connexion?next=${encodeURIComponent(nextHref)}` : "/connexion"}
+              className="font-medium text-primary hover:underline"
+            >
               Se connecter
             </Link>
           </p>

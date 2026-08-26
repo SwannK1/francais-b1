@@ -10,7 +10,7 @@ import {
   startExamAttempt,
 } from "@/lib/pedagogy/logic/exam";
 import { useAuth } from "@/lib/auth/AuthProvider";
-import type { DelfSection, Exam, Exercise, Module, UserProgress } from "@/lib/pedagogy/types";
+import type { CEFRLevel, DelfSection, Exam, Exercise, Module, UserProgress } from "@/lib/pedagogy/types";
 
 /**
  * État applicatif du "compte" apprenant. localStorage reste la source de
@@ -142,8 +142,19 @@ export function useProgress() {
     writeProgress(recordExerciseResult(parseProgress(readRaw()), mod, exercise, correct));
   }, []);
 
-  const markPlacementCompleted = useCallback(() => {
-    writeProgress({ ...parseProgress(readRaw()), placementCompletedAt: new Date().toISOString() });
+  /**
+   * `level` vient du résultat du test de positionnement (voir
+   * `app/(pedagogie)/test-niveau/page.tsx`) : sans ce paramètre, le niveau
+   * affiché ailleurs dans l'app (badge, parcours) restait celui du seed de
+   * démo (B1) quel que soit le résultat réel du test — incohérence relevée
+   * par le chantier UX, corrigée à l'intégration.
+   */
+  const markPlacementCompleted = useCallback((level: CEFRLevel) => {
+    writeProgress({
+      ...parseProgress(readRaw()),
+      level,
+      placementCompletedAt: new Date().toISOString(),
+    });
   }, []);
 
   const startExam = useCallback((exam: Exam) => {

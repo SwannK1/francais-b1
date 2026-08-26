@@ -28,7 +28,9 @@ function openDatabase(): DatabaseSync {
       id TEXT PRIMARY KEY,
       email TEXT NOT NULL UNIQUE,
       password_hash TEXT NOT NULL,
-      created_at TEXT NOT NULL
+      created_at TEXT NOT NULL,
+      premium_until TEXT,
+      stripe_customer_id TEXT
     );
 
     CREATE TABLE IF NOT EXISTS sessions (
@@ -44,6 +46,17 @@ function openDatabase(): DatabaseSync {
       updated_at TEXT NOT NULL
     );
   `);
+  // `premium_until`/`stripe_customer_id` sont arrivés après la première
+  // version du schéma (chantier commerce) : sur une base déjà existante,
+  // `CREATE TABLE IF NOT EXISTS` ne les ajoute pas — on complète ici,
+  // silencieusement si elles existent déjà.
+  for (const column of ["premium_until", "stripe_customer_id"]) {
+    try {
+      database.exec(`ALTER TABLE users ADD COLUMN ${column} TEXT`);
+    } catch {
+      // colonne déjà présente
+    }
+  }
   return database;
 }
 

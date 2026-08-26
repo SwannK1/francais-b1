@@ -8,7 +8,7 @@ import { buttonClasses } from "@/components/ui/button-styles";
 
 const initialState: AuthFormState = {};
 
-export default function SignupForm() {
+export default function SignupForm({ next = "/parcours" }: { next?: string }) {
   const [state, action, pending] = useActionState(signup, initialState);
   const { refresh } = useAuth();
   const router = useRouter();
@@ -16,10 +16,10 @@ export default function SignupForm() {
   useEffect(() => {
     if (!state.success) return;
     void refresh().then(() => {
-      router.push("/parcours");
+      router.push(next);
       router.refresh();
     });
-  }, [state.success, refresh, router]);
+  }, [state.success, refresh, router, next]);
 
   return (
     <form action={action} className="space-y-4">

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getExamBySlug } from "@/lib/pedagogy/data/exams";
 import { canAccess } from "@/lib/commerce/access";
+import { getCurrentUser } from "@/lib/auth/dal";
 import PremiumLock from "@/components/commerce/PremiumLock";
 import ExamExperience from "./ExamExperience";
 
@@ -12,7 +13,9 @@ export default async function ExamPage({ params }: PageProps<"/parcours/examens/
     notFound();
   }
 
-  if (!canAccess({ kind: "exam", slug: exam.slug })) {
+  const user = await getCurrentUser();
+
+  if (!canAccess({ kind: "exam", slug: exam.slug }, user?.premiumUntil)) {
     return (
       <PremiumLock title={exam.title} backHref="/parcours/examens" backLabel="← Retour aux examens" />
     );

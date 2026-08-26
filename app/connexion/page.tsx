@@ -10,7 +10,10 @@ export const metadata: Metadata = {
   title: "Se connecter — ParcoursFR",
 };
 
-export default function ConnexionPage() {
+export default async function ConnexionPage({ searchParams }: PageProps<"/connexion">) {
+  const { next } = await searchParams;
+  const nextHref = typeof next === "string" && next.startsWith("/") ? next : undefined;
+
   return (
     <>
       <Header />
@@ -21,11 +24,14 @@ export default function ConnexionPage() {
             Retrouvez votre progression sauvegardée sur tous vos appareils.
           </p>
           <Card className="mt-6">
-            <LoginForm />
+            <LoginForm next={nextHref} />
           </Card>
           <p className="mt-4 text-sm text-muted-foreground">
             Pas encore de compte ?{" "}
-            <Link href="/inscription" className="font-medium text-primary hover:underline">
+            <Link
+              href={nextHref ? `/inscription?next=${encodeURIComponent(nextHref)}` : "/inscription"}
+              className="font-medium text-primary hover:underline"
+            >
               Créer un compte
             </Link>
           </p>

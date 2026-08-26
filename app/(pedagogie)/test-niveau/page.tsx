@@ -32,7 +32,8 @@ export default function TestNiveauPage() {
 
   function goNext() {
     if (isLastQuestion) {
-      markPlacementCompleted();
+      const result = computePlacementResult(PLACEMENT_QUESTIONS, answers);
+      markPlacementCompleted(result.estimatedLevel);
       setFinished(true);
     } else {
       setStep((s) => s + 1);

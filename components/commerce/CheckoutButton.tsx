@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { buttonClasses, type ButtonSize, type ButtonVariant } from "@/components/ui/button-styles";
 import { cn } from "@/lib/cn";
 
@@ -16,11 +17,21 @@ export default function CheckoutButton({
   className?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const router = useRouter();
 
   async function startCheckout() {
     setStatus("loading");
     try {
       const response = await fetch("/api/checkout", { method: "POST" });
+
+      // Le checkout exige un compte (voir app/api/checkout/route.ts) : sans
+      // session, on envoie vers la connexion plutôt que d'afficher une
+      // erreur générique — /offre reprend le fil juste après.
+      if (response.status === 401) {
+        router.push("/connexion?next=/offre");
+        return;
+      }
+
       const data: { url?: string; error?: string } = await response.json();
 
       if (!response.ok || !data.url) {
