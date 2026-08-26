@@ -13,9 +13,9 @@ export const EXAMS: Exam[] = [
     level: "B1",
     description:
       "Épreuve fictive inspirée du format DELF B1, avec un contenu entièrement original, à but d'entraînement.",
-    durationMinutes: 45,
-    maxScore: 100,
-    passingScore: 50,
+    durationMinutes: 47,
+    maxScore: 125,
+    passingScore: 63,
     isBlanc: false,
     sections: [
       {
@@ -115,6 +115,36 @@ export const EXAMS: Exam[] = [
               "Une orthographe et une grammaire correctes",
             ],
             aiCorrectionAvailable: false,
+          },
+        ],
+      },
+      {
+        id: "exam-b1-po",
+        title: "Production orale",
+        domain: "production_ecrite",
+        durationMinutes: 2,
+        maxScore: 25,
+        exercises: [
+          {
+            id: "exam-b1-po-1",
+            type: "production_orale",
+            skillId: "pe-exprimer-avis",
+            difficulty: "B1",
+            instructions: "Préparez-vous, puis enregistrez-vous.",
+            consigne:
+              "Certaines villes limitent la circulation des voitures en centre-ville. Donnez votre opinion sur cette mesure et justifiez-la, pendant environ 1 à 2 minutes.",
+            prepSeconds: 120,
+            maxSpeakSeconds: 120,
+            selfAssessmentCriteria: [
+              "J'ai répondu clairement à la consigne.",
+              "Mon discours est compréhensible d'un bout à l'autre.",
+              "J'ai donné une opinion claire.",
+              "J'ai justifié mon opinion avec au moins un argument.",
+              "J'ai relié mes idées avec des connecteurs (par exemple, cependant, donc...).",
+              "J'ai utilisé un vocabulaire adapté au sujet.",
+            ],
+            tips:
+              "Pas de mauvaise réponse : l'objectif est de parler 1 à 2 minutes de façon compréhensible et organisée, pas de convaincre.",
           },
         ],
       },

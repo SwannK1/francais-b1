@@ -137,3 +137,13 @@ export function TargetIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function MicrophoneIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="9" y="3" width="6" height="11" rx="3" />
+      <path d="M6 11.5a6 6 0 0012 0" />
+      <path d="M12 17.5v3.2M9 20.7h6" />
+    </svg>
+  );
+}

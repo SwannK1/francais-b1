@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 import QuizQuestion from "@/components/pedagogy/QuizQuestion";
 import AudioExercise from "@/components/pedagogy/AudioExercise";
 import WrittenExercise from "@/components/pedagogy/WrittenExercise";
+import SpokenExercise from "@/components/pedagogy/SpokenExercise";
 import type { Correction, Exercise } from "@/lib/pedagogy/types";
 
 function CorrectionPanel({ isCorrect, correction }: { isCorrect: boolean; correction: Correction }) {
@@ -349,6 +350,7 @@ const TYPE_LABEL: Record<Exercise["type"], string> = {
   comprehension_orale: "Compréhension orale",
   reponse_courte: "Réponse courte",
   production_ecrite: "Production écrite",
+  production_orale: "Production orale",
 };
 
 export default function ExerciseCard({
@@ -397,6 +399,10 @@ export default function ExerciseCard({
 
       {(exercise.type === "reponse_courte" || exercise.type === "production_ecrite") ? (
         <WrittenExercise exercise={exercise} onExerciseAnswered={onCompleted} />
+      ) : null}
+
+      {exercise.type === "production_orale" ? (
+        <SpokenExercise exercise={exercise} onExerciseAnswered={onCompleted} />
       ) : null}
     </Card>
   );

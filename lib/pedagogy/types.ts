@@ -80,7 +80,8 @@ export type ExerciseType =
   | "comprehension_ecrite"
   | "comprehension_orale"
   | "reponse_courte"
-  | "production_ecrite";
+  | "production_ecrite"
+  | "production_orale";
 
 interface ExerciseBase {
   id: string;
@@ -154,6 +155,23 @@ export interface ProductionEcriteExercise extends ExerciseBase {
   aiCorrectionAvailable: boolean;
 }
 
+/**
+ * Aucune correction automatique de la prononciation/de l'oral n'existe (ni
+ * ici, ni prévue) : après l'enregistrement, l'apprenant s'auto-évalue via
+ * `selfAssessmentCriteria`, jamais noté comme une correction officielle.
+ */
+export interface ProductionOraleExercise extends ExerciseBase {
+  type: "production_orale";
+  consigne: string;
+  /** Document ou mise en situation déclenchant la prise de parole, si besoin. */
+  context?: string;
+  prepSeconds: number;
+  /** Durée de parole conseillée (indicative, n'interrompt pas l'enregistrement). */
+  maxSpeakSeconds?: number;
+  selfAssessmentCriteria: string[];
+  tips?: string;
+}
+
 export type Exercise =
   | QcmExercise
   | VraiFauxExercise
@@ -163,7 +181,8 @@ export type Exercise =
   | ComprehensionEcriteExercise
   | ComprehensionOraleExercise
   | ReponseCourteExercise
-  | ProductionEcriteExercise;
+  | ProductionEcriteExercise
+  | ProductionOraleExercise;
 
 /** Regroupement d'exercices autour d'un même contenu pédagogique. */
 export interface Activity {
