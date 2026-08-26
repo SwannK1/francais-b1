@@ -8,10 +8,11 @@ export default function Hero() {
       <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Apprends le français jusqu&apos;au niveau dont tu as besoin.
+            La formation complète pour atteindre le niveau B1 et réussir le DELF B1.
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            Teste ton niveau, suis ton parcours et prépare ton examen à ton rythme.
+            Un test de niveau, un parcours de modules guidés, des audios et des exercices corrigés,
+            puis des examens blancs pour t&apos;entraîner dans les conditions du DELF B1.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href="/test-niveau" size="lg">

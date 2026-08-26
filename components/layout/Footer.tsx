@@ -7,7 +7,8 @@ const columns = [
     links: [
       { href: "#apprentissage", label: "Apprendre" },
       { href: "#examens", label: "Examens" },
-      { href: "#tarifs", label: "Tarifs" },
+      { href: "/offre", label: "Offre" },
+      { href: "/faq", label: "FAQ" },
     ],
   },
   {
@@ -20,8 +21,9 @@ const columns = [
   {
     title: "Légal",
     links: [
-      { href: "#", label: "Mentions légales" },
-      { href: "#", label: "Confidentialité" },
+      { href: "/mentions-legales", label: "Mentions légales" },
+      { href: "/confidentialite", label: "Confidentialité" },
+      { href: "/cgv", label: "CGV" },
     ],
   },
 ];

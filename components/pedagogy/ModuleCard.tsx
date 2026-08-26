@@ -2,7 +2,7 @@ import Link from "next/link";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
-import { ArrowRightIcon } from "@/components/ui/icons";
+import { ArrowRightIcon, LockIcon } from "@/components/ui/icons";
 import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import type { Module } from "@/lib/pedagogy/types";
 
@@ -25,21 +25,31 @@ export default function ModuleCard({
   number,
   completionRate = 0,
   href,
+  locked = false,
 }: {
   module: Module;
   /** Position du module dans le parcours (1, 2, 3...), affichée si fournie. */
   number?: number;
   completionRate?: number;
   href: string;
+  /** true si ce module fait partie de l'offre complète (voir lib/commerce/access.ts). */
+  locked?: boolean;
 }) {
   const status = getStatus(completionRate);
 
   return (
     <Card>
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-        <Badge variant={status === "termine" ? "success" : status === "en_cours" ? "primary" : "neutral"}>
-          {STATUS_LABELS[status]}
-        </Badge>
+        {locked ? (
+          <Badge variant="secondary">
+            <LockIcon className="h-3 w-3" />
+            Offre complète
+          </Badge>
+        ) : (
+          <Badge variant={status === "termine" ? "success" : status === "en_cours" ? "primary" : "neutral"}>
+            {STATUS_LABELS[status]}
+          </Badge>
+        )}
         <span className="text-xs font-medium text-muted-foreground">
           {mod.level} · {DOMAIN_LABELS[mod.domain]} · {mod.estimatedMinutes} min
         </span>
@@ -60,13 +70,19 @@ export default function ModuleCard({
         ))}
       </ul>
 
-      <ProgressBar value={completionRate} label="Progression" className="mt-4" />
+      {locked ? null : <ProgressBar value={completionRate} label="Progression" className="mt-4" />}
 
       <Link
-        href={href}
+        href={locked ? "/offre" : href}
         className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
       >
-        {status === "en_cours" ? "Continuer" : status === "termine" ? "Revoir" : "Commencer"}
+        {locked
+          ? "Voir l'offre complète"
+          : status === "en_cours"
+            ? "Continuer"
+            : status === "termine"
+              ? "Revoir"
+              : "Commencer"}
         <ArrowRightIcon className="h-4 w-4" />
       </Link>
     </Card>
