@@ -1,5 +1,6 @@
 "use client";
 
+import Card from "@/components/ui/Card";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
 import SkillScore from "@/components/pedagogy/SkillScore";
@@ -20,6 +21,9 @@ export default function ProgressionPage() {
   const dailySessionModule = dailySession ? MODULES.find((m) => m.id === dailySession.moduleId) : undefined;
   const summary = getParcoursSummary(progress, MODULES);
   const isReadyForB1 = summary.completedStages === summary.totalStages;
+  const startedSkills = SKILLS.filter((skill) =>
+    progress.skillProgress.some((sp) => sp.skillId === skill.id && sp.completedExercises > 0)
+  );
 
   return (
     <div className="space-y-8">
@@ -72,15 +76,24 @@ export default function ProgressionPage() {
         <h2 id="skills-title" className="mb-3 text-lg font-semibold text-foreground">
           Progression par compétence
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {SKILLS.map((skill) => (
-            <SkillScore
-              key={skill.id}
-              skill={skill}
-              progress={progress.skillProgress.find((sp) => sp.skillId === skill.id)}
-            />
-          ))}
-        </div>
+        {startedSkills.length > 0 ? (
+          <div className="grid gap-4 sm:grid-cols-2">
+            {startedSkills.map((skill) => (
+              <SkillScore
+                key={skill.id}
+                skill={skill}
+                progress={progress.skillProgress.find((sp) => sp.skillId === skill.id)}
+              />
+            ))}
+          </div>
+        ) : (
+          <Card>
+            <p className="text-sm text-muted-foreground">
+              Vos compétences apparaîtront ici au fil de vos exercices. Terminez votre première leçon
+              pour commencer à suivre votre progression.
+            </p>
+          </Card>
+        )}
       </section>
 
       <section aria-labelledby="modules-title">

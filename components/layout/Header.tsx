@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Container from "@/components/ui/Container";
-import Button from "@/components/ui/Button";
+import PrimaryCta from "@/components/marketing/PrimaryCta";
 import { MenuIcon, XIcon } from "@/components/ui/icons";
 
 const navItems = [
@@ -42,15 +42,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <Link
-            href="#"
-            className="text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
-          >
-            Se connecter
-          </Link>
-          <Button href="/test-niveau" size="md">
-            Commencer gratuitement
-          </Button>
+          <PrimaryCta size="md" />
         </div>
 
         <button
@@ -81,16 +73,7 @@ export default function Header() {
               ))}
             </nav>
             <div className="mt-3 flex flex-col gap-3 border-t border-border pt-4">
-              <Link
-                href="#"
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2 text-center text-sm font-medium text-foreground hover:bg-muted"
-              >
-                Se connecter
-              </Link>
-              <Button href="/test-niveau" onClick={() => setOpen(false)} className="justify-center">
-                Commencer gratuitement
-              </Button>
+              <PrimaryCta onClick={() => setOpen(false)} className="justify-center" />
             </div>
           </Container>
         </div>
