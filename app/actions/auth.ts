@@ -2,6 +2,7 @@
 
 import { createUser, verifyCredentials } from "@/lib/auth/users";
 import { createSession, destroySession } from "@/lib/auth/session";
+import { clearLoginAttempts, isLoginThrottled, recordFailedLoginAttempt } from "@/lib/auth/rate-limit";
 
 export interface AuthFormState {
   error?: string;
@@ -28,7 +29,7 @@ export async function signup(_prevState: AuthFormState, formData: FormData): Pro
   if ("error" in validated) return { error: validated.error };
 
   try {
-    const user = createUser(validated.email, validated.password);
+    const user = await createUser(validated.email, validated.password);
     await createSession(user.id);
     return { success: true };
   } catch (error) {
@@ -43,9 +44,17 @@ export async function login(_prevState: AuthFormState, formData: FormData): Prom
   const validated = validateCredentials(formData.get("email"), formData.get("password"));
   if ("error" in validated) return { error: "Email ou mot de passe incorrect." };
 
-  const user = verifyCredentials(validated.email, validated.password);
-  if (!user) return { error: "Email ou mot de passe incorrect." };
+  if (await isLoginThrottled(validated.email)) {
+    return { error: "Trop de tentatives. Réessayez dans quelques minutes." };
+  }
 
+  const user = await verifyCredentials(validated.email, validated.password);
+  if (!user) {
+    await recordFailedLoginAttempt(validated.email);
+    return { error: "Email ou mot de passe incorrect." };
+  }
+
+  await clearLoginAttempts(validated.email);
   await createSession(user.id);
   return { success: true };
 }

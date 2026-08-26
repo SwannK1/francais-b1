@@ -65,7 +65,7 @@ export async function POST(request: Request) {
       const subscription = await stripe.subscriptions.retrieve(subscriptionId);
       const periodEnd = subscription.items.data[0]?.current_period_end;
       if (periodEnd) {
-        setUserPremium(userId, unixToIso(periodEnd), custId);
+        await setUserPremium(userId, unixToIso(periodEnd), custId);
       }
       break;
     }
@@ -73,15 +73,15 @@ export async function POST(request: Request) {
     case "customer.subscription.updated": {
       const subscription = event.data.object;
       const custId = customerId(subscription.customer);
-      const user = custId ? findUserByStripeCustomerId(custId) : undefined;
+      const user = custId ? await findUserByStripeCustomerId(custId) : undefined;
       if (!user) break;
 
       const isActive = subscription.status === "active" || subscription.status === "trialing";
       const periodEnd = subscription.items.data[0]?.current_period_end;
       if (isActive && periodEnd) {
-        setUserPremium(user.id, unixToIso(periodEnd), custId!);
+        await setUserPremium(user.id, unixToIso(periodEnd), custId!);
       } else if (!isActive) {
-        clearUserPremium(user.id);
+        await clearUserPremium(user.id);
       }
       break;
     }
@@ -89,8 +89,8 @@ export async function POST(request: Request) {
     case "customer.subscription.deleted": {
       const subscription = event.data.object;
       const custId = customerId(subscription.customer);
-      const user = custId ? findUserByStripeCustomerId(custId) : undefined;
-      if (user) clearUserPremium(user.id);
+      const user = custId ? await findUserByStripeCustomerId(custId) : undefined;
+      if (user) await clearUserPremium(user.id);
       break;
     }
 

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/AuthProvider";
-import { getCurrentUser } from "@/lib/auth/dal";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,13 +22,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const user = await getCurrentUser();
-
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${geistSans.variable} antialiased`}>
       <body className="min-h-screen">
-        <AuthProvider initialUser={user}>{children}</AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

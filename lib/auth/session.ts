@@ -1,6 +1,6 @@
 import { randomBytes, createHash } from "node:crypto";
 import { cookies } from "next/headers";
-import { db } from "@/lib/auth/db";
+import { getSql } from "@/lib/auth/db";
 
 const SESSION_COOKIE = "session";
 const SESSION_DAYS = 30;
@@ -20,9 +20,11 @@ export async function createSession(userId: string): Promise<void> {
   const token = randomBytes(32).toString("hex");
   const expiresAt = new Date(Date.now() + SESSION_DAYS * 24 * 60 * 60 * 1000);
 
-  db.prepare(
-    "INSERT INTO sessions (token_hash, user_id, expires_at, created_at) VALUES (?, ?, ?, ?)"
-  ).run(hashToken(token), userId, expiresAt.toISOString(), new Date().toISOString());
+  const sql = getSql();
+  await sql`
+    INSERT INTO sessions (token_hash, user_id, expires_at)
+    VALUES (${hashToken(token)}, ${userId}, ${expiresAt.toISOString()})
+  `;
 
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE, token, {
@@ -39,13 +41,15 @@ export async function getSessionUserId(): Promise<string | null> {
   const token = cookieStore.get(SESSION_COOKIE)?.value;
   if (!token) return null;
 
-  const row = db
-    .prepare("SELECT user_id, expires_at FROM sessions WHERE token_hash = ?")
-    .get(hashToken(token)) as { user_id: string; expires_at: string } | undefined;
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT user_id, expires_at FROM sessions WHERE token_hash = ${hashToken(token)}
+  `) as { user_id: string; expires_at: string }[];
+  const row = rows[0];
 
   if (!row) return null;
   if (new Date(row.expires_at).getTime() < Date.now()) {
-    db.prepare("DELETE FROM sessions WHERE token_hash = ?").run(hashToken(token));
+    await sql`DELETE FROM sessions WHERE token_hash = ${hashToken(token)}`;
     return null;
   }
   return row.user_id;
@@ -55,7 +59,8 @@ export async function destroySession(): Promise<void> {
   const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE)?.value;
   if (token) {
-    db.prepare("DELETE FROM sessions WHERE token_hash = ?").run(hashToken(token));
+    const sql = getSql();
+    await sql`DELETE FROM sessions WHERE token_hash = ${hashToken(token)}`;
   }
   cookieStore.delete(SESSION_COOKIE);
 }

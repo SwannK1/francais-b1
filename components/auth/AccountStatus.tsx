@@ -10,9 +10,15 @@ import { cn } from "@/lib/cn";
 
 /** Bloc compte partagé entre le header marketing et le header de l'application. */
 export default function AccountStatus({ className }: { className?: string }) {
-  const { user, refresh } = useAuth();
+  const { user, loading, refresh } = useAuth();
   const [pending, startTransition] = useTransition();
   const router = useRouter();
+
+  // Le temps du premier `/api/auth/me` (voir AuthProvider) : mieux vaut ne
+  // rien afficher qu'un état "déconnecté" qui flashe vers "connecté".
+  if (loading) {
+    return <div className={cn("h-5", className)} aria-hidden="true" />;
+  }
 
   if (!user) {
     return (

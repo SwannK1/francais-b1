@@ -14,7 +14,7 @@ export async function GET() {
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
 
-  const progress = getUserProgress(user.id);
+  const progress = await getUserProgress(user.id);
   return NextResponse.json({ progress });
 }
 
@@ -30,6 +30,6 @@ export async function PUT(request: Request) {
 
   // `user.id` (issu de la session serveur), jamais un id fourni par le client :
   // un utilisateur ne peut écrire que sa propre progression.
-  saveUserProgress(user.id, body.progress);
+  await saveUserProgress(user.id, body.progress);
   return NextResponse.json({ ok: true });
 }

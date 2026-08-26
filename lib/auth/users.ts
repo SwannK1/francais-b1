@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { db } from "@/lib/auth/db";
+import { getSql } from "@/lib/auth/db";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
 
 export interface AuthUser {
@@ -24,40 +24,52 @@ interface UserRow {
 }
 
 function toAuthUser(row: { id: string; email: string; premium_until: string | null }): AuthUser {
-  // node:sqlite renvoie des lignes à prototype null : reconstruire un objet
-  // simple est nécessaire pour pouvoir les passer d'un Server Component à un
-  // Client Component (AuthProvider), React refuse les objets non "plain".
   return { id: row.id, email: row.email, premiumUntil: row.premium_until };
 }
 
-export function findUserByEmail(email: string): UserRow | undefined {
-  return db
-    .prepare("SELECT id, email, password_hash, premium_until, stripe_customer_id FROM users WHERE email = ?")
-    .get(email) as UserRow | undefined;
+export async function findUserByEmail(email: string): Promise<UserRow | undefined> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT id, email, password_hash, premium_until, stripe_customer_id FROM users WHERE email = ${email}
+  `) as UserRow[];
+  return rows[0];
 }
 
-export function findUserById(id: string): AuthUser | undefined {
-  const row = db.prepare("SELECT id, email, premium_until FROM users WHERE id = ?").get(id) as
-    | { id: string; email: string; premium_until: string | null }
-    | undefined;
+export async function findUserById(id: string): Promise<AuthUser | undefined> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT id, email, premium_until FROM users WHERE id = ${id}
+  `) as { id: string; email: string; premium_until: string | null }[];
+  const row = rows[0];
   return row ? toAuthUser(row) : undefined;
 }
 
 /** Lève si l'email est déjà utilisé — laisse l'appelant décider du message affiché. */
-export function createUser(email: string, password: string): AuthUser {
-  if (findUserByEmail(email)) {
+export async function createUser(email: string, password: string): Promise<AuthUser> {
+  if (await findUserByEmail(email)) {
     throw new Error("EMAIL_TAKEN");
   }
   const id = randomUUID();
   const passwordHash = hashPassword(password);
-  db.prepare(
-    "INSERT INTO users (id, email, password_hash, created_at) VALUES (?, ?, ?, ?)"
-  ).run(id, email, passwordHash, new Date().toISOString());
+  const sql = getSql();
+  try {
+    await sql`
+      INSERT INTO users (id, email, password_hash) VALUES (${id}, ${email}, ${passwordHash})
+    `;
+  } catch (error) {
+    // Deux requêtes concurrentes peuvent toutes deux passer le check
+    // ci-dessus avant qu'aucune n'ait inséré (TOCTOU) : la contrainte UNIQUE
+    // en base reste le garde-fou réel, on la traduit juste en même message.
+    if (error && typeof error === "object" && "code" in error && error.code === "23505") {
+      throw new Error("EMAIL_TAKEN");
+    }
+    throw error;
+  }
   return { id, email, premiumUntil: null };
 }
 
-export function verifyCredentials(email: string, password: string): AuthUser | null {
-  const row = findUserByEmail(email);
+export async function verifyCredentials(email: string, password: string): Promise<AuthUser | null> {
+  const row = await findUserByEmail(email);
   if (!row) return null;
   if (!verifyPassword(password, row.password_hash)) return null;
   return toAuthUser(row);
@@ -68,10 +80,12 @@ export function verifyCredentials(email: string, password: string): AuthUser | n
  * les événements d'abonnement qui ne portent pas `client_reference_id`
  * (renouvellement, annulation), seulement l'id client Stripe.
  */
-export function findUserByStripeCustomerId(customerId: string): AuthUser | undefined {
-  const row = db
-    .prepare("SELECT id, email, premium_until FROM users WHERE stripe_customer_id = ?")
-    .get(customerId) as { id: string; email: string; premium_until: string | null } | undefined;
+export async function findUserByStripeCustomerId(customerId: string): Promise<AuthUser | undefined> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT id, email, premium_until FROM users WHERE stripe_customer_id = ${customerId}
+  `) as { id: string; email: string; premium_until: string | null }[];
+  const row = rows[0];
   return row ? toAuthUser(row) : undefined;
 }
 
@@ -80,15 +94,20 @@ export function findUserByStripeCustomerId(customerId: string): AuthUser | undef
  * mémorise l'id client Stripe pour retrouver ce compte aux prochains
  * événements d'abonnement (renouvellement, résiliation).
  */
-export function setUserPremium(userId: string, premiumUntil: string, stripeCustomerId: string): void {
-  db.prepare("UPDATE users SET premium_until = ?, stripe_customer_id = ? WHERE id = ?").run(
-    premiumUntil,
-    stripeCustomerId,
-    userId
-  );
+export async function setUserPremium(
+  userId: string,
+  premiumUntil: string,
+  stripeCustomerId: string
+): Promise<void> {
+  const sql = getSql();
+  await sql`
+    UPDATE users SET premium_until = ${premiumUntil}, stripe_customer_id = ${stripeCustomerId}
+    WHERE id = ${userId}
+  `;
 }
 
 /** Révoque l'accès premium immédiatement (résiliation effective, impayé). */
-export function clearUserPremium(userId: string): void {
-  db.prepare("UPDATE users SET premium_until = NULL WHERE id = ?").run(userId);
+export async function clearUserPremium(userId: string): Promise<void> {
+  const sql = getSql();
+  await sql`UPDATE users SET premium_until = NULL WHERE id = ${userId}`;
 }

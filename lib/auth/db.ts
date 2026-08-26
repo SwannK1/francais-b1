@@ -1,75 +1,31 @@
-import { DatabaseSync } from "node:sqlite";
-import { existsSync, mkdirSync } from "node:fs";
-import { dirname } from "node:path";
+import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
 
 /**
- * Stockage SQLite embarqué (node:sqlite, natif depuis Node 22+, aucune
- * dépendance supplémentaire). Chemin configurable via `AUTH_DB_PATH` pour
- * pouvoir pointer vers un volume persistant en production — voir le rapport
- * du chantier auth pour la limite connue sur les plateformes serverless
- * (système de fichiers éphémère).
+ * Postgres serverless (Neon) via son driver HTTP officiel — chaque requête
+ * est un simple appel `fetch`, sans pool de connexions à gérer : c'est le
+ * pattern recommandé pour des fonctions serverless Vercel (Node comme Edge),
+ * là où une connexion TCP classique (`pg`) pose des problèmes de limite de
+ * connexions concurrentes en environnement serverless.
+ *
+ * `getSql()` ne construit le client qu'à la première requête réellement
+ * exécutée (jamais au chargement du module) : ainsi importer ce module —
+ * via les layouts, `next build`, la génération statique — ne nécessite pas
+ * `DATABASE_URL` et n'échoue jamais faute de secret. Seule une requête
+ * effectivement exécutée sans variable d'environnement lève une erreur
+ * explicite.
  */
-const DB_PATH = process.env.AUTH_DB_PATH ?? "data/app.db";
+let cached: NeonQueryFunction<false, false> | null = null;
 
-function openDatabase(): DatabaseSync {
-  const dir = dirname(DB_PATH);
-  if (dir && dir !== "." && !existsSync(dir)) {
-    mkdirSync(dir, { recursive: true });
+export function getSql(): NeonQueryFunction<false, false> {
+  if (cached) return cached;
+
+  const url = process.env.DATABASE_URL;
+  if (!url) {
+    throw new Error(
+      "DATABASE_URL manquant : configurez une base Postgres (voir .env.example) pour utiliser l'authentification."
+    );
   }
-  const database = new DatabaseSync(DB_PATH);
-  // `next build` collecte les pages depuis plusieurs workers qui ouvrent
-  // chacun leur propre connexion au même fichier : sans busy_timeout, la
-  // création concurrente des tables (CREATE TABLE IF NOT EXISTS) échoue
-  // immédiatement avec "database is locked" au lieu d'attendre son tour.
-  database.exec("PRAGMA busy_timeout = 5000;");
-  database.exec("PRAGMA journal_mode = WAL;");
-  database.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id TEXT PRIMARY KEY,
-      email TEXT NOT NULL UNIQUE,
-      password_hash TEXT NOT NULL,
-      created_at TEXT NOT NULL,
-      premium_until TEXT,
-      stripe_customer_id TEXT
-    );
 
-    CREATE TABLE IF NOT EXISTS sessions (
-      token_hash TEXT PRIMARY KEY,
-      user_id TEXT NOT NULL REFERENCES users(id),
-      expires_at TEXT NOT NULL,
-      created_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS user_progress (
-      user_id TEXT PRIMARY KEY REFERENCES users(id),
-      data TEXT NOT NULL,
-      updated_at TEXT NOT NULL
-    );
-  `);
-  // `premium_until`/`stripe_customer_id` sont arrivés après la première
-  // version du schéma (chantier commerce) : sur une base déjà existante,
-  // `CREATE TABLE IF NOT EXISTS` ne les ajoute pas — on complète ici,
-  // silencieusement si elles existent déjà.
-  for (const column of ["premium_until", "stripe_customer_id"]) {
-    try {
-      database.exec(`ALTER TABLE users ADD COLUMN ${column} TEXT`);
-    } catch {
-      // colonne déjà présente
-    }
-  }
-  return database;
-}
-
-/**
- * Instance unique réutilisée entre les requêtes (module mis en cache par
- * Node en dev comme en prod pour un serveur long-lived). En Hot Module
- * Replacement de `next dev`, on la range sur `globalThis` pour éviter de
- * rouvrir le fichier à chaque rechargement de module.
- */
-const globalForDb = globalThis as unknown as { __authDb?: DatabaseSync };
-
-export const db = globalForDb.__authDb ?? openDatabase();
-
-if (process.env.NODE_ENV !== "production") {
-  globalForDb.__authDb = db;
+  cached = neon(url);
+  return cached;
 }

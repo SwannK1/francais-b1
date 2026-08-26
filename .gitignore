@@ -37,9 +37,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-# base sqlite locale (comptes, sessions, progression) — voir lib/auth/db.ts
-/data/
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
   const body = await request.json().catch(() => null);
   const localProgress = isUserProgressShape(body?.progress) ? body.progress : null;
-  const remoteProgress = getUserProgress(user.id);
+  const remoteProgress = await getUserProgress(user.id);
 
   let merged: UserProgress;
   if (localProgress && remoteProgress) {
@@ -40,6 +40,6 @@ export async function POST(request: Request) {
     merged = { ...EMPTY_USER_PROGRESS, userId: user.id };
   }
 
-  saveUserProgress(user.id, merged);
+  await saveUserProgress(user.id, merged);
   return NextResponse.json({ progress: merged });
 }
