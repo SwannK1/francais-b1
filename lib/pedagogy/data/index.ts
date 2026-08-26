@@ -17,5 +17,6 @@ export {
 } from "./modules";
 export { PLACEMENT_QUESTIONS } from "./placement-questions";
 export { EXAMS, getExamBySlug } from "./exams";
+export { DELF_B1_REFERENCE } from "./delf-b1-reference";
 export { INITIAL_USER_PROGRESS } from "./initial-user-progress";
 export { PARCOURS_STAGES, getStageBySlug, getStageById } from "./parcours-stages";

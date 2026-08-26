@@ -52,6 +52,20 @@ export interface ExamScoreSummary {
   passed: boolean | null;
 }
 
+/**
+ * Applique, en plus du seuil global (`exam.passingScore`), la note
+ * éliminatoire par épreuve quand l'examen en définit une (`ExamSection.eliminatoryScore`,
+ * ex. DELF : 5/25) : un total suffisant ne compense pas une épreuve
+ * en dessous du seuil éliminatoire.
+ */
+function meetsEliminatoryThresholds(exam: Exam, attempt: ExamAttempt): boolean {
+  return exam.sections.every((section) => {
+    if (section.eliminatoryScore == null) return true;
+    const result = attempt.sections.find((r) => r.section === section.delfSection);
+    return (result?.score ?? 0) >= section.eliminatoryScore;
+  });
+}
+
 export function calculateExamScore(exam: Exam, attempt: ExamAttempt): ExamScoreSummary {
   const evaluated = attempt.sections.filter((result) => result.score !== null);
 
@@ -70,7 +84,9 @@ export function calculateExamScore(exam: Exam, attempt: ExamAttempt): ExamScoreS
     scoredMax,
     totalMax,
     isProvisional,
-    passed: isProvisional ? null : scoredPoints >= exam.passingScore,
+    passed: isProvisional
+      ? null
+      : scoredPoints >= exam.passingScore && meetsEliminatoryThresholds(exam, attempt),
   };
 }
 

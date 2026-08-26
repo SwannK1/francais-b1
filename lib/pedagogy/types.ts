@@ -406,6 +406,12 @@ export interface ExamSection {
   delfSection: DelfSection;
   durationMinutes: number;
   maxScore: number;
+  /**
+   * Note éliminatoire officielle DELF (ex. 5/25) : en dessous, l'examen est
+   * échoué même si le total dépasse `passingScore`. Absent = pas de règle
+   * éliminatoire pour cette section (cas de l'examen de démonstration).
+   */
+  eliminatoryScore?: number;
   exercises: Exercise[];
 }
 
