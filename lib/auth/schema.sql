@@ -54,3 +54,19 @@ CREATE TABLE IF NOT EXISTS login_attempts (
 );
 
 CREATE INDEX IF NOT EXISTS login_attempts_email_time_idx ON login_attempts(email, attempted_at);
+
+-- Réinitialisation de mot de passe (chantier reset-password) : même principe
+-- que `sessions` — seul le hash du token est stocké, jamais le token en
+-- clair (celui-ci ne transite que dans l'URL du lien envoyé par email,
+-- jamais persisté). `used_at` distingue explicitement "jamais utilisé"
+-- (NULL) de "consommé" (horodaté) plutôt qu'un simple booléen — jamais
+-- d'état ambigu sur ce qu'il s'est passé pour ce token.
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+  token_hash TEXT PRIMARY KEY,
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  expires_at TIMESTAMPTZ NOT NULL,
+  used_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS password_reset_tokens_user_id_idx ON password_reset_tokens(user_id);

@@ -64,3 +64,14 @@ export async function destroySession(): Promise<void> {
   }
   cookieStore.delete(SESSION_COOKIE);
 }
+
+/**
+ * Invalide toutes les sessions actives de ce compte, sur tous les appareils
+ * — utilisée après un changement de mot de passe (réinitialisation) : un
+ * accès déjà ouvert avant le changement ne doit pas survivre au changement,
+ * y compris sur un appareil qui n'a pas fait la demande de réinitialisation.
+ */
+export async function destroyAllUserSessions(userId: string): Promise<void> {
+  const sql = getSql();
+  await sql`DELETE FROM sessions WHERE user_id = ${userId}`;
+}

@@ -111,3 +111,9 @@ export async function clearUserPremium(userId: string): Promise<void> {
   const sql = getSql();
   await sql`UPDATE users SET premium_until = NULL WHERE id = ${userId}`;
 }
+
+/** Remplace le hash de mot de passe stocké — utilisé par le flux de réinitialisation. */
+export async function updateUserPassword(userId: string, passwordHash: string): Promise<void> {
+  const sql = getSql();
+  await sql`UPDATE users SET password_hash = ${passwordHash} WHERE id = ${userId}`;
+}

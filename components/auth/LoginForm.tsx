@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { login, type AuthFormState } from "@/app/actions/auth";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { buttonClasses } from "@/components/ui/button-styles";
@@ -37,9 +38,14 @@ export default function LoginForm({ next = "/parcours" }: { next?: string }) {
         />
       </div>
       <div className="space-y-1.5">
-        <label htmlFor="password" className="text-sm font-medium text-foreground">
-          Mot de passe
-        </label>
+        <div className="flex items-center justify-between gap-2">
+          <label htmlFor="password" className="text-sm font-medium text-foreground">
+            Mot de passe
+          </label>
+          <Link href="/mot-de-passe-oublie" className="text-xs font-medium text-primary hover:underline">
+            Mot de passe oublié ?
+          </Link>
+        </div>
         <input
           id="password"
           name="password"
