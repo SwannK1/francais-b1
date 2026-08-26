@@ -68,7 +68,7 @@ export const EXAMS: Exam[] = [
             skillId: "co-dialogues-simples",
             difficulty: "B1",
             instructions: "Écoutez l'annonce, puis répondez à la question.",
-            audioSrc: "/audio/demo/exam-b1-annonce.mp3",
+            audioSrc: "/audio/demo/exam-b1-annonce.m4a",
             transcript:
               "« Attention, le train à destination de Lyon partira exceptionnellement voie 4 au lieu de la voie 2. »",
             questions: [

@@ -186,8 +186,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Pour ou contre le compost ? », Nadia et Marc, 1 min 30), puis répondez.",
-                audioSrc: "/audio/b1/donner-son-opinion.mp3",
+                instructions: "Écoutez le dialogue (« Pour ou contre le compost ? », Nadia et Marc, 40 secondes), puis répondez.",
+                audioSrc: "/audio/b1/donner-son-opinion.m4a",
                 transcript:
                   "Marc — Moi, franchement, je suis contre ce projet de compost.\n" +
                   "Nadia — Ah bon ? Pourquoi ?\n" +
@@ -718,8 +718,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Une matinée compliquée », Sophie et Farid, 1 min 40), puis répondez.",
-                audioSrc: "/audio/b1/raconter-un-evenement-passe.mp3",
+                instructions: "Écoutez le dialogue (« Une matinée compliquée », Sophie et Farid, 55 secondes), puis répondez.",
+                audioSrc: "/audio/b1/raconter-un-evenement-passe.m4a",
                 transcript:
                   "Sophie — Alors, ton entretien d'hier, ça s'est bien passé ?\n" +
                   "Farid — Oh là là, ne m'en parle pas ! J'ai failli tout rater.\n" +
@@ -1228,8 +1228,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Appel au service technique », Amélie et le conseiller, 1 min 50), puis répondez.",
-                audioSrc: "/audio/b1/expliquer-un-probleme-et-demander-une-solution.mp3",
+                instructions: "Écoutez le dialogue (« Appel au service technique », Amélie et le conseiller, 50 secondes), puis répondez.",
+                audioSrc: "/audio/b1/expliquer-un-probleme-et-demander-une-solution.m4a",
                 transcript:
                   "Conseiller — Service technique, bonjour, je vous écoute.\n" +
                   "Amélie — Bonjour, je vous appelle parce que je n'ai plus internet depuis une semaine.\n" +
@@ -1725,8 +1725,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Nouveau dans l'équipe », Julie et Karim, 1 min 45), puis répondez.",
-                audioSrc: "/audio/b1/parler-de-son-travail-et-projets.mp3",
+                instructions: "Écoutez le dialogue (« Nouveau dans l'équipe », Julie et Karim, 50 secondes), puis répondez.",
+                audioSrc: "/audio/b1/parler-de-son-travail-et-projets.m4a",
                 transcript:
                   "Julie — Alors, tu es nouveau dans l'équipe ! Tu faisais quoi avant ?\n" +
                   "Karim — Avant, j'ai travaillé dans la restauration pendant cinq ans, comme serveur.\n" +
@@ -2218,8 +2218,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Au guichet de la préfecture », Youssef et l'agent, 1 min 45), puis répondez.",
-                audioSrc: "/audio/b1/comprendre-une-demarche-administrative.mp3",
+                instructions: "Écoutez le dialogue (« Au guichet de la préfecture », Youssef et l'agent, 50 secondes), puis répondez.",
+                audioSrc: "/audio/b1/comprendre-une-demarche-administrative.m4a",
                 transcript:
                   "Agent — Bonjour, vous venez pour quelle démarche ?\n" +
                   "Youssef — Bonjour, je voudrais renouveler mon titre de séjour, il expire dans trois mois.\n" +
@@ -2691,8 +2691,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« On s'organise ? », Léa et Fatou, 1 min 20), puis répondez.",
-                audioSrc: "/audio/b1/decrire-vie-quotidienne.mp3",
+                instructions: "Écoutez le dialogue (« On s'organise ? », Léa et Fatou, 30 secondes), puis répondez.",
+                audioSrc: "/audio/b1/decrire-vie-quotidienne.m4a",
                 transcript:
                   "Fatou — Bon, pour les courses, on fait comment ? Toutes les deux chacune son tour ?\n" +
                   "Léa — Ça me va. Moi je peux y aller le mardi, j'ai moins cours ce jour-là.\n" +
@@ -3179,8 +3179,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez l'appel (« Prendre rendez-vous », Karim et le secrétariat, 1 min), puis répondez.",
-                audioSrc: "/audio/b1/prendre-rendez-vous.mp3",
+                instructions: "Écoutez l'appel (« Prendre rendez-vous », Karim et le secrétariat, 25 secondes), puis répondez.",
+                audioSrc: "/audio/b1/prendre-rendez-vous.m4a",
                 transcript:
                   "Secrétariat — Cabinet Leroy, bonjour.\n" +
                   "Karim — Bonjour, je vous appelle pour prendre rendez-vous, j'ai une douleur depuis deux jours.\n" +
@@ -3650,8 +3650,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez l'appel (« Mettre à jour son dossier », Amina et un conseiller, 1 min 10), puis répondez.",
-                audioSrc: "/audio/b1/comprendre-un-courrier-simple.mp3",
+                instructions: "Écoutez l'appel (« Mettre à jour son dossier », Amina et un conseiller, 30 secondes), puis répondez.",
+                audioSrc: "/audio/b1/comprendre-un-courrier-simple.m4a",
                 transcript:
                   "Conseiller — Bonjour, CAF, j'écoute.\n" +
                   "Amina — Bonjour, j'ai reçu un courrier qui me demande de mettre à jour mon dossier, mais " +
@@ -4087,8 +4087,8 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-annonces-publiques",
                 difficulty: "B1",
-                instructions: "Écoutez l'annonce (« Changement de voie », gare, 50 secondes), puis répondez.",
-                audioSrc: "/audio/b1/utiliser-les-transports.mp3",
+                instructions: "Écoutez l'annonce (« Changement de voie », gare, 20 secondes), puis répondez.",
+                audioSrc: "/audio/b1/utiliser-les-transports.m4a",
                 transcript:
                   "« Mesdames, messieurs, votre attention s'il vous plaît. En raison d'un incident technique, " +
                   "le train à destination de Lyon partira exceptionnellement voie 4 au lieu de la voie 2. " +
@@ -5941,8 +5941,8 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez l'appel entre Amélie et Mme Lefèvre (« Organiser une visite », 45 secondes), puis répondez.",
-                audioSrc: "/audio/b1/discuter-avec-un-proprietaire.mp3",
+                  "Écoutez l'appel entre Amélie et Mme Lefèvre (« Organiser une visite », 35 secondes), puis répondez.",
+                audioSrc: "/audio/b1/discuter-avec-un-proprietaire.m4a",
                 transcript:
                   "Amélie — Bonjour madame, je vous appelle au sujet de l'annonce pour le studio rue des " +
                   "Lilas. Est-ce qu'il est toujours disponible ?\n" +
@@ -6530,8 +6530,8 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez l'entretien entre Yassine et sa conseillère (« Un projet de formation », 40 secondes), puis répondez.",
-                audioSrc: "/audio/b1/parler-de-ses-projets.mp3",
+                  "Écoutez l'entretien entre Yassine et sa conseillère (« Un projet de formation », 35 secondes), puis répondez.",
+                audioSrc: "/audio/b1/parler-de-ses-projets.m4a",
                 transcript:
                   "Conseillère — Bonjour Yassine, vous vouliez me parler de votre projet ?\n" +
                   "Yassine — Oui, j'envisage de faire une formation en logistique l'année prochaine.\n" +
@@ -6824,8 +6824,8 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez la consultation de Farida chez le médecin (« Mal à la gorge », 45 secondes), puis répondez.",
-                audioSrc: "/audio/b1/aller-chez-le-medecin.mp3",
+                  "Écoutez la consultation de Farida chez le médecin (« Mal à la gorge », 40 secondes), puis répondez.",
+                audioSrc: "/audio/b1/aller-chez-le-medecin.m4a",
                 transcript:
                   "Médecin — Bonjour madame, qu'est-ce qui vous amène ?\n" +
                   "Farida — Bonjour docteur, j'ai mal à la gorge et un peu de fièvre depuis trois jours.\n" +
@@ -7416,7 +7416,7 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions:
                   "Écoutez l'échange entre Karim et l'institutrice de son fils (« Un rendez-vous à l'école », 45 secondes), puis répondez.",
-                audioSrc: "/audio/b1/parler-ecole-enfant.mp3",
+                audioSrc: "/audio/b1/parler-ecole-enfant.m4a",
                 transcript:
                   "Institutrice — Bonjour monsieur, merci d'être venu. Je voulais vous parler de Léo.\n" +
                   "Karim — Bonjour madame, oui, j'ai reçu votre message dans le carnet de liaison. Il y a un problème ?\n" +
@@ -8002,8 +8002,8 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez la conversation entre Yasmine et Camille (« Deux offres d'emploi », 45 secondes), puis répondez.",
-                audioSrc: "/audio/b1/hypothese-et-conseil.mp3",
+                  "Écoutez la conversation entre Yasmine et Camille (« Deux offres d'emploi », 40 secondes), puis répondez.",
+                audioSrc: "/audio/b1/hypothese-et-conseil.m4a",
                 transcript:
                   "Yasmine — J'ai reçu deux propositions de travail, et je ne sais pas laquelle choisir.\n" +
                   "Camille — Raconte-moi ! C'est quoi la différence ?\n" +
@@ -8300,8 +8300,8 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez le message vocal reçu par Inès (« Un colis à livrer », 30 secondes), puis répondez.",
-                audioSrc: "/audio/b1/rapporter-les-paroles.mp3",
+                  "Écoutez le message vocal reçu par Inès (« Un colis à livrer », 20 secondes), puis répondez.",
+                audioSrc: "/audio/b1/rapporter-les-paroles.m4a",
                 transcript:
                   "Bonjour, c'est le livreur de chez ColisPlus. Je suis passé mais il n'y avait personne. Je " +
                   "repasserai demain matin, vers 9 heures. Est-ce que quelqu'un sera présent ? Si besoin, vous " +
