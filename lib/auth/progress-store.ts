@@ -1,28 +1,23 @@
-import { db } from "@/lib/auth/db";
+import { getSql } from "@/lib/auth/db";
 import type { UserProgress } from "@/lib/pedagogy/types";
 
-interface ProgressRow {
-  data: string;
-}
-
-export function getUserProgress(userId: string): UserProgress | null {
-  const row = db.prepare("SELECT data FROM user_progress WHERE user_id = ?").get(userId) as
-    | ProgressRow
-    | undefined;
-  if (!row) return null;
-  try {
-    return JSON.parse(row.data) as UserProgress;
-  } catch {
-    return null;
-  }
+export async function getUserProgress(userId: string): Promise<UserProgress | null> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT data FROM user_progress WHERE user_id = ${userId}
+  `) as { data: UserProgress }[];
+  const row = rows[0];
+  // `data` est JSONB : le driver le désérialise déjà en objet JS, pas de JSON.parse à faire.
+  return row ? row.data : null;
 }
 
 /** Remplace intégralement la progression stockée pour cet utilisateur. */
-export function saveUserProgress(userId: string, progress: UserProgress): void {
+export async function saveUserProgress(userId: string, progress: UserProgress): Promise<void> {
   const data = JSON.stringify({ ...progress, userId });
-  const now = new Date().toISOString();
-  db.prepare(
-    `INSERT INTO user_progress (user_id, data, updated_at) VALUES (?, ?, ?)
-     ON CONFLICT(user_id) DO UPDATE SET data = excluded.data, updated_at = excluded.updated_at`
-  ).run(userId, data, now);
+  const sql = getSql();
+  await sql`
+    INSERT INTO user_progress (user_id, data, updated_at)
+    VALUES (${userId}, ${data}::jsonb, now())
+    ON CONFLICT (user_id) DO UPDATE SET data = excluded.data, updated_at = excluded.updated_at
+  `;
 }

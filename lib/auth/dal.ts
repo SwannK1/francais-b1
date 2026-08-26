@@ -10,5 +10,5 @@ import { findUserById, type AuthUser } from "@/lib/auth/users";
 export const getCurrentUser = cache(async (): Promise<AuthUser | null> => {
   const userId = await getSessionUserId();
   if (!userId) return null;
-  return findUserById(userId) ?? null;
+  return (await findUserById(userId)) ?? null;
 });
