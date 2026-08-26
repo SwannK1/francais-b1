@@ -1,5 +1,6 @@
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
+import PrimaryCta from "@/components/marketing/PrimaryCta";
 import ProgressPreviewCard from "@/components/marketing/ProgressPreviewCard";
 
 export default function Hero() {
@@ -14,9 +15,7 @@ export default function Hero() {
             Teste ton niveau, suis ton parcours B1 et prépare ton DELF B1 à ton rythme.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href="/test-niveau" size="lg">
-              Tester mon niveau gratuitement
-            </Button>
+            <PrimaryCta size="lg" startLabel="Tester mon niveau gratuitement" />
             <Button href="#fonctionnement" variant="secondary" size="lg">
               Découvrir la méthode
             </Button>
