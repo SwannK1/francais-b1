@@ -5,6 +5,7 @@ import { useState } from "react";
 import Container from "@/components/ui/Container";
 import PrimaryCta from "@/components/marketing/PrimaryCta";
 import { MenuIcon, XIcon } from "@/components/ui/icons";
+import AccountStatus from "@/components/auth/AccountStatus";
 
 const navItems = [
   { href: "#apprentissage", label: "Apprendre" },
@@ -41,7 +42,8 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center gap-6 lg:flex">
+          <AccountStatus />
           <PrimaryCta size="md" />
         </div>
 
@@ -73,6 +75,7 @@ export default function Header() {
               ))}
             </nav>
             <div className="mt-3 flex flex-col gap-3 border-t border-border pt-4">
+              <AccountStatus className="flex-col items-stretch gap-3 text-center" />
               <PrimaryCta onClick={() => setOpen(false)} className="justify-center" />
             </div>
           </Container>

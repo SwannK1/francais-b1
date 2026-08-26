@@ -46,3 +46,20 @@ export const INITIAL_USER_PROGRESS: UserProgress = {
   placementCompletedAt: null,
   examAttempts: [],
 };
+
+/**
+ * Progression réelle d'un nouveau compte — distincte de `INITIAL_USER_PROGRESS`
+ * (qui simule une démo pour la vitrine marketing/anonyme) : un compte fraîchement
+ * créé ne doit jamais hériter des exercices fictifs de la démo.
+ */
+export const EMPTY_USER_PROGRESS: UserProgress = {
+  userId: "",
+  level: "B1",
+  moduleProgress: [],
+  skillProgress: [],
+  globalSuccessRate: 0,
+  lastActivityAt: null,
+  weakSkillIds: [],
+  placementCompletedAt: null,
+  examAttempts: [],
+};

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import AccountStatus from "@/components/auth/AccountStatus";
 
 export default function PedagogieLayout({ children }: { children: ReactNode }) {
   return (
@@ -27,6 +28,7 @@ export default function PedagogieLayout({ children }: { children: ReactNode }) {
             >
               Progression
             </Link>
+            <AccountStatus />
           </nav>
         </Container>
       </header>
