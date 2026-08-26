@@ -21,7 +21,7 @@ export const EXAMS: Exam[] = [
       {
         id: "exam-b1-ce",
         title: "Compréhension écrite",
-        domain: "comprehension_ecrite",
+        delfSection: "comprehension_ecrite",
         durationMinutes: 15,
         maxScore: 34,
         exercises: [
@@ -58,7 +58,7 @@ export const EXAMS: Exam[] = [
       {
         id: "exam-b1-co",
         title: "Compréhension orale",
-        domain: "comprehension_orale",
+        delfSection: "comprehension_orale",
         durationMinutes: 10,
         maxScore: 33,
         exercises: [
@@ -94,7 +94,7 @@ export const EXAMS: Exam[] = [
       {
         id: "exam-b1-pe",
         title: "Production écrite",
-        domain: "production_ecrite",
+        delfSection: "production_ecrite",
         durationMinutes: 20,
         maxScore: 33,
         exercises: [
@@ -121,7 +121,7 @@ export const EXAMS: Exam[] = [
       {
         id: "exam-b1-po",
         title: "Production orale",
-        domain: "production_ecrite",
+        delfSection: "production_orale",
         durationMinutes: 2,
         maxScore: 25,
         exercises: [

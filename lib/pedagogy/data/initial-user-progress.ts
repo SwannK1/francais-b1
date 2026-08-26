@@ -44,4 +44,5 @@ export const INITIAL_USER_PROGRESS: UserProgress = {
   lastActivityAt: "2026-08-23T09:15:00.000Z",
   weakSkillIds: ["gr-pronoms-complements"],
   placementCompletedAt: null,
+  examAttempts: [],
 };

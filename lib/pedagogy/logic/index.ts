@@ -5,9 +5,12 @@
  * lire et transformer.
  *
  * - `placement.ts`    : test de positionnement -> niveau CECRL estimé.
- * - `progress.ts`     : résultat d'exercice -> progression mise à jour.
+ * - `progress.ts`     : résultat d'exercice -> progression du curriculum mise à jour.
  * - `recommendation.ts`: progression -> séance du jour recommandée.
  * - `parcours.ts`     : progression -> statut et complétion des grandes étapes.
+ * - `exam.ts`         : résultat d'exercice -> tentative d'examen mise à jour et score.
+ *                        Concept distinct de `progress.ts` : jamais mélangé avec
+ *                        la progression du curriculum (voir `exam.ts`).
  */
 export { computePlacementResult } from "./placement";
 export { recordExerciseResult, getModuleProgress, getModuleCompletionRate } from "./progress";
@@ -20,3 +23,14 @@ export {
   type StageStatus,
   type ParcoursSummary,
 } from "./parcours";
+export {
+  startExamAttempt,
+  recordExamExerciseResult,
+  completeExamAttempt,
+  abandonExamAttempt,
+  getActiveExamAttempt,
+  getExamAttempts,
+  calculateSectionScore,
+  calculateExamScore,
+  type ExamScoreSummary,
+} from "./exam";

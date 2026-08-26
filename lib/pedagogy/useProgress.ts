@@ -3,7 +3,13 @@
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { INITIAL_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
 import { recordExerciseResult } from "@/lib/pedagogy/logic/progress";
-import type { Exercise, Module, UserProgress } from "@/lib/pedagogy/types";
+import {
+  abandonExamAttempt,
+  completeExamAttempt,
+  recordExamExerciseResult,
+  startExamAttempt,
+} from "@/lib/pedagogy/logic/exam";
+import type { DelfSection, Exam, Exercise, Module, UserProgress } from "@/lib/pedagogy/types";
 
 /**
  * État applicatif du "compte" apprenant, persisté en local (pas de backend
@@ -64,5 +70,34 @@ export function useProgress() {
     writeProgress({ ...parseProgress(readRaw()), placementCompletedAt: new Date().toISOString() });
   }, []);
 
-  return { progress, recordResult, markPlacementCompleted };
+  const startExam = useCallback((exam: Exam) => {
+    writeProgress(startExamAttempt(parseProgress(readRaw()), exam));
+  }, []);
+
+  const recordExamResult = useCallback(
+    (exam: Exam, attemptId: string, delfSection: DelfSection, exercise: Exercise, correct: boolean) => {
+      writeProgress(
+        recordExamExerciseResult(parseProgress(readRaw()), exam, attemptId, delfSection, exercise, correct)
+      );
+    },
+    []
+  );
+
+  const finishExam = useCallback((attemptId: string) => {
+    writeProgress(completeExamAttempt(parseProgress(readRaw()), attemptId));
+  }, []);
+
+  const abandonExam = useCallback((attemptId: string) => {
+    writeProgress(abandonExamAttempt(parseProgress(readRaw()), attemptId));
+  }, []);
+
+  return {
+    progress,
+    recordResult,
+    markPlacementCompleted,
+    startExam,
+    recordExamResult,
+    finishExam,
+    abandonExam,
+  };
 }

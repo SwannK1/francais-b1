@@ -294,6 +294,8 @@ export interface UserProgress {
   weakSkillIds: string[];
   /** Date du test de positionnement complété, ou null si jamais passé. */
   placementCompletedAt: string | null;
+  /** Distinct de `moduleProgress` : progression du curriculum et tentatives d'examen ne sont jamais mélangées. */
+  examAttempts: ExamAttempt[];
 }
 
 // --- Séance recommandée ---
@@ -385,10 +387,23 @@ export interface LearningGoal {
 
 export type ExamType = "delf" | "tcf_irn" | "interne";
 
+/**
+ * Les 4 épreuves DELF — type dédié plutôt que `SkillDomain` : ce dernier
+ * porte des valeurs sans rapport avec une épreuve d'examen (grammaire,
+ * vocabulaire...) et ne distingue pas production écrite/orale de la même
+ * façon qu'un `ExerciseType` le fait déjà.
+ */
+export type DelfSection =
+  | "comprehension_orale"
+  | "comprehension_ecrite"
+  | "production_ecrite"
+  | "production_orale";
+
 export interface ExamSection {
   id: string;
   title: string;
-  domain: SkillDomain;
+  /** Épreuve DELF représentée — affectation explicite, jamais déduite des exercices. */
+  delfSection: DelfSection;
   durationMinutes: number;
   maxScore: number;
   exercises: Exercise[];
@@ -407,4 +422,38 @@ export interface Exam {
   passingScore: number;
   /** true = examen blanc complet, false = entraînement ciblé. */
   isBlanc: boolean;
+}
+
+// --- Tentatives d'examen ---
+
+export type ExamAttemptStatus = "in_progress" | "completed" | "abandoned";
+
+export type SectionResultStatus = "not_started" | "in_progress" | "completed";
+
+/**
+ * Résultat d'une épreuve au sein d'une tentative. `score` vaut `null` tant
+ * qu'aucune note fiable n'existe — jamais `0` par défaut, pour ne pas
+ * confondre "pas encore évalué" et "0 point" (compréhension écrite/orale :
+ * calculé automatiquement une fois l'épreuve complète ; production
+ * écrite/orale : reste `null` ici, aucune correction automatique fiable
+ * n'existe — `selfAssessed` indique seulement qu'une grille d'auto-évaluation
+ * a été remplie, jamais une note officielle).
+ */
+export interface SectionResult {
+  section: DelfSection;
+  status: SectionResultStatus;
+  score: number | null;
+  maxScore: number;
+  selfAssessed: boolean;
+  completedExerciseIds: string[];
+  correctExerciseIds: string[];
+}
+
+export interface ExamAttempt {
+  id: string;
+  examId: string;
+  startedAt: string;
+  completedAt: string | null;
+  status: ExamAttemptStatus;
+  sections: SectionResult[];
 }
