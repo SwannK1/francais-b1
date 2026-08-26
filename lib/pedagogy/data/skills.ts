@@ -289,6 +289,66 @@ export const SKILLS: Skill[] = [
     name: "Vocabulaire de la réclamation",
     description: "Mots et formules pour rédiger une réclamation claire et polie.",
   },
+  {
+    id: "gr-subordonnee-que",
+    domain: "grammaire",
+    name: "Les subordonnées avec « que »",
+    description: "Donner son avis sur une situation avec je pense que, je trouve que.",
+  },
+  {
+    id: "voc-scolarite",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la scolarité",
+    description: "Mots pour parler de l'école et de la vie scolaire d'un enfant.",
+  },
+  {
+    id: "gr-expression-but",
+    domain: "grammaire",
+    name: "Exprimer un but (pour, afin de, pour que)",
+    description: "Expliquer la finalité d'une action ou d'une démarche.",
+  },
+  {
+    id: "voc-recherche-emploi",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la recherche d'emploi",
+    description: "Mots pour postuler, se présenter et passer un entretien.",
+  },
+  {
+    id: "gr-conditionnel-hypothese",
+    domain: "grammaire",
+    name: "Si + imparfait, conditionnel présent (hypothèse)",
+    description: "Envisager une possibilité et en imaginer la conséquence.",
+  },
+  {
+    id: "voc-conseils",
+    domain: "vocabulaire",
+    name: "Vocabulaire du conseil",
+    description: "Mots pour peser une décision et conseiller quelqu'un.",
+  },
+  {
+    id: "pe-conseiller",
+    domain: "production_ecrite",
+    name: "Conseiller quelqu'un par écrit",
+    description: "Proposer une solution adaptée à la situation de quelqu'un d'autre.",
+  },
+  {
+    id: "gr-discours-rapporte",
+    domain: "grammaire",
+    name: "Le discours rapporté (dire que, demander si)",
+    description: "Transmettre à l'écrit ou à l'oral ce que quelqu'un a dit ou demandé.",
+  },
+  {
+    id: "voc-communication",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la communication",
+    description: "Mots pour transmettre un message ou une information reçue.",
+  },
+  {
+    id: "pe-rapporter-message",
+    domain: "production_ecrite",
+    name: "Rapporter un message par écrit",
+    description: "Transmettre fidèlement par écrit un message ou une consigne reçue.",
+  },
 ];
 
 export function getSkillById(id: string): Skill | undefined {

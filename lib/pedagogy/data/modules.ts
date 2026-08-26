@@ -7353,6 +7353,1185 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-parler-ecole-enfant",
+    slug: "parler-ecole-enfant",
+    level: "B1",
+    title: "Parler de l'école de son enfant",
+    description:
+      "À la fin de ce module, tu pourras échanger avec l'école de ton enfant et comprendre les informations transmises.",
+    objectives: [
+      "Comprendre une communication scolaire",
+      "Poser une question à un enseignant",
+      "Décrire une situation familiale ou scolaire",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 27,
+    situation:
+      "L'institutrice de son fils demande à Karim de passer la voir après l'école, car Léo a eu des difficultés cette semaine.",
+    vocabulary: [
+      { term: "un carnet de liaison", category: "principal" },
+      { term: "un instituteur / une institutrice", category: "principal" },
+      { term: "un rendez-vous parents-professeurs", category: "principal" },
+      { term: "les résultats", category: "principal" },
+      { term: "le comportement", category: "principal" },
+      { term: "une absence justifiée", category: "principal" },
+      { term: "progresser", category: "verbe" },
+      { term: "avoir des difficultés (en quelque chose)", category: "expression" },
+      { term: "rattraper (son retard)", category: "verbe" },
+      { term: "s'inquiéter", category: "verbe" },
+      { term: "rassurer", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Les subordonnées avec « que »",
+        explanation:
+          "Je pense que, je trouve que, je remarque que + indicatif permettent de donner son avis sur une situation : Je trouve qu'il a du mal à se concentrer. « Que » devient « qu' » devant une voyelle.",
+      },
+      {
+        title: "Révision : le pronom relatif dont",
+        explanation:
+          "Dont remplace un complément introduit par « de », déjà vu pour comparer (le quartier dont je te parle). Ici : Le professeur dont Léo m'a parlé (= Léo m'a parlé DE ce professeur).",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral (contexte familial/scolaire)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "ecole-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "ecole-ecoute-activite",
+            title: "Écouter un échange avec l'institutrice",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "eco-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'échange entre Karim et l'institutrice de son fils (« Un rendez-vous à l'école », 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/parler-ecole-enfant.mp3",
+                transcript:
+                  "Institutrice — Bonjour monsieur, merci d'être venu. Je voulais vous parler de Léo.\n" +
+                  "Karim — Bonjour madame, oui, j'ai reçu votre message dans le carnet de liaison. Il y a un problème ?\n" +
+                  "Institutrice — Rien de grave, mais je trouve qu'il a du mal à se concentrer depuis quelques " +
+                  "semaines, surtout en mathématiques.\n" +
+                  "Karim — Je vois. Il rentre fatigué le soir, c'est vrai. Vous pensez que c'est lié ?\n" +
+                  "Institutrice — C'est possible. Je pense qu'un peu plus de repos pourrait l'aider. Est-ce " +
+                  "qu'il pourrait se coucher un peu plus tôt ?\n" +
+                  "Karim — On va essayer, oui. Et pour rattraper son retard en maths, vous avez un conseil ?\n" +
+                  "Institutrice — Je vous conseille quelques exercices simples à la maison, dix minutes par jour. " +
+                  "Je vous envoie une liste.\n" +
+                  "Karim — D'accord, merci beaucoup madame. N'hésitez pas à me recontacter si besoin.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "eco-e-q1",
+                    prompt: "Pourquoi l'institutrice a-t-elle demandé à voir Karim ?",
+                    choices: [
+                      { id: "a", text: "Léo a du mal à se concentrer, surtout en mathématiques." },
+                      { id: "b", text: "Léo a été absent plusieurs fois sans justification." },
+                      { id: "c", text: "Léo s'est disputé avec un camarade de classe." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Léo a du mal à se concentrer, surtout en mathématiques.",
+                      explanation: "C'est ce que l'institutrice explique dès le début de l'échange.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "eco-e-q2",
+                    prompt: "Vrai ou faux : selon l'institutrice, la situation est très grave.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle précise elle-même : « rien de grave ».",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "eco-e-q3",
+                    prompt: "Que propose l'institutrice pour aider Léo en mathématiques ?",
+                    expectedAnswer: "Des exercices simples à la maison, dix minutes par jour.",
+                    correction: {
+                      correctAnswer: "Des exercices simples à la maison, dix minutes par jour.",
+                      explanation: "C'est le conseil qu'elle donne à la fin de l'échange.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "eco-e-q4",
+                    prompt: "Qu'est-ce que Karim va essayer de changer ?",
+                    choices: [
+                      { id: "a", text: "L'heure du coucher de Léo." },
+                      { id: "b", text: "L'école de Léo." },
+                      { id: "c", text: "Les horaires de travail de Karim." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "L'heure du coucher de Léo.",
+                      explanation: "Karim répond « on va essayer » à la suggestion de l'institutrice sur le repos.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "ecole-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "ecole-entrainement-activite",
+            title: "Donner son avis et réviser dont",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "eco-g1",
+                type: "qcm",
+                skillId: "gr-relatifs-dont",
+                difficulty: "B1",
+                instructions: "Choisis le bon pronom relatif.",
+                question: {
+                  kind: "qcm",
+                  id: "eco-g1-q",
+                  prompt: "« Le professeur ___ Léo m'a parlé est très gentil. »",
+                  choices: [
+                    { id: "a", text: "dont" },
+                    { id: "b", text: "que" },
+                    { id: "c", text: "qui" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "dont",
+                    explanation: "« Léo m'a parlé DE ce professeur » → « dont » remplace le complément en « de ».",
+                  },
+                },
+              },
+              {
+                id: "eco-g2",
+                type: "texte_a_trous",
+                skillId: "gr-subordonnee-que",
+                difficulty: "B1",
+                instructions: "Complète avec « que » ou « qu' ».",
+                textWithBlanks:
+                  "Je pense {{1}} Léo a juste besoin de repos. L'institutrice trouve {{2}} il progresse quand " +
+                  "même, malgré tout.",
+                blanks: [
+                  { id: "1", answer: "que" },
+                  { id: "2", answer: "qu'" },
+                ],
+                correction: {
+                  correctAnswer: "que — qu'",
+                  explanation: "« Que » devient « qu' » devant une voyelle (qu'il).",
+                },
+              },
+              {
+                id: "eco-g3",
+                type: "association",
+                skillId: "voc-scolarite",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "le carnet de liaison", right: "le cahier qui sert à communiquer entre l'école et la famille" },
+                  { id: "2", left: "une absence justifiée", right: "un jour d'école manqué pour une raison acceptée" },
+                  { id: "3", left: "rattraper son retard", right: "revenir au niveau attendu après une difficulté" },
+                ],
+                correction: {
+                  correctAnswer: "carnet de liaison → communication école-famille ; absence justifiée → raison acceptée ; rattraper → revenir au niveau.",
+                  explanation: "Ces mots reviennent souvent dans les échanges entre parents et enseignants.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "ecole-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "ecole-ecriture-activite",
+            title: "Répondre à un message de l'école",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "eco-h",
+                type: "reponse_courte",
+                skillId: "pe-clarifier-demarche",
+                difficulty: "B1",
+                instructions: "Réponds avec quelques phrases.",
+                question:
+                  "L'institutrice de votre enfant vous a envoyé un message pour vous informer d'une difficulté. " +
+                  "Écrivez une réponse polie : remerciez, donnez votre avis sur la situation, et posez une " +
+                  "question.",
+                acceptedAnswers: [],
+                correction: {
+                  correctAnswer:
+                    "Par exemple : « Bonjour madame, merci pour votre message. Je pense que le repos peut " +
+                    "effectivement l'aider. Est-ce qu'il existe d'autres exercices que nous pourrions faire à la maison ? »",
+                  explanation: "Une bonne réponse remercie, donne un avis introduit par « je pense que », et pose une question claire.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "ecole-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "ecole-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "eco-i1",
+                type: "qcm",
+                skillId: "gr-subordonnee-que",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "eco-i1-q",
+                  prompt: "« Je trouve ___ elle a raison. »",
+                  choices: [
+                    { id: "a", text: "qu'" },
+                    { id: "b", text: "que" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "qu'",
+                    explanation: "Devant « elle », voyelle, « que » s'élide en « qu' ».",
+                  },
+                },
+              },
+              {
+                id: "eco-i2",
+                type: "reponse_courte",
+                skillId: "voc-scolarite",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Comment appelle-t-on le cahier qui sert à communiquer entre l'école et la famille ? (le ___)",
+                acceptedAnswers: ["carnet de liaison", "carnet"],
+                correction: {
+                  correctAnswer: "le carnet de liaison",
+                  explanation: "C'est le nom de ce cahier dans la plupart des écoles françaises.",
+                },
+              },
+              {
+                id: "eco-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'échange entre Karim et l'institutrice.",
+                statement: "L'institutrice va envoyer une liste d'exercices à Karim.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "Elle le propose à la fin de l'échange.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-rechercher-un-emploi",
+    slug: "rechercher-un-emploi",
+    level: "B1",
+    title: "Rechercher un emploi et passer un entretien",
+    description:
+      "À la fin de ce module, tu pourras présenter ta candidature à l'oral et répondre aux questions courantes d'un entretien.",
+    objectives: [
+      "Comprendre une annonce d'emploi",
+      "Présenter son expérience et ses qualités",
+      "Répondre à des questions d'entretien",
+    ],
+    domain: "production_ecrite",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 30,
+    situation: "Malik passe un entretien pour un poste d'agent logistique dans une entreprise de transport.",
+    vocabulary: [
+      { term: "une annonce (d'emploi)", category: "principal" },
+      { term: "postuler", category: "verbe" },
+      { term: "une candidature", category: "principal" },
+      { term: "un entretien", category: "principal" },
+      { term: "une qualité", category: "principal" },
+      { term: "un point fort", category: "principal" },
+      { term: "disponible (à partir de)", category: "expression" },
+      { term: "un CDI / un CDD", category: "principal" },
+      { term: "motivé(e)", category: "principal" },
+      { term: "rigoureux / rigoureuse", category: "principal" },
+      { term: "correspondre (à un profil)", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Exprimer un but : pour, afin de, pour que",
+        explanation:
+          "Pour + infinitif et afin de + infinitif introduisent un objectif : Je me suis formé pour travailler dans la logistique. Je vous écris afin de proposer ma candidature. Pour que + subjonctif s'utilise quand le sujet change : pour que l'entreprise puisse démarrer rapidement.",
+      },
+      {
+        title: "Le subjonctif présent, formes courantes",
+        explanation:
+          "Après il faut que (déjà connu), le subjonctif présent se forme régulièrement pour la plupart des verbes : que je travaille, que je fasse un effort. Deux formes à retenir par cœur : que je sois, que j'aie.",
+      },
+    ],
+    examLinks: ["DELF B1 — production orale (simulation)", "TCF IRN — expression orale, tâche 3"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "emploi-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "emploi-comprendre-activite",
+            title: "Lire une annonce d'emploi",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "emp-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez l'annonce d'emploi, puis répondez.",
+                text:
+                  "Entreprise de transport recherche un(e) AGENT(E) LOGISTIQUE (H/F) — CDI, temps plein. " +
+                  "Missions : réception et vérification des marchandises, organisation du stock, utilisation " +
+                  "d'un logiciel de gestion. Profil recherché : rigueur, ponctualité, bon esprit d'équipe. Une " +
+                  "première expérience est un plus, mais débutants motivés acceptés. Poste à pourvoir dès que " +
+                  "possible. Merci d'envoyer votre candidature par mail.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "emp-e-q1",
+                    prompt: "Quel type de contrat propose l'entreprise ?",
+                    choices: [
+                      { id: "a", text: "Un CDI." },
+                      { id: "b", text: "Un CDD de six mois." },
+                      { id: "c", text: "Un stage." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Un CDI.",
+                      explanation: "L'annonce précise « CDI, temps plein ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "emp-e-q2",
+                    prompt: "Vrai ou faux : une expérience précédente est obligatoire pour postuler.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "L'annonce précise que l'expérience est « un plus », pas une obligation.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "emp-e-q3",
+                    prompt: "Que doit faire le candidat pour postuler ?",
+                    expectedAnswer: "Envoyer sa candidature par mail.",
+                    correction: {
+                      correctAnswer: "Envoyer sa candidature par mail.",
+                      explanation: "C'est l'instruction donnée à la fin de l'annonce.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "emp-e-q4",
+                    prompt: "Quelles qualités sont recherchées ?",
+                    choices: [
+                      { id: "a", text: "Rigueur, ponctualité, esprit d'équipe." },
+                      { id: "b", text: "Un diplôme universitaire." },
+                      { id: "c", text: "Le permis poids lourd." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Rigueur, ponctualité, esprit d'équipe.",
+                      explanation: "C'est le profil recherché décrit dans l'annonce.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "emploi-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "emploi-entrainement-activite",
+            title: "Exprimer un but et réviser le subjonctif",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "emp-g1",
+                type: "qcm",
+                skillId: "gr-expression-but",
+                difficulty: "B1",
+                instructions: "Choisis l'expression du but qui convient.",
+                question: {
+                  kind: "qcm",
+                  id: "emp-g1-q",
+                  prompt: "« Je vous écris ___ vous proposer ma candidature. »",
+                  choices: [
+                    { id: "a", text: "afin de" },
+                    { id: "b", text: "parce que" },
+                    { id: "c", text: "pendant que" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "afin de",
+                    explanation: "« Afin de + infinitif » introduit l'objectif de la démarche.",
+                  },
+                },
+              },
+              {
+                id: "emp-g2",
+                type: "texte_a_trous",
+                skillId: "gr-subjonctif-il-faut-que",
+                difficulty: "B1",
+                instructions: "Complète au subjonctif présent.",
+                textWithBlanks:
+                  "Pour ce poste, il faut que je {{1}} (être) disponible rapidement et que j'{{2}} (avoir) le " +
+                  "sens de l'organisation.",
+                blanks: [
+                  { id: "1", answer: "sois" },
+                  { id: "2", answer: "aie" },
+                ],
+                correction: {
+                  correctAnswer: "sois — aie",
+                  explanation: "« Être » et « avoir » ont des formes irrégulières au subjonctif présent : que je sois, que j'aie.",
+                },
+              },
+              {
+                id: "emp-g3",
+                type: "association",
+                skillId: "voc-recherche-emploi",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "postuler", right: "envoyer sa candidature pour un poste" },
+                  { id: "2", left: "un point fort", right: "une qualité qui rend le candidat intéressant" },
+                  { id: "3", left: "disponible", right: "prêt à commencer à travailler à une date donnée" },
+                ],
+                correction: {
+                  correctAnswer: "postuler → envoyer sa candidature ; point fort → qualité ; disponible → prêt à commencer.",
+                  explanation: "Ce sont des mots essentiels d'une candidature ou d'un entretien.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "emploi-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "emploi-ecriture-activite",
+            title: "Présenter sa candidature",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "emp-h",
+                type: "production_ecrite",
+                skillId: "pe-presentation-professionnelle",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Vous répondez à l'annonce ci-dessus (ou à une annonce similaire). Présentez votre expérience, " +
+                  "vos qualités, et expliquez pourquoi ce poste vous intéresse. 5 à 8 phrases.",
+                minWords: 40,
+                maxWords: 90,
+                correctionCriteria: [
+                  "Expérience et qualités présentées (/2)",
+                  "But exprimé avec pour / afin de (/2)",
+                  "Motivation pour le poste clairement expliquée (/2)",
+                  "Phrases reliées entre elles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "emploi-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "emploi-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "emp-i1",
+                type: "qcm",
+                skillId: "gr-expression-but",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "emp-i1-q",
+                  prompt: "« Elle travaille le soir ___ payer ses études. »",
+                  choices: [
+                    { id: "a", text: "pour" },
+                    { id: "b", text: "pendant" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "pour",
+                    explanation: "« Pour + infinitif » exprime le but de l'action.",
+                  },
+                },
+              },
+              {
+                id: "emp-i2",
+                type: "reponse_courte",
+                skillId: "voc-recherche-emploi",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne l'action d'envoyer sa candidature pour un poste ? (___)",
+                acceptedAnswers: ["postuler"],
+                correction: {
+                  correctAnswer: "postuler",
+                  explanation: "C'est le verbe utilisé dans toutes les annonces d'emploi.",
+                },
+              },
+              {
+                id: "emp-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'annonce de l'entreprise de transport.",
+                statement: "Le poste est à pourvoir dès que possible.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "C'est précisé à la fin de l'annonce.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-hypothese-et-conseil",
+    slug: "hypothese-et-conseil",
+    level: "B1",
+    title: "Exprimer une hypothèse et donner un conseil",
+    description:
+      "À la fin de ce module, tu pourras envisager une possibilité et conseiller quelqu'un face à une décision.",
+    objectives: ["Faire une hypothèse", "Conseiller quelqu'un", "Nuancer un conseil"],
+    domain: "grammaire",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 30,
+    situation: "Yasmine hésite entre deux offres d'emploi et demande conseil à son amie Camille.",
+    vocabulary: [
+      { term: "hésiter (entre)", category: "verbe" },
+      { term: "une offre", category: "principal" },
+      { term: "à ta place", category: "expression" },
+      { term: "ça dépend", category: "expression" },
+      { term: "peser le pour et le contre", category: "expression" },
+      { term: "se décider", category: "verbe" },
+      { term: "prendre une décision", category: "expression" },
+      { term: "risquer (de)", category: "verbe" },
+      { term: "un délai de réflexion", category: "principal" },
+    ],
+    languagePoints: [
+      {
+        title: "Si + imparfait, conditionnel présent (hypothèse)",
+        explanation:
+          "Pour envisager une possibilité peu certaine : si + imparfait, conditionnel présent. Si j'étais toi, je prendrais le poste le plus stable. Si tu acceptais cette offre, tu devrais déménager.",
+      },
+      {
+        title: "Le conditionnel pour conseiller",
+        explanation:
+          "Tu pourrais..., tu devrais..., à ta place, je... permettent de donner un conseil sans l'imposer, en laissant la décision à l'autre personne.",
+      },
+    ],
+    examLinks: ["DELF B1 — production orale/écrite (conseil argumenté)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "conseil-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "conseil-ecoute-activite",
+            title: "Écouter Yasmine demander conseil",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "cns-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez la conversation entre Yasmine et Camille (« Deux offres d'emploi », 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/hypothese-et-conseil.mp3",
+                transcript:
+                  "Yasmine — J'ai reçu deux propositions de travail, et je ne sais pas laquelle choisir.\n" +
+                  "Camille — Raconte-moi ! C'est quoi la différence ?\n" +
+                  "Yasmine — La première est mieux payée, mais il faudrait que je déménage. La deuxième est plus " +
+                  "proche, mais moins stable : c'est un CDD de six mois.\n" +
+                  "Camille — Si j'étais toi, je réfléchirais d'abord à ce qui compte le plus pour moi : l'argent " +
+                  "ou la stabilité ?\n" +
+                  "Yasmine — La stabilité, je crois. Mais si je refusais la première offre, je risquerais de " +
+                  "le regretter.\n" +
+                  "Camille — Tu pourrais aussi demander un délai de réflexion à l'entreprise, non ?\n" +
+                  "Yasmine — Bonne idée, je n'y avais pas pensé. Je vais essayer.\n" +
+                  "Camille — À ta place, je ferais ça avant de me décider définitivement.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "cns-e-q1",
+                    prompt: "Quelle est la différence principale entre les deux offres ?",
+                    choices: [
+                      { id: "a", text: "L'une est mieux payée mais loin, l'autre est proche mais moins stable." },
+                      { id: "b", text: "Les deux sont identiques en tout point." },
+                      { id: "c", text: "L'une est à temps partiel, l'autre à temps plein." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "L'une est mieux payée mais loin, l'autre est proche mais moins stable.",
+                      explanation: "Yasmine décrit ces deux différences dès le début.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "cns-e-q2",
+                    prompt: "Vrai ou faux : Camille dit directement à Yasmine quelle offre choisir.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle l'aide à réfléchir et lui suggère une solution intermédiaire, sans imposer un choix.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "cns-e-q3",
+                    prompt: "Que conseille finalement Camille à Yasmine ?",
+                    expectedAnswer: "De demander un délai de réflexion à l'entreprise.",
+                    correction: {
+                      correctAnswer: "De demander un délai de réflexion à l'entreprise.",
+                      explanation: "C'est la solution qu'elle propose avant que Yasmine ne se décide définitivement.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "cns-e-q4",
+                    prompt: "Qu'est-ce que Yasmine risque si elle refuse la première offre ?",
+                    choices: [
+                      { id: "a", text: "De le regretter." },
+                      { id: "b", text: "De perdre son logement." },
+                      { id: "c", text: "De devoir déménager quand même." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "De le regretter.",
+                      explanation: "C'est ce qu'elle dit elle-même.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "conseil-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "conseil-entrainement-activite",
+            title: "Hypothèse et vocabulaire du conseil",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "cns-g1",
+                type: "qcm",
+                skillId: "gr-conditionnel-hypothese",
+                difficulty: "B1",
+                instructions: "Choisis la bonne forme.",
+                question: {
+                  kind: "qcm",
+                  id: "cns-g1-q",
+                  prompt: "« Si j'___ toi, je prendrais le poste le plus stable. »",
+                  choices: [
+                    { id: "a", text: "étais" },
+                    { id: "b", text: "suis" },
+                    { id: "c", text: "serais" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "étais",
+                    explanation: "Après « si » exprimant une hypothèse, on utilise l'imparfait ; la conséquence est au conditionnel.",
+                  },
+                },
+              },
+              {
+                id: "cns-g2",
+                type: "texte_a_trous",
+                skillId: "gr-conditionnel-hypothese",
+                difficulty: "B1",
+                instructions: "Complète avec l'imparfait puis le conditionnel présent.",
+                textWithBlanks:
+                  "Si tu {{1}} (accepter) cette offre, tu {{2}} (devoir) déménager rapidement.",
+                blanks: [
+                  { id: "1", answer: "acceptais" },
+                  { id: "2", answer: "devrais" },
+                ],
+                correction: {
+                  correctAnswer: "acceptais — devrais",
+                  explanation: "Si + imparfait, conditionnel présent : la condition est à l'imparfait, la conséquence au conditionnel.",
+                },
+              },
+              {
+                id: "cns-g3",
+                type: "association",
+                skillId: "voc-conseils",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "peser le pour et le contre", right: "réfléchir aux avantages et aux inconvénients avant de décider" },
+                  { id: "2", left: "à ta place", right: "si j'étais toi" },
+                  { id: "3", left: "se décider", right: "choisir finalement, après avoir hésité" },
+                ],
+                correction: {
+                  correctAnswer: "peser le pour et le contre → réfléchir ; à ta place → si j'étais toi ; se décider → choisir enfin.",
+                  explanation: "Ces expressions reviennent souvent quand on aide quelqu'un à prendre une décision.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "conseil-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "conseil-ecriture-activite",
+            title: "Conseiller un ami",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "cns-h",
+                type: "production_ecrite",
+                skillId: "pe-conseiller",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Un ami hésite entre deux choix importants (déménager ou rester, changer de travail ou non, " +
+                  "accepter une proposition ou non...). Écrivez-lui un message pour lui donner un conseil, en " +
+                  "utilisant au moins une hypothèse avec si + imparfait. 5 à 8 phrases.",
+                minWords: 40,
+                maxWords: 90,
+                correctionCriteria: [
+                  "Au moins une hypothèse avec si + imparfait (/2)",
+                  "Conseil clairement formulé (tu pourrais / tu devrais) (/2)",
+                  "Une nuance ou une réserve exprimée (/2)",
+                  "Phrases reliées entre elles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "conseil-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "conseil-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "cns-i1",
+                type: "qcm",
+                skillId: "gr-conditionnel-hypothese",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "cns-i1-q",
+                  prompt: "« Si j'avais plus de temps, je ___ (voyager) davantage. »",
+                  choices: [
+                    { id: "a", text: "voyagerais" },
+                    { id: "b", text: "voyage" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "voyagerais",
+                    explanation: "La conséquence d'une hypothèse avec « si + imparfait » se met au conditionnel présent.",
+                  },
+                },
+              },
+              {
+                id: "cns-i2",
+                type: "reponse_courte",
+                skillId: "voc-conseils",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quelle expression signifie « si j'étais toi » ? (à ___)",
+                acceptedAnswers: ["à ta place", "ta place"],
+                correction: {
+                  correctAnswer: "à ta place",
+                  explanation: "C'est l'expression utilisée par Camille pour conseiller Yasmine.",
+                },
+              },
+              {
+                id: "cns-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après la conversation entre Yasmine et Camille.",
+                statement: "La deuxième offre est un CDD de six mois.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "Yasmine le précise en décrivant les deux offres.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-rapporter-les-paroles",
+    slug: "rapporter-les-paroles",
+    level: "B1",
+    title: "Rapporter les paroles de quelqu'un",
+    description:
+      "À la fin de ce module, tu pourras transmettre correctement un message ou une information reçue par quelqu'un d'autre.",
+    objectives: [
+      "Rapporter un message reçu",
+      "Transmettre une demande ou une consigne",
+      "Distinguer ce qu'on sait de ce qu'on a entendu dire",
+    ],
+    domain: "production_ecrite",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 27,
+    situation: "Le livreur a laissé un message vocal à Inès pendant son absence ; elle doit le transmettre à son colocataire Hugo.",
+    vocabulary: [
+      { term: "transmettre", category: "verbe" },
+      { term: "rapporter (une information)", category: "verbe" },
+      { term: "un message vocal", category: "principal" },
+      { term: "prévenir (quelqu'un de quelque chose)", category: "verbe" },
+      { term: "une consigne", category: "principal" },
+      { term: "selon (elle / lui)", category: "connecteur" },
+      { term: "il paraît que", category: "expression" },
+      { term: "apparemment", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Le discours rapporté : dire que",
+        explanation:
+          "Pour rapporter une affirmation : il/elle a dit que + indicatif. Si le verbe rapporté était au futur, il devient conditionnel : « Je repasserai demain » → il a dit qu'il repasserait le lendemain.",
+      },
+      {
+        title: "Rapporter une question : demander si",
+        explanation:
+          "Pour rapporter une question fermée (oui/non), on utilise demander si : « Est-ce que quelqu'un sera présent ? » → il a demandé si quelqu'un serait présent.",
+      },
+    ],
+    examLinks: ["TCF IRN — expression écrite, tâche 2 (transmission d'information)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "rapporter-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "rapporter-ecoute-activite",
+            title: "Écouter un message vocal",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "rap-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez le message vocal reçu par Inès (« Un colis à livrer », 30 secondes), puis répondez.",
+                audioSrc: "/audio/b1/rapporter-les-paroles.mp3",
+                transcript:
+                  "Bonjour, c'est le livreur de chez ColisPlus. Je suis passé mais il n'y avait personne. Je " +
+                  "repasserai demain matin, vers 9 heures. Est-ce que quelqu'un sera présent ? Si besoin, vous " +
+                  "pouvez me rappeler au 06 12 34 56 78. Merci, bonne journée.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "rap-e-q1",
+                    prompt: "Pourquoi le livreur n'a-t-il pas pu livrer le colis ?",
+                    choices: [
+                      { id: "a", text: "Il n'y avait personne." },
+                      { id: "b", text: "L'adresse était incorrecte." },
+                      { id: "c", text: "Le colis était endommagé." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Il n'y avait personne.",
+                      explanation: "C'est ce qu'il précise au début de son message.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "rap-e-q2",
+                    prompt: "Vrai ou faux : le livreur repassera le soir même.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Il repassera le lendemain matin vers 9 heures.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "rap-e-q3",
+                    prompt: "Que demande le livreur à la fin de son message ?",
+                    expectedAnswer: "Si quelqu'un sera présent le lendemain matin.",
+                    correction: {
+                      correctAnswer: "Si quelqu'un sera présent le lendemain matin.",
+                      explanation: "C'est la question qu'il pose avant de laisser son numéro.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "rap-e-q4",
+                    prompt: "Que peut faire Inès si besoin ?",
+                    choices: [
+                      { id: "a", text: "Rappeler le livreur." },
+                      { id: "b", text: "Aller chercher le colis à l'entrepôt." },
+                      { id: "c", text: "Annuler la livraison." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Rappeler le livreur.",
+                      explanation: "Il laisse son numéro de téléphone pour cela.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "rapporter-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "rapporter-entrainement-activite",
+            title: "Transformer en discours rapporté",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "rap-g1",
+                type: "qcm",
+                skillId: "gr-discours-rapporte",
+                difficulty: "B1",
+                instructions: "Le livreur a dit : « Je repasserai demain. » Choisis la bonne transformation.",
+                question: {
+                  kind: "qcm",
+                  id: "rap-g1-q",
+                  prompt: "Au discours rapporté : « Il a dit ___ »",
+                  choices: [
+                    { id: "a", text: "qu'il repasserait le lendemain." },
+                    { id: "b", text: "que je repasserai demain." },
+                    { id: "c", text: "qu'il repasse demain." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "qu'il repasserait le lendemain.",
+                    explanation: "Le futur devient conditionnel, et « demain » devient « le lendemain » quand on rapporte plus tard.",
+                  },
+                },
+              },
+              {
+                id: "rap-g2",
+                type: "texte_a_trous",
+                skillId: "gr-discours-rapporte",
+                difficulty: "B1",
+                instructions: "Complète pour rapporter la question du livreur.",
+                textWithBlanks:
+                  "Le livreur a demandé {{1}} quelqu'un {{2}} (être) présent le lendemain matin.",
+                blanks: [
+                  { id: "1", answer: "si" },
+                  { id: "2", answer: "serait" },
+                ],
+                correction: {
+                  correctAnswer: "si — serait",
+                  explanation: "« Demander si » rapporte une question fermée ; le futur de la question directe devient conditionnel.",
+                },
+              },
+              {
+                id: "rap-g3",
+                type: "association",
+                skillId: "voc-communication",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "transmettre", right: "faire passer une information à quelqu'un d'autre" },
+                  { id: "2", left: "un message vocal", right: "un message enregistré par téléphone" },
+                  { id: "3", left: "apparemment", right: "d'après ce qu'on a entendu dire, sans certitude totale" },
+                ],
+                correction: {
+                  correctAnswer: "transmettre → faire passer ; message vocal → message enregistré ; apparemment → sans certitude.",
+                  explanation: "Ces mots servent à préciser d'où vient une information qu'on rapporte.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "rapporter-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "rapporter-ecriture-activite",
+            title: "Transmettre un message reçu",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "rap-h",
+                type: "production_ecrite",
+                skillId: "pe-rapporter-message",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Un livreur (ou une autre personne) vous a laissé un message pendant l'absence de votre " +
+                  "colocataire. Écrivez-lui un message pour rapporter fidèlement ce qui a été dit et demandé. " +
+                  "4 à 6 phrases.",
+                minWords: 30,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Message rapporté avec « il/elle a dit que » (/2)",
+                  "Question rapportée avec « si » si nécessaire (/2)",
+                  "Information complète et fidèle au message d'origine (/1)",
+                  "Phrases reliées entre elles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "rapporter-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "rapporter-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "rap-i1",
+                type: "qcm",
+                skillId: "gr-discours-rapporte",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "rap-i1-q",
+                  prompt: "Elle a demandé : « Est-ce que tu viendras ? » Rapporté : « Elle a demandé ___ »",
+                  choices: [
+                    { id: "a", text: "si je viendrais." },
+                    { id: "b", text: "que je viendrai." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "si je viendrais.",
+                    explanation: "Une question fermée se rapporte avec « si », et le futur devient conditionnel.",
+                  },
+                },
+              },
+              {
+                id: "rap-i2",
+                type: "reponse_courte",
+                skillId: "voc-communication",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel verbe signifie « faire passer une information à quelqu'un » ? (___)",
+                acceptedAnswers: ["transmettre"],
+                correction: {
+                  correctAnswer: "transmettre",
+                  explanation: "C'est le verbe utilisé pour parler de la transmission d'un message.",
+                },
+              },
+              {
+                id: "rap-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le message du livreur.",
+                statement: "Le livreur a laissé son numéro de téléphone.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "Il le donne à la fin de son message, en cas de besoin.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getModuleBySlug(slug: string): Module | undefined {
