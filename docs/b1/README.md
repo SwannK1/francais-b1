@@ -24,10 +24,13 @@ content/b1/
     └── module-16-comprendre-une-demarche-administrative.md
 ```
 
-Les 5 fichiers de `modules/` sont les **modules pilotes**, entièrement
-rédigés, qui servent de modèle. Les 19 autres modules du programme existent
-pour l'instant seulement comme fiches de cadrage dans `curriculum.md` — à
-rédiger en intégralité plus tard, en suivant ce même modèle.
+Les 5 fichiers de `modules/` listés ci-dessus sont les **modules pilotes**
+d'origine : le format qui a servi de modèle. Le dossier `modules/` lui-même
+n'existe plus dans ce worktree — les 24 modules du programme (pilotes
+compris) sont désormais tous rédigés et livrés sous forme de données
+TypeScript dans `lib/pedagogy/data/modules.ts`, pas en Markdown. Ce guide
+reste la référence pour le format éditorial (structure, règles, checklist)
+si de nouveaux contenus Markdown devaient être rédigés avant transcription.
 
 ## Format des données
 

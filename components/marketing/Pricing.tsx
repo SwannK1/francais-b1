@@ -4,12 +4,12 @@ import Button from "@/components/ui/Button";
 import { CheckIcon } from "@/components/ui/icons";
 
 const features = [
-  "Tous les niveaux, du A1 au B2",
+  "Le programme B1 complet (26 modules)",
   "Toutes les leçons et tous les exercices",
   "Tous les audios de compréhension orale",
-  "Productions écrites avec corrections",
-  "Préparation au DELF et au TCF IRN",
-  "Examens blancs",
+  "Productions écrites avec grille d'auto-évaluation",
+  "Préparation au DELF B1",
+  "Un examen blanc DELF B1",
   "Suivi de ta progression",
 ];
 

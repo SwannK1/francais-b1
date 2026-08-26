@@ -36,7 +36,7 @@ export default function Footer() {
               Parcours<span className="text-primary">FR</span>
             </span>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Apprendre le français jusqu&apos;au niveau dont tu as besoin.
+              Apprendre le français et préparer son DELF B1, à son rythme.
             </p>
           </div>
 

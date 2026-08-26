@@ -163,7 +163,9 @@ export const EXAMS: Exam[] = [
     description:
       "Premier examen blanc complet, structure et barème alignés sur le format officiel DELF B1 " +
       "(France Éducation International) : 4 épreuves sur 25 points chacune, seuil de réussite 50/100, " +
-      "note éliminatoire 5/25 par épreuve. Contenu 100% original.",
+      "note éliminatoire 5/25 par épreuve. Contenu 100% original. Différence avec le vrai DELF : les " +
+      "documents audio sont ici réécoutables librement, alors qu'ils ne sont diffusés que deux fois le " +
+      "jour de l'examen.",
     durationMinutes:
       DELF_B1_REFERENCE.comprehensionOrale.durationMinutes +
       DELF_B1_REFERENCE.comprehensionEcrite.durationMinutes +
@@ -212,27 +214,42 @@ export const EXAMS: Exam[] = [
                 },
               },
               {
-                kind: "libre",
+                kind: "qcm",
                 id: "blanc1-co-1-q2",
                 prompt: "Où se trouve le nouveau camping ?",
-                expectedAnswer: "À Annecy.",
+                choices: [
+                  { id: "a", text: "À Annecy." },
+                  { id: "b", text: "Près de Lyon." },
+                  { id: "c", text: "À la montagne, dans les Alpes." },
+                ],
+                correctChoiceId: "a",
                 correction: { correctAnswer: "À Annecy.", explanation: "Karim le précise directement." },
               },
               {
-                kind: "vrai_faux",
+                kind: "qcm",
                 id: "blanc1-co-1-q3",
-                prompt: "Vrai ou faux : le nouveau camping est plus proche que le premier.",
-                correctAnswer: false,
+                prompt: "Comment le nouveau camping se compare-t-il au premier ?",
+                choices: [
+                  { id: "a", text: "Il est plus loin." },
+                  { id: "b", text: "Il est plus proche." },
+                  { id: "c", text: "Il est à la même distance." },
+                ],
+                correctChoiceId: "a",
                 correction: {
-                  correctAnswer: "Faux.",
+                  correctAnswer: "Il est plus loin.",
                   explanation: "« C'est à peu près une heure de route en plus » : il est plus loin.",
                 },
               },
               {
-                kind: "libre",
+                kind: "qcm",
                 id: "blanc1-co-1-q4",
                 prompt: "À quelle heure Karim propose-t-il de partir ?",
-                expectedAnswer: "Vers 8h.",
+                choices: [
+                  { id: "a", text: "Vers 8h." },
+                  { id: "b", text: "Vers 9h." },
+                  { id: "c", text: "Vers 10h." },
+                ],
+                correctChoiceId: "a",
                 correction: { correctAnswer: "Vers 8h.", explanation: "« si on part une heure plus tôt... vers 8h ». " },
               },
             ],
@@ -273,27 +290,42 @@ export const EXAMS: Exam[] = [
                 },
               },
               {
-                kind: "libre",
+                kind: "qcm",
                 id: "blanc1-co-2-q2",
                 prompt: "À quelle distance du centre des congrès se trouve l'hôtel ?",
-                expectedAnswer: "À dix minutes à pied.",
+                choices: [
+                  { id: "a", text: "À dix minutes à pied." },
+                  { id: "b", text: "À une heure en voiture." },
+                  { id: "c", text: "Juste en face du centre des congrès." },
+                ],
+                correctChoiceId: "a",
                 correction: { correctAnswer: "À dix minutes à pied.", explanation: "Nadia le précise directement." },
               },
               {
-                kind: "vrai_faux",
+                kind: "qcm",
                 id: "blanc1-co-2-q3",
-                prompt: "Vrai ou faux : Nadia a trouvé une chambre double pour eux deux.",
-                correctAnswer: false,
+                prompt: "Quelles chambres Nadia a-t-elle trouvées à l'hôtel ?",
+                choices: [
+                  { id: "a", text: "Deux chambres simples." },
+                  { id: "b", text: "Une chambre double." },
+                  { id: "c", text: "Une suite avec deux lits." },
+                ],
+                correctChoiceId: "a",
                 correction: {
-                  correctAnswer: "Faux.",
+                  correctAnswer: "Deux chambres simples.",
                   explanation: "« il ne reste que des chambres simples, pas de chambre double ».",
                 },
               },
               {
-                kind: "libre",
+                kind: "qcm",
                 id: "blanc1-co-2-q4",
                 prompt: "Quand vont-ils rentrer, selon leur discussion ?",
-                expectedAnswer: "Le soir même.",
+                choices: [
+                  { id: "a", text: "Le soir même." },
+                  { id: "b", text: "Le lendemain matin." },
+                  { id: "c", text: "Deux jours après." },
+                ],
+                correctChoiceId: "a",
                 correction: { correctAnswer: "Le soir même.", explanation: "Le salon se termine à 17h, ils peuvent rentrer le soir même." },
               },
               {
@@ -359,27 +391,42 @@ export const EXAMS: Exam[] = [
                 },
               },
               {
-                kind: "vrai_faux",
+                kind: "qcm",
                 id: "blanc1-ce-1-q2",
-                prompt: "Vrai ou faux : les cours du samedi matin sont annulés, sans aucune alternative.",
-                correctAnswer: false,
+                prompt: "Que se passe-t-il pour les cours du samedi matin ?",
+                choices: [
+                  { id: "a", text: "Ils sont annulés, sans aucune alternative." },
+                  { id: "b", text: "Ils sont proposés en ligne, à la même heure." },
+                  { id: "c", text: "Ils sont reportés au dimanche." },
+                ],
+                correctChoiceId: "b",
                 correction: {
-                  correctAnswer: "Faux.",
+                  correctAnswer: "Ils sont proposés en ligne, à la même heure.",
                   explanation: "Ils sont proposés en ligne, en visioconférence, à la même heure.",
                 },
               },
               {
-                kind: "libre",
+                kind: "qcm",
                 id: "blanc1-ce-1-q3",
                 prompt: "Avant quelle date faut-il répondre pour participer au cours en ligne ?",
-                expectedAnswer: "Avant le 8 septembre.",
+                choices: [
+                  { id: "a", text: "Avant le 8 septembre." },
+                  { id: "b", text: "Avant le 12 septembre." },
+                  { id: "c", text: "Avant le 14 septembre." },
+                ],
+                correctChoiceId: "a",
                 correction: { correctAnswer: "Avant le 8 septembre.", explanation: "C'est la date limite donnée dans le message." },
               },
               {
-                kind: "libre",
+                kind: "qcm",
                 id: "blanc1-ce-1-q4",
                 prompt: "Que se passe-t-il si on ne répond pas au message ?",
-                expectedAnswer: "On considère que la personne ne participera pas.",
+                choices: [
+                  { id: "a", text: "On considère qu'on ne participera pas au cours en ligne." },
+                  { id: "b", text: "On est automatiquement inscrit au cours en ligne." },
+                  { id: "c", text: "Le cours est annulé pour tout le monde." },
+                ],
+                correctChoiceId: "a",
                 correction: {
                   correctAnswer: "On considère que la personne ne participera pas au cours en ligne.",
                   explanation: "« Sans réponse de votre part, nous considérerons que vous ne participerez pas ».",
@@ -429,27 +476,42 @@ export const EXAMS: Exam[] = [
                 },
               },
               {
-                kind: "libre",
+                kind: "qcm",
                 id: "blanc1-ce-2-q2",
                 prompt: "Pourquoi le jardin partagé est-il surtout important pour Sophie ?",
-                expectedAnswer: "Pour rencontrer ses voisins et créer du lien social.",
+                choices: [
+                  { id: "a", text: "Pour rencontrer ses voisins." },
+                  { id: "b", text: "Pour gagner de l'argent en vendant des légumes." },
+                  { id: "c", text: "Pour obtenir une réduction sur ses impôts." },
+                ],
+                correctChoiceId: "a",
                 correction: {
                   correctAnswer: "Pour rencontrer ses voisins.",
                   explanation: "« Avant, je ne connaissais presque personne dans mon immeuble. »",
                 },
               },
               {
-                kind: "vrai_faux",
+                kind: "qcm",
                 id: "blanc1-ce-2-q3",
-                prompt: "Vrai ou faux : selon le texte, créer un jardin partagé coûte très cher aux mairies.",
-                correctAnswer: false,
-                correction: { correctAnswer: "Faux.", explanation: "Le texte dit « sans coût très élevé pour la collectivité »." },
+                prompt: "Que dit le texte à propos du coût d'un jardin partagé pour la mairie ?",
+                choices: [
+                  { id: "a", text: "Il n'est pas très élevé." },
+                  { id: "b", text: "Il est très élevé." },
+                  { id: "c", text: "Le texte ne parle pas du coût." },
+                ],
+                correctChoiceId: "a",
+                correction: { correctAnswer: "Il n'est pas très élevé.", explanation: "Le texte dit « sans coût très élevé pour la collectivité »." },
               },
               {
-                kind: "libre",
+                kind: "qcm",
                 id: "blanc1-ce-2-q4",
                 prompt: "Que faut-il généralement pour démarrer un jardin partagé, selon le texte ?",
-                expectedAnswer: "Un accord avec la mairie et un petit groupe de bénévoles motivés.",
+                choices: [
+                  { id: "a", text: "Un accord avec la mairie et un petit groupe de bénévoles motivés." },
+                  { id: "b", text: "Un budget municipal important et un appel d'offres." },
+                  { id: "c", text: "L'accord de tous les habitants de la ville." },
+                ],
+                correctChoiceId: "a",
                 correction: {
                   correctAnswer: "Un accord avec la mairie et un petit groupe de bénévoles motivés.",
                   explanation: "C'est ce qu'indique le troisième paragraphe.",

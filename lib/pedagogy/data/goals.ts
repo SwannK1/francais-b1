@@ -36,8 +36,11 @@ export const LEARNING_GOALS: LearningGoal[] = [
     id: "naturalisation",
     title: "Naturalisation",
     description: "Niveau de français utile pour une demande de naturalisation.",
-    recommendedLevel: "B1",
-    note: "Estimation pédagogique, à vérifier auprès des autorités compétentes.",
+    recommendedLevel: "B2",
+    note:
+      "Depuis le 1er janvier 2026 (décret n° 2025-648), le niveau exigé pour la naturalisation " +
+      "est passé de B1 à B2 (oral et écrit). Ce parcours s'arrête au B1 : il prépare une étape " +
+      "utile mais insuffisante à lui seul pour ce niveau — à vérifier auprès des autorités compétentes.",
   },
   {
     id: "etudes",

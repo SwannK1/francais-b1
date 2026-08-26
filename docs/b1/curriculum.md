@@ -18,11 +18,13 @@ Public : adultes non francophones, vivant ou souhaitant vivre en France, qui
 ont déjà le niveau A2 (compris) et veulent atteindre un B1 solide, utile au
 quotidien et mobilisable pour le DELF B1 / TCF IRN.
 
-Les modules marqués **★ MODULE PILOTE** sont intégralement rédigés dans
-`content/b1/modules/`. Les autres modules ne sont, à ce stade, que des fiches
-de cadrage : elles suffisent à briefer la rédaction future d'un module complet
-en réutilisant `content/b1/README.md` (section « Comment créer un nouveau
-module »).
+Les modules marqués **★ MODULE PILOTE** ont été les premiers rédigés en
+intégralité (à l'origine dans un dossier `content/b1/modules/` propre à un
+autre worktree de chantier). Tous les modules du programme sont désormais
+intégralement rédigés et livrés, transcrits dans
+`lib/pedagogy/data/modules.ts` (voir le commentaire en tête de ce fichier) —
+ce dossier `docs/b1/` ne contient plus que la documentation de référence
+(programme, grammaire, vocabulaire), pas les fichiers Markdown sources.
 
 ---
 
@@ -31,11 +33,13 @@ module »).
 Le B1 est découpé en **3 phases de 8 modules**. La difficulté et l'autonomie
 demandée augmentent progressivement :
 
-- **B1 — Début (modules 1 à 8)**
+- **B1 — Début (modules 1 à 8, + 2 modules courts supplémentaires)**
   Consolidation du socle A2→B1 : présent, passé composé, premiers repères de
   vie quotidienne en France (logement, rendez-vous, courrier simple). On
   installe la distinction passé composé / imparfait, point de bascule du
-  niveau.
+  niveau. Deux modules courts non numérotés (« Parler de ses habitudes et de
+  ses goûts », « Faire des achats et comparer ») renforcent cette phase dans
+  `lib/pedagogy/data/modules.ts` — voir la note en fin de document.
 
 - **B1 — Intermédiaire (modules 9 à 16)**
   L'apprenant commence à **argumenter** : donner son avis, comparer, parler
@@ -341,3 +345,8 @@ bloquer un apprenant qui rejoint le parcours en cours de route.
 | B1 — Consolidation  | 17–24   | Hypothèse, conseil, discours rapporté, argumentation avancée, bilan |
 
 **Total : 24 modules.**
+
+*Note : `lib/pedagogy/data/modules.ts` livre également 2 modules courts
+supplémentaires (« Parler de ses habitudes et de ses goûts », « Faire des
+achats et comparer »), non comptabilisés ici et à documenter dans une
+prochaine mise à jour de ce programme s'ils sont conservés.*
