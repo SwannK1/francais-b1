@@ -5,8 +5,8 @@ const columns = [
   {
     title: "Produit",
     links: [
-      { href: "#apprentissage", label: "Apprendre" },
-      { href: "#examens", label: "Examens" },
+      { href: "/#apprentissage", label: "Apprendre" },
+      { href: "/#examens", label: "Examens" },
       { href: "/offre", label: "Offre" },
       { href: "/faq", label: "FAQ" },
     ],
@@ -14,8 +14,8 @@ const columns = [
   {
     title: "Entreprise",
     links: [
-      { href: "#", label: "À propos" },
-      { href: "#", label: "Contact" },
+      { href: "/a-propos", label: "À propos" },
+      { href: "/contact", label: "Contact" },
     ],
   },
   {

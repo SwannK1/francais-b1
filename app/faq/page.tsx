@@ -39,7 +39,7 @@ const faqs = [
   {
     question: "Puis-je résilier à tout moment ?",
     answer:
-      "Oui, l'abonnement est sans engagement : tu peux résilier quand tu le souhaites, l'accès reste actif jusqu'à la fin de la période déjà payée. Voir les CGV pour le détail.",
+      "Oui, l'abonnement est sans engagement. La résiliation en libre-service depuis ton compte n'est pas encore disponible : contacte-nous pour résilier. Ton accès reste actif jusqu'à la fin de la période déjà payée. Voir les CGV pour le détail.",
   },
   {
     question: "Comment se passe le paiement ?",

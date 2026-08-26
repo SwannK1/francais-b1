@@ -58,6 +58,17 @@ export default function MentionsLegalesPage() {
             </section>
 
             <section>
+              <h2 className="text-base font-semibold text-foreground">Responsabilité</h2>
+              <p className="mt-1">
+                ParcoursFR met tout en œuvre pour assurer l&apos;accès et le bon fonctionnement du
+                site, sans garantir une disponibilité continue (maintenance, incidents techniques
+                indépendants de sa volonté). L&apos;éditeur ne peut être tenu responsable des
+                dommages indirects résultant de l&apos;utilisation du site. [À compléter : clause de
+                responsabilité définitive, à valider par un juriste avant mise en ligne.]
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-base font-semibold text-foreground">Absence d&apos;affiliation officielle</h2>
               <p className="mt-1">
                 ParcoursFR n&apos;est ni éditeur, ni partenaire, ni affilié à France Éducation

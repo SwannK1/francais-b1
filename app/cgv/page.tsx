@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
@@ -26,13 +27,26 @@ export default function CgvPage() {
               <h2 className="text-base font-semibold text-foreground">1. Objet</h2>
               <p className="mt-1">
                 Les présentes conditions régissent la vente de l&apos;abonnement « {MAIN_PLAN.name} »
-                donnant accès à la formation de français niveau B1 proposée sur ParcoursFR (parcours
-                de modules, exercices, audios, examens blancs).
+                donnant accès à la formation de français niveau B1 proposée sur ParcoursFR.
               </p>
             </section>
 
             <section>
-              <h2 className="text-base font-semibold text-foreground">2. Prix</h2>
+              <h2 className="text-base font-semibold text-foreground">2. Caractéristiques de l&apos;offre</h2>
+              <p className="mt-1">L&apos;abonnement « {MAIN_PLAN.name} » comprend :</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {MAIN_PLAN.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+              <p className="mt-2">
+                Un test de positionnement et deux modules complets restent accessibles gratuitement,
+                sans compte payant, pour essayer la méthode avant de souscrire.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">3. Prix</h2>
               <p className="mt-1">
                 Le prix de l&apos;abonnement « {MAIN_PLAN.name} » est de {MAIN_PLAN.priceLabel} TTC
                 par {MAIN_PLAN.interval}, tel qu&apos;affiché sur la page Offre au moment de la
@@ -42,7 +56,7 @@ export default function CgvPage() {
             </section>
 
             <section>
-              <h2 className="text-base font-semibold text-foreground">3. Paiement</h2>
+              <h2 className="text-base font-semibold text-foreground">4. Paiement</h2>
               <p className="mt-1">
                 Le paiement est effectué en ligne par carte bancaire via Stripe, prestataire de
                 paiement sécurisé. ParcoursFR ne collecte ni ne stocke aucune donnée de carte
@@ -51,17 +65,29 @@ export default function CgvPage() {
             </section>
 
             <section>
-              <h2 className="text-base font-semibold text-foreground">4. Durée et résiliation</h2>
+              <h2 className="text-base font-semibold text-foreground">5. Accès au contenu numérique</h2>
               <p className="mt-1">
-                L&apos;abonnement est sans engagement de durée et se renouvelle automatiquement
-                chaque {MAIN_PLAN.interval} jusqu&apos;à résiliation par la personne abonnée.
-                L&apos;accès reste actif jusqu&apos;à la fin de la période déjà payée. [À compléter :
-                procédure exacte de résiliation une fois l&apos;espace compte disponible.]
+                L&apos;accès complet est activé automatiquement dès la confirmation du paiement par
+                Stripe, sur le compte utilisé pour souscrire. Aucun support physique n&apos;est
+                fourni : l&apos;abonnement donne uniquement accès au contenu en ligne, depuis un
+                navigateur récent et une connexion Internet.
               </p>
             </section>
 
             <section>
-              <h2 className="text-base font-semibold text-foreground">5. Droit de rétractation</h2>
+              <h2 className="text-base font-semibold text-foreground">6. Durée et résiliation</h2>
+              <p className="mt-1">
+                L&apos;abonnement est sans engagement de durée et se renouvelle automatiquement
+                chaque {MAIN_PLAN.interval} jusqu&apos;à résiliation par la personne abonnée.
+                L&apos;accès reste actif jusqu&apos;à la fin de la période déjà payée. [À compléter :
+                procédure exacte de résiliation — la résiliation en libre-service depuis le compte
+                n&apos;est pas encore disponible ; en l&apos;état, elle se fait en contactant
+                ParcoursFR, voir la page Contact.]
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">7. Droit de rétractation</h2>
               <p className="mt-1">
                 Conformément au code de la consommation, tout consommateur dispose en principe d&apos;un
                 délai de 14 jours pour se rétracter d&apos;un achat en ligne. Ce droit peut toutefois
@@ -74,19 +100,70 @@ export default function CgvPage() {
             </section>
 
             <section>
-              <h2 className="text-base font-semibold text-foreground">6. Absence de garantie de résultat</h2>
+              <h2 className="text-base font-semibold text-foreground">8. Remboursement</h2>
               <p className="mt-1">
-                ParcoursFR fournit un outil pédagogique et des examens blancs d&apos;entraînement.
-                Aucune garantie de réussite à un examen officiel (DELF, TCF ou autre) n&apos;est
-                donnée, quelle que soit l&apos;assiduité de l&apos;utilisateur·rice.
+                Hors cas de rétractation valablement exercé (voir section 7), aucun remboursement
+                n&apos;est garanti pour une période d&apos;abonnement déjà entamée. [À compléter :
+                politique de remboursement définitive, notamment en cas de dysfonctionnement du
+                service imputable à ParcoursFR — à valider avant mise en ligne.]
               </p>
             </section>
 
             <section>
-              <h2 className="text-base font-semibold text-foreground">7. Droit applicable et litiges</h2>
+              <h2 className="text-base font-semibold text-foreground">9. Responsabilité</h2>
+              <p className="mt-1">
+                ParcoursFR fournit un outil pédagogique et des examens blancs d&apos;entraînement.
+                Aucune garantie de réussite à un examen officiel (DELF, TCF ou autre) n&apos;est
+                donnée, quelle que soit l&apos;assiduité de l&apos;utilisateur·rice. ParcoursFR ne
+                saurait être tenu responsable d&apos;une interruption temporaire du service (maintenance,
+                panne d&apos;un prestataire technique) ni d&apos;un usage non conforme du service par
+                l&apos;utilisateur·rice. [À compléter : clause de limitation de responsabilité
+                définitive, à valider par un juriste.]
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">10. Propriété intellectuelle</h2>
+              <p className="mt-1">
+                L&apos;abonnement donne un droit d&apos;usage personnel et non transférable des
+                contenus pédagogiques, pour la durée de l&apos;abonnement. Ces contenus restent la
+                propriété de leur éditeur (voir les{" "}
+                <Link href="/mentions-legales" className="underline hover:text-foreground">
+                  mentions légales
+                </Link>
+                ) et ne peuvent être reproduits, redistribués ou partagés sans autorisation.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">11. Données personnelles</h2>
+              <p className="mt-1">
+                Le traitement des données personnelles nécessaires à la souscription et à
+                l&apos;utilisation de l&apos;abonnement est détaillé dans la{" "}
+                <Link href="/confidentialite" className="underline hover:text-foreground">
+                  politique de confidentialité
+                </Link>
+                .
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">12. Droit applicable et litiges</h2>
               <p className="mt-1">
                 [À compléter avec le droit applicable et la juridiction compétente, ou le médiateur de
                 la consommation applicable, une fois l&apos;éditeur identifié.]
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">13. Contact</h2>
+              <p className="mt-1">
+                Pour toute question relative à ces conditions ou à un abonnement en cours, voir la
+                page{" "}
+                <Link href="/contact" className="underline hover:text-foreground">
+                  Contact
+                </Link>
+                .
               </p>
             </section>
           </div>
