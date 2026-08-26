@@ -3,6 +3,7 @@ import Card from "@/components/ui/Card";
 import ExamCard from "@/components/pedagogy/ExamCard";
 import { EXAMS } from "@/lib/pedagogy/data/exams";
 import { getStageBySlug } from "@/lib/pedagogy/data/parcours-stages";
+import { canAccess } from "@/lib/commerce/access";
 
 export const metadata = { title: "Préparation examen — ParcoursFR" };
 
@@ -28,7 +29,12 @@ export default function ExamensPage() {
         {EXAMS.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2">
             {EXAMS.map((exam) => (
-              <ExamCard key={exam.id} exam={exam} href={`/parcours/examens/${exam.slug}`} />
+              <ExamCard
+                key={exam.id}
+                exam={exam}
+                href={`/parcours/examens/${exam.slug}`}
+                locked={!canAccess({ kind: "exam", slug: exam.slug })}
+              />
             ))}
           </div>
         ) : (

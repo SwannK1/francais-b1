@@ -7,6 +7,7 @@ import ModuleCard from "@/components/pedagogy/ModuleCard";
 import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
 import { getStageCompletionRate } from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
+import { canAccess } from "@/lib/commerce/access";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 import type { Module } from "@/lib/pedagogy/types";
 
@@ -50,6 +51,7 @@ export default function StageExperience({
                 module={mod}
                 completionRate={getModuleCompletionRate(progress, mod)}
                 href={`/parcours/module/${mod.slug}`}
+                locked={!canAccess({ kind: "module", slug: mod.slug })}
               />
             ))}
           </div>

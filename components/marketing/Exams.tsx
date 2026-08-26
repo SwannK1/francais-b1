@@ -4,12 +4,13 @@ import { ExamIcon } from "@/components/ui/icons";
 
 const exams = [
   {
-    title: "DELF",
-    description: "Diplôme d'études en langue française — niveaux A1 à B2.",
+    title: "DELF B1",
+    description: "Examens blancs complets, dans les conditions et le format de l'épreuve officielle.",
   },
   {
     title: "TCF IRN",
-    description: "Test de connaissance du français pour l'intégration, la résidence et la nationalité.",
+    description:
+      "Les compétences du parcours (grammaire, vocabulaire, situations administratives) sont utiles pour ce test, mais aucun examen blanc TCF IRN dédié n'est encore disponible.",
   },
 ];
 

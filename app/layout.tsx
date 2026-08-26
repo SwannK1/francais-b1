@@ -10,7 +10,7 @@ const geistSans = Geist({
 });
 
 const siteDescription =
-  "Teste ton niveau de français, suis le parcours B1 et prépare le DELF B1 à ton rythme.";
+  "Formation complète de français niveau B1 : teste ton niveau, suis un parcours de modules guidés et prépare le DELF B1 avec des examens blancs, à ton rythme.";
 
 export const metadata: Metadata = {
   title: "ParcoursFR — Apprends le français à ton rythme",

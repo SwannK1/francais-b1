@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
-import { ExamIcon } from "@/components/ui/icons";
+import { ExamIcon, LockIcon } from "@/components/ui/icons";
 import type { Exam } from "@/lib/pedagogy/types";
 
 const TYPE_LABEL: Record<Exam["type"], string> = {
@@ -10,7 +10,16 @@ const TYPE_LABEL: Record<Exam["type"], string> = {
   interne: "Entraînement interne",
 };
 
-export default function ExamCard({ exam, href }: { exam: Exam; href: string }) {
+export default function ExamCard({
+  exam,
+  href,
+  locked = false,
+}: {
+  exam: Exam;
+  href: string;
+  /** true si cet examen fait partie de l'offre complète (voir lib/commerce/access.ts). */
+  locked?: boolean;
+}) {
   return (
     <Card>
       <div className="mb-2 flex items-center gap-2">
@@ -18,6 +27,12 @@ export default function ExamCard({ exam, href }: { exam: Exam; href: string }) {
         <Badge variant="primary">{TYPE_LABEL[exam.type]}</Badge>
         <Badge variant="neutral">{exam.level}</Badge>
         {exam.isBlanc ? <Badge variant="secondary">Examen blanc</Badge> : null}
+        {locked ? (
+          <Badge variant="secondary">
+            <LockIcon className="h-3 w-3" />
+            Offre complète
+          </Badge>
+        ) : null}
       </div>
 
       <h3 className="text-lg font-semibold text-foreground">{exam.title}</h3>
@@ -41,10 +56,10 @@ export default function ExamCard({ exam, href }: { exam: Exam; href: string }) {
       </dl>
 
       <Link
-        href={href}
+        href={locked ? "/offre" : href}
         className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
       >
-        Voir l&apos;épreuve
+        {locked ? "Voir l'offre complète" : "Voir l'épreuve"}
       </Link>
     </Card>
   );
