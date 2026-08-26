@@ -8532,6 +8532,886 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-organiser-un-voyage",
+    slug: "organiser-un-voyage",
+    level: "B1",
+    title: "Organiser un voyage",
+    description:
+      "À la fin de ce module, tu pourras organiser un voyage simple, comparer plusieurs options et exprimer une préférence.",
+    objectives: [
+      "Comparer plusieurs options de voyage",
+      "Comprendre un document de réservation",
+      "Justifier un choix et s'organiser",
+    ],
+    domain: "comprehension_ecrite",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 28,
+    situation: "Nadia organise un week-end avec sa sœur et compare deux options de voyage avant de réserver.",
+    vocabulary: [
+      { term: "un itinéraire", category: "principal" },
+      { term: "un aller-retour", category: "principal" },
+      { term: "réserver", category: "verbe" },
+      { term: "une réservation", category: "principal" },
+      { term: "un hébergement", category: "principal" },
+      { term: "un forfait", category: "principal" },
+      { term: "annuler", category: "verbe" },
+      { term: "modifier (une réservation)", category: "verbe" },
+      { term: "les disponibilités", category: "principal" },
+      { term: "plutôt que", category: "connecteur" },
+      { term: "soit... soit", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Connecteurs de choix : soit... soit, plutôt que",
+        explanation:
+          "Soit... soit présente une alternative : On pourrait aller soit à Nice, soit à Marseille. Plutôt que compare une préférence : Je préfère prendre le train plutôt que la voiture.",
+      },
+      {
+        title: "Révision : y et en pour un lieu ou une quantité",
+        explanation:
+          "Y remplace un lieu déjà mentionné : Tu es déjà allée à Nice ? — Oui, j'y suis allée l'an dernier. En remplace une quantité : Il reste des places ? — Oui, il y en a encore quelques-unes.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension des écrits (documents de réservation/voyage)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "voyage-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "voyage-comprendre-activite",
+            title: "Lire une confirmation de réservation",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "voy-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez la confirmation de réservation reçue par Nadia, puis répondez.",
+                text:
+                  "Confirmation de réservation — Train Paris → Nice, aller le 14 juin à 8h12, retour le 16 juin " +
+                  "à 19h45. 2 passagers. Hébergement : Studio « Le Mistral », 2 nuits, du 14 au 16 juin, arrivée " +
+                  "à partir de 15h. Annulation gratuite jusqu'à 48h avant le départ. Un contretemps ? Vous " +
+                  "pouvez modifier votre réservation directement en ligne.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "voy-e-q1",
+                    prompt: "Combien de temps dure le séjour ?",
+                    choices: [
+                      { id: "a", text: "2 nuits." },
+                      { id: "b", text: "1 nuit." },
+                      { id: "c", text: "Une semaine." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "2 nuits.",
+                      explanation: "L'hébergement est réservé « 2 nuits, du 14 au 16 juin ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "voy-e-q2",
+                    prompt: "Vrai ou faux : l'annulation est gratuite jusqu'au dernier moment.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "L'annulation gratuite est possible seulement jusqu'à 48h avant le départ.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "voy-e-q3",
+                    prompt: "Que peut faire Nadia en cas de contretemps ?",
+                    expectedAnswer: "Modifier sa réservation en ligne.",
+                    correction: {
+                      correctAnswer: "Modifier sa réservation en ligne.",
+                      explanation: "C'est précisé à la fin de la confirmation.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "voy-e-q4",
+                    prompt: "À partir de quelle heure peut-on arriver au studio ?",
+                    choices: [
+                      { id: "a", text: "15h." },
+                      { id: "b", text: "8h12." },
+                      { id: "c", text: "19h45." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "15h.",
+                      explanation: "L'annonce précise « arrivée à partir de 15h ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "voyage-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "voyage-entrainement-activite",
+            title: "Choisir et réviser y/en",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "voy-g1",
+                type: "qcm",
+                skillId: "gr-connecteurs-choix",
+                difficulty: "B1",
+                instructions: "Choisis le bon connecteur.",
+                question: {
+                  kind: "qcm",
+                  id: "voy-g1-q",
+                  prompt: "« On pourrait aller ___ à Nice, ___ à Marseille. »",
+                  choices: [
+                    { id: "a", text: "soit / soit" },
+                    { id: "b", text: "plutôt / que" },
+                    { id: "c", text: "mais / donc" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "soit / soit",
+                    explanation: "« Soit... soit » présente deux possibilités entre lesquelles choisir.",
+                  },
+                },
+              },
+              {
+                id: "voy-g2",
+                type: "texte_a_trous",
+                skillId: "gr-pronoms-complements",
+                difficulty: "B1",
+                instructions: "Complète avec « y » ou « en ».",
+                textWithBlanks:
+                  "Tu es déjà allée à Nice ? — Oui, j'{{1}} suis allée l'an dernier. Il reste des places dans " +
+                  "le train ? — Oui, il {{2}} a encore quelques-unes.",
+                blanks: [
+                  { id: "1", answer: "y" },
+                  { id: "2", answer: "en" },
+                ],
+                correction: {
+                  correctAnswer: "y — en",
+                  explanation: "« Y » remplace un lieu (à Nice) ; « en » remplace une quantité (des places).",
+                },
+              },
+              {
+                id: "voy-g3",
+                type: "association",
+                skillId: "voc-voyage",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "un itinéraire", right: "le trajet prévu, avec ses étapes" },
+                  { id: "2", left: "un hébergement", right: "le logement où on dort pendant un voyage" },
+                  { id: "3", left: "annuler", right: "renoncer à une réservation déjà faite" },
+                ],
+                correction: {
+                  correctAnswer: "itinéraire → trajet prévu ; hébergement → logement pour dormir ; annuler → renoncer à une réservation.",
+                  explanation: "Ces mots reviennent dans la plupart des démarches de voyage.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "voyage-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "voyage-ecriture-activite",
+            title: "Comparer deux façons de voyager",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "voy-h",
+                type: "production_ecrite",
+                skillId: "pe-exprimer-avis",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Vous hésitez entre deux façons d'organiser un voyage (deux destinations, deux moyens de " +
+                  "transport, deux types d'hébergement...). Comparez-les et expliquez votre préférence. 5 à 8 " +
+                  "phrases.",
+                minWords: 40,
+                maxWords: 90,
+                correctionCriteria: [
+                  "Comparaison claire entre les deux options (/2)",
+                  "Préférence justifiée (/2)",
+                  "Au moins un connecteur de choix (soit... soit, plutôt que) (/2)",
+                  "Phrases reliées entre elles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "voyage-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "voyage-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "voy-i1",
+                type: "qcm",
+                skillId: "gr-connecteurs-choix",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "voy-i1-q",
+                  prompt: "« Je préfère voyager en train ___ en voiture. »",
+                  choices: [
+                    { id: "a", text: "plutôt que" },
+                    { id: "b", text: "soit" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "plutôt que",
+                    explanation: "« Plutôt que » compare une préférence entre deux options.",
+                  },
+                },
+              },
+              {
+                id: "voy-i2",
+                type: "reponse_courte",
+                skillId: "voc-voyage",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Comment appelle-t-on le logement où on dort pendant un voyage ? (un ___)",
+                acceptedAnswers: ["hébergement", "un hébergement"],
+                correction: {
+                  correctAnswer: "un hébergement",
+                  explanation: "C'est le mot utilisé dans la confirmation de réservation.",
+                },
+              },
+              {
+                id: "voy-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après la confirmation de réservation de Nadia.",
+                statement: "Le voyage concerne deux passagers.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "La confirmation précise « 2 passagers ».",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-opinion-question-de-societe",
+    slug: "opinion-question-de-societe",
+    level: "B1",
+    title: "Donner son opinion sur une question de société",
+    description:
+      "À la fin de ce module, tu pourras exprimer et structurer ton opinion sur un sujet de société simple, à l'écrit.",
+    objectives: [
+      "Identifier différents points de vue",
+      "Argumenter et nuancer une opinion",
+      "Opposer deux points de vue",
+    ],
+    domain: "production_ecrite",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 32,
+    situation: "Sur un forum de quartier, plusieurs habitants débattent de la place de la voiture en centre-ville.",
+    vocabulary: [
+      { term: "un point de vue", category: "principal" },
+      { term: "être partagé(e)", category: "expression" },
+      { term: "une mesure", category: "principal" },
+      { term: "néanmoins", category: "connecteur" },
+      { term: "bien que", category: "connecteur" },
+      { term: "même si", category: "connecteur" },
+      { term: "alors que", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Opposition et concession",
+        explanation:
+          "Mais et alors que introduisent une opposition simple. Même si et bien que + subjonctif introduisent une concession : on reconnaît un point tout en maintenant son opinion. Bien que ce soit pratique, la voiture pollue beaucoup.",
+      },
+      {
+        title: "Reconnaître un avantage et un inconvénient",
+        explanation:
+          "Nuancer une opinion, c'est reconnaître qu'une mesure a du positif et du négatif, plutôt que de la présenter comme totalement bonne ou mauvaise.",
+      },
+    ],
+    examLinks: ["DELF B1 — production écrite (essai argumenté simple)", "TCF IRN — expression écrite, tâche 3"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "societe-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "societe-comprendre-activite",
+            title: "Lire un débat sur un forum",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "soc-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions:
+                  "Lisez les réponses de trois habitants sur le forum du quartier, puis répondez.",
+                text:
+                  "Sujet : Faut-il limiter les voitures en centre-ville ?\n" +
+                  "Marc : Pour moi, c'est une bonne mesure. Même si ça complique la vie de certains " +
+                  "commerçants, l'air est plus respirable et il y a moins de bruit.\n" +
+                  "Aïcha : Je suis assez partagée. Bien que je comprenne l'intérêt pour l'environnement, je " +
+                  "trouve que les transports en commun ne sont pas encore assez développés dans certains quartiers.\n" +
+                  "Julien : Moi, je ne suis pas d'accord du tout. Alors qu'on nous demande de moins utiliser la " +
+                  "voiture, personne ne propose de vraie solution pour les familles qui habitent loin du centre.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "soc-e-q1",
+                    prompt: "Qui est favorable à la limitation des voitures ?",
+                    choices: [
+                      { id: "a", text: "Marc." },
+                      { id: "b", text: "Julien." },
+                      { id: "c", text: "Personne." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Marc.",
+                      explanation: "Il dit directement : « pour moi, c'est une bonne mesure ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "soc-e-q2",
+                    prompt: "Vrai ou faux : Aïcha est totalement opposée à cette mesure.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle est partagée : elle comprend l'intérêt de la mesure, mais elle a une réserve sur les transports en commun.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "soc-e-q3",
+                    prompt: "Quel inconvénient Julien mentionne-t-il ?",
+                    expectedAnswer: "Il n'y a pas de vraie solution pour les familles qui habitent loin du centre.",
+                    correction: {
+                      correctAnswer: "Il n'y a pas de vraie solution pour les familles qui habitent loin du centre.",
+                      explanation: "C'est l'objection principale qu'il formule.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "soc-e-q4",
+                    prompt: "Quel connecteur Aïcha utilise-t-elle pour introduire une concession ?",
+                    choices: [
+                      { id: "a", text: "Bien que" },
+                      { id: "b", text: "Alors que" },
+                      { id: "c", text: "Pour moi" },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Bien que",
+                      explanation: "« Bien que je comprenne... » reconnaît un point tout en gardant une réserve.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "societe-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "societe-entrainement-activite",
+            title: "Opposer et nuancer",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "soc-g1",
+                type: "qcm",
+                skillId: "gr-opposition-concession",
+                difficulty: "B1",
+                instructions: "Choisis le bon connecteur.",
+                question: {
+                  kind: "qcm",
+                  id: "soc-g1-q",
+                  prompt: "« ___ ce soit pratique, la voiture pollue beaucoup. »",
+                  choices: [
+                    { id: "a", text: "Bien que" },
+                    { id: "b", text: "Parce que" },
+                    { id: "c", text: "Donc" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Bien que",
+                    explanation: "« Bien que + subjonctif » introduit une concession : on reconnaît un avantage tout en maintenant son opinion.",
+                  },
+                },
+              },
+              {
+                id: "soc-g2",
+                type: "texte_a_trous",
+                skillId: "gr-opposition-concession",
+                difficulty: "B1",
+                instructions: "Complète avec le connecteur d'opposition ou de concession qui convient.",
+                textWithBlanks:
+                  "{{1}} certains trouvent ça pratique, d'autres pensent que ça pollue trop. {{2}} ce soit une " +
+                  "bonne idée, la mise en place prendra du temps.",
+                blanks: [
+                  { id: "1", answer: "Alors que" },
+                  { id: "2", answer: "Même si" },
+                ],
+                correction: {
+                  correctAnswer: "Alors que — Même si",
+                  explanation: "« Alors que » oppose deux avis ; « même si » introduit une concession suivie d'une réserve.",
+                },
+              },
+              {
+                id: "soc-g3",
+                type: "association",
+                skillId: "voc-societe",
+                difficulty: "B1",
+                instructions: "Associe chaque mot à sa définition.",
+                pairs: [
+                  { id: "1", left: "une mesure", right: "une décision prise par les pouvoirs publics" },
+                  { id: "2", left: "être partagé(e)", right: "avoir des arguments des deux côtés, sans opinion tranchée" },
+                  { id: "3", left: "néanmoins", right: "malgré cela, pourtant" },
+                ],
+                correction: {
+                  correctAnswer: "mesure → décision publique ; partagé → arguments des deux côtés ; néanmoins → pourtant.",
+                  explanation: "Ces mots servent à structurer une opinion nuancée.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "societe-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "societe-ecriture-activite",
+            title: "Donner son opinion sur un sujet de société",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "soc-h",
+                type: "production_ecrite",
+                skillId: "pe-exprimer-avis",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Donnez votre opinion sur une question de société simple (télétravail, réseaux sociaux, " +
+                  "transports, environnement...). Présentez au moins un avantage et un inconvénient, et " +
+                  "nuancez votre position. 6 à 10 phrases.",
+                minWords: 50,
+                maxWords: 110,
+                correctionCriteria: [
+                  "Opinion clairement exprimée (/2)",
+                  "Un avantage et un inconvénient mentionnés (/2)",
+                  "Au moins un connecteur d'opposition ou de concession (/2)",
+                  "Argumentation cohérente et reliée (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "societe-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "societe-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "soc-i1",
+                type: "qcm",
+                skillId: "gr-opposition-concession",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "soc-i1-q",
+                  prompt: "« Il gagne peu, ___ il semble heureux dans son travail. »",
+                  choices: [
+                    { id: "a", text: "mais" },
+                    { id: "b", text: "parce que" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "mais",
+                    explanation: "« Mais » introduit ici une opposition simple entre deux faits.",
+                  },
+                },
+              },
+              {
+                id: "soc-i2",
+                type: "reponse_courte",
+                skillId: "voc-societe",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne une décision prise par les pouvoirs publics ? (une ___)",
+                acceptedAnswers: ["mesure", "une mesure"],
+                correction: {
+                  correctAnswer: "une mesure",
+                  explanation: "C'est le mot utilisé pour parler d'une décision publique comme limiter les voitures.",
+                },
+              },
+              {
+                id: "soc-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le débat sur le forum.",
+                statement: "Les trois habitants sont tous d'accord entre eux.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Marc est favorable, Aïcha est partagée, et Julien est opposé.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-bilan-se-presenter-examen",
+    slug: "bilan-b1",
+    level: "B1",
+    title: "Bilan B1 : se présenter à un examen",
+    description:
+      "À la fin de ce module, tu pourras mobiliser tes principales compétences B1 dans un cadre proche d'un examen, et organiser ta réponse avec méthode.",
+    objectives: [
+      "Combiner plusieurs compétences B1 dans une même tâche",
+      "Gérer une consigne d'examen",
+      "Organiser et vérifier sa production",
+    ],
+    domain: "comprehension_ecrite",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 40,
+    situation:
+      "Farida s'entraîne avant son examen de français en travaillant sur un texte qui combine un récit personnel et une opinion.",
+    vocabulary: [
+      { term: "justifier", category: "verbe" },
+      { term: "nuancer", category: "verbe" },
+      { term: "un point de vue", category: "principal" },
+      { term: "une consigne", category: "principal" },
+      { term: "un imprévu", category: "principal" },
+      { term: "relire", category: "verbe" },
+      { term: "vérifier", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Révision transversale des temps",
+        explanation:
+          "Passé composé et imparfait pour raconter, futur pour un projet, conditionnel pour une hypothèse ou un conseil, subjonctif après il faut que : le bon temps dépend de ce qu'on veut exprimer, pas seulement du moment dans le temps.",
+      },
+      {
+        title: "Bien gérer une consigne d'examen",
+        explanation:
+          "Repérer le verbe de consigne (expliquez, comparez, racontez...), respecter la longueur demandée, puis se relire pour vérifier les accords et la cohérence avant de rendre sa réponse.",
+      },
+    ],
+    examLinks: ["DELF B1 — bilan transversal des 4 compétences", "TCF IRN — bilan transversal des 4 compétences"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "bilan-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "bilan-comprendre-activite",
+            title: "Lire un texte qui raconte et qui donne un avis",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "bil-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez ce billet de blog, puis répondez.",
+                text:
+                  "Il y a deux ans, j'ai décidé de quitter mon emploi en ville pour aller vivre à la campagne. " +
+                  "Beaucoup de gens m'ont dit que c'était une erreur, mais je ne regrette pas du tout ce choix. " +
+                  "Bien sûr, tout n'est pas parfait : je dois faire plus de trajet pour aller travailler, et il " +
+                  "y a moins de choses à faire le soir. Mais je trouve que la qualité de vie est meilleure : " +
+                  "moins de bruit, plus de nature, et des voisins que je connais vraiment. Si c'était à refaire, " +
+                  "je prendrais la même décision, même si je conseillerais à ceux qui hésitent de bien réfléchir " +
+                  "aux transports avant de se lancer.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "bil-e-q1",
+                    prompt: "Que pense l'auteur de sa décision, deux ans après ?",
+                    choices: [
+                      { id: "a", text: "Il ne la regrette pas." },
+                      { id: "b", text: "Il la regrette beaucoup." },
+                      { id: "c", text: "Il n'est pas sûr." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Il ne la regrette pas.",
+                      explanation: "Il le dit directement : « je ne regrette pas du tout ce choix ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "bil-e-q2",
+                    prompt: "Vrai ou faux : selon l'auteur, tout est parfait à la campagne.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Il reconnaît des inconvénients : plus de trajet, moins de choses à faire le soir.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "bil-e-q3",
+                    prompt: "Quel inconvénient l'auteur mentionne-t-il ?",
+                    expectedAnswer: "Plus de trajet pour aller travailler.",
+                    correction: {
+                      correctAnswer: "Plus de trajet pour aller travailler (et moins de choses à faire le soir).",
+                      explanation: "Il le précise avant de parler des avantages.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "bil-e-q4",
+                    prompt: "Que conseille l'auteur à ceux qui hésitent ?",
+                    choices: [
+                      { id: "a", text: "De bien réfléchir aux transports avant de se lancer." },
+                      { id: "b", text: "De ne surtout pas déménager." },
+                      { id: "c", text: "De trouver un emploi en ville d'abord." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "De bien réfléchir aux transports avant de se lancer.",
+                      explanation: "C'est le conseil donné à la toute fin du texte.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "bilan-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "bilan-entrainement-activite",
+            title: "Révision croisée : temps, verbes et méthode d'examen",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "bil-g1",
+                type: "qcm",
+                skillId: "gr-conditionnel-hypothese",
+                difficulty: "B1",
+                instructions: "Choisis la bonne forme.",
+                question: {
+                  kind: "qcm",
+                  id: "bil-g1-q",
+                  prompt: "« Si c'était à refaire, je ___ la même décision. »",
+                  choices: [
+                    { id: "a", text: "prendrais" },
+                    { id: "b", text: "prends" },
+                    { id: "c", text: "prendrai" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "prendrais",
+                    explanation: "Si + imparfait (« c'était »), conditionnel présent (« prendrais ») pour une hypothèse.",
+                  },
+                },
+              },
+              {
+                id: "bil-g2",
+                type: "texte_a_trous",
+                skillId: "gr-passe-compose-imparfait",
+                difficulty: "B1",
+                instructions: "Complète avec le passé composé ou l'imparfait.",
+                textWithBlanks:
+                  "Il y a deux ans, j'{{1}} (décider) de déménager. À cette époque, je {{2}} (habiter) en ville " +
+                  "depuis dix ans.",
+                blanks: [
+                  { id: "1", answer: "ai décidé" },
+                  { id: "2", answer: "habitais" },
+                ],
+                correction: {
+                  correctAnswer: "ai décidé — habitais",
+                  explanation: "Le passé composé marque l'action ponctuelle (décider) ; l'imparfait décrit le contexte qui durait (habiter depuis dix ans).",
+                },
+              },
+              {
+                id: "bil-g3",
+                type: "association",
+                skillId: "exam-delf-b1",
+                difficulty: "B1",
+                instructions: "Associe chaque conseil de méthode à ce qu'il permet de faire.",
+                pairs: [
+                  { id: "1", left: "repérer le verbe de consigne", right: "identifier précisément ce qui est demandé (expliquez, comparez, racontez...)" },
+                  { id: "2", left: "respecter la longueur demandée", right: "ne pas écrire une réponse trop courte ni trop longue" },
+                  { id: "3", left: "se relire avant de rendre sa réponse", right: "vérifier les accords et la cohérence du texte" },
+                ],
+                correction: {
+                  correctAnswer: "verbe de consigne → ce qui est demandé ; longueur → ni trop court ni trop long ; relecture → accords et cohérence.",
+                  explanation: "Ces trois réflexes simples améliorent nettement une production en conditions d'examen.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "bilan-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "bilan-ecriture-activite",
+            title: "Tâche intégrée : raconter et donner son avis",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "bil-h",
+                type: "production_ecrite",
+                skillId: "pe-exprimer-avis",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Racontez un choix important que vous avez fait dans votre vie, expliquez pourquoi, et dites " +
+                  "si vous le referiez aujourd'hui. Votre texte doit comporter à la fois un récit et une " +
+                  "opinion justifiée. 6 à 10 phrases.",
+                minWords: 50,
+                maxWords: 110,
+                correctionCriteria: [
+                  "Récit au passé cohérent (passé composé / imparfait) (/2)",
+                  "Opinion clairement justifiée (/2)",
+                  "Au moins un connecteur logique ou d'opposition (/2)",
+                  "Texte relu, organisé, sans réponse trop courte (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "bilan-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "bilan-evaluation-activite",
+            title: "Bilan transversal",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "bil-i1",
+                type: "qcm",
+                skillId: "gr-subjonctif-il-faut-que",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "bil-i1-q",
+                  prompt: "« Avant l'examen, il faut que je ___ (relire) ma production. »",
+                  choices: [
+                    { id: "a", text: "relise" },
+                    { id: "b", text: "relis" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "relise",
+                    explanation: "Après « il faut que », le verbe se conjugue au subjonctif présent.",
+                  },
+                },
+              },
+              {
+                id: "bil-i2",
+                type: "reponse_courte",
+                skillId: "exam-delf-b1",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question:
+                  "Avant de rendre une production écrite à l'examen, quelle action simple permet de corriger ses propres erreurs ? (se ___)",
+                acceptedAnswers: ["relire"],
+                correction: {
+                  correctAnswer: "se relire",
+                  explanation: "Se relire permet de vérifier les accords, l'orthographe et la cohérence avant de rendre sa copie.",
+                },
+              },
+              {
+                id: "bil-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le billet de blog de l'entrainement.",
+                statement: "L'auteur conseille de ne surtout pas réfléchir aux transports avant de déménager.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "C'est l'inverse : il conseille justement d'y réfléchir avant de se lancer.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getModuleBySlug(slug: string): Module | undefined {

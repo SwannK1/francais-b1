@@ -349,6 +349,30 @@ export const SKILLS: Skill[] = [
     name: "Rapporter un message par écrit",
     description: "Transmettre fidèlement par écrit un message ou une consigne reçue.",
   },
+  {
+    id: "gr-connecteurs-choix",
+    domain: "grammaire",
+    name: "Connecteurs de choix (soit... soit, plutôt que)",
+    description: "Présenter une alternative ou une préférence entre deux options.",
+  },
+  {
+    id: "voc-voyage",
+    domain: "vocabulaire",
+    name: "Vocabulaire du voyage et de la réservation",
+    description: "Mots pour organiser un déplacement, un hébergement et une réservation.",
+  },
+  {
+    id: "gr-opposition-concession",
+    domain: "grammaire",
+    name: "Opposition et concession (mais, alors que, même si, bien que)",
+    description: "Nuancer une opinion en reconnaissant un point de vue différent.",
+  },
+  {
+    id: "voc-societe",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la société et de l'actualité",
+    description: "Mots pour parler d'une question de société simple.",
+  },
 ];
 
 export function getSkillById(id: string): Skill | undefined {
