@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
@@ -22,13 +23,36 @@ export default function ConfidentialitePage() {
 
           <div className="space-y-6 text-sm text-muted-foreground">
             <section>
-              <h2 className="text-base font-semibold text-foreground">Ce que nous stockons aujourd&apos;hui</h2>
+              <h2 className="text-base font-semibold text-foreground">Données de compte</h2>
               <p className="mt-1">
-                Dans l&apos;état actuel du produit, la progression pédagogique (niveau, modules
-                terminés, réponses aux exercices) est enregistrée uniquement dans le navigateur
-                (« localStorage »), sur l&apos;appareil de la personne qui apprend — elle
-                n&apos;est transmise à aucun serveur. Aucun compte utilisateur n&apos;existe encore
-                sur cette version du produit.
+                La création d&apos;un compte (email, mot de passe) est nécessaire pour retrouver ta
+                progression sur plusieurs appareils. Le mot de passe n&apos;est jamais stocké en
+                clair : seul un hachage (scrypt, avec sel unique par compte) est conservé. La
+                connexion repose sur une session stockée côté serveur (seul le hachage du jeton de
+                session est en base, jamais le jeton lui-même) et un cookie technique{" "}
+                <code>session</code>, nécessaire au fonctionnement du compte.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">Progression pédagogique</h2>
+              <p className="mt-1">
+                Ta progression (niveau, modules terminés, réponses aux exercices, tentatives
+                d&apos;examen) est enregistrée dans ton navigateur (« localStorage »). Si tu es
+                connecté·e à un compte, elle est aussi synchronisée vers un stockage serveur pour
+                rester disponible d&apos;un appareil à l&apos;autre ; sans compte, elle ne quitte
+                jamais ton navigateur.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">Statut d&apos;abonnement</h2>
+              <p className="mt-1">
+                Si tu souscris à l&apos;offre payante, ton compte conserve la date jusqu&apos;à
+                laquelle ton accès complet est actif, ainsi que l&apos;identifiant client attribué
+                par Stripe — nécessaire pour faire le lien entre un paiement confirmé et ton
+                compte. Cette information n&apos;est écrite que par notre intégration Stripe,
+                jamais directement par toi ou par un autre visiteur.
               </p>
             </section>
 
@@ -43,24 +67,67 @@ export default function ConfidentialitePage() {
             </section>
 
             <section>
-              <h2 className="text-base font-semibold text-foreground">Ce qui reste à définir</h2>
+              <h2 className="text-base font-semibold text-foreground">Sous-traitants</h2>
               <p className="mt-1">
-                La création d&apos;un compte utilisateur (chantier en cours dans une autre branche du
-                projet) introduira un traitement de données personnelles côté serveur (email, statut
-                d&apos;abonnement, progression). Cette section devra être complétée à ce moment-là
-                avec : la base légale du traitement, la durée de conservation, les destinataires des
-                données, les droits d&apos;accès/rectification/suppression et le contact du
-                responsable de traitement — voir [adresse email dédiée RGPD].
+                Les données de compte et de progression sont hébergées dans une base de données
+                Postgres fournie par Neon. Les paiements sont traités par Stripe. Ces deux
+                prestataires agissent comme sous-traitants au sens du RGPD, dans le cadre strict de
+                leur fonction (hébergement de données / traitement du paiement). L&apos;hébergeur de
+                l&apos;application elle-même est indiqué dans les{" "}
+                <Link href="/mentions-legales" className="underline hover:text-foreground">
+                  mentions légales
+                </Link>
+                .
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">Finalités et durée de conservation</h2>
+              <p className="mt-1">
+                Les données de compte et de progression sont conservées tant que le compte existe,
+                pour permettre l&apos;accès au service et le suivi pédagogique. [À compléter avant
+                mise en ligne : durée précise de conservation après suppression du compte ou
+                inactivité prolongée, et base légale retenue pour chaque traitement (exécution du
+                contrat, intérêt légitime...).]
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">Tes droits</h2>
+              <p className="mt-1">
+                Conformément au RGPD, tu disposes d&apos;un droit d&apos;accès, de rectification,
+                d&apos;effacement, de limitation et de portabilité de tes données, ainsi que d&apos;un
+                droit d&apos;opposition. Pour les exercer, écris-nous à [adresse email dédiée RGPD —
+                à compléter avant mise en ligne]. Tu peux aussi introduire une réclamation auprès de
+                la CNIL (cnil.fr).
               </p>
             </section>
 
             <section>
               <h2 className="text-base font-semibold text-foreground">Cookies</h2>
               <p className="mt-1">
-                Le site n&apos;utilise pas de cookies de mesure d&apos;audience ni de publicité à ce
-                jour. Si des cookies techniques (autres que ceux strictement nécessaires au
-                fonctionnement) étaient ajoutés, un bandeau de consentement conforme serait mis en
-                place au préalable.
+                Un compte utilisateur utilise un cookie de session, strictement nécessaire au
+                fonctionnement du service (rester connecté·e) : il n&apos;est pas soumis au
+                consentement préalable prévu pour les cookies de mesure d&apos;audience ou de
+                publicité. Le site n&apos;utilise aujourd&apos;hui aucun cookie de mesure
+                d&apos;audience ni de publicité. Si de tels cookies étaient ajoutés à l&apos;avenir,
+                un bandeau de consentement conforme serait mis en place au préalable.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-foreground">Contact</h2>
+              <p className="mt-1">
+                Pour toute question sur cette politique ou sur tes données, voir les coordonnées sur
+                la page{" "}
+                <Link href="/contact" className="underline hover:text-foreground">
+                  Contact
+                </Link>{" "}
+                ou dans les{" "}
+                <Link href="/mentions-legales" className="underline hover:text-foreground">
+                  mentions légales
+                </Link>
+                .
               </p>
             </section>
           </div>

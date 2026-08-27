@@ -5,7 +5,7 @@ import { ExamIcon } from "@/components/ui/icons";
 const exams = [
   {
     title: "DELF B1",
-    description: "Examens blancs complets, dans les conditions et le format de l'épreuve officielle.",
+    description: "Un examen blanc complet, dans les conditions et le format de l'épreuve officielle.",
   },
   {
     title: "TCF IRN",

@@ -8,10 +8,10 @@ import { MenuIcon, XIcon } from "@/components/ui/icons";
 import AccountStatus from "@/components/auth/AccountStatus";
 
 const navItems = [
-  { href: "#apprentissage", label: "Apprendre" },
-  { href: "#examens", label: "Préparer un examen" },
-  { href: "#fonctionnement", label: "Comment ça marche ?" },
-  { href: "#tarifs", label: "Tarifs" },
+  { href: "/#apprentissage", label: "Apprendre" },
+  { href: "/#examens", label: "Préparer un examen" },
+  { href: "/#fonctionnement", label: "Comment ça marche ?" },
+  { href: "/#tarifs", label: "Tarifs" },
 ];
 
 export default function Header() {
