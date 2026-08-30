@@ -6,8 +6,13 @@ import Card from "@/components/ui/Card";
 import { CheckIcon } from "@/components/ui/icons";
 import CheckoutButton from "@/components/commerce/CheckoutButton";
 import { MAIN_PLAN } from "@/lib/commerce/plans";
+import { isPremiumActive } from "@/lib/commerce/access";
+import { useAuth } from "@/lib/auth/AuthProvider";
 
 export default function Pricing() {
+  const { user } = useAuth();
+  const alreadyPremium = isPremiumActive(user?.premiumUntil);
+
   return (
     <section id="tarifs" className="py-16 sm:py-24">
       <Container className="flex flex-col items-center">
@@ -34,7 +39,16 @@ export default function Pricing() {
             ))}
           </ul>
 
-          <CheckoutButton label={MAIN_PLAN.ctaLabel} size="lg" className="mt-8 w-full" />
+          {alreadyPremium ? (
+            <p className="mt-8 rounded-lg bg-success/10 p-3 text-sm font-medium text-success">
+              Tu as déjà l&apos;accès complet
+              {user?.premiumUntil
+                ? ` — actif jusqu'au ${new Date(user.premiumUntil).toLocaleDateString("fr-FR")}.`
+                : "."}
+            </p>
+          ) : (
+            <CheckoutButton label={MAIN_PLAN.ctaLabel} size="lg" className="mt-8 w-full" />
+          )}
           <p className="mt-3 text-xs text-muted-foreground">{MAIN_PLAN.tagline}</p>
           <Link
             href="/test-niveau"

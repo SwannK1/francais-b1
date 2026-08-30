@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getStripeClient, isPaymentConfigured } from "@/lib/commerce/stripe";
 import { MAIN_PLAN } from "@/lib/commerce/plans";
+import { isPremiumActive } from "@/lib/commerce/access";
 import { getCurrentUser } from "@/lib/auth/dal";
 import { trackServerEvent } from "@/lib/analytics/server";
 
@@ -29,6 +30,13 @@ export async function POST(request: Request) {
   const user = await getCurrentUser();
   if (!user) {
     return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
+  }
+
+  // Garde-fou serveur : le client (bouton /offre, page d'accueil) masque déjà
+  // le CTA à un utilisateur déjà premium, mais un appel direct à cette route
+  // ne doit jamais pouvoir créer un second abonnement payant en parallèle.
+  if (isPremiumActive(user.premiumUntil)) {
+    return NextResponse.json({ error: "already_premium" }, { status: 409 });
   }
 
   const origin = new URL(request.url).origin;
