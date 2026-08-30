@@ -105,7 +105,7 @@ export default function QuizQuestion({
                 ) : null}
                 {showAsWrong ? (
                   <span className="ml-auto inline-flex items-center gap-1 text-xs font-semibold text-red-600">
-                    <XIcon className="h-3.5 w-3.5" /> Votre réponse
+                    <XIcon className="h-3.5 w-3.5" /> Ta réponse
                   </span>
                 ) : null}
               </label>
@@ -188,7 +188,7 @@ export default function QuizQuestion({
     <fieldset className="rounded-xl border border-border bg-background p-4">
       <legend className="px-1 text-sm font-medium text-foreground">{question.prompt}</legend>
       <label htmlFor={inputId} className="sr-only">
-        Votre réponse
+        Ta réponse
       </label>
       <textarea
         id={inputId}
@@ -197,7 +197,7 @@ export default function QuizQuestion({
         onChange={(event) => setLibreValue(event.target.value)}
         rows={2}
         className="mt-3 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm disabled:opacity-70"
-        placeholder="Votre réponse..."
+        placeholder="Ta réponse..."
       />
       {!submitted ? (
         <button

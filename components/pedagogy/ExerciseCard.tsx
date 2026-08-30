@@ -184,13 +184,13 @@ function RemiseEnOrdreBody({
                 <span className="mr-2 font-semibold text-muted-foreground">{index + 1}.</span>
                 {item.text}
               </span>
-              <span className="flex gap-1">
+              <span className="flex gap-2">
                 <button
                   type="button"
                   disabled={submitted}
                   onClick={() => move(index, -1)}
                   aria-label={`Monter « ${item.text} »`}
-                  className={cn(buttonClasses("ghost", "md"), "h-8 w-8 px-0 disabled:opacity-40")}
+                  className={cn(buttonClasses("ghost", "md"), "h-11 w-11 px-0 disabled:opacity-40")}
                 >
                   ↑
                 </button>
@@ -199,7 +199,7 @@ function RemiseEnOrdreBody({
                   disabled={submitted}
                   onClick={() => move(index, 1)}
                   aria-label={`Descendre « ${item.text} »`}
-                  className={cn(buttonClasses("ghost", "md"), "h-8 w-8 px-0 disabled:opacity-40")}
+                  className={cn(buttonClasses("ghost", "md"), "h-11 w-11 px-0 disabled:opacity-40")}
                 >
                   ↓
                 </button>

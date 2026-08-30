@@ -18,7 +18,7 @@ export default function MotDePasseOubliePage() {
         <Container className="max-w-md">
           <h1 className="text-2xl font-bold text-foreground">Mot de passe oublié</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Indiquez votre email : si un compte existe, vous recevrez un lien pour choisir un nouveau
+            Indique ton email : si un compte existe, tu recevras un lien pour choisir un nouveau
             mot de passe.
           </p>
           <Card className="mt-6">

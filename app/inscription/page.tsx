@@ -21,8 +21,8 @@ export default async function InscriptionPage({ searchParams }: PageProps<"/insc
         <Container className="max-w-md">
           <h1 className="text-2xl font-bold text-foreground">Créer un compte</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Votre progression actuelle (si vous en avez une) sera automatiquement associée à
-            votre nouveau compte.
+            Ta progression actuelle (si tu en as une) sera automatiquement associée à
+            ton nouveau compte.
           </p>
           <Card className="mt-6">
             <SignupForm next={nextHref} />

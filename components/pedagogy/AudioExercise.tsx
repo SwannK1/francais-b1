@@ -70,7 +70,7 @@ export default function AudioExercise({
             }}
             className="w-full"
           >
-            Votre navigateur ne prend pas en charge la lecture audio.
+            Ton navigateur ne prend pas en charge la lecture audio.
           </audio>
         )}
       </div>

@@ -32,15 +32,15 @@ function isRecordingSupported(): boolean {
 function describeMicError(error: unknown): string {
   const name = error instanceof DOMException ? error.name : "";
   if (name === "NotAllowedError" || name === "PermissionDeniedError") {
-    return "Autorisation micro refusée. Vous pouvez continuer l'exercice sans enregistrement.";
+    return "Autorisation micro refusée. Tu peux continuer l'exercice sans enregistrement.";
   }
   if (name === "NotFoundError" || name === "DevicesNotFoundError") {
-    return "Aucun microphone détecté sur cet appareil. Vous pouvez continuer sans enregistrement.";
+    return "Aucun microphone détecté sur cet appareil. Tu peux continuer sans enregistrement.";
   }
   if (name === "NotReadableError" || name === "TrackStartError") {
-    return "Le microphone n'a pas pu être utilisé (peut-être occupé par une autre application). Vous pouvez continuer sans enregistrement.";
+    return "Le microphone n'a pas pu être utilisé (peut-être occupé par une autre application). Tu peux continuer sans enregistrement.";
   }
-  return "Une erreur est survenue avec le microphone. Vous pouvez continuer sans enregistrement.";
+  return "Une erreur est survenue avec le microphone. Tu peux continuer sans enregistrement.";
 }
 
 export default function SpokenExercise({
@@ -124,7 +124,7 @@ export default function SpokenExercise({
     setMicError(null);
     if (!recordingSupported) {
       setMicError(
-        "L'enregistrement audio n'est pas pris en charge par ce navigateur. Vous pouvez continuer sans enregistrement."
+        "L'enregistrement audio n'est pas pris en charge par ce navigateur. Tu peux continuer sans enregistrement."
       );
       return;
     }
@@ -149,7 +149,7 @@ export default function SpokenExercise({
         if (event.data.size > 0) chunksRef.current.push(event.data);
       };
       recorder.onerror = () => {
-        setMicError("Une erreur est survenue pendant l'enregistrement. Vous pouvez réessayer.");
+        setMicError("Une erreur est survenue pendant l'enregistrement. Tu peux réessayer.");
         clearTick();
         releaseMic();
         setPhase("record_ready");
@@ -251,8 +251,8 @@ export default function SpokenExercise({
           ) : null}
           {!recordingSupported ? (
             <p className="rounded-lg bg-muted p-3 text-sm text-muted-foreground">
-              L&apos;enregistrement audio n&apos;est pas pris en charge par ce navigateur. Vous pouvez
-              vous entraîner à voix haute, puis passer directement à l&apos;auto-évaluation.
+              L&apos;enregistrement audio n&apos;est pas pris en charge par ce navigateur. Tu peux
+              t&apos;entraîner à voix haute, puis passer directement à l&apos;auto-évaluation.
             </p>
           ) : null}
           <div className="flex flex-wrap gap-2">
@@ -283,7 +283,7 @@ export default function SpokenExercise({
           </p>
           {speakLimitReached ? (
             <p className="text-xs text-muted-foreground">
-              Temps conseillé dépassé — vous pouvez continuer ou arrêter dès que vous êtes prêt·e.
+              Temps conseillé dépassé — tu peux continuer ou arrêter dès que tu es prêt·e.
             </p>
           ) : null}
           <button type="button" onClick={stopRecording} className={buttonClasses("primary", "md")}>
@@ -294,9 +294,9 @@ export default function SpokenExercise({
 
       {phase === "review" && audioUrl ? (
         <div className="space-y-3 rounded-xl border border-border bg-background p-4">
-          <p className="text-sm font-medium text-foreground">Votre enregistrement</p>
+          <p className="text-sm font-medium text-foreground">Ton enregistrement</p>
           <audio controls src={audioUrl} className="w-full">
-            Votre navigateur ne prend pas en charge la lecture audio.
+            Ton navigateur ne prend pas en charge la lecture audio.
           </audio>
           <div className="flex flex-wrap gap-2">
             <button type="button" onClick={retake} className={buttonClasses("secondary", "md")}>
@@ -313,7 +313,7 @@ export default function SpokenExercise({
         <div className="space-y-3 rounded-xl border border-border bg-background p-4">
           <p className="text-sm font-medium text-foreground">Auto-évaluation</p>
           <p className="text-xs text-muted-foreground">
-            Cette grille sert à vous auto-évaluer — ce n&apos;est pas une note officielle DELF.
+            Cette grille sert à t&apos;auto-évaluer — ce n&apos;est pas une note officielle DELF.
           </p>
           <ul className="space-y-2">
             {exercise.selfAssessmentCriteria.map((criterion, index) => (
@@ -349,9 +349,9 @@ export default function SpokenExercise({
           <p className="font-semibold">Exercice terminé.</p>
           {audioUrl ? (
             <div className="space-y-2">
-              <p className="text-muted-foreground">Vous pouvez réécouter votre prise :</p>
+              <p className="text-muted-foreground">Tu peux réécouter ta prise :</p>
               <audio controls src={audioUrl} className="w-full">
-                Votre navigateur ne prend pas en charge la lecture audio.
+                Ton navigateur ne prend pas en charge la lecture audio.
               </audio>
             </div>
           ) : null}

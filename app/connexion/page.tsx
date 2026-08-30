@@ -21,7 +21,7 @@ export default async function ConnexionPage({ searchParams }: PageProps<"/connex
         <Container className="max-w-md">
           <h1 className="text-2xl font-bold text-foreground">Se connecter</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Retrouvez votre progression sauvegardée sur tous vos appareils.
+            Retrouve ta progression sauvegardée sur tous tes appareils.
           </p>
           <Card className="mt-6">
             <LoginForm next={nextHref} />

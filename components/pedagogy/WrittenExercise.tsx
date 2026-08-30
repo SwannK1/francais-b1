@@ -81,7 +81,7 @@ export default function WrittenExercise({
     <div className="space-y-3">
       <p className="text-sm font-medium text-foreground">{exercise.consigne}</p>
       <label htmlFor={textareaId} className="sr-only">
-        Votre réponse
+        Ta réponse
       </label>
       <textarea
         id={textareaId}
@@ -90,7 +90,7 @@ export default function WrittenExercise({
         onChange={(event) => setValue(event.target.value)}
         rows={6}
         className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm disabled:opacity-70"
-        placeholder="Écrivez votre réponse ici..."
+        placeholder="Écris ta réponse ici..."
       />
       <p className="text-xs text-muted-foreground">
         {wordCount} mot{wordCount > 1 ? "s" : ""} (minimum recommandé : {exercise.minWords}
@@ -119,7 +119,7 @@ export default function WrittenExercise({
           </p>
           <p className="mt-1 text-muted-foreground">
             La correction automatique de la production écrite n&apos;est pas encore disponible.
-            En attendant, vérifiez vous-même les points suivants :
+            En attendant, vérifie toi-même les points suivants :
           </p>
           <ul className="mt-2 list-inside list-disc text-muted-foreground">
             {exercise.correctionCriteria.map((criterion) => (
