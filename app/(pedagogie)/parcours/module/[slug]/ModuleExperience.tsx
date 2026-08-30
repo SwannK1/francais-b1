@@ -14,6 +14,7 @@ import { getStageById } from "@/lib/pedagogy/data/parcours-stages";
 import { findExerciseInModule } from "@/lib/pedagogy/data/modules";
 import { getModuleCompletionRate, getModuleProgress } from "@/lib/pedagogy/logic/progress";
 import { useProgress } from "@/lib/pedagogy/useProgress";
+import { trackEvent } from "@/lib/analytics/client";
 import type { Lesson, LessonStepType, Module, VocabularyCategory } from "@/lib/pedagogy/types";
 
 const VOCAB_CATEGORY_LABELS: Record<VocabularyCategory, string> = {
@@ -100,10 +101,44 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
     headingRef.current?.focus({ preventScroll: true });
   }, [stepIndex]);
 
+  // `module_started` : une fois par module réellement ouvert (pas à chaque
+  // rerender). `trackedLessonIdsRef` est réinitialisé quand le module change,
+  // pour que `lesson_started` puisse à nouveau se déclencher sur un nouveau module.
+  const trackedModuleIdRef = useRef<string | null>(null);
+  const trackedLessonIdsRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (trackedModuleIdRef.current === mod.id) return;
+    trackedModuleIdRef.current = mod.id;
+    trackedLessonIdsRef.current = new Set();
+    trackEvent("module_started", { moduleId: mod.id });
+  }, [mod.id]);
+
+  // `lesson_started` : une fois par leçon réellement atteinte dans cette visite du module.
+  useEffect(() => {
+    if (step.kind !== "lesson") return;
+    if (trackedLessonIdsRef.current.has(step.lesson.id)) return;
+    trackedLessonIdsRef.current.add(step.lesson.id);
+    trackEvent("lesson_started", { moduleId: mod.id, lessonId: step.lesson.id });
+  }, [step, mod.id]);
+
+  // `module_completed` : uniquement sur la transition réelle vers "terminé"
+  // (dérivée de la vraie logique métier dans `logic/progress.ts`), jamais au
+  // premier rendu d'un module déjà terminé lors d'une session précédente.
+  const prevModuleCompletionRef = useRef<{ moduleId: string; completed: boolean } | null>(null);
+  useEffect(() => {
+    const isCompleted = moduleProgress?.completed ?? false;
+    const prev = prevModuleCompletionRef.current;
+    if (prev && prev.moduleId === mod.id && isCompleted && !prev.completed) {
+      trackEvent("module_completed", { moduleId: mod.id });
+    }
+    prevModuleCompletionRef.current = { moduleId: mod.id, completed: isCompleted };
+  }, [mod.id, moduleProgress?.completed]);
+
   function handleExerciseCompleted(exerciseId: string, correct: boolean) {
     const exercise = findExerciseInModule(mod, exerciseId);
     if (!exercise) return;
     recordResult(mod, exercise, correct);
+    trackEvent("exercise_completed", { moduleId: mod.id });
   }
 
   function goTo(index: number) {

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getStripeClient, isPaymentConfigured } from "@/lib/commerce/stripe";
 import { MAIN_PLAN } from "@/lib/commerce/plans";
 import { getCurrentUser } from "@/lib/auth/dal";
+import { trackServerEvent } from "@/lib/analytics/server";
 
 /**
  * Démarre un paiement Stripe Checkout (page hébergée par Stripe : aucune
@@ -46,6 +47,10 @@ export async function POST(request: Request) {
   if (!session.url) {
     return NextResponse.json({ error: "Impossible de créer la session de paiement." }, { status: 502 });
   }
+
+  // Ici seulement : une session Stripe réelle vient d'être créée, pas au simple
+  // affichage de /offre ni au clic sur le bouton (voir docs/analytics.md).
+  void trackServerEvent("checkout_started");
 
   return NextResponse.json({ url: session.url });
 }

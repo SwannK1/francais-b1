@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { buttonClasses } from "@/components/ui/button-styles";
 import Card from "@/components/ui/Card";
@@ -11,6 +11,7 @@ import { PLACEMENT_QUESTIONS } from "@/lib/pedagogy/data/placement-questions";
 import { computePlacementResult } from "@/lib/pedagogy/logic/placement";
 import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import { useProgress } from "@/lib/pedagogy/useProgress";
+import { trackEvent } from "@/lib/analytics/client";
 import type { PlacementAnswer } from "@/lib/pedagogy/types";
 
 export default function TestNiveauPage() {
@@ -18,6 +19,13 @@ export default function TestNiveauPage() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<PlacementAnswer[]>([]);
   const [finished, setFinished] = useState(false);
+
+  const startTracked = useRef(false);
+  useEffect(() => {
+    if (startTracked.current) return;
+    startTracked.current = true;
+    trackEvent("placement_started");
+  }, []);
 
   const question = PLACEMENT_QUESTIONS[step];
   const currentAnswer = answers.find((a) => a.questionId === question?.id);
@@ -34,6 +42,7 @@ export default function TestNiveauPage() {
     if (isLastQuestion) {
       const result = computePlacementResult(PLACEMENT_QUESTIONS, answers);
       markPlacementCompleted(result.estimatedLevel);
+      trackEvent("placement_completed", { placementLevel: result.estimatedLevel });
       setFinished(true);
     } else {
       setStep((s) => s + 1);

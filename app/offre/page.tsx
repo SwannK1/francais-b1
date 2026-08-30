@@ -10,6 +10,7 @@ import { MAIN_PLAN, FREE_PLAN_FEATURES } from "@/lib/commerce/plans";
 import { isPaymentConfigured } from "@/lib/commerce/stripe";
 import { isPremiumActive } from "@/lib/commerce/access";
 import { getCurrentUser } from "@/lib/auth/dal";
+import ViewTracker from "@/lib/analytics/ViewTracker";
 
 export const metadata: Metadata = { title: "Offre — ParcoursFR" };
 
@@ -20,6 +21,7 @@ export default async function OffrePage() {
 
   return (
     <>
+      <ViewTracker event="premium_offer_viewed" properties={{ isPremium: alreadyPremium }} />
       <Header />
       <main>
         <Container className="py-16 sm:py-24">
