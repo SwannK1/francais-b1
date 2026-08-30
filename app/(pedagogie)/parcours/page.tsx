@@ -35,7 +35,7 @@ export default function ParcoursPage() {
     <div>
       <header>
         <LevelBadge level={progress.level} />
-        <h1 className="mt-3 text-2xl font-bold text-foreground sm:text-3xl">Votre parcours B1</h1>
+        <h1 className="mt-3 text-2xl font-bold text-foreground sm:text-3xl">Ton parcours B1</h1>
         <p className="mt-2 max-w-xl text-sm text-muted-foreground">
           Un chemin en {stages.length} étapes pour être prêt·e pour un examen de niveau B1.
           {goal ? (

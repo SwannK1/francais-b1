@@ -53,7 +53,7 @@ export default function TestNiveauPage() {
     return (
       <div className="space-y-6">
         <header>
-          <h1 className="text-2xl font-bold text-foreground">Votre résultat</h1>
+          <h1 className="text-2xl font-bold text-foreground">Ton résultat</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Ce résultat est un niveau estimé à titre indicatif, il ne remplace pas une
             certification CECRL officielle.
@@ -90,7 +90,7 @@ export default function TestNiveauPage() {
               </ul>
             ) : (
               <p className="mt-2 text-sm text-muted-foreground">
-                Pas encore de point fort net, continuez à vous entraîner.
+                Pas encore de point fort net, continue à t&apos;entraîner.
               </p>
             )}
           </Card>
@@ -112,7 +112,7 @@ export default function TestNiveauPage() {
           {isB1OrBelow ? (
             <>
               <p className="text-sm text-foreground">
-                Votre niveau estimé est <strong>{result.estimatedLevel}</strong>, au niveau B1 ou en
+                Ton niveau estimé est <strong>{result.estimatedLevel}</strong>, au niveau B1 ou en
                 dessous. Le parcours B1 de la plateforme est adapté pour progresser à partir de là.
               </p>
               <Link href="/parcours" className={cn(buttonClasses("primary", "md"), "mt-3")}>
@@ -122,8 +122,8 @@ export default function TestNiveauPage() {
           ) : (
             <>
               <p className="text-sm text-foreground">
-                Votre profil semble déjà dépasser le niveau B1. Le parcours B2 n&apos;est pas encore
-                disponible sur la plateforme : vous pouvez explorer le parcours B1 pour consolider vos
+                Ton profil semble déjà dépasser le niveau B1. Le parcours B2 n&apos;est pas encore
+                disponible sur la plateforme : tu peux explorer le parcours B1 pour consolider tes
                 bases en attendant.
               </p>
               <Link href="/parcours" className={cn(buttonClasses("secondary", "md"), "mt-3")}>
@@ -145,7 +145,7 @@ export default function TestNiveauPage() {
       <header>
         <h1 className="text-2xl font-bold text-foreground">Test de positionnement</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Quelques questions pour estimer votre niveau. Ce n&apos;est pas une certification
+          Quelques questions pour estimer ton niveau. Ce n&apos;est pas une certification
           officielle.
         </p>
       </header>

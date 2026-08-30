@@ -100,11 +100,11 @@ function ResultSummary({
         <p className="mt-2 text-sm text-muted-foreground">
           {summary.isProvisional
             ? hasSelfAssessedSections
-              ? "Les productions écrite et orale ne sont pas corrigées automatiquement : auto-évaluez-les avec les critères fournis dans chaque exercice."
+              ? "Les productions écrite et orale ne sont pas corrigées automatiquement : auto-évalue-les avec les critères fournis dans chaque exercice."
               : "Certaines sections ne sont pas encore terminées."
             : summary.passed
-              ? "Seuil de réussite atteint sur les épreuves notées automatiquement. Vous pouvez retenter une épreuve ou continuer votre parcours."
-              : "Seuil de réussite non atteint sur les épreuves notées automatiquement. Retravaillez les sections concernées avant une nouvelle tentative."}
+              ? "Seuil de réussite atteint sur les épreuves notées automatiquement. Tu peux retenter une épreuve ou continuer ton parcours."
+              : "Seuil de réussite non atteint sur les épreuves notées automatiquement. Retravaille les sections concernées avant une nouvelle tentative."}
         </p>
       ) : null}
 

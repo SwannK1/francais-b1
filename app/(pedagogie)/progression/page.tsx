@@ -29,7 +29,7 @@ export default function ProgressionPage() {
     <div className="space-y-8">
       <header>
         <LevelBadge level={progress.level} />
-        <h1 className="mt-3 text-2xl font-bold text-foreground">Votre bilan</h1>
+        <h1 className="mt-3 text-2xl font-bold text-foreground">Ton bilan</h1>
         <ProgressBar
           value={progress.globalSuccessRate}
           label="Taux de réussite global"
@@ -42,7 +42,7 @@ export default function ProgressionPage() {
         </p>
         <p className="mt-3 text-sm text-foreground">
           {isReadyForB1
-            ? "Toutes les étapes du parcours sont terminées : vous êtes prêt·e à passer un examen blanc B1."
+            ? "Toutes les étapes du parcours sont terminées : tu es prêt·e à passer un examen blanc B1."
             : `${summary.completedStages}/${summary.totalStages} étapes du parcours terminées.`}
         </p>
       </header>
@@ -89,8 +89,8 @@ export default function ProgressionPage() {
         ) : (
           <Card>
             <p className="text-sm text-muted-foreground">
-              Vos compétences apparaîtront ici au fil de vos exercices. Terminez votre première leçon
-              pour commencer à suivre votre progression.
+              Tes compétences apparaîtront ici au fil de tes exercices. Termine ta première leçon
+              pour commencer à suivre ta progression.
             </p>
           </Card>
         )}
