@@ -9,6 +9,8 @@ import { getLearningGoalById } from "@/lib/pedagogy/data/goals";
 import { computeDailySession } from "@/lib/pedagogy/logic/recommendation";
 import { getStageCompletionRate, getStageStatus } from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
+import { useAuth } from "@/lib/auth/AuthProvider";
+import { canAccess } from "@/lib/commerce/access";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 
 function stageHref(stage: ParcoursStage): string {
@@ -26,10 +28,14 @@ function stageHref(stage: ParcoursStage): string {
 
 export default function ParcoursPage() {
   const { progress } = useProgress();
+  const { user } = useAuth();
   const stages = [...PARCOURS_STAGES].sort((a, b) => a.order - b.order);
   const goal = progress.goalId ? getLearningGoalById(progress.goalId) : undefined;
   const dailySession = computeDailySession(progress, MODULES);
   const dailySessionModule = dailySession ? MODULES.find((m) => m.id === dailySession.moduleId) : undefined;
+  const dailySessionLocked = dailySessionModule
+    ? !canAccess({ kind: "module", slug: dailySessionModule.slug }, user?.premiumUntil)
+    : false;
 
   return (
     <div>
@@ -52,7 +58,11 @@ export default function ParcoursPage() {
           <h2 id="daily-session-title" className="mb-3 text-lg font-semibold text-foreground">
             Séance du jour
           </h2>
-          <DailySessionCard session={dailySession} href={`/parcours/module/${dailySessionModule.slug}`} />
+          <DailySessionCard
+            session={dailySession}
+            href={dailySessionLocked ? "/offre" : `/parcours/module/${dailySessionModule.slug}`}
+            locked={dailySessionLocked}
+          />
         </section>
       ) : null}
 

@@ -22,6 +22,9 @@ export default function ProgressPreviewCard({
 
   return (
     <Card className={cn("w-full", className)}>
+      <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+        Aperçu — exemple de tableau de bord
+      </p>
       <div className="flex flex-wrap items-center gap-2">
         <Badge variant="neutral">Niveau actuel : A2</Badge>
         <span className="text-muted-foreground" aria-hidden="true">

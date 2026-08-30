@@ -13,12 +13,18 @@ import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
 import { computeDailySession } from "@/lib/pedagogy/logic/recommendation";
 import { getParcoursSummary } from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
+import { useAuth } from "@/lib/auth/AuthProvider";
+import { canAccess } from "@/lib/commerce/access";
 
 export default function ProgressionPage() {
   const { progress } = useProgress();
+  const { user } = useAuth();
   const modules = getModulesByLevel(progress.level);
   const dailySession = computeDailySession(progress, MODULES);
   const dailySessionModule = dailySession ? MODULES.find((m) => m.id === dailySession.moduleId) : undefined;
+  const dailySessionLocked = dailySessionModule
+    ? !canAccess({ kind: "module", slug: dailySessionModule.slug }, user?.premiumUntil)
+    : false;
   const summary = getParcoursSummary(progress, MODULES);
   const isReadyForB1 = summary.completedStages === summary.totalStages;
   const startedSkills = SKILLS.filter((skill) =>
@@ -52,7 +58,11 @@ export default function ProgressionPage() {
           <h2 id="daily-session-title" className="mb-3 text-lg font-semibold text-foreground">
             Séance recommandée
           </h2>
-          <DailySessionCard session={dailySession} href={`/parcours/module/${dailySessionModule.slug}`} />
+          <DailySessionCard
+            session={dailySession}
+            href={dailySessionLocked ? "/offre" : `/parcours/module/${dailySessionModule.slug}`}
+            locked={dailySessionLocked}
+          />
         </section>
       ) : null}
 

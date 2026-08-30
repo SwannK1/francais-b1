@@ -5,6 +5,8 @@ import { buttonClasses, type ButtonSize } from "@/components/ui/button-styles";
 import { MODULES } from "@/lib/pedagogy/data/modules";
 import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
 import { useProgress } from "@/lib/pedagogy/useProgress";
+import { useAuth } from "@/lib/auth/AuthProvider";
+import { canAccess } from "@/lib/commerce/access";
 import { cn } from "@/lib/cn";
 
 /**
@@ -14,6 +16,10 @@ import { cn } from "@/lib/cn";
  * vers la suite pertinente de son parcours (`getNextModule`, jusqu'ici
  * calculé mais jamais branché à l'UI) plutôt que de le renvoyer au test de
  * positionnement à chaque visite.
+ *
+ * Si ce prochain module fait partie de l'offre complète, on l'annonce dans
+ * le libellé et on envoie directement vers `/offre` plutôt que de faire
+ * cliquer vers un module pour découvrir un `PremiumLock` sans contexte.
  */
 export default function PrimaryCta({
   size = "md",
@@ -27,6 +33,7 @@ export default function PrimaryCta({
   onClick?: () => void;
 }) {
   const { progress } = useProgress();
+  const { user } = useAuth();
   const hasStarted = Boolean(progress.placementCompletedAt) || progress.moduleProgress.length > 0;
 
   if (!hasStarted) {
@@ -38,11 +45,14 @@ export default function PrimaryCta({
   }
 
   const next = getNextModule(progress, MODULES);
-  const href = next ? `/parcours/module/${next.module.slug}` : "/parcours";
+  const nextIsLocked = next
+    ? !canAccess({ kind: "module", slug: next.module.slug }, user?.premiumUntil)
+    : false;
+  const href = !next ? "/parcours" : nextIsLocked ? "/offre" : `/parcours/module/${next.module.slug}`;
 
   return (
     <Link href={href} onClick={onClick} className={cn(buttonClasses("primary", size), className)}>
-      Continuer mon parcours
+      {nextIsLocked ? "Débloquer la suite du parcours" : "Continuer mon parcours"}
     </Link>
   );
 }
