@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getStripeClient, isPaymentConfigured } from "@/lib/commerce/stripe";
 import { setUserPremium, clearUserPremium, findUserByStripeCustomerId } from "@/lib/auth/users";
+import { trackServerEvent } from "@/lib/analytics/server";
 
 /**
  * Webhook Stripe : reçoit les événements de paiement (signature vérifiée,
@@ -66,6 +67,10 @@ export async function POST(request: Request) {
       const periodEnd = subscription.items.data[0]?.current_period_end;
       if (periodEnd) {
         await setUserPremium(userId, unixToIso(periodEnd), custId);
+        // Seule source fiable pour `purchase_completed` : un événement Stripe
+        // signé et vérifié, jamais un simple retour sur la page de succès
+        // (voir docs/analytics.md § achat).
+        void trackServerEvent("purchase_completed");
       }
       break;
     }

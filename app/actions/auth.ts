@@ -7,6 +7,7 @@ import { clearLoginAttempts, isLoginThrottled, recordFailedLoginAttempt } from "
 import { createPasswordResetToken, consumePasswordResetToken } from "@/lib/auth/password-reset";
 import { sendPasswordResetEmail } from "@/lib/auth/mailer";
 import { hashPassword } from "@/lib/auth/password";
+import { trackServerEvent } from "@/lib/analytics/server";
 
 export interface AuthFormState {
   error?: string;
@@ -36,6 +37,7 @@ export async function signup(_prevState: AuthFormState, formData: FormData): Pro
   try {
     const user = await createUser(validated.email, validated.password);
     await createSession(user.id);
+    void trackServerEvent("signup_completed");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "EMAIL_TAKEN") {
@@ -61,6 +63,7 @@ export async function login(_prevState: AuthFormState, formData: FormData): Prom
 
   await clearLoginAttempts(validated.email);
   await createSession(user.id);
+  void trackServerEvent("login_completed");
   return { success: true };
 }
 

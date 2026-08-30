@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { signup, type AuthFormState } from "@/app/actions/auth";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { buttonClasses } from "@/components/ui/button-styles";
+import { trackEvent } from "@/lib/analytics/client";
 
 const initialState: AuthFormState = {};
 
@@ -22,7 +23,7 @@ export default function SignupForm({ next = "/parcours" }: { next?: string }) {
   }, [state.success, refresh, router, next]);
 
   return (
-    <form action={action} className="space-y-4">
+    <form action={action} onSubmit={() => trackEvent("signup_started")} className="space-y-4">
       <div className="space-y-1.5">
         <label htmlFor="email" className="text-sm font-medium text-foreground">
           Email

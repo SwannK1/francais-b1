@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
@@ -9,6 +9,7 @@ import { ChevronDownIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import ExerciseCard from "@/components/pedagogy/ExerciseCard";
 import { useProgress } from "@/lib/pedagogy/useProgress";
+import { trackEvent } from "@/lib/analytics/client";
 import {
   calculateExamScore,
   getActiveExamAttempt,
@@ -151,6 +152,13 @@ function AttemptRow({ exam, attempt }: { exam: Exam; attempt: ExamAttempt }) {
 export default function ExamExperience({ exam }: { exam: Exam }) {
   const { progress, startExam, recordExamResult, finishExam } = useProgress();
 
+  const viewTracked = useRef<string | null>(null);
+  useEffect(() => {
+    if (viewTracked.current === exam.id) return;
+    viewTracked.current = exam.id;
+    trackEvent("delf_mock_viewed", { examId: exam.id });
+  }, [exam.id]);
+
   const activeAttempt = getActiveExamAttempt(progress, exam.id);
   const allAttempts = getExamAttempts(progress, exam.id).sort((a, b) =>
     a.startedAt < b.startedAt ? 1 : -1
@@ -213,14 +221,28 @@ export default function ExamExperience({ exam }: { exam: Exam }) {
               exam={exam}
               attempt={focusAttempt}
               summary={focusSummary}
-              onFinish={activeAttempt ? () => finishExam(activeAttempt.id) : undefined}
+              onFinish={
+                activeAttempt
+                  ? () => {
+                      finishExam(activeAttempt.id);
+                      trackEvent("delf_mock_completed", { examId: exam.id });
+                    }
+                  : undefined
+              }
             />
           </div>
         </Card>
       ) : null}
 
       {!activeAttempt ? (
-        <button type="button" onClick={() => startExam(exam)} className={buttonClasses("primary", "md")}>
+        <button
+          type="button"
+          onClick={() => {
+            startExam(exam);
+            trackEvent("delf_mock_started", { examId: exam.id });
+          }}
+          className={buttonClasses("primary", "md")}
+        >
           {allAttempts.length > 0 ? "Commencer une nouvelle tentative" : "Commencer une tentative"}
         </button>
       ) : null}

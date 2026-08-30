@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { CheckIcon } from "@/components/ui/icons";
 import { MAIN_PLAN } from "@/lib/commerce/plans";
+import { trackEvent } from "@/lib/analytics/client";
 
 export default function Pricing() {
   return (
@@ -37,7 +40,11 @@ export default function Pricing() {
           </Button>
           <p className="mt-3 text-xs text-muted-foreground">
             {MAIN_PLAN.tagline}{" "}
-            <Link href="/offre" className="underline hover:text-foreground">
+            <Link
+              href="/offre"
+              className="underline hover:text-foreground"
+              onClick={() => trackEvent("premium_cta_clicked", { source: "pricing_page" })}
+            >
               Voir le détail de l&apos;offre
             </Link>
             .
