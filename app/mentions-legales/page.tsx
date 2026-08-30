@@ -23,28 +23,50 @@ export default function MentionsLegalesPage() {
           <div className="space-y-6 text-sm text-muted-foreground">
             <section>
               <h2 className="text-base font-semibold text-foreground">Éditeur du site</h2>
-              <p className="mt-1">
-                [Raison sociale / nom de l&apos;éditeur] — [forme juridique, ex. SASU, EI...] au
-                capital de [montant] € — RCS [ville] [numéro SIREN] — Siège social : [adresse
-                complète] — Numéro de TVA intracommunautaire : [numéro].
-              </p>
+              <dl className="mt-2 space-y-1.5">
+                {[
+                  ["Raison sociale / nom de l'éditeur", "À FOURNIR PAR LE PROPRIÉTAIRE"],
+                  ["Statut juridique (ex. SASU, EI, auto-entrepreneur...)", "À FOURNIR PAR LE PROPRIÉTAIRE"],
+                  ["Capital social (si applicable)", "À FOURNIR PAR LE PROPRIÉTAIRE"],
+                  ["RCS et ville d'immatriculation", "À FOURNIR PAR LE PROPRIÉTAIRE"],
+                  ["Numéro SIREN", "À FOURNIR PAR LE PROPRIÉTAIRE"],
+                  ["Numéro de TVA intracommunautaire (si applicable)", "À FOURNIR PAR LE PROPRIÉTAIRE"],
+                  ["Siège social", "À FOURNIR PAR LE PROPRIÉTAIRE"],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex flex-wrap gap-x-1.5">
+                    <dt className="font-medium text-foreground">{label} :</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
             </section>
 
             <section>
               <h2 className="text-base font-semibold text-foreground">Directeur de la publication</h2>
-              <p className="mt-1">[Nom du responsable de publication].</p>
+              <p className="mt-1">À FOURNIR PAR LE PROPRIÉTAIRE.</p>
             </section>
 
             <section>
               <h2 className="text-base font-semibold text-foreground">Contact</h2>
-              <p className="mt-1">Email : [adresse email de contact] — [téléphone si applicable].</p>
+              <dl className="mt-2 space-y-1.5">
+                <div className="flex flex-wrap gap-x-1.5">
+                  <dt className="font-medium text-foreground">Email :</dt>
+                  <dd>À FOURNIR PAR LE PROPRIÉTAIRE</dd>
+                </div>
+                <div className="flex flex-wrap gap-x-1.5">
+                  <dt className="font-medium text-foreground">Téléphone (si applicable) :</dt>
+                  <dd>À FOURNIR PAR LE PROPRIÉTAIRE</dd>
+                </div>
+              </dl>
             </section>
 
             <section>
               <h2 className="text-base font-semibold text-foreground">Hébergement</h2>
               <p className="mt-1">
-                [Nom de l&apos;hébergeur] — [adresse de l&apos;hébergeur] — [contact de
-                l&apos;hébergeur].
+                À FOURNIR PAR LE PROPRIÉTAIRE (nom, adresse et contact de l&apos;hébergeur —
+                probablement Vercel Inc. au vu de la stack technique, mais à confirmer avant mise en
+                ligne : l&apos;hébergeur exact et ses coordonnées légales doivent être vérifiés au
+                moment du déploiement en production).
               </p>
             </section>
 

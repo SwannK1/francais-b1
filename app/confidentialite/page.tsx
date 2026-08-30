@@ -67,12 +67,22 @@ export default function ConfidentialitePage() {
             </section>
 
             <section>
+              <h2 className="text-base font-semibold text-foreground">Emails transactionnels</h2>
+              <p className="mt-1">
+                Les emails nécessaires au fonctionnement du compte (par exemple la réinitialisation
+                de mot de passe) sont envoyés via Resend, prestataire d&apos;envoi d&apos;emails
+                tiers, qui traite à cette fin ton adresse email et le contenu de ces emails.
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-base font-semibold text-foreground">Sous-traitants</h2>
               <p className="mt-1">
                 Les données de compte et de progression sont hébergées dans une base de données
-                Postgres fournie par Neon. Les paiements sont traités par Stripe. Ces deux
-                prestataires agissent comme sous-traitants au sens du RGPD, dans le cadre strict de
-                leur fonction (hébergement de données / traitement du paiement). L&apos;hébergeur de
+                Postgres fournie par Neon. Les paiements sont traités par Stripe. Les emails
+                transactionnels sont envoyés via Resend. Ces trois prestataires agissent comme
+                sous-traitants au sens du RGPD, dans le cadre strict de leur fonction (hébergement de
+                données / traitement du paiement / envoi d&apos;emails). L&apos;hébergeur de
                 l&apos;application elle-même est indiqué dans les{" "}
                 <Link href="/mentions-legales" className="underline hover:text-foreground">
                   mentions légales
@@ -85,10 +95,10 @@ export default function ConfidentialitePage() {
               <h2 className="text-base font-semibold text-foreground">Finalités et durée de conservation</h2>
               <p className="mt-1">
                 Les données de compte et de progression sont conservées tant que le compte existe,
-                pour permettre l&apos;accès au service et le suivi pédagogique. [À compléter avant
-                mise en ligne : durée précise de conservation après suppression du compte ou
-                inactivité prolongée, et base légale retenue pour chaque traitement (exécution du
-                contrat, intérêt légitime...).]
+                pour permettre l&apos;accès au service et le suivi pédagogique. Durée précise de
+                conservation après suppression du compte ou inactivité prolongée, et base légale
+                retenue pour chaque traitement (exécution du contrat, intérêt légitime...) : À
+                FOURNIR PAR LE PROPRIÉTAIRE.
               </p>
             </section>
 
@@ -97,21 +107,23 @@ export default function ConfidentialitePage() {
               <p className="mt-1">
                 Conformément au RGPD, tu disposes d&apos;un droit d&apos;accès, de rectification,
                 d&apos;effacement, de limitation et de portabilité de tes données, ainsi que d&apos;un
-                droit d&apos;opposition. Pour les exercer, écris-nous à [adresse email dédiée RGPD —
-                à compléter avant mise en ligne]. Tu peux aussi introduire une réclamation auprès de
-                la CNIL (cnil.fr).
+                droit d&apos;opposition. Pour les exercer, écris-nous à : À FOURNIR PAR LE
+                PROPRIÉTAIRE (adresse email dédiée RGPD). Tu peux aussi introduire une réclamation
+                auprès de la CNIL (cnil.fr).
               </p>
             </section>
 
             <section>
-              <h2 className="text-base font-semibold text-foreground">Cookies</h2>
+              <h2 className="text-base font-semibold text-foreground">Cookies et mesure d&apos;audience</h2>
               <p className="mt-1">
                 Un compte utilisateur utilise un cookie de session, strictement nécessaire au
-                fonctionnement du service (rester connecté·e) : il n&apos;est pas soumis au
-                consentement préalable prévu pour les cookies de mesure d&apos;audience ou de
-                publicité. Le site n&apos;utilise aujourd&apos;hui aucun cookie de mesure
-                d&apos;audience ni de publicité. Si de tels cookies étaient ajoutés à l&apos;avenir,
-                un bandeau de consentement conforme serait mis en place au préalable.
+                fonctionnement du service (rester connecté·e). Le site utilise aussi Vercel Web
+                Analytics pour mesurer l&apos;audience et l&apos;usage des principales étapes du
+                parcours (inscription, test de niveau, modules, examen blanc, offre) : cet outil ne
+                pose aucun cookie et n&apos;identifie pas les personnes individuellement. Aucun
+                cookie de publicité n&apos;est utilisé. [Qualification juridique exacte du régime de
+                consentement applicable à cette mesure d&apos;audience — à valider par un juriste
+                avant mise en ligne, notamment au regard des dernières recommandations de la CNIL.]
               </p>
             </section>
 

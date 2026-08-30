@@ -24,9 +24,7 @@ export default function ContactPage() {
 
           <Card className="mt-8">
             <h2 className="text-base font-semibold text-foreground">Nous écrire</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Email : [adresse email de contact — à compléter avant mise en ligne]
-            </p>
+            <p className="mt-2 text-sm text-muted-foreground">Email : À FOURNIR PAR LE PROPRIÉTAIRE</p>
             <p className="mt-2 text-sm text-muted-foreground">
               Pour une question sur tes données personnelles, voir la{" "}
               <Link href="/confidentialite" className="underline hover:text-foreground">
