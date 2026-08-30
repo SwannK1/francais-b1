@@ -1,8 +1,12 @@
 import { randomBytes, createHash } from "node:crypto";
 import { getSql } from "@/lib/auth/db";
 
-/** Durée de vie d'un token de réinitialisation — court et raisonnable, aligné sur les pratiques courantes. */
-const TOKEN_TTL_MINUTES = 60;
+/**
+ * Durée de vie d'un token de réinitialisation — court et raisonnable, aligné
+ * sur les pratiques courantes. Exportée pour que le texte de l'email
+ * (`lib/auth/mailer.ts`) affiche la même durée, sans dupliquer la valeur.
+ */
+export const TOKEN_TTL_MINUTES = 60;
 
 function hashToken(token: string): string {
   return createHash("sha256").update(token).digest("hex");
