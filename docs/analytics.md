@@ -77,7 +77,7 @@ absente ou une panne réseau ne doivent jamais casser un flux produit
 | `delf_mock_started` | Clic sur "Commencer une tentative" | `examId` |
 | `delf_mock_completed` | Clic sur "Terminer la tentative" (actif seulement quand toutes les sections sont complétées) | `examId` |
 | `premium_offer_viewed` | Vue de `/offre` | `isPremium` |
-| `premium_cta_clicked` | Clic sur le CTA de `PremiumLock` ou le lien "Voir le détail de l'offre" (Pricing marketing) | `source` (`premium_lock` \| `pricing_page`) |
+| `premium_cta_clicked` | Clic sur le CTA de `PremiumLock` | `source` (`premium_lock`) |
 | `checkout_started` | `POST /api/checkout`, uniquement après création réelle d'une session Stripe Checkout | — |
 | `purchase_completed` | Webhook Stripe `checkout.session.completed`, uniquement après écriture réussie du premium en base (`setUserPremium`) — jamais sur `/paiement/succes` | — |
 
