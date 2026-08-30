@@ -3,10 +3,9 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
 import { CheckIcon } from "@/components/ui/icons";
+import CheckoutButton from "@/components/commerce/CheckoutButton";
 import { MAIN_PLAN } from "@/lib/commerce/plans";
-import { trackEvent } from "@/lib/analytics/client";
 
 export default function Pricing() {
   return (
@@ -35,20 +34,14 @@ export default function Pricing() {
             ))}
           </ul>
 
-          <Button href="/test-niveau" size="lg" className="mt-8 w-full">
-            Commencer gratuitement
-          </Button>
-          <p className="mt-3 text-xs text-muted-foreground">
-            {MAIN_PLAN.tagline}{" "}
-            <Link
-              href="/offre"
-              className="underline hover:text-foreground"
-              onClick={() => trackEvent("premium_cta_clicked", { source: "pricing_page" })}
-            >
-              Voir le détail de l&apos;offre
-            </Link>
-            .
-          </p>
+          <CheckoutButton label={MAIN_PLAN.ctaLabel} size="lg" className="mt-8 w-full" />
+          <p className="mt-3 text-xs text-muted-foreground">{MAIN_PLAN.tagline}</p>
+          <Link
+            href="/test-niveau"
+            className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
+          >
+            Ou commencer gratuitement avec le test de niveau
+          </Link>
         </Card>
       </Container>
     </section>
