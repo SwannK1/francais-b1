@@ -4,7 +4,7 @@ import Card from "@/components/ui/Card";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
 import ModuleCard from "@/components/pedagogy/ModuleCard";
 import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
-import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
+import { getModuleCompletionRate, isModuleReviewed } from "@/lib/pedagogy/logic/progress";
 import { getStageCompletionRate } from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { canAccess } from "@/lib/commerce/access";
@@ -19,7 +19,7 @@ export default function StageExperience({
   stage: ParcoursStage;
   modules: Module[];
 }) {
-  const { progress } = useProgress();
+  const { progress, toggleReview } = useProgress();
   const { user } = useAuth();
   const completionRate = getStageCompletionRate(stage, progress, modules);
 
@@ -45,15 +45,20 @@ export default function StageExperience({
             Modules
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            {modules.map((mod) => (
-              <ModuleCard
-                key={mod.id}
-                module={mod}
-                completionRate={getModuleCompletionRate(progress, mod)}
-                href={`/parcours/module/${mod.slug}`}
-                locked={!canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil)}
-              />
-            ))}
+            {modules.map((mod) => {
+              const locked = !canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
+              return (
+                <ModuleCard
+                  key={mod.id}
+                  module={mod}
+                  completionRate={getModuleCompletionRate(progress, mod)}
+                  href={`/parcours/module/${mod.slug}`}
+                  locked={locked}
+                  reviewed={isModuleReviewed(progress, mod.id)}
+                  onToggleReview={locked ? undefined : () => toggleReview(mod.id)}
+                />
+              );
+            })}
           </div>
         </section>
       ) : (

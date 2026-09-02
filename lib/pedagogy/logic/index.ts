@@ -6,15 +6,27 @@
  *
  * - `placement.ts`    : test de positionnement -> niveau CECRL estimé.
  * - `progress.ts`     : résultat d'exercice -> progression du curriculum mise à jour.
- * - `recommendation.ts`: progression -> séance du jour recommandée.
+ * - `recommendation.ts`: progression -> séance du jour recommandée / module à reprendre.
  * - `parcours.ts`     : progression -> statut et complétion des grandes étapes.
  * - `exam.ts`         : résultat d'exercice -> tentative d'examen mise à jour et score.
  *                        Concept distinct de `progress.ts` : jamais mélangé avec
  *                        la progression du curriculum (voir `exam.ts`).
+ * - `review.ts`       : progression -> liste "à réviser" (ordre fixe, pas de scoring opaque).
  */
 export { computePlacementResult } from "./placement";
-export { recordExerciseResult, getModuleProgress, getModuleCompletionRate } from "./progress";
+export {
+  recordExerciseResult,
+  getModuleProgress,
+  getModuleCompletionRate,
+  getModuleStatus,
+  statusFromCompletionRate,
+  isModuleReviewed,
+  toggleModuleReview,
+  mergeUserProgress,
+  type ModuleStatus,
+} from "./progress";
 export { computeDailySession, getNextModule, type NextModuleTarget } from "./recommendation";
+export { getReviewItems, type ReviewItem, type ReviewItemKind } from "./review";
 export {
   getStageModules,
   getStageCompletionRate,

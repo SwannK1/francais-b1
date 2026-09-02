@@ -1,9 +1,10 @@
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
-import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
+import { getModuleCompletionRate, statusFromCompletionRate, type ModuleStatus } from "@/lib/pedagogy/logic/progress";
 import type { Module, UserProgress } from "@/lib/pedagogy/types";
 
-export type StageStatus = "a_commencer" | "en_cours" | "termine";
+/** Mêmes 3 valeurs que `ModuleStatus` (voir `logic/progress.ts`) — nom distinct pour la clarté au point d'appel. */
+export type StageStatus = ModuleStatus;
 
 /**
  * Modules réels rattachés à une étape, triés comme dans `MODULES`. Source de
@@ -43,10 +44,7 @@ export function getStageStatus(
   progress: UserProgress,
   modules: Module[]
 ): StageStatus {
-  const rate = getStageCompletionRate(stage, progress, modules);
-  if (rate >= 100) return "termine";
-  if (rate > 0) return "en_cours";
-  return "a_commencer";
+  return statusFromCompletionRate(getStageCompletionRate(stage, progress, modules));
 }
 
 export interface ParcoursSummary {

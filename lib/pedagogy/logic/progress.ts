@@ -149,6 +149,41 @@ export function getModuleCompletionRate(progress: UserProgress, mod: Module): nu
   return Math.round((completed / total) * 100);
 }
 
+/**
+ * Les 3 états de cycle de vie d'un module (non commencé / en cours /
+ * terminé). Seuils partagés avec `logic/parcours.ts` (`getStageStatus`,
+ * même 3 valeurs) : une seule fonction de seuillage, pas de logique
+ * dupliquée à chaque endroit qui affiche un badge de statut.
+ */
+export type ModuleStatus = "a_commencer" | "en_cours" | "termine";
+
+export function statusFromCompletionRate(rate: number): ModuleStatus {
+  if (rate >= 100) return "termine";
+  if (rate > 0) return "en_cours";
+  return "a_commencer";
+}
+
+export function getModuleStatus(progress: UserProgress, mod: Module): ModuleStatus {
+  return statusFromCompletionRate(getModuleCompletionRate(progress, mod));
+}
+
+/**
+ * "À revoir" : étiquette manuelle posée par l'apprenant, orthogonale au
+ * statut de complétion (voir `UserProgress.reviewedModuleIds`). Ajouter /
+ * retirer / retrouver — volontairement aussi simple que ces trois verbes,
+ * pas de logique de scoring ni d'expiration automatique.
+ */
+export function isModuleReviewed(progress: UserProgress, moduleId: string): boolean {
+  return progress.reviewedModuleIds.includes(moduleId);
+}
+
+export function toggleModuleReview(progress: UserProgress, moduleId: string): UserProgress {
+  const reviewedModuleIds = isModuleReviewed(progress, moduleId)
+    ? progress.reviewedModuleIds.filter((id) => id !== moduleId)
+    : [...progress.reviewedModuleIds, moduleId];
+  return { ...progress, reviewedModuleIds };
+}
+
 function laterIso(a: string | null, b: string | null): string | null {
   if (!a) return b;
   if (!b) return a;
@@ -241,5 +276,12 @@ export function mergeUserProgress(local: UserProgress, remote: UserProgress): Us
     weakSkillIds,
     placementCompletedAt: remote.placementCompletedAt ?? local.placementCompletedAt,
     examAttempts: mergeExamAttempts(local.examAttempts, remote.examAttempts),
+    // `?? []` : robustesse face à une progression écrite avant l'ajout de ce
+    // champ (voir `UserProgress.reviewedModuleIds`) — jamais de crash sur
+    // une ancienne donnée, union plutôt que remplacement (même stratégie que
+    // les autres champs ci-dessus, jamais de perte).
+    reviewedModuleIds: Array.from(
+      new Set([...(local.reviewedModuleIds ?? []), ...(remote.reviewedModuleIds ?? [])])
+    ),
   };
 }

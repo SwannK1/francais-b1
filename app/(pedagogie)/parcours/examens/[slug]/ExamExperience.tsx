@@ -11,6 +11,7 @@ import ExerciseCard from "@/components/pedagogy/ExerciseCard";
 import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { trackEvent } from "@/lib/analytics/client";
+import { DELF_SECTION_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import {
   calculateExamScore,
   getActiveExamAttempt,
@@ -23,13 +24,6 @@ const TYPE_LABEL: Record<Exam["type"], string> = {
   delf: "DELF",
   tcf_irn: "TCF IRN",
   interne: "Entraînement interne",
-};
-
-const SECTION_LABEL: Record<DelfSection, string> = {
-  comprehension_orale: "Compréhension orale",
-  comprehension_ecrite: "Compréhension écrite",
-  production_ecrite: "Production écrite",
-  production_orale: "Production orale",
 };
 
 /** Épreuves de production : jamais notées automatiquement, seulement auto-évaluées (voir `logic/exam.ts`). */
@@ -84,7 +78,7 @@ function ResultSummary({
       <ul className="space-y-1 text-sm">
         {summary.sectionScores.map((sectionScore) => (
           <li key={sectionScore.section} className="flex items-center justify-between">
-            <span className="text-muted-foreground">{SECTION_LABEL[sectionScore.section]}</span>
+            <span className="text-muted-foreground">{DELF_SECTION_LABELS[sectionScore.section]}</span>
             <span className="font-medium text-foreground">{sectionScoreLabel(sectionScore)}</span>
           </li>
         ))}

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import { INITIAL_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
-import { recordExerciseResult } from "@/lib/pedagogy/logic/progress";
+import { recordExerciseResult, toggleModuleReview } from "@/lib/pedagogy/logic/progress";
 import {
   abandonExamAttempt,
   completeExamAttempt,
@@ -178,6 +178,10 @@ export function useProgress() {
     writeProgress(abandonExamAttempt(parseProgress(readRaw()), attemptId));
   }, []);
 
+  const toggleReview = useCallback((moduleId: string) => {
+    writeProgress(toggleModuleReview(parseProgress(readRaw()), moduleId));
+  }, []);
+
   return {
     progress,
     recordResult,
@@ -186,5 +190,6 @@ export function useProgress() {
     recordExamResult,
     finishExam,
     abandonExam,
+    toggleReview,
   };
 }
