@@ -7,7 +7,8 @@ import Card from "@/components/ui/Card";
 import LoginForm from "@/components/auth/LoginForm";
 
 export const metadata: Metadata = {
-  title: "Se connecter — ParcoursFR",
+  title: "Se connecter",
+  robots: { index: false, follow: true },
 };
 
 export default async function ConnexionPage({ searchParams }: PageProps<"/connexion">) {

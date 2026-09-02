@@ -8,7 +8,10 @@ import { CheckIcon } from "@/components/ui/icons";
 import { getCurrentUser } from "@/lib/auth/dal";
 import { isPremiumActive } from "@/lib/commerce/access";
 
-export const metadata: Metadata = { title: "Paiement confirmé — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Paiement confirmé",
+  robots: { index: false, follow: true },
+};
 
 /**
  * L'activation réelle du premium vient du webhook Stripe

@@ -6,7 +6,11 @@ import Container from "@/components/ui/Container";
 import LegalDraftNotice from "@/components/commerce/LegalDraftNotice";
 import { MAIN_PLAN } from "@/lib/commerce/plans";
 
-export const metadata: Metadata = { title: "Conditions générales de vente — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Conditions générales de vente",
+  description: "Conditions générales de vente de l'offre ParcoursFR (abonnement, paiement, résiliation).",
+  alternates: { canonical: "/cgv" },
+};
 
 export default function CgvPage() {
   return (
@@ -50,8 +54,8 @@ export default function CgvPage() {
               <p className="mt-1">
                 Le prix de l&apos;abonnement « {MAIN_PLAN.name} » est de {MAIN_PLAN.priceLabel} TTC
                 par {MAIN_PLAN.interval}, tel qu&apos;affiché sur la page Offre au moment de la
-                souscription. [À compléter : taux de TVA applicable et mention du régime fiscal de
-                l&apos;éditeur.]
+                souscription. Taux de TVA applicable et régime fiscal de l&apos;éditeur : À FOURNIR
+                PAR LE PROPRIÉTAIRE.
               </p>
             </section>
 
@@ -79,10 +83,13 @@ export default function CgvPage() {
               <p className="mt-1">
                 L&apos;abonnement est sans engagement de durée et se renouvelle automatiquement
                 chaque {MAIN_PLAN.interval} jusqu&apos;à résiliation par la personne abonnée.
-                L&apos;accès reste actif jusqu&apos;à la fin de la période déjà payée. [À compléter :
-                procédure exacte de résiliation — la résiliation en libre-service depuis le compte
-                n&apos;est pas encore disponible ; en l&apos;état, elle se fait en contactant
-                ParcoursFR, voir la page Contact.]
+                L&apos;accès reste actif jusqu&apos;à la fin de la période déjà payée. La résiliation
+                en libre-service depuis le compte n&apos;est pas encore disponible : elle se fait en
+                contactant ParcoursFR (voir la page{" "}
+                <Link href="/contact" className="underline hover:text-foreground">
+                  Contact
+                </Link>
+                ).
               </p>
             </section>
 
@@ -103,9 +110,9 @@ export default function CgvPage() {
               <h2 className="text-base font-semibold text-foreground">8. Remboursement</h2>
               <p className="mt-1">
                 Hors cas de rétractation valablement exercé (voir section 7), aucun remboursement
-                n&apos;est garanti pour une période d&apos;abonnement déjà entamée. [À compléter :
-                politique de remboursement définitive, notamment en cas de dysfonctionnement du
-                service imputable à ParcoursFR — à valider avant mise en ligne.]
+                n&apos;est garanti pour une période d&apos;abonnement déjà entamée. Politique de
+                remboursement définitive (notamment en cas de dysfonctionnement du service imputable
+                à ParcoursFR) : À FOURNIR PAR LE PROPRIÉTAIRE.
               </p>
             </section>
 
@@ -149,10 +156,16 @@ export default function CgvPage() {
 
             <section>
               <h2 className="text-base font-semibold text-foreground">12. Droit applicable et litiges</h2>
-              <p className="mt-1">
-                [À compléter avec le droit applicable et la juridiction compétente, ou le médiateur de
-                la consommation applicable, une fois l&apos;éditeur identifié.]
-              </p>
+              <dl className="mt-2 space-y-1.5">
+                <div className="flex flex-wrap gap-x-1.5">
+                  <dt className="font-medium text-foreground">Droit applicable / juridiction compétente :</dt>
+                  <dd>À FOURNIR PAR LE PROPRIÉTAIRE</dd>
+                </div>
+                <div className="flex flex-wrap gap-x-1.5">
+                  <dt className="font-medium text-foreground">Médiateur de la consommation :</dt>
+                  <dd>À FOURNIR PAR LE PROPRIÉTAIRE</dd>
+                </div>
+              </dl>
             </section>
 
             <section>

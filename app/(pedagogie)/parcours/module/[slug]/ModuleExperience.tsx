@@ -9,11 +9,15 @@ import { CheckIcon } from "@/components/ui/icons";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
 import ExerciseCard from "@/components/pedagogy/ExerciseCard";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
+import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { cn } from "@/lib/cn";
 import { getStageById } from "@/lib/pedagogy/data/parcours-stages";
-import { findExerciseInModule } from "@/lib/pedagogy/data/modules";
+import { findExerciseInModule, MODULES } from "@/lib/pedagogy/data/modules";
 import { getModuleCompletionRate, getModuleProgress } from "@/lib/pedagogy/logic/progress";
+import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
 import { useProgress } from "@/lib/pedagogy/useProgress";
+import { useAuth } from "@/lib/auth/AuthProvider";
+import { canAccess } from "@/lib/commerce/access";
 import { trackEvent } from "@/lib/analytics/client";
 import type { Lesson, LessonStepType, Module, VocabularyCategory } from "@/lib/pedagogy/types";
 
@@ -68,13 +72,33 @@ function getInitialStepIndex(steps: Step[], completedLessonIds: string[]): numbe
 
 export default function ModuleExperience({ mod }: { mod: Module }) {
   const { progress, recordResult } = useProgress();
+  const { user } = useAuth();
 
   const moduleProgress = getModuleProgress(progress, mod.id);
   const completionRate = getModuleCompletionRate(progress, mod);
   const completedLessonIds = moduleProgress?.completedLessonIds ?? EMPTY_LESSON_IDS;
   const stage = getStageById(mod.stageId);
-  const backHref = stage ? `/parcours/${stage.slug}` : "/parcours";
-  const backLabel = stage ? `← Retour à l'étape « ${stage.title} »` : "← Retour au parcours";
+
+  /**
+   * Après le dernier pas du module, on propose directement le module suivant
+   * du parcours (`getNextModule`) plutôt qu'un renvoi générique vers le bilan :
+   * l'apprenant vient de terminer une ressource, il doit pouvoir enchaîner sur
+   * la suivante en un clic. Si ce module est verrouillé (offre complète), on
+   * l'annonce plutôt que de faire découvrir un `PremiumLock` sans contexte.
+   * S'il n'y a plus de module suivant, direction le bilan de progression.
+   */
+  const next = getNextModule(progress, MODULES);
+  const nextIsLocked = next
+    ? !canAccess({ kind: "module", slug: next.module.slug }, user?.premiumUntil)
+    : false;
+  const nextHref = !next ? "/progression" : nextIsLocked ? "/offre" : `/parcours/module/${next.module.slug}`;
+  const nextLabel = !next
+    ? "Voir ma progression"
+    : nextIsLocked
+      ? "Débloquer la suite du parcours"
+      : next.module.id === mod.id
+        ? "Voir ma progression"
+        : `Module suivant : ${next.module.title} →`;
 
   const steps = useMemo(() => buildSteps(mod), [mod]);
   const [stepIndex, setStepIndex] = useState(() => getInitialStepIndex(steps, completedLessonIds));
@@ -148,9 +172,13 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
 
   return (
     <div className="space-y-6">
-      <Link href={backHref} className="text-sm font-medium text-primary hover:underline">
-        {backLabel}
-      </Link>
+      <Breadcrumbs
+        items={[
+          { label: "Parcours", href: "/parcours" },
+          ...(stage ? [{ label: stage.title, href: `/parcours/${stage.slug}` }] : []),
+          { label: mod.title },
+        ]}
+      />
 
       <header>
         <LevelBadge level={mod.level} />
@@ -296,8 +324,8 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
             Suivant →
           </button>
         ) : (
-          <Link href="/progression" className={buttonClasses("primary", "md")}>
-            Voir ma progression
+          <Link href={nextHref} className={buttonClasses("primary", "md")}>
+            {nextLabel}
           </Link>
         )}
       </div>

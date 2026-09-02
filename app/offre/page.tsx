@@ -12,7 +12,12 @@ import { isPremiumActive } from "@/lib/commerce/access";
 import { getCurrentUser } from "@/lib/auth/dal";
 import ViewTracker from "@/lib/analytics/ViewTracker";
 
-export const metadata: Metadata = { title: "Offre — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Offre",
+  description:
+    "Découvre l'offre ParcoursFR : les 26 modules du parcours B1, les audios, les productions écrites corrigées et un examen blanc DELF B1 complet.",
+  alternates: { canonical: "/offre" },
+};
 
 export default async function OffrePage() {
   const paymentReady = isPaymentConfigured();
@@ -25,7 +30,11 @@ export default async function OffrePage() {
       <Header />
       <main>
         <Container className="py-16 sm:py-24">
-          <div className="mx-auto max-w-2xl text-center">
+          <Link href="/parcours" className="text-sm font-medium text-primary hover:underline">
+            ← Retour au parcours
+          </Link>
+
+          <div className="mx-auto mt-8 max-w-2xl text-center">
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Une formation complète de français B1, une seule offre
             </h1>
@@ -72,12 +81,20 @@ export default async function OffrePage() {
               </ul>
 
               {alreadyPremium ? (
-                <p className="mt-8 rounded-lg bg-success/10 p-3 text-sm font-medium text-success">
-                  Tu as déjà l&apos;accès complet
-                  {user?.premiumUntil
-                    ? ` — actif jusqu'au ${new Date(user.premiumUntil).toLocaleDateString("fr-FR")}.`
-                    : "."}
-                </p>
+                <>
+                  <p className="mt-8 rounded-lg bg-success/10 p-3 text-sm font-medium text-success">
+                    Tu as déjà l&apos;accès complet
+                    {user?.premiumUntil
+                      ? ` — actif jusqu'au ${new Date(user.premiumUntil).toLocaleDateString("fr-FR")}.`
+                      : "."}
+                  </p>
+                  <Link
+                    href="/parcours"
+                    className="mt-4 inline-flex items-center text-sm font-semibold text-primary hover:underline"
+                  >
+                    Continuer mon parcours
+                  </Link>
+                </>
               ) : paymentReady ? (
                 <CheckoutButton label={MAIN_PLAN.ctaLabel} className="mt-8 w-full" />
               ) : (

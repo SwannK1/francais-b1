@@ -2,17 +2,18 @@
 title: Programme B1 — Vue d'ensemble
 level: B1
 type: curriculum
-totalModules: 24
-lastUpdated: 2026-08-23
+totalModules: 26
+lastUpdated: 2026-09-02
 ---
 
 # Programme B1 — Progression complète
 
-Ce document est la **référence centrale** du niveau B1. Il liste les 24 modules du
-parcours, dans l'ordre où ils doivent être proposés à l'apprenant, avec pour
-chacun : l'objectif, les compétences travaillées, la grammaire, le vocabulaire,
-la situation réelle utilisée comme fil conducteur, la durée estimée et les
-prérequis.
+Ce document est la **référence centrale** du niveau B1. Il liste les 24 modules
+numérotés du parcours, plus 2 modules courts supplémentaires (non numérotés,
+insérés dans la phase Début — voir plus bas), dans l'ordre où ils doivent être
+proposés à l'apprenant, avec pour chacun : l'objectif, les compétences
+travaillées, la grammaire, le vocabulaire, la situation réelle utilisée comme
+fil conducteur, la durée estimée et les prérequis.
 
 Public : adultes non francophones, vivant ou souhaitant vivre en France, qui
 ont déjà le niveau A2 (compris) et veulent atteindre un B1 solide, utile au
@@ -38,8 +39,10 @@ demandée augmentent progressivement :
   vie quotidienne en France (logement, rendez-vous, courrier simple). On
   installe la distinction passé composé / imparfait, point de bascule du
   niveau. Deux modules courts non numérotés (« Parler de ses habitudes et de
-  ses goûts », « Faire des achats et comparer ») renforcent cette phase dans
-  `lib/pedagogy/data/modules.ts` — voir la note en fin de document.
+  ses goûts », « Faire des achats et comparer ») renforcent cette phase,
+  insérés entre les modules 4 et 5 dans `lib/pedagogy/data/modules.ts` (ordre
+  réel : 1, 2, 3, 4, ces 2 modules courts, puis 5 à 8) — voir leurs fiches
+  ci-dessous, juste après le Module 4.
 
 - **B1 — Intermédiaire (modules 9 à 16)**
   L'apprenant commence à **argumenter** : donner son avis, comparer, parler
@@ -125,6 +128,28 @@ bloquer un apprenant qui rejoint le parcours en cours de route.
 - **Durée estimée** : 25–30 min.
 - **Prérequis** : Module 3.
 - **Lien examens** : DELF B1 — compréhension des écrits (annonces).
+
+### Module court — Parler de ses habitudes et de ses goûts
+- **Objectif** : à la fin de ce module, tu pourras parler de ta routine, de tes loisirs et de ce que tu aimes ou non.
+- **Compétences** : décrire une habitude, exprimer une préférence, comparer deux goûts.
+- **Grammaire** : adverbes de fréquence, comparatif (plus/moins/aussi... que).
+- **Vocabulaire** : loisirs, goûts, vie quotidienne (routine, week-end).
+- **Situation réelle** : discuter de ses habitudes du week-end avec un voisin autour d'un café.
+- **Durée estimée** : 20 min.
+- **Prérequis** : Module 3.
+- **Lien examens** : TCF IRN — expression orale, tâche 1.
+- **Slug** : `habitudes-et-gouts` (`lib/pedagogy/data/modules.ts`).
+
+### Module court — Faire des achats et comparer
+- **Objectif** : à la fin de ce module, tu pourras comparer des produits, demander de l'aide et signaler un problème lors d'un achat.
+- **Compétences** : comparer deux produits, demander un renseignement en magasin, faire une réclamation simple.
+- **Grammaire** : comparatif appliqué aux produits (plus cher/léger/puissant... que).
+- **Vocabulaire** : achats, magasin, garantie, réclamation.
+- **Situation réelle** : hésiter entre deux produits dans un magasin et demander conseil à un vendeur ou une vendeuse.
+- **Durée estimée** : 20 min.
+- **Prérequis** : Module 4.
+- **Lien examens** : TCF IRN — expression orale, tâche 2.
+- **Slug** : `faire-des-achats` (`lib/pedagogy/data/modules.ts`).
 
 ### Module 5 — Discuter avec un propriétaire ou un voisin
 - **Objectif** : tu pourras prendre contact, poser des questions précises et répondre à des objections simples.
@@ -340,13 +365,9 @@ bloquer un apprenant qui rejoint le parcours en cours de route.
 
 | Phase             | Modules | Focus principal                                             |
 |--------------------|---------|---------------------------------------------------------------|
-| B1 — Début          | 1–8     | Socle A2→B1, récit simple, vie quotidienne, premiers écrits administratifs |
+| B1 — Début          | 1–8, + 2 modules courts | Socle A2→B1, récit simple, vie quotidienne, premiers écrits administratifs |
 | B1 — Intermédiaire  | 9–16    | Argumentation simple, comparaison, projets, problèmes, démarches |
 | B1 — Consolidation  | 17–24   | Hypothèse, conseil, discours rapporté, argumentation avancée, bilan |
 
-**Total : 24 modules.**
-
-*Note : `lib/pedagogy/data/modules.ts` livre également 2 modules courts
-supplémentaires (« Parler de ses habitudes et de ses goûts », « Faire des
-achats et comparer »), non comptabilisés ici et à documenter dans une
-prochaine mise à jour de ce programme s'ils sont conservés.*
+**Total : 26 modules** (24 modules numérotés + 2 modules courts non numérotés
+dans la phase Début, tous livrés dans `lib/pedagogy/data/modules.ts`).

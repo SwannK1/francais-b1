@@ -8,7 +8,8 @@ import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
 import { checkPasswordResetToken } from "@/lib/auth/password-reset";
 
 export const metadata: Metadata = {
-  title: "Réinitialiser le mot de passe — ParcoursFR",
+  title: "Réinitialiser le mot de passe",
+  robots: { index: false, follow: true },
 };
 
 export default async function ReinitialiserMotDePassePage({

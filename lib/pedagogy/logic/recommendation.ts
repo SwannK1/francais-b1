@@ -61,8 +61,8 @@ export interface NextModuleTarget {
 }
 
 /**
- * Primitive pour une future fonctionnalité "Continuer mon parcours" — pas
- * encore branchée à l'UI. Identifie le module à proposer en priorité :
+ * Identifie le module à proposer en priorité pour "Continuer mon parcours"
+ * (utilisé par `PrimaryCta` et par le CTA de fin de module) :
  * 1. Le module déjà commencé mais pas terminé, le plus récemment actif (reprise).
  * 2. Sinon, le premier module non terminé, dans l'ordre des étapes du parcours.
  * Fonction pure, sans hypothèse au-delà de ce que `UserProgress` suit déjà

@@ -7,7 +7,8 @@ import Card from "@/components/ui/Card";
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
 
 export const metadata: Metadata = {
-  title: "Mot de passe oublié — ParcoursFR",
+  title: "Mot de passe oublié",
+  robots: { index: false, follow: true },
 };
 
 export default function MotDePasseOubliePage() {

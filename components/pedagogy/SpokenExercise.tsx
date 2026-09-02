@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { MicrophoneIcon } from "@/components/ui/icons";
 import { buttonClasses } from "@/components/ui/button-styles";
 import { cn } from "@/lib/cn";
+import { notifyAudioPlaying, notifyAudioStopped } from "@/lib/pedagogy/audio-playback";
 import type { ProductionOraleExercise } from "@/lib/pedagogy/types";
 
 /**
@@ -295,7 +296,15 @@ export default function SpokenExercise({
       {phase === "review" && audioUrl ? (
         <div className="space-y-3 rounded-xl border border-border bg-background p-4">
           <p className="text-sm font-medium text-foreground">Ton enregistrement</p>
-          <audio controls src={audioUrl} className="w-full">
+          <audio
+            controls
+            src={audioUrl}
+            aria-label="Ton enregistrement"
+            onPlay={(event) => notifyAudioPlaying(event.currentTarget)}
+            onPause={(event) => notifyAudioStopped(event.currentTarget)}
+            onEnded={(event) => notifyAudioStopped(event.currentTarget)}
+            className="w-full"
+          >
             Ton navigateur ne prend pas en charge la lecture audio.
           </audio>
           <div className="flex flex-wrap gap-2">
@@ -350,7 +359,15 @@ export default function SpokenExercise({
           {audioUrl ? (
             <div className="space-y-2">
               <p className="text-muted-foreground">Tu peux réécouter ta prise :</p>
-              <audio controls src={audioUrl} className="w-full">
+              <audio
+                controls
+                src={audioUrl}
+                aria-label="Ton enregistrement"
+                onPlay={(event) => notifyAudioPlaying(event.currentTarget)}
+                onPause={(event) => notifyAudioStopped(event.currentTarget)}
+                onEnded={(event) => notifyAudioStopped(event.currentTarget)}
+                className="w-full"
+              >
                 Ton navigateur ne prend pas en charge la lecture audio.
               </audio>
             </div>
