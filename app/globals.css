@@ -11,7 +11,12 @@
   --secondary: #d9a441;
   --secondary-foreground: #23262b;
 
-  --success: #2f9e68;
+  /* #2f9e68 (vert de base) ne tient que 2,9:1 à 3,4:1 face au fond de page,
+     aux cartes blanches et à son propre fond teinté (bg-success/10) — sous
+     le seuil AA de 4,5:1 pour du texte normal. Assombri à même teinte : ce
+     token sert de texte réel (badges "Terminé", retour "Bonne réponse" en
+     quiz, bannière "accès complet") et pas seulement de couleur d'icône. */
+  --success: #22724b;
   --success-foreground: #ffffff;
 
   --card: #ffffff;
