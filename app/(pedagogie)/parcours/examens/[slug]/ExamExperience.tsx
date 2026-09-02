@@ -206,9 +206,15 @@ export default function ExamExperience({ exam }: { exam: Exam }) {
                 <ExerciseCard
                   key={exercise.id}
                   exercise={exercise}
-                  onCompleted={(correct) =>
-                    recordExamResult(exam, activeAttempt.id, section.delfSection, exercise, correct)
-                  }
+                  onCompleted={(correct) => {
+                    recordExamResult(exam, activeAttempt.id, section.delfSection, exercise, correct);
+                    trackEvent("exercise_completed", {
+                      examId: exam.id,
+                      exerciseId: exercise.id,
+                      exerciseType: exercise.type,
+                      correct,
+                    });
+                  }}
                 />
               ))}
             </section>
@@ -252,7 +258,11 @@ export default function ExamExperience({ exam }: { exam: Exam }) {
             {allAttempts.length > 0 ? "Commencer une nouvelle tentative" : "Commencer une tentative"}
           </button>
           {allAttempts.length > 0 ? (
-            <Link href="/parcours" className={buttonClasses("secondary", "md")}>
+            <Link
+              href="/parcours"
+              onClick={() => trackEvent("resume_clicked", { source: "exam_end_cta", examId: exam.id })}
+              className={buttonClasses("secondary", "md")}
+            >
               Continuer mon parcours
             </Link>
           ) : null}

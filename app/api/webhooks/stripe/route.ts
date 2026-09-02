@@ -69,7 +69,7 @@ export async function POST(request: Request) {
         await setUserPremium(userId, unixToIso(periodEnd), custId);
         // Seule source fiable pour `purchase_completed` : un événement Stripe
         // signé et vérifié, jamais un simple retour sur la page de succès
-        // (voir docs/analytics.md § achat).
+        // (voir docs/analytics/product-analytics.md § achat).
         void trackServerEvent("purchase_completed");
       }
       break;

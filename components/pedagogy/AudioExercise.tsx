@@ -6,6 +6,7 @@ import { buttonClasses } from "@/components/ui/button-styles";
 import { cn } from "@/lib/cn";
 import QuizQuestion from "@/components/pedagogy/QuizQuestion";
 import { notifyAudioPlaying, notifyAudioStopped } from "@/lib/pedagogy/audio-playback";
+import { trackEvent } from "@/lib/analytics/client";
 import type { ComprehensionOraleExercise } from "@/lib/pedagogy/types";
 
 // Délai avant de considérer un chargement comme figé (voir `handlePlay`
@@ -27,6 +28,12 @@ export default function AudioExercise({
   const [answeredCorrect, setAnsweredCorrect] = useState<Record<string, boolean>>({});
   const loadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  // `handlePlay` est appelé à la fois par `onPlay` et `onLoadStart` (voir plus
+  // bas) pour une seule et même action de lecture : ce garde-fou évite de
+  // compter `audio_play_started` deux fois. Réinitialisé à chaque `retry()`
+  // (nouvel `<audio>` via sa `key`), pour qu'une vraie nouvelle tentative
+  // reste comptée.
+  const playTrackedRef = useRef(false);
 
   function clearLoadTimeout() {
     if (loadTimeoutRef.current) {
@@ -58,9 +65,16 @@ export default function AudioExercise({
   // se déclenche dès l'appel à `play()`, avant même le chargement des
   // données, donc c'est le point d'ancrage le plus fiable pour armer le délai.
   function handlePlay() {
+    if (!playTrackedRef.current) {
+      playTrackedRef.current = true;
+      trackEvent("audio_play_started", { exerciseId: exercise.id });
+    }
     notifyAudioPlaying(audioRef.current);
     clearLoadTimeout();
-    loadTimeoutRef.current = setTimeout(() => setAudioError(true), STUCK_LOAD_TIMEOUT_MS);
+    loadTimeoutRef.current = setTimeout(() => {
+      setAudioError(true);
+      trackEvent("audio_error", { exerciseId: exercise.id, reason: "stuck_load_timeout" });
+    }, STUCK_LOAD_TIMEOUT_MS);
   }
 
   function handleStopped() {
@@ -72,6 +86,8 @@ export default function AudioExercise({
   function retry() {
     clearLoadTimeout();
     setAudioError(false);
+    playTrackedRef.current = false;
+    trackEvent("audio_retry", { exerciseId: exercise.id });
     setAttempt((value) => value + 1);
   }
 
@@ -116,11 +132,15 @@ export default function AudioExercise({
               onLoadedData={clearLoadTimeout}
               onPlaying={clearLoadTimeout}
               onPause={handleStopped}
-              onEnded={handleStopped}
+              onEnded={() => {
+                handleStopped();
+                trackEvent("audio_completed", { exerciseId: exercise.id });
+              }}
               onError={() => {
                 clearLoadTimeout();
                 handleStopped();
                 setAudioError(true);
+                trackEvent("audio_error", { exerciseId: exercise.id, reason: "native_media_error" });
               }}
               className="w-full"
             >

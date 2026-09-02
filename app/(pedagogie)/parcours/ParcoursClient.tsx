@@ -11,6 +11,7 @@ import { getStageCompletionRate, getStageStatus } from "@/lib/pedagogy/logic/par
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
+import ViewTracker from "@/lib/analytics/ViewTracker";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 
 function stageHref(stage: ParcoursStage): string {
@@ -39,6 +40,7 @@ export default function ParcoursClient() {
 
   return (
     <div>
+      <ViewTracker event="journey_viewed" />
       <header>
         <LevelBadge level={progress.level} />
         <h1 className="mt-3 text-2xl font-bold text-foreground sm:text-3xl">Ton parcours B1</h1>

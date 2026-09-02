@@ -1,9 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import AudioExercise from "@/components/pedagogy/AudioExercise";
+import { trackEvent } from "@/lib/analytics/client";
 import type { ComprehensionOraleExercise } from "@/lib/pedagogy/types";
 
-afterEach(cleanup);
+vi.mock("@/lib/analytics/client", () => ({ trackEvent: vi.fn() }));
+
+afterEach(() => {
+  cleanup();
+  vi.mocked(trackEvent).mockClear();
+});
 
 function makeExercise(overrides: Partial<ComprehensionOraleExercise> = {}): ComprehensionOraleExercise {
   return {
@@ -103,5 +109,50 @@ describe("AudioExercise", () => {
 
     fireEvent.play(second);
     expect(pauseFirst).toHaveBeenCalledTimes(1);
+  });
+
+  it("tracks a single audio_play_started even though both onLoadStart and onPlay fire for one play", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    const audio = container.querySelector("audio")!;
+
+    fireEvent.loadStart(audio);
+    fireEvent.play(audio);
+
+    const playStartedCalls = vi
+      .mocked(trackEvent)
+      .mock.calls.filter(([name]) => name === "audio_play_started");
+    expect(playStartedCalls).toHaveLength(1);
+    expect(playStartedCalls[0][1]).toEqual({ exerciseId: "ex-1" });
+  });
+
+  it("tracks audio_completed when the track ends naturally", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    fireEvent.ended(container.querySelector("audio")!);
+
+    expect(trackEvent).toHaveBeenCalledWith("audio_completed", { exerciseId: "ex-1" });
+  });
+
+  it("tracks audio_error on a native playback error, and audio_retry on retry", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    fireEvent.error(container.querySelector("audio")!);
+
+    expect(trackEvent).toHaveBeenCalledWith("audio_error", {
+      exerciseId: "ex-1",
+      reason: "native_media_error",
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /réessayer/i }));
+    expect(trackEvent).toHaveBeenCalledWith("audio_retry", { exerciseId: "ex-1" });
+  });
+
+  it("can track a fresh audio_play_started after a retry (the guard resets per attempt)", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    fireEvent.error(container.querySelector("audio")!);
+    fireEvent.click(screen.getByRole("button", { name: /réessayer/i }));
+    vi.mocked(trackEvent).mockClear();
+
+    fireEvent.play(container.querySelector("audio")!);
+
+    expect(trackEvent).toHaveBeenCalledWith("audio_play_started", { exerciseId: "ex-1" });
   });
 });
