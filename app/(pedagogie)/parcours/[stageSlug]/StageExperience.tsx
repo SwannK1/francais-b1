@@ -10,14 +10,14 @@ import { useProgress } from "@/lib/pedagogy/useProgress";
 import { canAccess } from "@/lib/commerce/access";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
-import type { Module } from "@/lib/pedagogy/types";
+import type { PublicModule } from "@/lib/pedagogy/types";
 
 export default function StageExperience({
   stage,
   modules,
 }: {
   stage: ParcoursStage;
-  modules: Module[];
+  modules: PublicModule[];
 }) {
   const { progress } = useProgress();
   const { user } = useAuth();
@@ -51,7 +51,7 @@ export default function StageExperience({
               <ModuleCard
                 key={mod.id}
                 module={mod}
-                completionRate={getModuleCompletionRate(progress, mod)}
+                completionRate={getModuleCompletionRate(progress, mod.id, mod.totalExercises)}
                 href={`/parcours/module/${mod.slug}`}
                 locked={!canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil)}
               />

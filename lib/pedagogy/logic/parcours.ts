@@ -1,7 +1,7 @@
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
 import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
-import type { Module, UserProgress } from "@/lib/pedagogy/types";
+import type { PublicModule, UserProgress } from "@/lib/pedagogy/types";
 
 export type StageStatus = "a_commencer" | "en_cours" | "termine";
 
@@ -9,8 +9,11 @@ export type StageStatus = "a_commencer" | "en_cours" | "termine";
  * Modules réels rattachés à une étape, triés comme dans `MODULES`. Source de
  * vérité unique pour "quels modules appartiennent à cette étape" — dérivée
  * exclusivement de `Module.stageId`, jamais du domaine ou de l'ordre.
+ * `PublicModule[]` (jamais le contenu complet) : ce module est importé côté
+ * client (progression, parcours) — voir `docs/architecture/user-lifecycle.md`
+ * § Premium content boundary.
  */
-export function getStageModules(stage: ParcoursStage, modules: Module[]): Module[] {
+export function getStageModules(stage: ParcoursStage, modules: PublicModule[]): PublicModule[] {
   return modules.filter((mod) => mod.stageId === stage.id);
 }
 
@@ -24,7 +27,7 @@ export function getStageModules(stage: ParcoursStage, modules: Module[]): Module
 export function getStageCompletionRate(
   stage: ParcoursStage,
   progress: UserProgress,
-  modules: Module[]
+  modules: PublicModule[]
 ): number {
   if (stage.kind === "diagnostic") {
     return progress.placementCompletedAt ? 100 : 0;
@@ -32,7 +35,10 @@ export function getStageCompletionRate(
   if (stage.kind === "content") {
     const stageModules = getStageModules(stage, modules);
     if (stageModules.length === 0) return 0;
-    const total = stageModules.reduce((sum, mod) => sum + getModuleCompletionRate(progress, mod), 0);
+    const total = stageModules.reduce(
+      (sum, mod) => sum + getModuleCompletionRate(progress, mod.id, mod.totalExercises),
+      0
+    );
     return Math.round(total / stageModules.length);
   }
   return 0;
@@ -41,7 +47,7 @@ export function getStageCompletionRate(
 export function getStageStatus(
   stage: ParcoursStage,
   progress: UserProgress,
-  modules: Module[]
+  modules: PublicModule[]
 ): StageStatus {
   const rate = getStageCompletionRate(stage, progress, modules);
   if (rate >= 100) return "termine";
@@ -56,7 +62,7 @@ export interface ParcoursSummary {
 }
 
 /** Vue d'ensemble du parcours : étapes terminées et étape courante (première non terminée). */
-export function getParcoursSummary(progress: UserProgress, modules: Module[]): ParcoursSummary {
+export function getParcoursSummary(progress: UserProgress, modules: PublicModule[]): ParcoursSummary {
   const stages = [...PARCOURS_STAGES].sort((a, b) => a.order - b.order);
   const statuses = stages.map((stage) => ({
     stage,

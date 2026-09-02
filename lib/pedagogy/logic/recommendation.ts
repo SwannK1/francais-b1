@@ -3,7 +3,7 @@ import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 import { getModuleProgress } from "@/lib/pedagogy/logic/progress";
 import { getStageModules } from "@/lib/pedagogy/logic/parcours";
-import type { DailySession, Module, UserProgress } from "@/lib/pedagogy/types";
+import type { DailySession, PublicModule, UserProgress } from "@/lib/pedagogy/types";
 
 /**
  * Propose une séance du jour à partir de modules non terminés et des
@@ -11,7 +11,7 @@ import type { DailySession, Module, UserProgress } from "@/lib/pedagogy/types";
  */
 export function computeDailySession(
   progress: UserProgress,
-  modules: Module[]
+  modules: PublicModule[]
 ): DailySession | null {
   const levelModules = modules.filter((mod) => mod.level === progress.level);
   if (levelModules.length === 0) return null;
@@ -54,7 +54,7 @@ export function computeDailySession(
 }
 
 export interface NextModuleTarget {
-  module: Module;
+  module: PublicModule;
   stage: ParcoursStage;
   /** true si l'apprenant a déjà commencé ce module (reprise), false pour une découverte. */
   isResuming: boolean;
@@ -70,7 +70,7 @@ export interface NextModuleTarget {
  * rédigés" : aucun stub n'existe actuellement dans `MODULES`, ce filtrage
  * n'a donc pas lieu d'être pour l'instant.
  */
-export function getNextModule(progress: UserProgress, modules: Module[]): NextModuleTarget | null {
+export function getNextModule(progress: UserProgress, modules: PublicModule[]): NextModuleTarget | null {
   const stagesInOrder = [...PARCOURS_STAGES].sort((a, b) => a.order - b.order);
 
   const inProgress = progress.moduleProgress

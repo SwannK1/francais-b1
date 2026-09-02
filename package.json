@@ -9,6 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "audio:status": "node scripts/audio-status.mjs",
+    "generate:public-modules": "node scripts/generate-public-modules.mjs",
     "db:migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {

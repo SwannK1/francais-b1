@@ -11,7 +11,7 @@ import ExerciseCard from "@/components/pedagogy/ExerciseCard";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
 import { cn } from "@/lib/cn";
 import { getStageById } from "@/lib/pedagogy/data/parcours-stages";
-import { findExerciseInModule } from "@/lib/pedagogy/data/modules";
+import { countModuleExercises, findExerciseInModule } from "@/lib/pedagogy/logic/module-structure";
 import { getModuleCompletionRate, getModuleProgress } from "@/lib/pedagogy/logic/progress";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { trackEvent } from "@/lib/analytics/client";
@@ -70,7 +70,7 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
   const { progress, recordResult } = useProgress();
 
   const moduleProgress = getModuleProgress(progress, mod.id);
-  const completionRate = getModuleCompletionRate(progress, mod);
+  const completionRate = getModuleCompletionRate(progress, mod.id, countModuleExercises(mod));
   const completedLessonIds = moduleProgress?.completedLessonIds ?? EMPTY_LESSON_IDS;
   const stage = getStageById(mod.stageId);
   const backHref = stage ? `/parcours/${stage.slug}` : "/parcours";

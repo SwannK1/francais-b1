@@ -146,34 +146,152 @@ Testé (`lib/commerce/access.test.ts`) : anonyme, compte gratuit, premium actif,
 au niveau gratuit), module gratuit vs payant, examen (toujours payant — aucun n'est dans la liste des
 ressources gratuites).
 
-### ⚠️ Risque résiduel identifié — non corrigé dans ce chantier
+### ✅ Ancien risque résiduel — corrigé (voir § Premium content boundary ci-dessous)
 
-`lib/pedagogy/data/modules.ts` exporte un unique tableau `MODULES` contenant l'intégralité du contenu
-pédagogique de **tous** les modules — textes, questions, **et réponses correctes** — qu'ils soient
-gratuits ou payants. Ce tableau est importé **directement** par 4 composants client
-(`app/(pedagogie)/parcours/page.tsx`, `.../progression/page.tsx`, `ModuleExperience.tsx`,
-`PrimaryCta.tsx`), ce qui l'inclut dans le bundle JavaScript envoyé au navigateur de **tout**
-visiteur, y compris anonyme, pour calculer localement la progression et le prochain module recommandé.
+Le chantier précédent avait identifié et documenté ici un risque élevé : `lib/pedagogy/data/modules.ts`
+(contenu intégral, réponses comprises) était importé directement par 4 composants client, ce qui
+l'incluait dans le bundle JavaScript envoyé à tout visiteur — vérifié concrètement dans le build de
+l'époque. Ce risque a été traité par un chantier dédié (voir § Premium content boundary) : le contenu
+protégé ne quitte plus jamais le serveur pour un module non autorisé. Conclusion de ce chantier :
+`CONTENU PREMIUM PROTÉGÉ — CYCLE UTILISATEUR PRÊT`.
 
-**Vérifié concrètement** (pas une hypothèse) : après `next build`, le chunk client
-`.next/static/chunks/0tvm4tn0895f-.js` contient bien le texte intégral et les champs
-`correctChoiceId` des modules — y compris ceux réservés à l'offre payante. N'importe qui peut lire les
-réponses de tous les modules premium en ouvrant ce fichier statique, **sans avoir besoin de contourner
-`canAccess()`** : le blocage empêche seulement l'affichage normal de l'exercice dans l'interface, pas
-la présence du contenu dans le bundle.
+---
 
-Par contraste, `EXAMS` (l'examen blanc DELF, entièrement payant) **n'a pas** ce problème : aucun
-composant client ne l'importe directement, il n'est reçu qu'en `prop` depuis le Server Component déjà
-gaté par `canAccess()`.
+## Premium content boundary
 
-**Pourquoi non corrigé ici** : une correction propre demande de scinder `Module` en une forme
-"métadonnées" (id, slug, titre, domaine, étape — nécessaire aux 4 usages client actuels) et une forme
-"contenu complet" (texte, questions, réponses — à ne jamais laisser atteindre un composant client pour
-un module non débloqué), puis de migrer les 4 points d'import et de vérifier qu'aucun autre chemin ne
-réintroduit la fuite. C'est un changement de modèle de données qui touche le cœur de
-`lib/pedagogy/types.ts` et plusieurs fichiers de logique — davantage une réécriture ciblée qu'un
-durcissement, risquée à faire dans la précipitation au milieu d'un audit plus large. **Recommandation** :
-un chantier dédié, avec son propre plan de test, avant de considérer ce risque clos.
+Chantier dédié à la fuite décrite ci-dessus. Objectif : qu'un utilisateur non autorisé ne reçoive
+**jamais** — HTML, RSC payload, JSON d'API, props React ou bundle JavaScript — le contenu pédagogique
+protégé auquel il n'a pas droit. Le contrôle d'accès reste entièrement côté serveur ; le client n'est
+jamais l'autorité.
+
+### Origine exacte de la fuite (avant correction)
+
+Deux mécanismes distincts, tous deux réels :
+
+1. **Fuite bundle JavaScript** : `lib/pedagogy/logic/progress.ts` (le calcul de progression) importait
+   `MODULES` (contenu intégral) pour construire les totaux d'exercices par compétence sur l'ensemble du
+   programme. Ce fichier est importé par `lib/pedagogy/useProgress.ts` (`"use client"`), lui-même
+   utilisé par la quasi-totalité des pages pédagogiques — la fuite touchait donc **toute** page
+   affichant de la progression, pas seulement les 4 composants identifiés au départ. `PrimaryCta.tsx`,
+   `parcours/page.tsx` et `progression/page.tsx` important `MODULES` directement en étaient des cas
+   particuliers, pas la cause profonde.
+2. **Fuite RSC payload**, plus sévère car exploitable sans même inspecter le JavaScript : `app/(pedagogie)/parcours/[stageSlug]/page.tsx`
+   (Server Component) récupérait `getStageModules(stage, MODULES)` — **tous** les modules d'une étape,
+   contenu complet inclus — et les passait en `prop` à `StageExperience.tsx` (`"use client"`), **sans
+   aucune vérification `canAccess()`** à ce niveau. Next.js sérialise les props d'un composant client
+   dans la réponse HTTP de la page : visiter `/parcours/poser-les-bases` livrait donc le contenu complet
+   (réponses comprises) des modules premium de cette étape à **tout** visiteur, y compris anonyme —
+   avant même d'ouvrir un outil de développement.
+
+### Classification des données
+
+**A. Publiques** (`PublicModule`, `lib/pedagogy/types.ts`) : id, slug, titre, description, objectifs,
+niveau, domaine, étape (`stageId`), durée estimée, et pour chaque exercice — id, **type**, `skillId`,
+difficulté. Le `skillId`/type sont nécessaires au calcul de progression par compétence et à
+l'affichage ("1 exercice d'écoute") sans jamais exposer un énoncé ou une réponse.
+
+**B. Protégées** (`Module`/`Exercise`, `lib/pedagogy/data/modules.ts`) : tout le reste — consignes,
+textes, questions, choix, **réponses correctes** (`correctChoiceId`, `correctAnswer`...), corrections,
+transcripts, `situation`, `vocabulary`, `languagePoints`.
+
+### Architecture après correction
+
+```
+data/modules.ts (MODULES, contenu intégral)
+  │  lu UNIQUEMENT par du code serveur :
+  │  - ModulePage / ExamPage (déjà gatées par canAccess(), inchangé)
+  │  - scripts/generate-public-modules.mjs (build-time)
+  ▼
+scripts/generate-public-modules.mjs
+  │  dérive une fois, au build, la vue publique (aucun import possible
+  │  vers data/modules.ts par du code client — voir § "pourquoi un fichier
+  │  généré" ci-dessous)
+  ▼
+data/modules-public.generated.ts (PUBLIC_MODULES, aucune donnée protégée
+  │  dans son code source — rien à retirer, rien à faire confiance à un
+  │  tree-shaking)
+  ▼
+data/modules-public.ts (API stable : getPublicModuleBySlug, getPublicModulesByLevel)
+  │
+  ├─→ Server Components (StagePage, ParcoursPage, ProgressionPage) : import direct,
+  │    passent PUBLIC_MODULES en prop à leurs composants "use client"
+  │    (StageExperience, ParcoursExperience, ProgressionExperience)
+  │
+  └─→ GET /api/modules/public (route publique, sans auth requise — ce n'est pas
+       une donnée par utilisateur) : consommée par PrimaryCta.tsx, seul composant
+       client sans Server Component ancêtre dédié à qui faire porter le calcul
+       (partagé par de nombreux en-têtes/pages)
+```
+
+**Pourquoi un fichier généré plutôt qu'une dérivation à l'exécution** (`PUBLIC_MODULES =
+MODULES.map(...)`) : `lib/pedagogy/logic/progress.ts` a besoin de cette donnée **côté client**, de
+façon synchrone (mise à jour de la progression pendant qu'un exercice est fait, sans aller-retour
+réseau). Si la dérivation avait lieu dans un fichier importé côté client, le bundler devrait quand même
+inclure la totalité de `modules.ts` dans le bundle navigateur pour pouvoir l'exécuter — ne ré-exporter
+que le résultat allégé n'y change rien, un module ES est évalué en bloc. `scripts/generate-public-modules.mjs`
+exécute cette dérivation une fois, en Node (jamais dans le navigateur), et écrit le résultat déjà réduit
+dans `modules-public.generated.ts` — un fichier dont le code source ne contient tout simplement jamais
+le contenu protégé, donc rien à retirer par tree-shaking et rien à faire confiance à son bon
+fonctionnement. À relancer via `npm run generate:public-modules` après toute modification de
+`data/modules.ts` ; `lib/pedagogy/data/modules-public.test.ts` échoue si le fichier généré n'est plus
+synchronisé avec la source.
+
+Deux fonctions pures ont aussi été déplacées de `data/modules.ts` vers `lib/pedagogy/logic/module-structure.ts`
+(`findExerciseInModule`, `countModuleExercises`) : elles n'avaient besoin que du `Module` déjà reçu en
+paramètre par leur appelant (jamais du catalogue global), mais leur emplacement précédent forçait quand
+même quiconque les important à dépendre du fichier qui porte aussi `MODULES` — corrigé pour la même
+raison que ci-dessus : ne jamais compter sur le tree-shaking pour une donnée de cette sensibilité.
+
+### Comportement par profil
+
+- **Anonyme / gratuit, module premium non autorisé** : titre, description et objectifs restent
+  visibles (page verrouillée cohérente, `PremiumLock` avec CTA vers `/offre`) — mais aucun exercice,
+  aucune réponse, aucun texte protégé n'atteint jamais le navigateur pour ce module. Vérifié en direct
+  (réponse HTTP brute de `/parcours/poser-les-bases` interceptée et inspectée) : aucun champ protégé
+  présent, y compris pour le module verrouillé listé sur la page.
+- **Module gratuit** (`se-presenter`, `decrire-vie-quotidienne`) : fonctionne à l'identique
+  d'avant ce chantier — contenu complet, exercices, correction, progression. `ModulePage` (Server
+  Component) reste le seul point qui lit `data/modules.ts` pour la rendre, après un `canAccess()`
+  qui autorise ces deux modules à tout le monde.
+- **Premium** : accès complet inchangé, même mécanisme (`canAccess()` autorise, `ModuleExperience`
+  reçoit le `Module` complet en prop depuis le Server Component déjà gaté). Aucun changement UX.
+- **Révision / progression avec un module devenu inaccessible** : `getModuleCompletionRate`,
+  `computeSkillProgress` et `mergeUserProgress` travaillent sur `PublicModule[]`/des ids — une
+  référence de progression vers un `moduleId` qui n'existe plus dans `PUBLIC_MODULES` est simplement
+  ignorée (`PUBLIC_MODULES.find(...)` renvoie `undefined`, déjà géré par un `continue`/`?? 0`) : jamais
+  de crash, jamais de contenu livré, la progression pour ce module cesse juste de compter dans les
+  totaux affichés.
+
+### Audio et assets publics
+
+Les fichiers audio (`public/audio/**`) ne sont **pas concernés par ce chantier** — voir
+`docs/b1/audio-human-recording-plan.md` pour le pipeline dédié. Point de clarté important, cependant :
+un fichier servi depuis `public/` est une **URL publique par construction** (Next.js ne peut pas la
+protéger par une vérification `canAccess()`, contrairement à une page). Aujourd'hui, les 18 pistes sont
+100 % synthétiques et déjà accessibles par leur URL directe, gratuit et premium confondus — retirer les
+`<audio>` de l'interface pour un module premium n'empêche pas de deviner/requêter l'URL directement.
+Ce n'est **pas une régression de ce chantier** (l'architecture audio n'a pas changé), mais une
+limite à documenter clairement si l'offre venait un jour à vouloir garantir l'exclusivité des pistes
+audio elles-mêmes : cela demanderait un service de diffusion signée/authentifiée (hors périmètre —
+« ne pas construire une infrastructure de stockage privé énorme sans nécessité »), pas une simple
+suppression du lecteur côté client.
+
+### Garde-fous automatisés
+
+- `lib/pedagogy/data/modules-public.test.ts` : `PUBLIC_MODULES` ne porte aucun champ protégé (à
+  n'importe quelle profondeur), couvre exactement les mêmes modules que `MODULES`, et un test
+  **statique** parcourt le graphe d'imports réel du dépôt pour vérifier qu'aucun fichier `"use client"`
+  n'atteint `data/modules.ts` (ni son barrel `data/index.ts`), même transitivement — volontairement
+  indépendant du comportement du bundler/tree-shaking. Testé positif : régression injectée
+  (réintroduction d'un `import { MODULES }` dans `PrimaryCta.tsx`), le test échoue et remonte la chaîne
+  complète (`error.tsx -> ... -> Header.tsx -> ... -> PrimaryCta.tsx`), puis restauré.
+- `lib/pedagogy/logic/recommendation.test.ts` : `getNextModule`/`computeDailySession` produisent une
+  recommandation correcte à partir des seules métadonnées publiques.
+- Vérification empirique du build (au-delà des tests) : recherche de 5 phrases distinctives issues de
+  5 modules premium différents dans `.next/static/` après `next build` — 0 résultat, alors que les
+  mêmes phrases sont bien présentes dans `.next/server/` (le bundle SSR, qui ne quitte jamais le
+  serveur). Reconfirmé en conditions réelles : réponse HTTP brute de `/parcours/poser-les-bases`
+  interceptée en direct, aucun champ `correctChoiceId`/`correction` présent.
 
 ---
 
@@ -287,7 +405,8 @@ Suite complète : 71 tests (40 avant ce chantier + 31 nouveaux), tous verts.
 
 | Risque | Sévérité | Statut |
 |---|---|---|
-| Contenu premium (réponses incluses) présent dans le bundle client via `MODULES` | **Élevée** — contourne le paywall sans même avoir besoin de manipuler `localStorage` | Documenté, non corrigé (voir §5) — nécessite un chantier dédié de scission des données |
+| Contenu premium (réponses incluses) présent dans le bundle client via `MODULES` | Élevée | **Corrigé** (voir § Premium content boundary) — plus aucune donnée protégée hors du serveur pour un module non autorisé, vérifié par tests statiques + inspection du build + réponse HTTP réelle |
+| URLs audio publiques (`public/audio/**`) : pas de protection possible par `canAccess()`, une URL directe reste accessible même pour une piste premium | Faible aujourd'hui (100 % synthétique) | Documenté, non corrigé — limite structurelle de `public/`, hors périmètre (voir § Premium content boundary) |
 | Webhook Stripe : événements traités hors ordre chronologique réel | Faible (scénario rare) | Documenté, non corrigé (voir §6) |
 | `STRIPE_PRICE_ID` distant non vérifié automatiquement contre `MAIN_PLAN.priceLabel` | Faible (erreur de saisie opérateur, pas un bug de code) | Documenté (voir §6) |
 | Multi-appareil : décalage d'affichage temporaire sur un appareil resté inactif pendant qu'un autre progresse | Faible (pas de perte de données, juste un rafraîchissement à faire) | Assumé comme stratégie déterministe (voir §4) |

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getStageBySlug } from "@/lib/pedagogy/data/parcours-stages";
-import { MODULES } from "@/lib/pedagogy/data/modules";
+import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import { getStageModules } from "@/lib/pedagogy/logic/parcours";
 import StageExperience from "./StageExperience";
 
@@ -12,7 +12,7 @@ export default async function StagePage({ params }: PageProps<"/parcours/[stageS
     notFound();
   }
 
-  const modules = getStageModules(stage, MODULES);
+  const modules = getStageModules(stage, PUBLIC_MODULES);
 
   return <StageExperience stage={stage} modules={modules} />;
 }

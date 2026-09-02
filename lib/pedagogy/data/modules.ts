@@ -1,4 +1,4 @@
-import type { Exercise, Module } from "@/lib/pedagogy/types";
+import type { Module } from "@/lib/pedagogy/types";
 
 /**
  * Modules B1 réels, transcrits depuis les fichiers pilotes rédigés dans le
@@ -9420,23 +9420,4 @@ export function getModuleBySlug(slug: string): Module | undefined {
 
 export function getModulesByLevel(level: Module["level"]): Module[] {
   return MODULES.filter((mod) => mod.level === level);
-}
-
-export function countModuleExercises(mod: Module): number {
-  return mod.lessons.reduce(
-    (total, lesson) =>
-      total +
-      lesson.activities.reduce((sum, activity) => sum + activity.exercises.length, 0),
-    0
-  );
-}
-
-export function findExerciseInModule(mod: Module, exerciseId: string): Exercise | undefined {
-  for (const lesson of mod.lessons) {
-    for (const activity of lesson.activities) {
-      const exercise = activity.exercises.find((e) => e.id === exerciseId);
-      if (exercise) return exercise;
-    }
-  }
-  return undefined;
 }

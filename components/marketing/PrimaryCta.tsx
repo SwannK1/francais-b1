@@ -1,26 +1,54 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { buttonClasses, type ButtonSize } from "@/components/ui/button-styles";
-import { MODULES } from "@/lib/pedagogy/data/modules";
 import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
 import { cn } from "@/lib/cn";
+import type { PublicModule } from "@/lib/pedagogy/types";
 
 /**
  * CTA d'entrée dans l'application, partagée par le header et le hero de la
  * page d'accueil : dirige un visiteur qui n'a encore rien fait vers le test
  * de niveau, et quiconque a déjà de la progression enregistrée directement
- * vers la suite pertinente de son parcours (`getNextModule`, jusqu'ici
- * calculé mais jamais branché à l'UI) plutôt que de le renvoyer au test de
- * positionnement à chaque visite.
+ * vers la suite pertinente de son parcours (`getNextModule`) plutôt que de
+ * le renvoyer au test de positionnement à chaque visite.
  *
  * Si ce prochain module fait partie de l'offre complète, on l'annonce dans
  * le libellé et on envoie directement vers `/offre` plutôt que de faire
  * cliquer vers un module pour découvrir un `PremiumLock` sans contexte.
+ *
+ * Les métadonnées de modules viennent de `/api/modules/public` (fetch),
+ * jamais d'un import direct de `data/modules-public` : ce composant est
+ * monté par de nombreuses pages/en-têtes différents, sans Server Component
+ * commun à qui faire porter la récupération — voir
+ * `docs/architecture/user-lifecycle.md` § Premium content boundary.
  */
+
+/** Une seule requête par onglet, même si plusieurs CTA sont montés à la fois (header desktop + mobile). */
+let cachedModules: PublicModule[] | null = null;
+let pendingFetch: Promise<PublicModule[]> | null = null;
+
+function fetchPublicModules(): Promise<PublicModule[]> {
+  if (cachedModules) return Promise.resolve(cachedModules);
+  if (!pendingFetch) {
+    pendingFetch = fetch("/api/modules/public")
+      .then((res) => (res.ok ? res.json() : { modules: [] }))
+      .then((data: { modules?: PublicModule[] }) => {
+        cachedModules = data.modules ?? [];
+        return cachedModules;
+      })
+      .catch(() => {
+        cachedModules = [];
+        return cachedModules;
+      });
+  }
+  return pendingFetch;
+}
+
 export default function PrimaryCta({
   size = "md",
   className,
@@ -35,6 +63,18 @@ export default function PrimaryCta({
   const { progress } = useProgress();
   const { user } = useAuth();
   const hasStarted = Boolean(progress.placementCompletedAt) || progress.moduleProgress.length > 0;
+  const [modules, setModules] = useState<PublicModule[] | null>(cachedModules);
+
+  useEffect(() => {
+    if (!hasStarted || modules) return;
+    let cancelled = false;
+    fetchPublicModules().then((mods) => {
+      if (!cancelled) setModules(mods);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [hasStarted, modules]);
 
   if (!hasStarted) {
     return (
@@ -44,7 +84,17 @@ export default function PrimaryCta({
     );
   }
 
-  const next = getNextModule(progress, MODULES);
+  // Le temps du fetch (une fois par onglet) : destination générique plutôt
+  // qu'un lien figé sur une donnée pas encore chargée — jamais de lien mort.
+  if (!modules) {
+    return (
+      <Link href="/parcours" onClick={onClick} className={cn(buttonClasses("primary", size), className)}>
+        Continuer mon parcours
+      </Link>
+    );
+  }
+
+  const next = getNextModule(progress, modules);
   const nextIsLocked = next
     ? !canAccess({ kind: "module", slug: next.module.slug }, user?.premiumUntil)
     : false;

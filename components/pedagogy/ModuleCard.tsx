@@ -4,7 +4,7 @@ import Badge from "@/components/ui/Badge";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
 import { ArrowRightIcon, LockIcon } from "@/components/ui/icons";
 import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
-import type { Module } from "@/lib/pedagogy/types";
+import type { PublicModule } from "@/lib/pedagogy/types";
 
 type ModuleStatus = "a_commencer" | "en_cours" | "termine";
 
@@ -27,7 +27,7 @@ export default function ModuleCard({
   href,
   locked = false,
 }: {
-  module: Module;
+  module: PublicModule;
   /** Position du module dans le parcours (1, 2, 3...), affichée si fournie. */
   number?: number;
   completionRate?: number;

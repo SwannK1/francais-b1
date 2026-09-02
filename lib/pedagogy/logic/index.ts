@@ -11,8 +11,14 @@
  * - `exam.ts`         : résultat d'exercice -> tentative d'examen mise à jour et score.
  *                        Concept distinct de `progress.ts` : jamais mélangé avec
  *                        la progression du curriculum (voir `exam.ts`).
+ * - `module-structure.ts` : lecture pure de la structure d'un `Module` déjà en
+ *                        main (comptage, recherche d'exercice) — jamais de
+ *                        dépendance vers `data/modules.ts` (contenu intégral),
+ *                        voir `docs/architecture/user-lifecycle.md` § Premium
+ *                        content boundary.
  */
 export { computePlacementResult } from "./placement";
+export { findExerciseInModule, countModuleExercises } from "./module-structure";
 export { recordExerciseResult, getModuleProgress, getModuleCompletionRate } from "./progress";
 export { computeDailySession, getNextModule, type NextModuleTarget } from "./recommendation";
 export {
