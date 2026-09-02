@@ -141,6 +141,13 @@ export interface ComprehensionOraleExercise extends ExerciseBase {
 export interface ReponseCourteExercise extends ExerciseBase {
   type: "reponse_courte";
   question: string;
+  /**
+   * Réponses acceptées (comparaison insensible à la casse). Tableau vide =
+   * question ouverte sans correction automatique fiable (ex. item libre
+   * d'une mini-évaluation) : `WrittenExercise` la traite alors comme
+   * auto-évaluée plutôt que comme une réponse fausse — ne jamais lire un
+   * tableau vide comme "aucune bonne réponse acceptée" ou comme un oubli.
+   */
   acceptedAnswers: string[];
   correction: Correction;
 }
