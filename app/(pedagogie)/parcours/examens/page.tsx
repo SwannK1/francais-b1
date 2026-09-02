@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Card from "@/components/ui/Card";
 import ExamCard from "@/components/pedagogy/ExamCard";
 import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
@@ -6,7 +7,12 @@ import { getStageBySlug } from "@/lib/pedagogy/data/parcours-stages";
 import { canAccess } from "@/lib/commerce/access";
 import { getCurrentUser } from "@/lib/auth/dal";
 
-export const metadata = { title: "Préparation examen — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Préparation à l'examen DELF B1",
+  description:
+    "Entraîne-toi avec des épreuves d'entraînement chronométrées, au format des examens DELF B1 et TCF IRN.",
+  alternates: { canonical: "/parcours/examens" },
+};
 
 export default async function ExamensPage() {
   const stage = getStageBySlug("preparation-examen");

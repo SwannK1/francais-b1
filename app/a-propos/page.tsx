@@ -4,7 +4,12 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 
-export const metadata: Metadata = { title: "À propos — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "À propos",
+  description:
+    "ParcoursFR est une formation en ligne originale pour atteindre le niveau B1 en français et préparer le DELF B1, sans affiliation avec un organisme officiel.",
+  alternates: { canonical: "/a-propos" },
+};
 
 export default function AProposPage() {
   return (

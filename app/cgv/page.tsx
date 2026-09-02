@@ -6,7 +6,11 @@ import Container from "@/components/ui/Container";
 import LegalDraftNotice from "@/components/commerce/LegalDraftNotice";
 import { MAIN_PLAN } from "@/lib/commerce/plans";
 
-export const metadata: Metadata = { title: "Conditions générales de vente — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Conditions générales de vente",
+  description: "Conditions générales de vente de l'offre ParcoursFR (abonnement, paiement, résiliation).",
+  alternates: { canonical: "/cgv" },
+};
 
 export default function CgvPage() {
   return (

@@ -4,7 +4,11 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import LegalDraftNotice from "@/components/commerce/LegalDraftNotice";
 
-export const metadata: Metadata = { title: "Mentions légales — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Mentions légales",
+  description: "Mentions légales de ParcoursFR.",
+  alternates: { canonical: "/mentions-legales" },
+};
 
 export default function MentionsLegalesPage() {
   return (

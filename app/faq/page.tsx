@@ -3,8 +3,14 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import { MAIN_PLAN } from "@/lib/commerce/plans";
+import { JsonLd, faqPageSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = { title: "FAQ — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "FAQ",
+  description:
+    "Réponses aux questions fréquentes sur ParcoursFR : niveaux couverts, essai gratuit, contenu de l'offre, résiliation et paiement.",
+  alternates: { canonical: "/faq" },
+};
 
 const faqs = [
   {
@@ -51,6 +57,7 @@ const faqs = [
 export default function FaqPage() {
   return (
     <>
+      <JsonLd data={faqPageSchema(faqs)} />
       <Header />
       <main>
         <Container className="max-w-3xl py-16 sm:py-24">

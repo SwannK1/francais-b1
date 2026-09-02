@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { AuthProvider } from "@/lib/auth/AuthProvider";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -9,17 +10,28 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const siteDescription =
-  "Formation complète de français niveau B1 : teste ton niveau, suis un parcours de modules guidés et prépare le DELF B1 avec des examens blancs, à ton rythme.";
+const defaultTitle = `${SITE_NAME} — Apprends le français à ton rythme`;
 
 export const metadata: Metadata = {
-  title: "ParcoursFR — Apprends le français à ton rythme",
-  description: siteDescription,
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: defaultTitle,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
   openGraph: {
-    title: "ParcoursFR — Apprends le français à ton rythme",
-    description: siteDescription,
+    title: defaultTitle,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    siteName: SITE_NAME,
     locale: "fr_FR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: SITE_DESCRIPTION,
   },
 };
 

@@ -4,7 +4,10 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 
-export const metadata: Metadata = { title: "Page introuvable — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Page introuvable",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (

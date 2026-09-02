@@ -12,7 +12,12 @@ import { isPremiumActive } from "@/lib/commerce/access";
 import { getCurrentUser } from "@/lib/auth/dal";
 import ViewTracker from "@/lib/analytics/ViewTracker";
 
-export const metadata: Metadata = { title: "Offre — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Offre",
+  description:
+    "Découvre l'offre ParcoursFR : les 26 modules du parcours B1, les audios, les productions écrites corrigées et un examen blanc DELF B1 complet.",
+  alternates: { canonical: "/offre" },
+};
 
 export default async function OffrePage() {
   const paymentReady = isPaymentConfigured();

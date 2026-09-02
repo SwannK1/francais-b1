@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run && npm run audio:check",
+    "test": "vitest run && npm run audio:check && npm run test:seo",
+    "test:seo": "node --import ./scripts/register-alias-loader.mjs --test scripts/*.test.ts",
     "audio:check": "node scripts/check-audio-assets.mjs",
     "db:migrate": "node scripts/migrate.mjs"
   },

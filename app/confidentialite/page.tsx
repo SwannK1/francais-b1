@@ -5,7 +5,11 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import LegalDraftNotice from "@/components/commerce/LegalDraftNotice";
 
-export const metadata: Metadata = { title: "Confidentialité — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Politique de confidentialité",
+  description: "Politique de confidentialité de ParcoursFR : données collectées et leur usage.",
+  alternates: { canonical: "/confidentialite" },
+};
 
 export default function ConfidentialitePage() {
   return (

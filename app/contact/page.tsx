@@ -5,7 +5,11 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import Card from "@/components/ui/Card";
 
-export const metadata: Metadata = { title: "Contact — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Contacter ParcoursFR pour une question sur l'offre, le paiement ou la résiliation.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function ContactPage() {
   return (

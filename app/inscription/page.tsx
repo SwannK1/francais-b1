@@ -7,7 +7,8 @@ import Card from "@/components/ui/Card";
 import SignupForm from "@/components/auth/SignupForm";
 
 export const metadata: Metadata = {
-  title: "Créer un compte — ParcoursFR",
+  title: "Créer un compte",
+  robots: { index: false, follow: true },
 };
 
 export default async function InscriptionPage({ searchParams }: PageProps<"/inscription">) {

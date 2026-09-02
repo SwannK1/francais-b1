@@ -5,7 +5,10 @@ import Container from "@/components/ui/Container";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 
-export const metadata: Metadata = { title: "Paiement annulé — ParcoursFR" };
+export const metadata: Metadata = {
+  title: "Paiement annulé",
+  robots: { index: false, follow: true },
+};
 
 export default function PaiementAnnulationPage() {
   return (
