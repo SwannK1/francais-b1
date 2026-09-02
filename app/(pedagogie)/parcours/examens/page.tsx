@@ -1,6 +1,6 @@
-import Link from "next/link";
 import Card from "@/components/ui/Card";
 import ExamCard from "@/components/pedagogy/ExamCard";
+import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { EXAMS } from "@/lib/pedagogy/data/exams";
 import { getStageBySlug } from "@/lib/pedagogy/data/parcours-stages";
 import { canAccess } from "@/lib/commerce/access";
@@ -14,9 +14,7 @@ export default async function ExamensPage() {
 
   return (
     <div className="space-y-6">
-      <Link href="/parcours" className="text-sm font-medium text-primary hover:underline">
-        ← Retour au parcours
-      </Link>
+      <Breadcrumbs items={[{ label: "Parcours", href: "/parcours" }, { label: stage?.title ?? "Préparation examen" }]} />
 
       <header>
         <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">

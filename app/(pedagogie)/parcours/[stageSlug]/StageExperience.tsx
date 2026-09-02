@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Card from "@/components/ui/Card";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
 import ModuleCard from "@/components/pedagogy/ModuleCard";
+import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
 import { getStageCompletionRate } from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
@@ -25,9 +25,7 @@ export default function StageExperience({
 
   return (
     <div className="space-y-6">
-      <Link href="/parcours" className="text-sm font-medium text-primary hover:underline">
-        ← Retour au parcours
-      </Link>
+      <Breadcrumbs items={[{ label: "Parcours", href: "/parcours" }, { label: stage.title }]} />
 
       <header>
         <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">

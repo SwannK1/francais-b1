@@ -6,6 +6,7 @@ import { buttonClasses } from "@/components/ui/button-styles";
 import Card from "@/components/ui/Card";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
+import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { cn } from "@/lib/cn";
 import { PLACEMENT_QUESTIONS } from "@/lib/pedagogy/data/placement-questions";
 import { computePlacementResult } from "@/lib/pedagogy/logic/placement";
@@ -61,6 +62,8 @@ export default function TestNiveauPage() {
 
     return (
       <div className="space-y-6">
+        <Breadcrumbs items={[{ label: "Parcours", href: "/parcours" }, { label: "Ton résultat" }]} />
+
         <header>
           <h1 className="text-2xl font-bold text-foreground">Ton résultat</h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -151,6 +154,8 @@ export default function TestNiveauPage() {
 
   return (
     <div className="space-y-6">
+      <Breadcrumbs items={[{ label: "Parcours", href: "/parcours" }, { label: "Faire le point" }]} />
+
       <header>
         <h1 className="text-2xl font-bold text-foreground">Test de positionnement</h1>
         <p className="mt-1 text-sm text-muted-foreground">

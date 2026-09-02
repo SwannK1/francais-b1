@@ -8,6 +8,7 @@ import { buttonClasses } from "@/components/ui/button-styles";
 import { ChevronDownIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import ExerciseCard from "@/components/pedagogy/ExerciseCard";
+import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { trackEvent } from "@/lib/analytics/client";
 import {
@@ -172,9 +173,13 @@ export default function ExamExperience({ exam }: { exam: Exam }) {
 
   return (
     <div className="space-y-6">
-      <Link href="/parcours/examens" className="text-sm font-medium text-primary hover:underline">
-        ← Retour à la préparation examen
-      </Link>
+      <Breadcrumbs
+        items={[
+          { label: "Parcours", href: "/parcours" },
+          { label: "Préparation examen", href: "/parcours/examens" },
+          { label: exam.title },
+        ]}
+      />
 
       <header>
         <div className="flex flex-wrap items-center gap-2">
@@ -235,16 +240,23 @@ export default function ExamExperience({ exam }: { exam: Exam }) {
       ) : null}
 
       {!activeAttempt ? (
-        <button
-          type="button"
-          onClick={() => {
-            startExam(exam);
-            trackEvent("delf_mock_started", { examId: exam.id });
-          }}
-          className={buttonClasses("primary", "md")}
-        >
-          {allAttempts.length > 0 ? "Commencer une nouvelle tentative" : "Commencer une tentative"}
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              startExam(exam);
+              trackEvent("delf_mock_started", { examId: exam.id });
+            }}
+            className={buttonClasses("primary", "md")}
+          >
+            {allAttempts.length > 0 ? "Commencer une nouvelle tentative" : "Commencer une tentative"}
+          </button>
+          {allAttempts.length > 0 ? (
+            <Link href="/parcours" className={buttonClasses("secondary", "md")}>
+              Continuer mon parcours
+            </Link>
+          ) : null}
+        </div>
       ) : null}
 
       {historyAttempts.length > 0 ? (

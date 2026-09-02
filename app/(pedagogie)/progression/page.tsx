@@ -111,14 +111,18 @@ export default function ProgressionPage() {
           Modules — niveau {progress.level}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
-          {modules.map((mod) => (
-            <ModuleCard
-              key={mod.id}
-              module={mod}
-              completionRate={getModuleCompletionRate(progress, mod)}
-              href={`/parcours/module/${mod.slug}`}
-            />
-          ))}
+          {modules.map((mod) => {
+            const locked = !canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
+            return (
+              <ModuleCard
+                key={mod.id}
+                module={mod}
+                completionRate={getModuleCompletionRate(progress, mod)}
+                href={`/parcours/module/${mod.slug}`}
+                locked={locked}
+              />
+            );
+          })}
         </div>
       </section>
     </div>
