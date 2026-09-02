@@ -15,6 +15,6 @@ export default defineConfig({
     include: ["**/*.test.{ts,tsx,mjs}"],
     // scripts/seo.test.ts est écrit pour `node --test` (voir npm run test:seo),
     // pas vitest : il n'exporte aucun test au sens vitest et ferait échouer la run.
-    exclude: ["node_modules/**", ".next/**", "scripts/seo.test.ts"],
+    exclude: ["**/node_modules/**", ".next/**", "scripts/seo.test.ts"],
   },
 });
