@@ -213,6 +213,37 @@ function mergeExamAttempts(local: ExamAttempt[], remote: ExamAttempt[]): ExamAtt
 }
 
 /**
+ * `level` n'a de sens qu'accompagné de la date du test de positionnement qui
+ * l'a produit (voir `markPlacementCompleted`, `lib/pedagogy/useProgress.ts` :
+ * les deux sont toujours écrits ensemble, jamais l'un sans l'autre). Résoudre
+ * `level` et `placementCompletedAt` indépendamment l'un de l'autre lors d'une
+ * fusion casserait cet appariement — ex. garder le `placementCompletedAt` du
+ * compte distant mais le `level` de l'appareil local afficherait un niveau
+ * qui ne correspond à aucun test réellement passé. Un seul côté "gagne" les
+ * deux champs ensemble : celui qui a un test plus récent, ou le seul des
+ * deux à en avoir passé un.
+ */
+function resolvePlacement(
+  local: UserProgress,
+  remote: UserProgress
+): Pick<UserProgress, "level" | "placementCompletedAt"> {
+  if (local.placementCompletedAt && remote.placementCompletedAt) {
+    return local.placementCompletedAt > remote.placementCompletedAt
+      ? { level: local.level, placementCompletedAt: local.placementCompletedAt }
+      : { level: remote.level, placementCompletedAt: remote.placementCompletedAt };
+  }
+  if (remote.placementCompletedAt) {
+    return { level: remote.level, placementCompletedAt: remote.placementCompletedAt };
+  }
+  if (local.placementCompletedAt) {
+    return { level: local.level, placementCompletedAt: local.placementCompletedAt };
+  }
+  // Ni l'un ni l'autre n'a passé de test : aucun niveau n'est réellement
+  // fondé, le choix entre les deux valeurs par défaut est sans conséquence.
+  return { level: local.level, placementCompletedAt: null };
+}
+
+/**
  * Fusionne la progression locale (localStorage, potentiellement anonyme) et
  * la progression serveur d'un compte lors de la connexion. Stratégie de
  * conflit : union des exercices terminés/réussis par module (jamais de
@@ -232,14 +263,13 @@ export function mergeUserProgress(local: UserProgress, remote: UserProgress): Us
 
   return {
     userId: remote.userId,
-    level: local.level,
+    ...resolvePlacement(local, remote),
     goalId: local.goalId ?? remote.goalId,
     moduleProgress,
     skillProgress,
     globalSuccessRate,
     lastActivityAt: laterIso(local.lastActivityAt, remote.lastActivityAt),
     weakSkillIds,
-    placementCompletedAt: remote.placementCompletedAt ?? local.placementCompletedAt,
     examAttempts: mergeExamAttempts(local.examAttempts, remote.examAttempts),
   };
 }
