@@ -100,6 +100,12 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
         ? "Voir ma progression"
         : `Module suivant : ${next.module.title} →`;
 
+  // Mini-bilan de fin de module (voir plus bas) : suggestion de prochaine
+  // étape, jamais un module verrouillé — même garde-fou que `/parcours`.
+  const nextTarget = getNextModule(progress, MODULES, {
+    isAccessible: (m) => canAccess({ kind: "module", slug: m.slug }, user?.premiumUntil),
+  });
+
   const steps = useMemo(() => buildSteps(mod), [mod]);
   const [stepIndex, setStepIndex] = useState(() => getInitialStepIndex(steps, completedLessonIds));
   const step = steps[stepIndex];
@@ -318,6 +324,18 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
                       : ""}
                   </p>
 
+                  {nextTarget ? (
+                    <p className="mt-3 text-sm text-foreground">
+                      Prochaine étape suggérée :{" "}
+                      <Link
+                        href={`/parcours/module/${nextTarget.module.slug}`}
+                        className="font-semibold text-primary hover:underline"
+                      >
+                        {nextTarget.module.title}
+                      </Link>
+                    </p>
+                  ) : null}
+
                   <div className="mt-4 flex flex-wrap gap-2">
                     <Link href="/progression" className={buttonClasses("primary", "md")}>
                       Voir ma progression
@@ -354,7 +372,10 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
           <button type="button" onClick={() => goTo(stepIndex + 1)} className={buttonClasses("primary", "md")}>
             Suivant →
           </button>
-        ) : (
+        ) : moduleProgress?.completed ? null : (
+          // Module pas (encore) marqué terminé même au dernier pas (ex. dernier
+          // exercice pas encore répondu) : le mini-bilan ne s'affiche pas dans
+          // ce cas, ce lien reste donc le seul moyen de continuer.
           <Link href={nextHref} className={buttonClasses("primary", "md")}>
             {nextLabel}
           </Link>
