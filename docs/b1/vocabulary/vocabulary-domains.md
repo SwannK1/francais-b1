@@ -2,12 +2,12 @@
 title: Domaines de vocabulaire B1
 level: B1
 type: vocabulary-reference
-lastUpdated: 2026-08-23
+lastUpdated: 2026-09-02
 ---
 
 # Vocabulaire B1 — domaines lexicaux et modules associés
 
-Seize domaines lexicaux utiles à un adulte vivant ou souhaitant vivre en
+Dix-sept domaines lexicaux utiles à un adulte vivant ou souhaitant vivre en
 France. Chaque domaine est rattaché aux modules qui le mobilisent
 (`content/b1/curriculum.md`), pour garantir une réutilisation progressive du
 vocabulaire plutôt qu'un empilement de listes isolées.
@@ -24,7 +24,8 @@ vocabulaire plutôt qu'un empilement de listes isolées.
 | Transports | 18 | train, bus, métro, trajet, retard, correspondance |
 | Argent | 4, 5, 19 | loyer, charges, salaire, budget, facture |
 | Alimentation | 3 | courses, repas, quantités, habitudes alimentaires |
-| Loisirs | 22 | sorties, vacances, activités, réservation |
+| Loisirs | Module court « Parler de ses habitudes et de ses goûts », 22 | sorties, vacances, activités, réservation, goûts et préférences |
+| Achats | Module court « Faire des achats et comparer » | magasin, prix, garantie, échange, remboursement, réclamation |
 | Environnement | 10, 23 | écologie, climat, tri, transition |
 | Numérique | 11, 19 | démarches en ligne, e-mail, CV en ligne, application |
 | Relations sociales | 9, 17, 21 | amis, voisins, collègues, communication |

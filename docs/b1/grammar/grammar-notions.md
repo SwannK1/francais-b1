@@ -2,7 +2,7 @@
 title: Notions grammaticales B1
 level: B1
 type: grammar-reference
-lastUpdated: 2026-08-23
+lastUpdated: 2026-09-02
 ---
 
 # Grammaire B1 — liste organisée et modules associés
@@ -19,6 +19,7 @@ Pour chaque notion : où elle est introduite, où elle est reprise/approfondie.
 | Notion | Introduite | Reprise / approfondie |
 |---|---|---|
 | Présent (régularisation, usages) | Module 1 | Module 3 |
+| Adverbes de fréquence (toujours, souvent, parfois, rarement, jamais) | Module 3 | Module court « Parler de ses habitudes et de ses goûts », Module 12 |
 | Passé composé (auxiliaires, accords) | Module 2 | Module 6, 12 |
 | Imparfait | Module 6 | Module 12 |
 | Distinction passé composé / imparfait | Module 6 | Module 12, 21 |
