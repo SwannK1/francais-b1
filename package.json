@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "audio:status": "node scripts/audio-status.mjs",
     "db:migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {
