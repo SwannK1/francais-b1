@@ -220,8 +220,8 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions: "Rédige ta réponse.",
                 consigne:
-                  "Vous venez d'emménager dans un nouvel immeuble. Écrivez un message de présentation pour le " +
-                  "groupe de vos voisins (nom, origine, ce que vous aimez faire) en 4 à 6 phrases.",
+                  "Tu viens d'emménager dans un nouvel immeuble. Écris un message de présentation pour le " +
+                  "groupe de tes voisins (nom, origine, ce que tu aimes faire) en 4 à 6 phrases.",
                 minWords: 35,
                 maxWords: 70,
                 correctionCriteria: [
@@ -231,6 +231,34 @@ export const MODULES: Module[] = [
                   "Ton amical adapté à un message de voisinage (/1)",
                 ],
                 aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "se-presenter-ecriture-activite-orale",
+            title: "Se présenter à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "sp-h-oral",
+                type: "production_orale",
+                skillId: "pe-se-presenter",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Tu croises un nouveau voisin ou une nouvelle voisine dans l'escalier de ton immeuble. " +
+                  "Présente-toi à voix haute : ton nom, ton origine, et ce que tu fais en ce moment (travail, " +
+                  "études...).",
+                context: "Même situation que Léa et Thomas dans ce module, mais c'est toi qui te présentes.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai dit mon nom et mon origine.",
+                  "J'ai parlé de ma situation actuelle.",
+                  "Mes phrases sont compréhensibles d'un bout à l'autre.",
+                  "J'ai utilisé au moins un mot de vocabulaire du module (parcours, origine, voisin...).",
+                ],
+                tips: "Pas besoin d'improviser : reprends la structure du message écrit que tu viens de rédiger, à voix haute.",
               },
             ],
           },
@@ -1310,7 +1338,7 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions: "Réponds avec une phrase complète.",
                 question:
-                  "Vous voulez visiter le studio de l'annonce. Écrivez une question polie à poser au propriétaire " +
+                  "Tu veux visiter le studio de l'annonce. Écris une question polie à poser au propriétaire " +
                   "pour demander si l'eau et l'électricité sont vraiment comprises dans le loyer.",
                 acceptedAnswers: [],
                 correction: {
@@ -1893,7 +1921,7 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions: "Réponds avec une phrase complète.",
                 question:
-                  "Vous avez acheté un ordinateur, mais il ne fonctionne pas bien après une semaine. Écrivez une " +
+                  "Tu as acheté un ordinateur, mais il ne fonctionne pas bien après une semaine. Écris une " +
                   "phrase pour expliquer le problème au vendeur et demander une solution.",
                 acceptedAnswers: [],
                 correction: {
@@ -2193,7 +2221,7 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions: "Réponds avec une phrase complète.",
                 question:
-                  "Vous deviez visiter un appartement dimanche, mais vous devez annuler. Écrivez une phrase " +
+                  "Tu devais visiter un appartement dimanche, mais tu dois annuler. Écris une phrase " +
                   "polie pour proposer un autre jour au propriétaire.",
                 acceptedAnswers: [],
                 correction: {
@@ -2645,6 +2673,32 @@ export const MODULES: Module[] = [
                   "Texte compréhensible dans l'ensemble (/1)",
                 ],
                 aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "raconter-un-evenement-passe-ecriture-activite-orale",
+            title: "Raconter un imprévu à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "recit-h-oral",
+                type: "production_orale",
+                skillId: "pe-recit",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Raconte à voix haute un imprévu qui t'est arrivé récemment (retard, panne, oubli...) : " +
+                  "explique ce qui s'est passé et comment la situation s'est terminée.",
+                prepSeconds: 60,
+                maxSpeakSeconds: 90,
+                selfAssessmentCriteria: [
+                  "J'ai distingué les actions (passé composé) du contexte (imparfait).",
+                  "J'ai utilisé au moins un connecteur chronologique (d'abord, ensuite, enfin...).",
+                  "Mon récit a un début et une fin clairs.",
+                  "Mon discours est compréhensible d'un bout à l'autre.",
+                ],
+                tips: "Tu peux réutiliser exactement l'histoire que tu as déjà racontée à l'écrit, mais raconte-la avec tes mots, sans lire ton texte.",
               },
             ],
           },
@@ -4103,6 +4157,34 @@ export const MODULES: Module[] = [
               },
             ],
           },
+          {
+            id: "donner-son-opinion-ecriture-activite-orale",
+            title: "Donner son avis à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "opinion-h-oral",
+                type: "production_orale",
+                skillId: "pe-exprimer-avis",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Comme Nadia à la réunion de copropriété, donne ton avis sur l'installation de bacs à " +
+                  "compost partagés dans la cour d'un immeuble. Es-tu pour ou contre ? Justifie avec au moins " +
+                  "deux arguments.",
+                context: "Réunion de copropriété : les voisins sont partagés sur ce projet.",
+                prepSeconds: 60,
+                maxSpeakSeconds: 90,
+                selfAssessmentCriteria: [
+                  "J'ai donné une opinion claire (pour ou contre).",
+                  "J'ai justifié mon opinion avec au moins deux arguments.",
+                  "J'ai utilisé un connecteur d'argumentation (parce que, donc, par contre...).",
+                  "Mon discours est compréhensible d'un bout à l'autre.",
+                ],
+                tips: "Pas de bonne ou de mauvaise opinion ici : l'important est de la justifier clairement.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -5186,6 +5268,34 @@ export const MODULES: Module[] = [
               },
             ],
           },
+          {
+            id: "parler-de-son-travail-et-projets-ecriture-activite-orale",
+            title: "Se présenter professionnellement à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "travail-h-oral",
+                type: "production_orale",
+                skillId: "pe-presentation-professionnelle",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Comme Karim avec Julie à la pause de midi, présente-toi professionnellement à un nouveau " +
+                  "collègue ou une nouvelle collègue : ton métier actuel (ou souhaité), ton parcours, et un " +
+                  "projet professionnel pour l'avenir.",
+                context: "Pause de midi avec un nouveau ou une nouvelle collègue.",
+                prepSeconds: 60,
+                maxSpeakSeconds: 90,
+                selfAssessmentCriteria: [
+                  "J'ai présenté mon métier actuel ou souhaité.",
+                  "J'ai raconté mon parcours au passé.",
+                  "J'ai exprimé un projet professionnel au futur proche.",
+                  "Mon discours est compréhensible d'un bout à l'autre.",
+                ],
+                tips: "Reprends le contenu de ta présentation écrite, mais raconte-la avec tes mots.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -5546,8 +5656,8 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions: "Rédige ta réponse.",
                 consigne:
-                  "Vous ne vous sentez pas bien depuis plusieurs jours. Écrivez un message à votre médecin pour " +
-                  "décrire vos symptômes, préciser depuis quand, et demander un rendez-vous. 4 à 6 phrases.",
+                  "Tu ne te sens pas bien depuis plusieurs jours. Écris un message à ton médecin pour " +
+                  "décrire tes symptômes, préciser depuis quand, et demander un rendez-vous. 4 à 6 phrases.",
                 minWords: 30,
                 maxWords: 70,
                 correctionCriteria: [
@@ -6334,9 +6444,9 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions: "Rédige ta réponse.",
                 consigne:
-                  "Vous avez reçu un produit ou un service qui ne correspond pas à ce qui était prévu (colis " +
-                  "endommagé, hôtel décevant, retard de livraison...). Écrivez une réclamation polie : expliquez " +
-                  "le problème avec des faits précis et demandez une solution claire. 5 à 8 phrases.",
+                  "Tu as reçu un produit ou un service qui ne correspond pas à ce qui était prévu (colis " +
+                  "endommagé, hôtel décevant, retard de livraison...). Écris une réclamation polie : explique " +
+                  "le problème avec des faits précis et demande une solution claire. 5 à 8 phrases.",
                 minWords: 40,
                 maxWords: 90,
                 correctionCriteria: [
@@ -7867,8 +7977,8 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions: "Rédige ta réponse.",
                 consigne:
-                  "Vous répondez à l'annonce ci-dessus (ou à une annonce similaire). Présentez votre expérience, " +
-                  "vos qualités, et expliquez pourquoi ce poste vous intéresse. 5 à 8 phrases.",
+                  "Tu réponds à l'annonce ci-dessus (ou à une annonce similaire). Présente ton expérience, " +
+                  "tes qualités, et explique pourquoi ce poste t'intéresse. 5 à 8 phrases.",
                 minWords: 40,
                 maxWords: 90,
                 correctionCriteria: [
@@ -7878,6 +7988,34 @@ export const MODULES: Module[] = [
                   "Phrases reliées entre elles (/1)",
                 ],
                 aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "emploi-ecriture-activite-orale",
+            title: "Répondre à des questions d'entretien",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "emp-h-oral",
+                type: "production_orale",
+                skillId: "pe-presentation-professionnelle",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Comme Malik pour son entretien d'agent logistique, réponds à voix haute à cette question " +
+                  "d'entretien : « Parlez-moi de votre expérience et dites-moi pourquoi ce poste vous " +
+                  "intéresse. »",
+                context: "Entretien d'embauche pour un poste accessible.",
+                prepSeconds: 60,
+                maxSpeakSeconds: 90,
+                selfAssessmentCriteria: [
+                  "J'ai présenté mon expérience et mes qualités.",
+                  "J'ai exprimé un but avec pour ou afin de.",
+                  "J'ai expliqué clairement ma motivation.",
+                  "Mon discours est compréhensible d'un bout à l'autre.",
+                ],
+                tips: "Reprends les idées de ta réponse écrite, mais formule-les naturellement à l'oral.",
               },
             ],
           },
@@ -8744,8 +8882,8 @@ export const MODULES: Module[] = [
                 difficulty: "B1",
                 instructions: "Rédige ta réponse.",
                 consigne:
-                  "Vous hésitez entre deux façons d'organiser un voyage (deux destinations, deux moyens de " +
-                  "transport, deux types d'hébergement...). Comparez-les et expliquez votre préférence. 5 à 8 " +
+                  "Tu hésites entre deux façons d'organiser un voyage (deux destinations, deux moyens de " +
+                  "transport, deux types d'hébergement...). Compare-les et explique ta préférence. 5 à 8 " +
                   "phrases.",
                 minWords: 40,
                 maxWords: 90,
@@ -9342,6 +9480,35 @@ export const MODULES: Module[] = [
                   "Texte relu, organisé, sans réponse trop courte (/1)",
                 ],
                 aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "bilan-ecriture-activite-orale",
+            title: "Monologue suivi (entraînement en conditions d'examen)",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "bil-h-oral",
+                type: "production_orale",
+                skillId: "exam-delf-b1",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi — conditions proches de l'épreuve DELF B1.",
+                consigne:
+                  "De plus en plus d'entreprises proposent le télétravail plusieurs jours par semaine. " +
+                  "Donnez votre opinion sur cette évolution et justifiez-la, pendant environ 1 à 2 minutes.",
+                prepSeconds: 120,
+                maxSpeakSeconds: 120,
+                selfAssessmentCriteria: [
+                  "J'ai répondu clairement à la consigne.",
+                  "Mon discours est compréhensible d'un bout à l'autre.",
+                  "J'ai donné une opinion claire et je l'ai justifiée.",
+                  "J'ai relié mes idées avec des connecteurs logiques.",
+                  "J'ai parlé pendant la durée demandée, sans lire un texte préparé mot à mot.",
+                ],
+                tips:
+                  "Même méthode qu'à l'écrit : repère ce qui est demandé, prends 2 minutes pour organiser tes " +
+                  "idées au brouillon, puis parle sans lire — c'est exactement le format de l'épreuve DELF B1.",
               },
             ],
           },
