@@ -25,7 +25,7 @@ export default async function PaiementSuccesPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <Container className="py-16 sm:py-24">
           <Card className="mx-auto max-w-md text-center">
             <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/10 text-success">

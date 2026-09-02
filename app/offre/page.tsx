@@ -23,7 +23,7 @@ export default async function OffrePage() {
     <>
       <ViewTracker event="premium_offer_viewed" properties={{ isPremium: alreadyPremium }} />
       <Header />
-      <main>
+      <main id="main-content">
         <Container className="py-16 sm:py-24">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

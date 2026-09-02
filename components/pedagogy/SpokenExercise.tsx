@@ -275,7 +275,7 @@ export default function SpokenExercise({
       {phase === "recording" ? (
         <div className="space-y-3 rounded-xl border border-red-500/40 bg-red-500/5 p-4" role="status" aria-live="polite">
           <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
-            <span className="h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-red-500" aria-hidden="true" />
+            <span className="h-2.5 w-2.5 shrink-0 motion-safe:animate-pulse rounded-full bg-red-500" aria-hidden="true" />
             Enregistrement en cours — {formatTime(elapsed)}
             {typeof exercise.maxSpeakSeconds === "number"
               ? ` / ${formatTime(exercise.maxSpeakSeconds)} conseillées`

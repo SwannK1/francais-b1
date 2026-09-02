@@ -21,7 +21,7 @@ export default async function ReinitialiserMotDePassePage({
   return (
     <>
       <Header />
-      <main className="py-12 sm:py-16">
+      <main id="main-content" className="py-12 sm:py-16">
         <Container className="max-w-md">
           <h1 className="text-2xl font-bold text-foreground">Nouveau mot de passe</h1>
           <Card className="mt-6">

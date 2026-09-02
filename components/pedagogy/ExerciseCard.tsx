@@ -126,7 +126,7 @@ function TexteATrousBody({
                   ? (values[blankId] ?? "").trim().toLowerCase() === blank?.answer.toLowerCase()
                     ? "border-success bg-success/10"
                     : "border-red-500 bg-red-500/10"
-                  : "border-border bg-background"
+                  : "border-input-border bg-background"
               )}
             />
           );
@@ -266,7 +266,7 @@ function AssociationBody({
                   ? selections[pair.id] === pair.right
                     ? "border-success bg-success/10"
                     : "border-red-500 bg-red-500/10"
-                  : "border-border bg-background"
+                  : "border-input-border bg-background"
               )}
             >
               <option value="">Choisir une définition...</option>

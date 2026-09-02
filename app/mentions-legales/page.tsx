@@ -10,7 +10,7 @@ export default function MentionsLegalesPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <Container className="max-w-3xl py-16 sm:py-24">
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Mentions légales
