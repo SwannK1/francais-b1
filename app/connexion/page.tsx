@@ -18,7 +18,7 @@ export default async function ConnexionPage({ searchParams }: PageProps<"/connex
   return (
     <>
       <Header />
-      <main className="py-12 sm:py-16">
+      <main id="main-content" className="py-12 sm:py-16">
         <Container className="max-w-md">
           <h1 className="text-2xl font-bold text-foreground">Se connecter</h1>
           <p className="mt-2 text-sm text-muted-foreground">

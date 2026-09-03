@@ -28,7 +28,7 @@ export default async function OffrePage() {
     <>
       <ViewTracker event="premium_offer_viewed" properties={{ isPremium: alreadyPremium }} />
       <Header />
-      <main>
+      <main id="main-content">
         <Container className="py-16 sm:py-24">
           <Link href="/parcours" className="text-sm font-medium text-primary hover:underline">
             ← Retour au parcours

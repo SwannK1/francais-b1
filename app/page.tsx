@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <JsonLd data={websiteSchema()} />
       <Header />
-      <main>
+      <main id="main-content">
         <Hero />
         <Goals />
         <HowItWorks />

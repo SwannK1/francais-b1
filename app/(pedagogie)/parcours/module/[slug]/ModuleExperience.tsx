@@ -12,7 +12,8 @@ import ProgressBar from "@/components/pedagogy/ProgressBar";
 import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { cn } from "@/lib/cn";
 import { getStageById } from "@/lib/pedagogy/data/parcours-stages";
-import { findExerciseInModule, MODULES } from "@/lib/pedagogy/data/modules";
+import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
+import { countModuleExercises, findExerciseInModule } from "@/lib/pedagogy/logic/module-structure";
 import { getModuleCompletionRate, getModuleProgress, isModuleReviewed } from "@/lib/pedagogy/logic/progress";
 import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
 import { useProgress } from "@/lib/pedagogy/useProgress";
@@ -75,7 +76,7 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
   const { user } = useAuth();
 
   const moduleProgress = getModuleProgress(progress, mod.id);
-  const completionRate = getModuleCompletionRate(progress, mod);
+  const completionRate = getModuleCompletionRate(progress, mod.id, countModuleExercises(mod));
   const completedLessonIds = moduleProgress?.completedLessonIds ?? EMPTY_LESSON_IDS;
   const stage = getStageById(mod.stageId);
 
@@ -87,7 +88,7 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
    * l'annonce plutôt que de faire découvrir un `PremiumLock` sans contexte.
    * S'il n'y a plus de module suivant, direction le bilan de progression.
    */
-  const next = getNextModule(progress, MODULES);
+  const next = getNextModule(progress, PUBLIC_MODULES);
   const nextIsLocked = next
     ? !canAccess({ kind: "module", slug: next.module.slug }, user?.premiumUntil)
     : false;
@@ -102,7 +103,7 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
 
   // Mini-bilan de fin de module (voir plus bas) : suggestion de prochaine
   // étape, jamais un module verrouillé — même garde-fou que `/parcours`.
-  const nextTarget = getNextModule(progress, MODULES, {
+  const nextTarget = getNextModule(progress, PUBLIC_MODULES, {
     isAccessible: (m) => canAccess({ kind: "module", slug: m.slug }, user?.premiumUntil),
   });
 

@@ -14,7 +14,7 @@ export default function PaiementAnnulationPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <Container className="py-16 sm:py-24">
           <Card className="mx-auto max-w-md text-center">
             <h1 className="text-xl font-bold text-foreground">Paiement annulé</h1>

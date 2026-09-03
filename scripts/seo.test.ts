@@ -9,6 +9,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { MODULES } from "@/lib/pedagogy/data/modules";
+import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
 import { EXAMS } from "@/lib/pedagogy/data/exams";
 import { getStageModules } from "@/lib/pedagogy/logic/parcours";
@@ -48,7 +49,7 @@ test("chaque module référence une étape qui existe réellement (lib/pedagogy/
 
 test("chaque étape de contenu (kind: content) a au moins un module, sinon sa page /parcours/[slug] est vide", () => {
   for (const stage of PARCOURS_STAGES.filter((s) => s.kind === "content")) {
-    const modules = getStageModules(stage, MODULES);
+    const modules = getStageModules(stage, PUBLIC_MODULES);
     assert.ok(modules.length > 0, `L'étape "${stage.slug}" n'a aucun module rattaché.`);
   }
 });

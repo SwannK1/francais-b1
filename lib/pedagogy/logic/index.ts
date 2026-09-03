@@ -12,8 +12,15 @@
  *                        Concept distinct de `progress.ts` : jamais mélangé avec
  *                        la progression du curriculum (voir `exam.ts`).
  * - `review.ts`       : progression -> liste "à réviser" (ordre fixe, pas de scoring opaque).
+ * - `module-structure.ts` : lecture pure de la structure d'un `Module`/`PublicModule`
+ *                        déjà en main (comptage, recherche d'exercice ou de
+ *                        compétence) — jamais de dépendance vers
+ *                        `data/modules.ts` (contenu intégral), voir
+ *                        `docs/architecture/user-lifecycle.md` § Premium
+ *                        content boundary.
  */
 export { computePlacementResult } from "./placement";
+export { findExerciseInModule, countModuleExercises, findModuleForSkill } from "./module-structure";
 export {
   recordExerciseResult,
   getModuleProgress,

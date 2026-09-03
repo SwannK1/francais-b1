@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import ProgressionClient from "./ProgressionClient";
+import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
+import ProgressionExperience from "./ProgressionExperience";
 
 /**
  * `noindex` : cette page est un tableau de bord personnel (progression
@@ -14,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function ProgressionPage() {
-  return <ProgressionClient />;
+  return <ProgressionExperience publicModules={PUBLIC_MODULES} />;
 }

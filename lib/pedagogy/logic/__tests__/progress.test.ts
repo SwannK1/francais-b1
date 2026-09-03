@@ -8,6 +8,7 @@ import {
   statusFromCompletionRate,
   toggleModuleReview,
 } from "@/lib/pedagogy/logic/progress";
+import { countModuleExercises } from "@/lib/pedagogy/logic/module-structure";
 import { makeModule, makeModuleProgress, makeProgress } from "./fixtures";
 
 describe("statusFromCompletionRate", () => {
@@ -26,12 +27,13 @@ describe("statusFromCompletionRate", () => {
 describe("getModuleStatus", () => {
   it("reflects real exercise completion, not a guess", () => {
     const mod = makeModule({ id: "m1", slug: "m1" });
+    const total = countModuleExercises(mod);
     const notStarted = makeProgress();
-    expect(getModuleStatus(notStarted, mod)).toBe("a_commencer");
+    expect(getModuleStatus(notStarted, mod.id, total)).toBe("a_commencer");
 
     const started = recordExerciseResult(notStarted, mod, mod.lessons[0].activities[0].exercises[0], true);
-    expect(getModuleStatus(started, mod)).toBe("termine"); // seul exercice du module -> terminé
-    expect(getModuleCompletionRate(started, mod)).toBe(100);
+    expect(getModuleStatus(started, mod.id, total)).toBe("termine"); // seul exercice du module -> terminé
+    expect(getModuleCompletionRate(started, mod.id, total)).toBe(100);
   });
 });
 

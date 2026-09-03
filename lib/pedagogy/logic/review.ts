@@ -1,8 +1,8 @@
 import { getSkillById } from "@/lib/pedagogy/data/skills";
-import { findModuleForSkill } from "@/lib/pedagogy/data/modules";
+import { findModuleForSkill } from "@/lib/pedagogy/logic/module-structure";
 import { getExamById } from "@/lib/pedagogy/data/exams";
 import { DELF_SECTION_LABELS } from "@/lib/pedagogy/data/domain-labels";
-import type { Module, UserProgress } from "@/lib/pedagogy/types";
+import type { PublicModule, UserProgress } from "@/lib/pedagogy/types";
 
 /**
  * Score en dessous duquel une épreuve d'examen déjà passée est proposée en
@@ -36,7 +36,7 @@ export interface ReviewItem {
  * Chaque catégorie est elle-même triée de façon déterministe (voir
  * commentaires ci-dessous) — jamais par un critère de pertinence implicite.
  */
-export function getReviewItems(progress: UserProgress, modules: Module[]): ReviewItem[] {
+export function getReviewItems(progress: UserProgress, modules: PublicModule[]): ReviewItem[] {
   const items: ReviewItem[] = [];
   const flaggedIds = new Set(progress.reviewedModuleIds);
 
@@ -59,7 +59,7 @@ export function getReviewItems(progress: UserProgress, modules: Module[]): Revie
     const skill = getSkillById(skillId);
     if (!skill) continue;
     const skillProgress = progress.skillProgress.find((sp) => sp.skillId === skillId);
-    const mod = findModuleForSkill(skillId);
+    const mod = findModuleForSkill(modules, skillId);
     items.push({
       kind: "weak_skill",
       key: `weak-skill-${skillId}`,

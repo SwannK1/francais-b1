@@ -270,6 +270,60 @@ export interface Module {
   miniEvaluationThreshold?: number;
 }
 
+// --- Frontière contenu public / contenu protégé ---
+//
+// `Module` (ci-dessus) porte le contenu pédagogique complet — consignes,
+// textes, questions, choix, **réponses correctes**, transcripts. Il ne doit
+// jamais être importé par du code qui s'exécute côté client pour un module
+// dont l'accès n'a pas déjà été vérifié côté serveur (voir
+// `docs/architecture/user-lifecycle.md` § Premium content boundary).
+//
+// `PublicModule` est la forme sûre : mêmes métadonnées de navigation
+// (id, slug, titre, niveau, étape...) et la même arborescence
+// leçons/activités/exercices, mais chaque exercice ne garde que ce qui est
+// nécessaire à la navigation et au calcul de progression — jamais son
+// contenu ni sa réponse. Dérivée de `Module` par
+// `lib/pedagogy/data/modules-public.ts` (serveur uniquement).
+
+/** Un exercice réduit à ce qui est nécessaire à la navigation/progression — jamais son contenu ni sa réponse. */
+export interface PublicExercise {
+  id: string;
+  type: ExerciseType;
+  skillId: string;
+  difficulty: CEFRLevel;
+}
+
+export interface PublicActivity {
+  id: string;
+  title: string;
+  skillDomain: SkillDomain;
+  exercises: PublicExercise[];
+}
+
+export interface PublicLesson {
+  id: string;
+  type: LessonStepType;
+  title: string;
+  optional: boolean;
+  activities: PublicActivity[];
+}
+
+/** Vue publique d'un `Module` — sûre à envoyer à n'importe quel visiteur, quel que soit son statut premium. */
+export interface PublicModule {
+  id: string;
+  slug: string;
+  level: CEFRLevel;
+  title: string;
+  description: string;
+  objectives: string[];
+  domain: SkillDomain;
+  stageId: StageId;
+  estimatedMinutes: number;
+  lessons: PublicLesson[];
+  /** Précalculé à la dérivation — évite d'avoir à exposer le détail des exercices juste pour les compter. */
+  totalExercises: number;
+}
+
 // --- Progression ---
 
 export interface SkillProgress {

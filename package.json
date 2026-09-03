@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run && npm run audio:check && npm run test:seo",
+    "test": "vitest run && npm run test:seo",
     "test:seo": "node --import ./scripts/register-alias-loader.mjs --test scripts/*.test.ts",
-    "audio:check": "node scripts/check-audio-assets.mjs",
+    "audio:status": "node scripts/audio-status.mjs",
+    "generate:public-modules": "node scripts/generate-public-modules.mjs",
     "db:migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

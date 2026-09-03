@@ -1,18 +1,38 @@
-import { MODULES, countModuleExercises } from "@/lib/pedagogy/data/modules";
+import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import { getSkillById } from "@/lib/pedagogy/data/skills";
+import { countModuleExercises } from "@/lib/pedagogy/logic/module-structure";
 import type {
   ExamAttempt,
   Exercise,
   Lesson,
   Module,
   ModuleProgress,
+  PublicModule,
   SkillProgress,
   UserProgress,
 } from "@/lib/pedagogy/types";
 
+/**
+ * Ce fichier est importé côté client (via `useProgress.ts`, pour la mise à
+ * jour de la progression en direct pendant qu'un exercice est fait) — il ne
+ * doit donc jamais dépendre de `data/modules.ts` (contenu intégral,
+ * réponses comprises). Le calcul agrégé par compétence (`computeSkillProgress`)
+ * a besoin de connaître le catalogue complet des exercices (id + skillId
+ * uniquement) pour établir des totaux par compétence sur l'ensemble du
+ * programme — il lit donc `PUBLIC_MODULES`, jamais `MODULES`. Voir
+ * `docs/architecture/user-lifecycle.md` § Premium content boundary.
+ */
+
 const WEAK_SKILL_THRESHOLD = 50;
 
-function* iterateModuleExercises(mod: Module): Generator<Exercise> {
+interface ExerciseRef {
+  id: string;
+  skillId: string;
+}
+
+function* iterateExerciseRefs<E extends ExerciseRef>(mod: {
+  lessons: { activities: { exercises: E[] }[] }[];
+}): Generator<E> {
   for (const lesson of mod.lessons) {
     for (const activity of lesson.activities) {
       for (const exercise of activity.exercises) {
@@ -22,10 +42,10 @@ function* iterateModuleExercises(mod: Module): Generator<Exercise> {
   }
 }
 
-function countExercisesBySkill(mods: Module[]): Map<string, number> {
+function countExercisesBySkill(mods: PublicModule[]): Map<string, number> {
   const totals = new Map<string, number>();
   for (const mod of mods) {
-    for (const exercise of iterateModuleExercises(mod)) {
+    for (const exercise of iterateExerciseRefs(mod)) {
       totals.set(exercise.skillId, (totals.get(exercise.skillId) ?? 0) + 1);
     }
   }
@@ -42,7 +62,9 @@ function isLessonFullyCompleted(lesson: Lesson, completedExerciseIds: string[]):
 /**
  * Enregistre le résultat d'un exercice et recalcule la progression dérivée
  * (module, compétences, taux global). Fonction pure : retourne une nouvelle
- * UserProgress sans muter l'existante.
+ * UserProgress sans muter l'existante. `mod`/`exercise` (contenu complet)
+ * viennent toujours de l'appelant — un exercice déjà résolu et affiché,
+ * donc déjà autorisé — jamais relus depuis un catalogue global ici.
  */
 export function recordExerciseResult(
   progress: UserProgress,
@@ -102,15 +124,15 @@ export function recordExerciseResult(
 }
 
 function computeSkillProgress(moduleProgress: ModuleProgress[]): SkillProgress[] {
-  const skillTotals = countExercisesBySkill(MODULES);
+  const skillTotals = countExercisesBySkill(PUBLIC_MODULES);
   const completedBySkill = new Map<string, number>();
   const correctBySkill = new Map<string, number>();
 
   for (const mp of moduleProgress) {
-    const sourceModule = MODULES.find((mod) => mod.id === mp.moduleId);
+    const sourceModule = PUBLIC_MODULES.find((mod) => mod.id === mp.moduleId);
     if (!sourceModule) continue;
 
-    for (const exercise of iterateModuleExercises(sourceModule)) {
+    for (const exercise of iterateExerciseRefs(sourceModule)) {
       if (mp.completedExerciseIds.includes(exercise.id)) {
         completedBySkill.set(exercise.skillId, (completedBySkill.get(exercise.skillId) ?? 0) + 1);
       }
@@ -142,11 +164,20 @@ export function getModuleProgress(
   return progress.moduleProgress.find((mp) => mp.moduleId === moduleId);
 }
 
-export function getModuleCompletionRate(progress: UserProgress, mod: Module): number {
-  const total = countModuleExercises(mod);
-  if (total === 0) return 0;
-  const completed = getModuleProgress(progress, mod.id)?.completedExerciseIds.length ?? 0;
-  return Math.round((completed / total) * 100);
+/**
+ * `totalExercises` en paramètre plutôt qu'un `Module`/`PublicModule` entier :
+ * cette fonction est appelée aussi bien avec le contenu complet (page module,
+ * déjà autorisée) qu'avec la vue publique (listes de modules) — un simple
+ * nombre évite d'avoir à unifier artificiellement les deux formes ici.
+ */
+export function getModuleCompletionRate(
+  progress: UserProgress,
+  moduleId: string,
+  totalExercises: number
+): number {
+  if (totalExercises === 0) return 0;
+  const completed = getModuleProgress(progress, moduleId)?.completedExerciseIds.length ?? 0;
+  return Math.round((completed / totalExercises) * 100);
 }
 
 /**
@@ -163,8 +194,8 @@ export function statusFromCompletionRate(rate: number): ModuleStatus {
   return "a_commencer";
 }
 
-export function getModuleStatus(progress: UserProgress, mod: Module): ModuleStatus {
-  return statusFromCompletionRate(getModuleCompletionRate(progress, mod));
+export function getModuleStatus(progress: UserProgress, moduleId: string, totalExercises: number): ModuleStatus {
+  return statusFromCompletionRate(getModuleCompletionRate(progress, moduleId, totalExercises));
 }
 
 /**
@@ -209,8 +240,8 @@ function mergeModuleProgress(local: UserProgress, remote: UserProgress): ModuleP
     const completedLessonIds = Array.from(
       new Set([...existing.completedLessonIds, ...mp.completedLessonIds])
     );
-    const sourceModule = MODULES.find((mod) => mod.id === mp.moduleId);
-    const totalModuleExercises = sourceModule ? countModuleExercises(sourceModule) : 0;
+    const sourceModule = PUBLIC_MODULES.find((mod) => mod.id === mp.moduleId);
+    const totalModuleExercises = sourceModule?.totalExercises ?? 0;
 
     byModuleId.set(mp.moduleId, {
       moduleId: mp.moduleId,
@@ -248,6 +279,37 @@ function mergeExamAttempts(local: ExamAttempt[], remote: ExamAttempt[]): ExamAtt
 }
 
 /**
+ * `level` n'a de sens qu'accompagné de la date du test de positionnement qui
+ * l'a produit (voir `markPlacementCompleted`, `lib/pedagogy/useProgress.ts` :
+ * les deux sont toujours écrits ensemble, jamais l'un sans l'autre). Résoudre
+ * `level` et `placementCompletedAt` indépendamment l'un de l'autre lors d'une
+ * fusion casserait cet appariement — ex. garder le `placementCompletedAt` du
+ * compte distant mais le `level` de l'appareil local afficherait un niveau
+ * qui ne correspond à aucun test réellement passé. Un seul côté "gagne" les
+ * deux champs ensemble : celui qui a un test plus récent, ou le seul des
+ * deux à en avoir passé un.
+ */
+function resolvePlacement(
+  local: UserProgress,
+  remote: UserProgress
+): Pick<UserProgress, "level" | "placementCompletedAt"> {
+  if (local.placementCompletedAt && remote.placementCompletedAt) {
+    return local.placementCompletedAt > remote.placementCompletedAt
+      ? { level: local.level, placementCompletedAt: local.placementCompletedAt }
+      : { level: remote.level, placementCompletedAt: remote.placementCompletedAt };
+  }
+  if (remote.placementCompletedAt) {
+    return { level: remote.level, placementCompletedAt: remote.placementCompletedAt };
+  }
+  if (local.placementCompletedAt) {
+    return { level: local.level, placementCompletedAt: local.placementCompletedAt };
+  }
+  // Ni l'un ni l'autre n'a passé de test : aucun niveau n'est réellement
+  // fondé, le choix entre les deux valeurs par défaut est sans conséquence.
+  return { level: local.level, placementCompletedAt: null };
+}
+
+/**
  * Fusionne la progression locale (localStorage, potentiellement anonyme) et
  * la progression serveur d'un compte lors de la connexion. Stratégie de
  * conflit : union des exercices terminés/réussis par module (jamais de
@@ -267,14 +329,13 @@ export function mergeUserProgress(local: UserProgress, remote: UserProgress): Us
 
   return {
     userId: remote.userId,
-    level: local.level,
+    ...resolvePlacement(local, remote),
     goalId: local.goalId ?? remote.goalId,
     moduleProgress,
     skillProgress,
     globalSuccessRate,
     lastActivityAt: laterIso(local.lastActivityAt, remote.lastActivityAt),
     weakSkillIds,
-    placementCompletedAt: remote.placementCompletedAt ?? local.placementCompletedAt,
     examAttempts: mergeExamAttempts(local.examAttempts, remote.examAttempts),
     // `?? []` : robustesse face à une progression écrite avant l'ajout de ce
     // champ (voir `UserProgress.reviewedModuleIds`) — jamais de crash sur

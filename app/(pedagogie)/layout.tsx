@@ -4,10 +4,10 @@ import AppHeader from "@/components/layout/AppHeader";
 
 export default function PedagogieLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <AppHeader />
 
-      <main className="flex-1 bg-background py-8 sm:py-10">
+      <main id="main-content" className="flex-1 bg-background py-8 sm:py-10">
         <Container className="max-w-4xl">{children}</Container>
       </main>
     </div>
