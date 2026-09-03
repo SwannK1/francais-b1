@@ -9440,3 +9440,16 @@ export function findExerciseInModule(mod: Module, exerciseId: string): Exercise 
   }
   return undefined;
 }
+
+/**
+ * Premier module contenant un exercice de cette compétence — utilisé pour
+ * rendre une compétence faible (`UserProgress.weakSkillIds`) actionnable
+ * dans la page révision (un lien "s'entraîner", pas juste un constat).
+ */
+export function findModuleForSkill(skillId: string): Module | undefined {
+  return MODULES.find((mod) =>
+    mod.lessons.some((lesson) =>
+      lesson.activities.some((activity) => activity.exercises.some((ex) => ex.skillId === skillId))
+    )
+  );
+}

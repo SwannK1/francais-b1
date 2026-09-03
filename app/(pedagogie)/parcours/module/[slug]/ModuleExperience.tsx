@@ -5,7 +5,7 @@ import Link from "next/link";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import { buttonClasses } from "@/components/ui/button-styles";
-import { CheckIcon } from "@/components/ui/icons";
+import { CheckIcon, FlagIcon } from "@/components/ui/icons";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
 import ExerciseCard from "@/components/pedagogy/ExerciseCard";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
@@ -13,7 +13,7 @@ import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { cn } from "@/lib/cn";
 import { getStageById } from "@/lib/pedagogy/data/parcours-stages";
 import { findExerciseInModule, MODULES } from "@/lib/pedagogy/data/modules";
-import { getModuleCompletionRate, getModuleProgress } from "@/lib/pedagogy/logic/progress";
+import { getModuleCompletionRate, getModuleProgress, isModuleReviewed } from "@/lib/pedagogy/logic/progress";
 import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
@@ -71,7 +71,7 @@ function getInitialStepIndex(steps: Step[], completedLessonIds: string[]): numbe
 }
 
 export default function ModuleExperience({ mod }: { mod: Module }) {
-  const { progress, recordResult } = useProgress();
+  const { progress, recordResult, toggleReview } = useProgress();
   const { user } = useAuth();
 
   const moduleProgress = getModuleProgress(progress, mod.id);
@@ -99,6 +99,12 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
       : next.module.id === mod.id
         ? "Voir ma progression"
         : `Module suivant : ${next.module.title} →`;
+
+  // Mini-bilan de fin de module (voir plus bas) : suggestion de prochaine
+  // étape, jamais un module verrouillé — même garde-fou que `/parcours`.
+  const nextTarget = getNextModule(progress, MODULES, {
+    isAccessible: (m) => canAccess({ kind: "module", slug: m.slug }, user?.premiumUntil),
+  });
 
   const steps = useMemo(() => buildSteps(mod), [mod]);
   const [stepIndex, setStepIndex] = useState(() => getInitialStepIndex(steps, completedLessonIds));
@@ -304,6 +310,49 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
                   ))}
                 </div>
               ))}
+
+              {isLastStep && moduleProgress?.completed ? (
+                <Card className="border-success/40 bg-success/5">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-success">
+                    Module terminé
+                  </p>
+                  <h3 className="mt-1 text-lg font-semibold text-foreground">« {mod.title} »</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Tu viens de terminer ce module.
+                    {mod.objectives[0]
+                      ? ` Tu peux désormais : ${mod.objectives[0].charAt(0).toLowerCase()}${mod.objectives[0].slice(1)}`
+                      : ""}
+                  </p>
+
+                  {nextTarget ? (
+                    <p className="mt-3 text-sm text-foreground">
+                      Prochaine étape suggérée :{" "}
+                      <Link
+                        href={`/parcours/module/${nextTarget.module.slug}`}
+                        className="font-semibold text-primary hover:underline"
+                      >
+                        {nextTarget.module.title}
+                      </Link>
+                    </p>
+                  ) : null}
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Link href="/progression" className={buttonClasses("primary", "md")}>
+                      Voir ma progression
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => toggleReview(mod.id)}
+                      className={cn(buttonClasses("secondary", "md"), "gap-1.5")}
+                    >
+                      <FlagIcon className="h-3.5 w-3.5" />
+                      {isModuleReviewed(progress, mod.id)
+                        ? "Retirer de « à revoir »"
+                        : "Marquer ce module à revoir"}
+                    </button>
+                  </div>
+                </Card>
+              ) : null}
             </>
           ) : null}
         </div>
@@ -323,7 +372,10 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
           <button type="button" onClick={() => goTo(stepIndex + 1)} className={buttonClasses("primary", "md")}>
             Suivant →
           </button>
-        ) : (
+        ) : moduleProgress?.completed ? null : (
+          // Module pas (encore) marqué terminé même au dernier pas (ex. dernier
+          // exercice pas encore répondu) : le mini-bilan ne s'affiche pas dans
+          // ce cas, ce lien reste donc le seul moyen de continuer.
           <Link href={nextHref} className={buttonClasses("primary", "md")}>
             {nextLabel}
           </Link>

@@ -660,3 +660,8 @@ export const EXAMS: Exam[] = [
 export function getExamBySlug(slug: string): Exam | undefined {
   return EXAMS.find((exam) => exam.slug === slug);
 }
+
+/** `ExamAttempt.examId` référence un id, jamais un slug — voir `logic/review.ts`. */
+export function getExamById(id: string): Exam | undefined {
+  return EXAMS.find((exam) => exam.id === id);
+}

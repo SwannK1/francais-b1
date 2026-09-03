@@ -303,6 +303,16 @@ export interface UserProgress {
   placementCompletedAt: string | null;
   /** Distinct de `moduleProgress` : progression du curriculum et tentatives d'examen ne sont jamais mélangées. */
   examAttempts: ExamAttempt[];
+  /**
+   * Modules explicitement marqués "à revoir" par l'apprenant (voir
+   * `logic/progress.ts` : `toggleModuleReview`). Orthogonal au statut de
+   * complétion — un module peut être à la fois "terminé" et "à revoir" : ce
+   * n'est pas une étape du cycle de vie du module, juste une étiquette
+   * manuelle. Champ ajouté après le lancement : toujours défaulté à `[]`
+   * via `INITIAL_USER_PROGRESS`/`EMPTY_USER_PROGRESS`, donc une progression
+   * existante sans ce champ reste valide (voir `useProgress.ts: parseProgress`).
+   */
+  reviewedModuleIds: string[];
 }
 
 // --- Séance recommandée ---

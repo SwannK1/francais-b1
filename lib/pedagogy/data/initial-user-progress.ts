@@ -45,6 +45,7 @@ export const INITIAL_USER_PROGRESS: UserProgress = {
   weakSkillIds: ["gr-pronoms-complements"],
   placementCompletedAt: null,
   examAttempts: [],
+  reviewedModuleIds: [],
 };
 
 /**
@@ -62,4 +63,5 @@ export const EMPTY_USER_PROGRESS: UserProgress = {
   weakSkillIds: [],
   placementCompletedAt: null,
   examAttempts: [],
+  reviewedModuleIds: [],
 };

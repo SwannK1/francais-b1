@@ -1,13 +1,18 @@
+import Link from "next/link";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import type { Skill, SkillProgress } from "@/lib/pedagogy/types";
 
 export default function WeaknessCard({
   skill,
   progress,
+  href,
 }: {
   skill: Skill;
   progress?: SkillProgress;
+  /** Module où s'entraîner sur cette compétence, si un module correspondant existe. */
+  href?: string;
 }) {
   return (
     <Card className="border-secondary/40">
@@ -21,6 +26,15 @@ export default function WeaknessCard({
           Taux de réussite actuel : {progress.successRate}% sur {progress.completedExercises}{" "}
           exercice{progress.completedExercises > 1 ? "s" : ""}.
         </p>
+      ) : null}
+      {href ? (
+        <Link
+          href={href}
+          className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+        >
+          S&apos;entraîner
+          <ArrowRightIcon className="h-4 w-4" />
+        </Link>
       ) : null}
     </Card>
   );
