@@ -120,6 +120,11 @@ function checkExercise(ex: Exercise, ctx: string): string[] {
         issues.push(`${label}: audioSrc "${ex.audioSrc}" introuvable dans public/`);
       }
       if (ex.questions.length === 0) issues.push(`${label}: questions vide`);
+      // Le transcript n'est pas juste une commodité : c'est le seul filet de
+      // sécurité pour un apprenant qui n'entend/ne comprend pas l'audio (voir
+      // AudioExercise.tsx). Sur les 15 audios actuels, tous en ont un — ce
+      // test empêche qu'un futur ajout en oublie un.
+      if (!ex.transcript || !ex.transcript.trim()) issues.push(`${label}: transcript manquant`);
       break;
     case "reponse_courte":
       if (!ex.question.trim()) issues.push(`${label}: question vide`);
@@ -137,6 +142,9 @@ function checkExercise(ex: Exercise, ctx: string): string[] {
     case "production_orale":
       if (!ex.consigne.trim()) issues.push(`${label}: consigne vide`);
       if (!(ex.prepSeconds >= 0)) issues.push(`${label}: prepSeconds invalide`);
+      if (ex.maxSpeakSeconds != null && !(ex.maxSpeakSeconds > 0)) {
+        issues.push(`${label}: maxSpeakSeconds invalide (${ex.maxSpeakSeconds})`);
+      }
       if (ex.selfAssessmentCriteria.length === 0) issues.push(`${label}: selfAssessmentCriteria vide`);
       break;
   }
