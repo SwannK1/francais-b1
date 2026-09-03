@@ -9,6 +9,7 @@ import { getStageCompletionRate } from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { canAccess } from "@/lib/commerce/access";
 import { useAuth } from "@/lib/auth/AuthProvider";
+import ViewTracker from "@/lib/analytics/ViewTracker";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 import type { PublicModule } from "@/lib/pedagogy/types";
 
@@ -25,6 +26,7 @@ export default function StageExperience({
 
   return (
     <div className="space-y-6">
+      <ViewTracker event="stage_viewed" properties={{ stageId: stage.id }} />
       <Breadcrumbs items={[{ label: "Parcours", href: "/parcours" }, { label: stage.title }]} />
 
       <header>

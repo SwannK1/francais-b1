@@ -1,6 +1,6 @@
 import { getSkillById } from "@/lib/pedagogy/data/skills";
 import { findModuleForSkill } from "@/lib/pedagogy/logic/module-structure";
-import { getExamById } from "@/lib/pedagogy/data/exams";
+import { getPublicExamById } from "@/lib/pedagogy/data/exams-public";
 import { DELF_SECTION_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import type { PublicModule, UserProgress } from "@/lib/pedagogy/types";
 
@@ -90,7 +90,7 @@ export function getReviewItems(progress: UserProgress, modules: PublicModule[]):
 
   for (const attempt of progress.examAttempts) {
     if (attempt.status !== "completed") continue;
-    const exam = getExamById(attempt.examId);
+    const exam = getPublicExamById(attempt.examId);
     if (!exam) continue;
     for (const section of attempt.sections) {
       if (section.score === null || section.maxScore === 0) continue;

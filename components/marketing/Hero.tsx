@@ -16,7 +16,7 @@ export default function Hero() {
             puis des examens blancs pour t&apos;entraîner dans les conditions du DELF B1.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <PrimaryCta size="lg" startLabel="Tester mon niveau gratuitement" />
+            <PrimaryCta size="lg" startLabel="Tester mon niveau gratuitement" source="hero" />
             <Button href="#fonctionnement" variant="secondary" size="lg">
               Découvrir la méthode
             </Button>

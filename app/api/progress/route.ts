@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth/dal";
 import { getUserProgress, saveUserProgress } from "@/lib/auth/progress-store";
 import { mergeUserProgress } from "@/lib/pedagogy/logic/progress";
+import { logServerError } from "@/lib/observability/log";
 import type { UserProgress } from "@/lib/pedagogy/types";
 
 /** Vérification de forme minimale — la validation métier vit dans `lib/pedagogy/logic`. */
@@ -15,8 +16,13 @@ export async function GET() {
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
 
-  const progress = await getUserProgress(user.id);
-  return NextResponse.json({ progress });
+  try {
+    const progress = await getUserProgress(user.id);
+    return NextResponse.json({ progress });
+  } catch (error) {
+    logServerError("progress.get", error);
+    return NextResponse.json({ error: "progress_unavailable" }, { status: 500 });
+  }
 }
 
 /**
@@ -39,10 +45,15 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: "invalid_progress" }, { status: 400 });
   }
 
-  // `user.id` (issu de la session serveur), jamais un id fourni par le client :
-  // un utilisateur ne peut écrire que sa propre progression.
-  const remote = await getUserProgress(user.id);
-  const merged = remote ? mergeUserProgress(body.progress, remote) : { ...body.progress, userId: user.id };
-  await saveUserProgress(user.id, merged);
-  return NextResponse.json({ ok: true });
+  try {
+    // `user.id` (issu de la session serveur), jamais un id fourni par le client :
+    // un utilisateur ne peut écrire que sa propre progression.
+    const remote = await getUserProgress(user.id);
+    const merged = remote ? mergeUserProgress(body.progress, remote) : { ...body.progress, userId: user.id };
+    await saveUserProgress(user.id, merged);
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    logServerError("progress.put", error);
+    return NextResponse.json({ error: "progress_unavailable" }, { status: 500 });
+  }
 }

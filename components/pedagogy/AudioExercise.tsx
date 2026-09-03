@@ -14,6 +14,7 @@ import {
   resetStage,
   resolveSrc,
 } from "@/lib/pedagogy/audio/playback";
+import { trackEvent } from "@/lib/analytics/client";
 import type { ComprehensionOraleExercise } from "@/lib/pedagogy/types";
 
 /**
@@ -55,6 +56,13 @@ export default function AudioExercise({
   const loadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wantsPlayRef = useRef(false);
   const skipNextLoadRef = useRef(true);
+  // `onPlay` se redéclenche à chaque reprise après pause, y compris pour la
+  // relecture automatique de la source synthétique après un repli invisible
+  // (voir `advanceStage`) — ce garde-fou compte "l'apprenant a lancé la
+  // lecture" une seule fois par tentative, jamais une fois par
+  // pause/reprise. Réinitialisé uniquement par `retry()` (vraie nouvelle
+  // tentative), jamais par un simple changement de `stage`.
+  const playTrackedRef = useRef(false);
 
   function clearLoadTimeout() {
     if (loadTimeoutRef.current) {
@@ -75,11 +83,21 @@ export default function AudioExercise({
     };
   }, []);
 
-  /** Échec de la source en cours : humain -> synthétique -> erreur propre. */
-  function advanceStage() {
+  /**
+   * Échec de la source en cours : humain -> synthétique -> erreur propre.
+   * `audio_error` ne compte que l'échec **terminal** (le repli humain ->
+   * synthétique est invisible pour l'apprenant, qui n'a jamais vu d'erreur —
+   * le compter aurait pollué le taux d'erreur réel avec des replis silencieux
+   * réussis).
+   */
+  function advanceStage(reason: "native_media_error" | "stuck_load_timeout") {
     clearLoadTimeout();
     setConfirmed(false);
-    setStage(nextStageAfterFailure);
+    setStage((current) => {
+      const next = nextStageAfterFailure(current);
+      if (next === "error") trackEvent("audio_error", { exerciseId: exercise.id, reason });
+      return next;
+    });
   }
 
   function restartFromBeginning() {
@@ -89,7 +107,9 @@ export default function AudioExercise({
   /** Depuis l'état d'erreur : relance le cycle de résolution depuis le début. */
   function retry() {
     wantsPlayRef.current = true;
+    playTrackedRef.current = false;
     setConfirmed(false);
+    trackEvent("audio_retry", { exerciseId: exercise.id });
     setStage(resetStage());
   }
 
@@ -103,9 +123,13 @@ export default function AudioExercise({
   // `loadstart` sans qu'on y touche) — l'utiliser ici déclencherait le filet
   // avant même que l'utilisateur ait appuyé sur lecture.
   function handlePlay() {
+    if (!playTrackedRef.current) {
+      playTrackedRef.current = true;
+      trackEvent("audio_play_started", { exerciseId: exercise.id });
+    }
     wantsPlayRef.current = true;
     clearLoadTimeout();
-    loadTimeoutRef.current = setTimeout(advanceStage, 4000);
+    loadTimeoutRef.current = setTimeout(() => advanceStage("stuck_load_timeout"), 4000);
     if (audioRef.current) registerPlayback(audioRef.current);
   }
 
@@ -175,9 +199,12 @@ export default function AudioExercise({
               onCanPlay={handleReady}
               onLoadedData={handleReady}
               onPlaying={handleReady}
-              onError={advanceStage}
+              onError={() => advanceStage("native_media_error")}
               onPause={handlePause}
-              onEnded={handlePause}
+              onEnded={() => {
+                handlePause();
+                trackEvent("audio_completed", { exerciseId: exercise.id });
+              }}
               className="w-full"
             >
               Ton navigateur ne prend pas en charge la lecture audio.

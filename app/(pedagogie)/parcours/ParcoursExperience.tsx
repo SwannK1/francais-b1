@@ -14,6 +14,7 @@ import { getReviewItems } from "@/lib/pedagogy/logic/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
+import ViewTracker from "@/lib/analytics/ViewTracker";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 import type { PublicModule } from "@/lib/pedagogy/types";
 
@@ -67,6 +68,7 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
 
   return (
     <div>
+      <ViewTracker event="journey_viewed" />
       <header>
         <LevelBadge level={progress.level} />
         <h1 className="mt-3 text-2xl font-bold text-foreground sm:text-3xl">Ton parcours B1</h1>

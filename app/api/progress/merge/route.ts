@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth/dal";
 import { getUserProgress, saveUserProgress } from "@/lib/auth/progress-store";
 import { mergeUserProgress } from "@/lib/pedagogy/logic/progress";
 import { EMPTY_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
+import { logServerError } from "@/lib/observability/log";
 import type { UserProgress } from "@/lib/pedagogy/types";
 
 function isUserProgressShape(value: unknown): value is UserProgress {
@@ -27,19 +28,25 @@ export async function POST(request: Request) {
 
   const body = await request.json().catch(() => null);
   const localProgress = isUserProgressShape(body?.progress) ? body.progress : null;
-  const remoteProgress = await getUserProgress(user.id);
 
-  let merged: UserProgress;
-  if (localProgress && remoteProgress) {
-    merged = mergeUserProgress(localProgress, remoteProgress);
-  } else if (localProgress) {
-    merged = { ...localProgress, userId: user.id };
-  } else if (remoteProgress) {
-    merged = remoteProgress;
-  } else {
-    merged = { ...EMPTY_USER_PROGRESS, userId: user.id };
+  try {
+    const remoteProgress = await getUserProgress(user.id);
+
+    let merged: UserProgress;
+    if (localProgress && remoteProgress) {
+      merged = mergeUserProgress(localProgress, remoteProgress);
+    } else if (localProgress) {
+      merged = { ...localProgress, userId: user.id };
+    } else if (remoteProgress) {
+      merged = remoteProgress;
+    } else {
+      merged = { ...EMPTY_USER_PROGRESS, userId: user.id };
+    }
+
+    await saveUserProgress(user.id, merged);
+    return NextResponse.json({ progress: merged });
+  } catch (error) {
+    logServerError("progress.merge", error);
+    return NextResponse.json({ error: "progress_unavailable" }, { status: 500 });
   }
-
-  await saveUserProgress(user.id, merged);
-  return NextResponse.json({ progress: merged });
 }

@@ -324,6 +324,25 @@ export interface PublicModule {
   totalExercises: number;
 }
 
+/**
+ * Sous-ensemble sûr d'`Exam` — jamais `sections` (épreuves, exercices,
+ * `correctAnswer`, barèmes détaillés). Même principe que `PublicModule` :
+ * uniquement ce qu'il faut pour lister un examen ou construire un lien vers
+ * lui (ex. `getReviewItems`), jamais son contenu.
+ */
+export interface ExamSummary {
+  id: string;
+  slug: string;
+  title: string;
+  type: ExamType;
+  level: CEFRLevel;
+  description: string;
+  durationMinutes: number;
+  maxScore: number;
+  passingScore: number;
+  isBlanc: boolean;
+}
+
 // --- Progression ---
 
 export interface SkillProgress {

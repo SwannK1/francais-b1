@@ -47,7 +47,7 @@ export default function Pricing() {
                 : "."}
             </p>
           ) : (
-            <CheckoutButton label={MAIN_PLAN.ctaLabel} size="lg" className="mt-8 w-full" />
+            <CheckoutButton label={MAIN_PLAN.ctaLabel} size="lg" className="mt-8 w-full" source="pricing" />
           )}
           <p className="mt-3 text-xs text-muted-foreground">{MAIN_PLAN.tagline}</p>
           <Link

@@ -169,7 +169,12 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
     const exercise = findExerciseInModule(mod, exerciseId);
     if (!exercise) return;
     recordResult(mod, exercise, correct);
-    trackEvent("exercise_completed", { moduleId: mod.id });
+    trackEvent("exercise_completed", {
+      moduleId: mod.id,
+      exerciseId: exercise.id,
+      exerciseType: exercise.type,
+      correct,
+    });
   }
 
   function goTo(index: number) {
@@ -377,7 +382,21 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
           // Module pas (encore) marqué terminé même au dernier pas (ex. dernier
           // exercice pas encore répondu) : le mini-bilan ne s'affiche pas dans
           // ce cas, ce lien reste donc le seul moyen de continuer.
-          <Link href={nextHref} className={buttonClasses("primary", "md")}>
+          <Link
+            href={nextHref}
+            onClick={() =>
+              trackEvent("resume_clicked", {
+                source: "module_end_cta",
+                moduleId: next?.module.id,
+                recommendationType: !next
+                  ? "journey_complete"
+                  : next.isResuming
+                    ? "resume_in_progress"
+                    : "next_new_module",
+              })
+            }
+            className={buttonClasses("primary", "md")}
+          >
             {nextLabel}
           </Link>
         )}

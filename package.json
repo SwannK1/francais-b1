@@ -11,6 +11,7 @@
     "test:seo": "node --import ./scripts/register-alias-loader.mjs --test scripts/*.test.ts",
     "audio:status": "node scripts/audio-status.mjs",
     "generate:public-modules": "node scripts/generate-public-modules.mjs",
+    "generate:public-exams": "node scripts/generate-public-exams.mjs",
     "db:migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {

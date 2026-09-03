@@ -136,7 +136,11 @@ describe("Frontière statique : aucun composant client n'atteint le contenu int�
   // ses tests depuis sa racine (voir package.json), donc `process.cwd()` y
   // est fiable.
   const repoRoot = process.cwd();
-  const FORBIDDEN_SPECIFIERS = ["@/lib/pedagogy/data/modules", "@/lib/pedagogy/data"];
+  const FORBIDDEN_SPECIFIERS = [
+    "@/lib/pedagogy/data/modules",
+    "@/lib/pedagogy/data/exams",
+    "@/lib/pedagogy/data",
+  ];
 
   function listSourceFiles(dir: string, out: string[] = []): string[] {
     for (const entry of readdirSync(dir)) {
@@ -218,9 +222,13 @@ describe("Frontière statique : aucun composant client n'atteint le contenu int�
             offenders.push(`${path.relative(repoRoot, entry)} -> ... -> ${specifier}`);
             continue;
           }
-          if (specifier.startsWith("@/lib/pedagogy/data/modules-public")) {
-            // Chaîne sûre : ce module ne dépend jamais de data/modules.ts
-            // (voir le test dédié plus bas) — pas la peine de le parcourir.
+          if (
+            specifier.startsWith("@/lib/pedagogy/data/modules-public") ||
+            specifier.startsWith("@/lib/pedagogy/data/exams-public")
+          ) {
+            // Chaîne sûre : ces modules ne dépendent jamais de data/modules.ts
+            // ni de data/exams.ts (voir les tests dédiés) — pas la peine de
+            // les parcourir.
             continue;
           }
           const moduleId = toAbsoluteModuleId(specifier, current);

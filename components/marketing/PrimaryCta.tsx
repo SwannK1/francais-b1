@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
 import { cn } from "@/lib/cn";
 import type { PublicModule } from "@/lib/pedagogy/types";
+import { trackEvent } from "@/lib/analytics/client";
 
 /**
  * CTA d'entrée dans l'application, partagée par le header et le hero de la
@@ -54,16 +55,20 @@ export default function PrimaryCta({
   className,
   startLabel = "Commencer gratuitement",
   onClick,
+  source,
 }: {
   size?: ButtonSize;
   className?: string;
   startLabel?: string;
   onClick?: () => void;
+  /** Où ce CTA est affiché (header, hero...) — propriété `source` du funnel, voir lib/analytics/events.ts. */
+  source?: string;
 }) {
   const { progress } = useProgress();
   const { user } = useAuth();
   const hasStarted = Boolean(progress.placementCompletedAt) || progress.moduleProgress.length > 0;
   const [modules, setModules] = useState<PublicModule[] | null>(cachedModules);
+  const authenticated = Boolean(user);
 
   useEffect(() => {
     if (!hasStarted || modules) return;
@@ -78,7 +83,14 @@ export default function PrimaryCta({
 
   if (!hasStarted) {
     return (
-      <Link href="/test-niveau" onClick={onClick} className={cn(buttonClasses("primary", size), className)}>
+      <Link
+        href="/test-niveau"
+        onClick={() => {
+          trackEvent("primary_cta_clicked", { source, authenticated });
+          onClick?.();
+        }}
+        className={cn(buttonClasses("primary", size), className)}
+      >
         {startLabel}
       </Link>
     );
@@ -99,9 +111,26 @@ export default function PrimaryCta({
     ? !canAccess({ kind: "module", slug: next.module.slug }, user?.premiumUntil)
     : false;
   const href = !next ? "/parcours" : nextIsLocked ? "/offre" : `/parcours/module/${next.module.slug}`;
+  const recommendationType = !next
+    ? "journey_complete"
+    : next.isResuming
+      ? "resume_in_progress"
+      : "next_new_module";
 
   return (
-    <Link href={href} onClick={onClick} className={cn(buttonClasses("primary", size), className)}>
+    <Link
+      href={href}
+      onClick={() => {
+        trackEvent("resume_clicked", {
+          source,
+          authenticated,
+          moduleId: next?.module.id,
+          recommendationType,
+        });
+        onClick?.();
+      }}
+      className={cn(buttonClasses("primary", size), className)}
+    >
       {nextIsLocked ? "Débloquer la suite du parcours" : "Continuer mon parcours"}
     </Link>
   );

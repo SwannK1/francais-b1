@@ -51,7 +51,7 @@ export default function Header() {
 
           <div className="hidden items-center gap-6 lg:flex">
             <AccountStatus />
-            <PrimaryCta size="md" />
+            <PrimaryCta size="md" source="header" />
           </div>
 
           <button
@@ -83,7 +83,7 @@ export default function Header() {
               </nav>
               <div className="mt-3 flex flex-col gap-3 border-t border-border pt-4">
                 <AccountStatus className="flex-col items-stretch gap-3 text-center" />
-                <PrimaryCta onClick={() => setOpen(false)} className="justify-center" />
+                <PrimaryCta onClick={() => setOpen(false)} className="justify-center" source="header" />
               </div>
             </Container>
           </div>
