@@ -3964,6 +3964,27 @@ export const PUBLIC_MODULES: PublicModule[] = [
         ]
       },
       {
+        "id": "bilan-ecoute",
+        "type": "ecoute",
+        "title": "Compréhension orale",
+        "optional": false,
+        "activities": [
+          {
+            "id": "bilan-ecoute-activite",
+            "title": "Écouter Léa raconter un choix professionnel",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "bil-f",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "bilan-entrainement",
         "type": "entrainement",
         "title": "S'entraîner",
@@ -4064,6 +4085,6 @@ export const PUBLIC_MODULES: PublicModule[] = [
         ]
       }
     ],
-    "totalExercises": 9
+    "totalExercises": 10
   }
 ];

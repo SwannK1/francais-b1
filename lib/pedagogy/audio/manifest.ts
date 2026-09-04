@@ -191,6 +191,14 @@ const AUDIO_PRODUCTION_META: Record<string, AudioProductionMeta> = {
     pace: "Naturel, un peu rapide (ami à ami), respiration avant « Alors j'ai regardé... ».",
     pronunciationNotes: ["« 8h »/« 9h » → « huit heures »/« neuf heures »"],
   },
+  "bil-f": {
+    speakers: [
+      { role: "Karim", voiceLabel: "Voix A", gender: "H" },
+      { role: "Léa", voiceLabel: "Voix C", gender: "F" },
+    ],
+    intention: "Léa raconte un changement de poste récent à un ami, avec un avis nuancé (moins payé, mais plus motivant) — conversation confiante, pas triomphaliste.",
+    pace: "Naturel, conversationnel, légère hésitation de Léa sur « un peu hésitante au début ».",
+  },
   "blanc1-co-2": {
     speakers: [
       { role: "Thomas", voiceLabel: "Voix A", gender: "H" },

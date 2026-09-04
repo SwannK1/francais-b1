@@ -9380,6 +9380,85 @@ export const MODULES: Module[] = [
         ],
       },
       {
+        id: "bilan-ecoute",
+        type: "ecoute",
+        title: "Compréhension orale",
+        optional: false,
+        activities: [
+          {
+            id: "bilan-ecoute-activite",
+            title: "Écouter Léa raconter un choix professionnel",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "bil-f",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Écoutez le dialogue (Karim et Léa, environ 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/bilan-b1.m4a",
+                transcript:
+                  "Karim — Dis, il paraît que tu as changé de travail récemment, non ?\n" +
+                  "Léa — Oui, ça fait trois mois maintenant. J'étais un peu hésitante au début, mais franchement, je ne regrette pas.\n" +
+                  "Karim — Ah bon ? Pourquoi tu as décidé de partir, en fait ?\n" +
+                  "Léa — Disons que dans l'ancien poste, je n'apprenais plus rien de nouveau. Et puis l'ambiance s'était un peu dégradée, avec le temps.\n" +
+                  "Karim — Et le nouveau, alors, c'est mieux ?\n" +
+                  "Léa — Oui, vraiment. Enfin, le salaire n'a pas changé, c'est même un peu moins au début. Mais j'ai plus de responsabilités, et ça, ça me motive.\n" +
+                  "Karim — Tu referais le même choix, si c'était à refaire ?\n" +
+                  "Léa — Sans hésiter.",
+                questions: [
+                  {
+                    kind: "libre",
+                    id: "bil-f-q1",
+                    prompt: "Depuis combien de temps Léa a-t-elle changé de travail ?",
+                    expectedAnswer: "Trois mois.",
+                    correction: {
+                      correctAnswer: "Trois mois.",
+                      explanation: "« ça fait trois mois maintenant »",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "bil-f-q2",
+                    prompt: "Pourquoi Léa a-t-elle décidé de partir de son ancien poste ?",
+                    choices: [
+                      { id: "a", text: "Elle n'apprenait plus rien et l'ambiance s'était dégradée." },
+                      { id: "b", text: "Le salaire était trop bas." },
+                      { id: "c", text: "Elle a été licenciée." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Elle n'apprenait plus rien et l'ambiance s'était dégradée.",
+                      explanation: "« je n'apprenais plus rien de nouveau. Et puis l'ambiance s'était un peu dégradée ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "bil-f-q3",
+                    prompt: "Vrai ou faux : le salaire de Léa a augmenté dans son nouveau poste.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "« le salaire n'a pas changé, c'est même un peu moins au début ».",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "bil-f-q4",
+                    prompt: "Est-ce que Léa referait le même choix ?",
+                    expectedAnswer: "Oui, sans hésiter.",
+                    correction: {
+                      correctAnswer: "Oui, sans hésiter.",
+                      explanation: "Elle répond directement « Sans hésiter » à la question de Karim.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
         id: "bilan-entrainement",
         type: "entrainement",
         title: "S'entraîner",
