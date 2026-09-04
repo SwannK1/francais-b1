@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { MicrophoneIcon } from "@/components/ui/icons";
 import { buttonClasses } from "@/components/ui/button-styles";
 import { cn } from "@/lib/cn";
-import { notifyAudioPlaying, notifyAudioStopped } from "@/lib/pedagogy/audio-playback";
+import { registerPlayback, clearPlaybackIfCurrent } from "@/lib/pedagogy/audio/playback";
 import type { ProductionOraleExercise } from "@/lib/pedagogy/types";
 
 /**
@@ -276,7 +276,7 @@ export default function SpokenExercise({
       {phase === "recording" ? (
         <div className="space-y-3 rounded-xl border border-red-500/40 bg-red-500/5 p-4" role="status" aria-live="polite">
           <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
-            <span className="h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-red-500" aria-hidden="true" />
+            <span className="h-2.5 w-2.5 shrink-0 motion-safe:animate-pulse rounded-full bg-red-500" aria-hidden="true" />
             Enregistrement en cours — {formatTime(elapsed)}
             {typeof exercise.maxSpeakSeconds === "number"
               ? ` / ${formatTime(exercise.maxSpeakSeconds)} conseillées`
@@ -300,9 +300,9 @@ export default function SpokenExercise({
             controls
             src={audioUrl}
             aria-label="Ton enregistrement"
-            onPlay={(event) => notifyAudioPlaying(event.currentTarget)}
-            onPause={(event) => notifyAudioStopped(event.currentTarget)}
-            onEnded={(event) => notifyAudioStopped(event.currentTarget)}
+            onPlay={(event) => registerPlayback(event.currentTarget)}
+            onPause={(event) => clearPlaybackIfCurrent(event.currentTarget)}
+            onEnded={(event) => clearPlaybackIfCurrent(event.currentTarget)}
             className="w-full"
           >
             Ton navigateur ne prend pas en charge la lecture audio.
@@ -363,9 +363,9 @@ export default function SpokenExercise({
                 controls
                 src={audioUrl}
                 aria-label="Ton enregistrement"
-                onPlay={(event) => notifyAudioPlaying(event.currentTarget)}
-                onPause={(event) => notifyAudioStopped(event.currentTarget)}
-                onEnded={(event) => notifyAudioStopped(event.currentTarget)}
+                onPlay={(event) => registerPlayback(event.currentTarget)}
+                onPause={(event) => clearPlaybackIfCurrent(event.currentTarget)}
+                onEnded={(event) => clearPlaybackIfCurrent(event.currentTarget)}
                 className="w-full"
               >
                 Ton navigateur ne prend pas en charge la lecture audio.

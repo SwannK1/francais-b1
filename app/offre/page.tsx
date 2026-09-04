@@ -26,9 +26,12 @@ export default async function OffrePage() {
 
   return (
     <>
-      <ViewTracker event="premium_offer_viewed" properties={{ isPremium: alreadyPremium }} />
+      <ViewTracker
+        event="premium_offer_viewed"
+        properties={{ isPremium: alreadyPremium, authenticated: Boolean(user) }}
+      />
       <Header />
-      <main>
+      <main id="main-content">
         <Container className="py-16 sm:py-24">
           <Link href="/parcours" className="text-sm font-medium text-primary hover:underline">
             ← Retour au parcours
@@ -96,7 +99,7 @@ export default async function OffrePage() {
                   </Link>
                 </>
               ) : paymentReady ? (
-                <CheckoutButton label={MAIN_PLAN.ctaLabel} className="mt-8 w-full" />
+                <CheckoutButton label={MAIN_PLAN.ctaLabel} className="mt-8 w-full" source="offre_page" />
               ) : (
                 <p className="mt-8 rounded-lg bg-muted p-3 text-sm text-muted-foreground">
                   Le paiement en ligne n&apos;est pas encore activé sur cet environnement. Contacte-nous

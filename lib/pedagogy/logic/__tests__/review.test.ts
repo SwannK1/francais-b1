@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { getReviewItems } from "@/lib/pedagogy/logic/review";
-import { makeModule, makeModuleProgress, makeProgress } from "./fixtures";
+import { makePublicModule, makeModuleProgress, makeProgress } from "./fixtures";
 import type { ExamAttempt } from "@/lib/pedagogy/types";
 
 describe("getReviewItems — ordre et dédoublonnage", () => {
   it("lists a module marked à revoir first", () => {
-    const mod = makeModule({ id: "flagged", slug: "flagged", title: "Module marqué" });
+    const mod = makePublicModule({ id: "flagged", slug: "flagged", title: "Module marqué" });
     const items = getReviewItems(makeProgress({ reviewedModuleIds: [mod.id] }), [mod]);
     expect(items[0]).toMatchObject({ kind: "module_flagged", title: "Module marqué", moduleId: mod.id });
   });
@@ -16,7 +16,7 @@ describe("getReviewItems — ordre et dédoublonnage", () => {
   });
 
   it("lists an in-progress module (started, not finished)", () => {
-    const mod = makeModule({ id: "wip", slug: "wip", title: "Module en cours" });
+    const mod = makePublicModule({ id: "wip", slug: "wip", title: "Module en cours" });
     const progress = makeProgress({
       moduleProgress: [
         makeModuleProgress({
@@ -32,7 +32,7 @@ describe("getReviewItems — ordre et dédoublonnage", () => {
   });
 
   it("never lists the same module twice when it is both flagged and in progress", () => {
-    const mod = makeModule({ id: "both", slug: "both", title: "Module double" });
+    const mod = makePublicModule({ id: "both", slug: "both", title: "Module double" });
     const progress = makeProgress({
       reviewedModuleIds: [mod.id],
       moduleProgress: [
@@ -51,14 +51,14 @@ describe("getReviewItems — ordre et dédoublonnage", () => {
   });
 
   it("does not list a module that has not been started at all", () => {
-    const mod = makeModule({ id: "untouched", slug: "untouched" });
+    const mod = makePublicModule({ id: "untouched", slug: "untouched" });
     const items = getReviewItems(makeProgress(), [mod]);
     expect(items).toEqual([]);
   });
 
   it("sorts in-progress modules with the oldest last activity first (most neglected first)", () => {
-    const stale = makeModule({ id: "stale", slug: "stale", title: "Ancien" });
-    const fresh = makeModule({ id: "fresh", slug: "fresh", title: "Récent" });
+    const stale = makePublicModule({ id: "stale", slug: "stale", title: "Ancien" });
+    const fresh = makePublicModule({ id: "fresh", slug: "fresh", title: "Récent" });
     const progress = makeProgress({
       moduleProgress: [
         makeModuleProgress({ moduleId: fresh.id, completedExerciseIds: ["fresh-ex1"], lastActivityAt: "2026-02-01T00:00:00.000Z" }),

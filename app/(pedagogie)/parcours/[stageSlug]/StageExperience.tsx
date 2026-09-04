@@ -9,15 +9,16 @@ import { getStageCompletionRate } from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { canAccess } from "@/lib/commerce/access";
 import { useAuth } from "@/lib/auth/AuthProvider";
+import ViewTracker from "@/lib/analytics/ViewTracker";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
-import type { Module } from "@/lib/pedagogy/types";
+import type { PublicModule } from "@/lib/pedagogy/types";
 
 export default function StageExperience({
   stage,
   modules,
 }: {
   stage: ParcoursStage;
-  modules: Module[];
+  modules: PublicModule[];
 }) {
   const { progress, toggleReview } = useProgress();
   const { user } = useAuth();
@@ -25,6 +26,7 @@ export default function StageExperience({
 
   return (
     <div className="space-y-6">
+      <ViewTracker event="stage_viewed" properties={{ stageId: stage.id }} />
       <Breadcrumbs items={[{ label: "Parcours", href: "/parcours" }, { label: stage.title }]} />
 
       <header>
@@ -51,7 +53,7 @@ export default function StageExperience({
                 <ModuleCard
                   key={mod.id}
                   module={mod}
-                  completionRate={getModuleCompletionRate(progress, mod)}
+                  completionRate={getModuleCompletionRate(progress, mod.id, mod.totalExercises)}
                   href={`/parcours/module/${mod.slug}`}
                   locked={locked}
                   reviewed={isModuleReviewed(progress, mod.id)}

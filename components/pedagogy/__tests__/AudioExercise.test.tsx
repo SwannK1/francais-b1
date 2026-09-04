@@ -1,9 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import AudioExercise from "@/components/pedagogy/AudioExercise";
+import { trackEvent } from "@/lib/analytics/client";
 import type { ComprehensionOraleExercise } from "@/lib/pedagogy/types";
 
-afterEach(cleanup);
+vi.mock("@/lib/analytics/client", () => ({ trackEvent: vi.fn() }));
+
+afterEach(() => {
+  cleanup();
+  vi.mocked(trackEvent).mockClear();
+});
 
 function makeExercise(overrides: Partial<ComprehensionOraleExercise> = {}): ComprehensionOraleExercise {
   return {
@@ -31,32 +37,46 @@ function makeExercise(overrides: Partial<ComprehensionOraleExercise> = {}): Comp
 }
 
 describe("AudioExercise", () => {
-  it("renders a playable audio element pointing at the exercise's audioSrc", () => {
+  it("renders a playable audio element, trying the human recording path first (synthetic fallback)", () => {
     const { container } = render(<AudioExercise exercise={makeExercise()} />);
     const audio = container.querySelector("audio");
     expect(audio).not.toBeNull();
-    expect(audio).toHaveAttribute("src", "/audio/b1/test.m4a");
+    expect(audio).toHaveAttribute("src", "/audio/b1/human/test.m4a");
   });
 
-  it("shows a clean error state with a retry action when the audio fails to load", () => {
+  it("falls back to the synthetic track when the human recording fails to load", () => {
     const { container } = render(<AudioExercise exercise={makeExercise()} />);
-    const audio = container.querySelector("audio")!;
+    fireEvent.error(container.querySelector("audio")!);
 
-    fireEvent.error(audio);
+    expect(container.querySelector("audio")).toHaveAttribute("src", "/audio/b1/test.m4a");
+  });
+
+  it("shows a clean error state with a retry action when both the human and synthetic sources fail", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    fireEvent.error(container.querySelector("audio")!); // human -> synthetic
+    fireEvent.error(container.querySelector("audio")!); // synthetic -> error
 
     expect(screen.getByText(/audio non disponible/i)).toBeInTheDocument();
     expect(container.querySelector("audio")).toBeNull();
     expect(screen.getByRole("button", { name: /réessayer/i })).toBeInTheDocument();
   });
 
-  it("lets the learner retry after an error, restoring a fresh audio element", () => {
+  it("lets the learner retry after an error, restoring a fresh audio element from the start of the cycle", () => {
     const { container } = render(<AudioExercise exercise={makeExercise()} />);
     fireEvent.error(container.querySelector("audio")!);
+    fireEvent.error(container.querySelector("audio")!);
+
+    // jsdom's HTMLMediaElement.play() isn't implemented (unlike a real
+    // browser, it doesn't even return a Promise) — retry() re-arms
+    // `wantsPlayRef`, which the component uses to resume playback on the
+    // freshly (re)mounted <audio> element once it leaves the error state.
+    // Stubbed on the prototype since that element doesn't exist yet here.
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
 
     fireEvent.click(screen.getByRole("button", { name: /réessayer/i }));
 
     expect(screen.queryByText(/audio non disponible/i)).not.toBeInTheDocument();
-    expect(container.querySelector("audio")).not.toBeNull();
+    expect(container.querySelector("audio")).toHaveAttribute("src", "/audio/b1/human/test.m4a");
   });
 
   it("offers a way to jump back to the start of the track", () => {
@@ -103,5 +123,62 @@ describe("AudioExercise", () => {
 
     fireEvent.play(second);
     expect(pauseFirst).toHaveBeenCalledTimes(1);
+  });
+
+  it("tracks a single audio_play_started per attempt, even across a pause/resume", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    const audio = container.querySelector("audio")!;
+
+    fireEvent.play(audio);
+    fireEvent.pause(audio);
+    fireEvent.play(audio); // resuming the same attempt — not a new "start"
+
+    const playStartedCalls = vi
+      .mocked(trackEvent)
+      .mock.calls.filter(([name]) => name === "audio_play_started");
+    expect(playStartedCalls).toHaveLength(1);
+    expect(playStartedCalls[0][1]).toEqual({ exerciseId: "ex-1" });
+  });
+
+  it("tracks audio_completed when the track ends naturally", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    fireEvent.ended(container.querySelector("audio")!);
+
+    expect(trackEvent).toHaveBeenCalledWith("audio_completed", { exerciseId: "ex-1" });
+  });
+
+  it("never tracks audio_error on the invisible human -> synthetic fallback (no error reached the learner)", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    fireEvent.error(container.querySelector("audio")!); // human -> synthetic, silent
+
+    expect(trackEvent).not.toHaveBeenCalledWith("audio_error", expect.anything());
+  });
+
+  it("tracks audio_error only once both sources are exhausted, and audio_retry on retry", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    fireEvent.error(container.querySelector("audio")!); // human -> synthetic
+    fireEvent.error(container.querySelector("audio")!); // synthetic -> error (terminal)
+
+    expect(trackEvent).toHaveBeenCalledWith("audio_error", {
+      exerciseId: "ex-1",
+      reason: "native_media_error",
+    });
+    expect(trackEvent).toHaveBeenCalledTimes(1);
+
+    fireEvent.click(screen.getByRole("button", { name: /réessayer/i }));
+    expect(trackEvent).toHaveBeenCalledWith("audio_retry", { exerciseId: "ex-1" });
+  });
+
+  it("can track a fresh audio_play_started after a retry (the guard resets per attempt)", () => {
+    const { container } = render(<AudioExercise exercise={makeExercise()} />);
+    fireEvent.error(container.querySelector("audio")!);
+    fireEvent.error(container.querySelector("audio")!);
+    HTMLMediaElement.prototype.play = vi.fn().mockResolvedValue(undefined);
+    fireEvent.click(screen.getByRole("button", { name: /réessayer/i }));
+    vi.mocked(trackEvent).mockClear();
+
+    fireEvent.play(container.querySelector("audio")!);
+
+    expect(trackEvent).toHaveBeenCalledWith("audio_play_started", { exerciseId: "ex-1" });
   });
 });

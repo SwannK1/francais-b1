@@ -1,3 +1,3 @@
 import { register } from "node:module";
 
-register("./alias-loader.mjs", import.meta.url);
+register("./ts-alias-loader.mjs", import.meta.url);

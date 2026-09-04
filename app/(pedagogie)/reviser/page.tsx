@@ -6,7 +6,7 @@ import Badge from "@/components/ui/Badge";
 import { buttonClasses } from "@/components/ui/button-styles";
 import { ArrowRightIcon, FlagIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
-import { MODULES } from "@/lib/pedagogy/data/modules";
+import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import { getReviewItems, type ReviewItem, type ReviewItemKind } from "@/lib/pedagogy/logic/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 
@@ -70,7 +70,7 @@ function ReviewItemCard({
 
 export default function ReviserPage() {
   const { progress, toggleReview } = useProgress();
-  const items = getReviewItems(progress, MODULES);
+  const items = getReviewItems(progress, PUBLIC_MODULES);
 
   return (
     <div className="space-y-8">

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
-import { makeModule, makeModuleProgress, makeProgress } from "./fixtures";
+import { makePublicModule, makeModuleProgress, makeProgress } from "./fixtures";
 
 describe("getNextModule — reprise", () => {
   it("returns null when there is nothing to resume or start (clean fallback, no crash)", () => {
@@ -9,8 +9,8 @@ describe("getNextModule — reprise", () => {
   });
 
   it("prioritizes the most recently active in-progress module (literal resume)", () => {
-    const older = makeModule({ id: "older", slug: "older" });
-    const newer = makeModule({ id: "newer", slug: "newer" });
+    const older = makePublicModule({ id: "older", slug: "older" });
+    const newer = makePublicModule({ id: "newer", slug: "newer" });
     const progress = makeProgress({
       moduleProgress: [
         makeModuleProgress({ moduleId: older.id, completed: false, lastActivityAt: "2026-01-01T00:00:00.000Z" }),
@@ -24,16 +24,16 @@ describe("getNextModule — reprise", () => {
   });
 
   it("falls back to the first not-yet-completed module when nothing is in progress", () => {
-    const first = makeModule({ id: "first", slug: "first" });
-    const second = makeModule({ id: "second", slug: "second" });
+    const first = makePublicModule({ id: "first", slug: "first" });
+    const second = makePublicModule({ id: "second", slug: "second" });
     const target = getNextModule(makeProgress(), [first, second]);
     expect(target?.module.id).toBe("first");
     expect(target?.isResuming).toBe(false);
   });
 
   it("never returns a completed module even when it is the most recently active", () => {
-    const done = makeModule({ id: "done", slug: "done" });
-    const next = makeModule({ id: "next", slug: "next" });
+    const done = makePublicModule({ id: "done", slug: "done" });
+    const next = makePublicModule({ id: "next", slug: "next" });
     const progress = makeProgress({
       moduleProgress: [
         makeModuleProgress({ moduleId: done.id, completed: true, lastActivityAt: "2026-02-01T00:00:00.000Z" }),
@@ -44,8 +44,8 @@ describe("getNextModule — reprise", () => {
   });
 
   it("never proposes a locked module: skips a locked in-progress module for the next accessible one", () => {
-    const lockedInProgress = makeModule({ id: "locked", slug: "locked" });
-    const accessible = makeModule({ id: "accessible", slug: "accessible" });
+    const lockedInProgress = makePublicModule({ id: "locked", slug: "locked" });
+    const accessible = makePublicModule({ id: "accessible", slug: "accessible" });
     const progress = makeProgress({
       moduleProgress: [
         makeModuleProgress({ moduleId: lockedInProgress.id, completed: false, lastActivityAt: "2026-01-01T00:00:00.000Z" }),
@@ -60,8 +60,8 @@ describe("getNextModule — reprise", () => {
   });
 
   it("never proposes a locked module in the fallback (first-incomplete) path either", () => {
-    const lockedFirst = makeModule({ id: "locked-first", slug: "locked-first" });
-    const accessibleSecond = makeModule({ id: "accessible-second", slug: "accessible-second" });
+    const lockedFirst = makePublicModule({ id: "locked-first", slug: "locked-first" });
+    const accessibleSecond = makePublicModule({ id: "accessible-second", slug: "accessible-second" });
     const target = getNextModule(makeProgress(), [lockedFirst, accessibleSecond], {
       isAccessible: (mod) => mod.id !== "locked-first",
     });
@@ -69,7 +69,7 @@ describe("getNextModule — reprise", () => {
   });
 
   it("returns null (clean fallback) rather than a locked module when nothing accessible remains", () => {
-    const locked = makeModule({ id: "locked-only", slug: "locked-only" });
+    const locked = makePublicModule({ id: "locked-only", slug: "locked-only" });
     const target = getNextModule(makeProgress(), [locked], { isAccessible: () => false });
     expect(target).toBeNull();
   });

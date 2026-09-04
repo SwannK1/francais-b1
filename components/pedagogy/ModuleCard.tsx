@@ -7,7 +7,7 @@ import { buttonClasses } from "@/components/ui/button-styles";
 import { cn } from "@/lib/cn";
 import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import { statusFromCompletionRate, type ModuleStatus } from "@/lib/pedagogy/logic/progress";
-import type { Module } from "@/lib/pedagogy/types";
+import type { PublicModule } from "@/lib/pedagogy/types";
 
 const STATUS_LABELS: Record<ModuleStatus, string> = {
   a_commencer: "À commencer",
@@ -24,7 +24,7 @@ export default function ModuleCard({
   reviewed = false,
   onToggleReview,
 }: {
-  module: Module;
+  module: PublicModule;
   /** Position du module dans le parcours (1, 2, 3...), affichée si fournie. */
   number?: number;
   completionRate?: number;

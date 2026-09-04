@@ -46,6 +46,9 @@ export default function TestNiveauClient() {
       trackEvent("placement_completed", { placementLevel: result.estimatedLevel });
       setFinished(true);
     } else {
+      // Position dans le test (pas la réponse elle-même) : suffit à repérer à
+      // quelle question les visiteurs décrochent le plus souvent.
+      trackEvent("placement_question_answered", { questionIndex: step });
       setStep((s) => s + 1);
     }
   }

@@ -6,7 +6,6 @@ import StageCard from "@/components/pedagogy/StageCard";
 import DailySessionCard from "@/components/pedagogy/DailySessionCard";
 import ResumeCard from "@/components/pedagogy/ResumeCard";
 import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
-import { MODULES } from "@/lib/pedagogy/data/modules";
 import { getLearningGoalById } from "@/lib/pedagogy/data/goals";
 import { computeDailySession, getNextModule } from "@/lib/pedagogy/logic/recommendation";
 import { getStageCompletionRate, getStageStatus } from "@/lib/pedagogy/logic/parcours";
@@ -15,7 +14,9 @@ import { getReviewItems } from "@/lib/pedagogy/logic/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
+import ViewTracker from "@/lib/analytics/ViewTracker";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
+import type { PublicModule } from "@/lib/pedagogy/types";
 
 function stageHref(stage: ParcoursStage): string {
   switch (stage.kind) {
@@ -30,13 +31,18 @@ function stageHref(stage: ParcoursStage): string {
   }
 }
 
-export default function ParcoursClient() {
+/**
+ * Reçoit `publicModules` (métadonnées de navigation, jamais le contenu
+ * détaillé des exercices) depuis le Server Component `page.tsx` — voir
+ * `docs/architecture/user-lifecycle.md` § Premium content boundary.
+ */
+export default function ParcoursExperience({ publicModules }: { publicModules: PublicModule[] }) {
   const { progress } = useProgress();
   const { user } = useAuth();
   const stages = [...PARCOURS_STAGES].sort((a, b) => a.order - b.order);
   const goal = progress.goalId ? getLearningGoalById(progress.goalId) : undefined;
 
-  const isAccessible = (mod: (typeof MODULES)[number]) =>
+  const isAccessible = (mod: PublicModule) =>
     canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
 
   // `resumeTarget` : jamais un module verrouillé, `getNextModule` les
@@ -44,11 +50,13 @@ export default function ParcoursClient() {
   // qu'un module existe encore objectivement (`rawTarget`), c'est que tout
   // ce qu'il reste est verrouillé — un cas distinct de "plus rien à faire"
   // (fallback propre : deux messages différents, jamais un lien mort).
-  const resumeTarget = getNextModule(progress, MODULES, { isAccessible });
-  const rawTarget = resumeTarget ? null : getNextModule(progress, MODULES);
+  const resumeTarget = getNextModule(progress, publicModules, { isAccessible });
+  const rawTarget = resumeTarget ? null : getNextModule(progress, publicModules);
 
-  const dailySession = computeDailySession(progress, MODULES);
-  const dailySessionModule = dailySession ? MODULES.find((m) => m.id === dailySession.moduleId) : undefined;
+  const dailySession = computeDailySession(progress, publicModules);
+  const dailySessionModule = dailySession
+    ? publicModules.find((m) => m.id === dailySession.moduleId)
+    : undefined;
   const dailySessionLocked = dailySessionModule ? !isAccessible(dailySessionModule) : false;
   // Éviter d'afficher deux cartes redondantes ("Reprendre" et "Séance du
   // jour") pointant vers le même module : la séance du jour n'apporte alors
@@ -56,10 +64,11 @@ export default function ParcoursClient() {
   const showDailySession =
     dailySession && dailySessionModule && dailySessionModule.id !== resumeTarget?.module.id;
 
-  const reviewItemsCount = getReviewItems(progress, MODULES).length;
+  const reviewItemsCount = getReviewItems(progress, publicModules).length;
 
   return (
     <div>
+      <ViewTracker event="journey_viewed" />
       <header>
         <LevelBadge level={progress.level} />
         <h1 className="mt-3 text-2xl font-bold text-foreground sm:text-3xl">Ton parcours B1</h1>
@@ -89,7 +98,7 @@ export default function ParcoursClient() {
           </h2>
           <ResumeCard
             target={resumeTarget}
-            completionRate={getModuleCompletionRate(progress, resumeTarget.module)}
+            completionRate={getModuleCompletionRate(progress, resumeTarget.module.id, resumeTarget.module.totalExercises)}
             href={`/parcours/module/${resumeTarget.module.slug}`}
           />
         </section>
@@ -100,7 +109,7 @@ export default function ParcoursClient() {
           </h2>
           <ResumeCard
             target={rawTarget}
-            completionRate={getModuleCompletionRate(progress, rawTarget.module)}
+            completionRate={getModuleCompletionRate(progress, rawTarget.module.id, rawTarget.module.totalExercises)}
             href="/offre"
             locked
           />
@@ -126,8 +135,8 @@ export default function ParcoursClient() {
         </h2>
         <div className="space-y-4">
           {stages.map((stage) => {
-            const status = getStageStatus(stage, progress, MODULES);
-            const completionRate = getStageCompletionRate(stage, progress, MODULES);
+            const status = getStageStatus(stage, progress, publicModules);
+            const completionRate = getStageCompletionRate(stage, progress, publicModules);
             return (
               <StageCard
                 key={stage.id}

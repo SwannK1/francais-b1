@@ -196,7 +196,7 @@ export default function QuizQuestion({
         disabled={submitted}
         onChange={(event) => setLibreValue(event.target.value)}
         rows={2}
-        className="mt-3 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm disabled:opacity-70"
+        className="mt-3 w-full rounded-lg border border-input-border bg-background px-3 py-2 text-sm disabled:opacity-70"
         placeholder="Ta réponse..."
       />
       {!submitted ? (

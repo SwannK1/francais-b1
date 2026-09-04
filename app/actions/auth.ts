@@ -8,6 +8,7 @@ import { createPasswordResetToken, consumePasswordResetToken } from "@/lib/auth/
 import { sendPasswordResetEmail } from "@/lib/auth/mailer";
 import { hashPassword } from "@/lib/auth/password";
 import { trackServerEvent } from "@/lib/analytics/server";
+import { logServerError } from "@/lib/observability/log";
 
 export interface AuthFormState {
   error?: string;
@@ -70,6 +71,10 @@ export async function signup(_prevState: AuthFormState, formData: FormData): Pro
     if (error instanceof Error && error.message === "EMAIL_TAKEN") {
       return { error: "Un compte existe déjà avec cet email." };
     }
+    // "Email déjà pris" est un résultat métier normal, pas une panne — tout
+    // le reste (DB inaccessible...) doit rester visible côté serveur, sinon
+    // une vraie panne d'infra ne laisserait aucune trace.
+    logServerError("auth.signup", error);
     return { error: "Impossible de créer le compte pour le moment." };
   }
 }
@@ -79,12 +84,14 @@ export async function login(_prevState: AuthFormState, formData: FormData): Prom
   if ("error" in validated) return { error: "Email ou mot de passe incorrect." };
 
   if (await isLoginThrottled(validated.email)) {
+    void trackServerEvent("login_failed", { reason: "rate_limited" });
     return { error: "Trop de tentatives. Réessayez dans quelques minutes." };
   }
 
   const user = await verifyCredentials(validated.email, validated.password);
   if (!user) {
     await recordFailedLoginAttempt(validated.email);
+    void trackServerEvent("login_failed", { reason: "invalid_credentials" });
     return { error: "Email ou mot de passe incorrect." };
   }
 

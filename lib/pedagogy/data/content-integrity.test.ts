@@ -1,5 +1,3 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   DOMAIN_LABELS,
@@ -10,6 +8,8 @@ import {
   PLACEMENT_QUESTIONS,
   SKILLS,
 } from "@/lib/pedagogy/data";
+import { AUDIO_TRACKS } from "@/lib/pedagogy/audio/manifest";
+import { existsUnderPublic } from "@/lib/pedagogy/audio/status";
 import type { Exercise, ExamSection, Question } from "@/lib/pedagogy/types";
 
 /**
@@ -29,7 +29,6 @@ function duplicates(values: string[]): string[] {
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const skillDomainById = new Map(SKILLS.map((s) => [s.id, s.domain]));
-const publicDir = path.resolve(__dirname, "../../../public");
 
 /** Toutes les questions QCM/vrai-faux/libres, quel que soit l'exercice qui les contient. */
 function questionsOf(exercise: Exercise): Question[] {
@@ -116,8 +115,11 @@ function checkExercise(ex: Exercise, ctx: string): string[] {
       break;
     case "comprehension_orale":
       if (!ex.audioSrc.trim()) issues.push(`${label}: audioSrc vide`);
-      else if (ex.audioSrc.startsWith("/") && !existsSync(path.join(publicDir, ex.audioSrc))) {
+      else if (ex.audioSrc.startsWith("/") && !existsUnderPublic(ex.audioSrc)) {
         issues.push(`${label}: audioSrc "${ex.audioSrc}" introuvable dans public/`);
+      }
+      if (!ex.transcript || !ex.transcript.trim()) {
+        issues.push(`${label}: transcript manquant (obligatoire pour une compréhension orale — voir pack d'enregistrement)`);
       }
       if (ex.questions.length === 0) issues.push(`${label}: questions vide`);
       break;
@@ -137,6 +139,9 @@ function checkExercise(ex: Exercise, ctx: string): string[] {
     case "production_orale":
       if (!ex.consigne.trim()) issues.push(`${label}: consigne vide`);
       if (!(ex.prepSeconds >= 0)) issues.push(`${label}: prepSeconds invalide`);
+      if (ex.maxSpeakSeconds != null && !(ex.maxSpeakSeconds > 0)) {
+        issues.push(`${label}: maxSpeakSeconds invalide (${ex.maxSpeakSeconds})`);
+      }
       if (ex.selfAssessmentCriteria.length === 0) issues.push(`${label}: selfAssessmentCriteria vide`);
       break;
   }
@@ -286,7 +291,7 @@ describe("Modules", () => {
         for (const a of l.activities) {
           for (const ex of a.exercises) {
             if (ex.type === "comprehension_orale" && ex.audioSrc.startsWith("/")) {
-              if (!existsSync(path.join(publicDir, ex.audioSrc))) {
+              if (!existsUnderPublic(ex.audioSrc)) {
                 issues.push(`${m.slug} > ${ex.id}: ${ex.audioSrc} introuvable`);
               }
             }
@@ -346,5 +351,68 @@ describe("Domain labels", () => {
     const domainsUsed = new Set(SKILLS.map((s) => s.domain));
     const labelled = new Set(Object.keys(DOMAIN_LABELS));
     for (const d of domainsUsed) expect(labelled.has(d)).toBe(true);
+  });
+});
+
+/**
+ * Pipeline audio humain — voir `docs/b1/audio-human-recording-plan.md`.
+ * Le manifest (`lib/pedagogy/audio/manifest.ts`) est dérivé des exercices
+ * `comprehension_orale` de MODULES/EXAMS : ces tests vérifient que rien n'y
+ * échappe silencieusement (piste sans métadonnées de production, chemin
+ * humain mal formé) et que le fichier synthétique actuel — le filet tant
+ * qu'aucun humain n'est livré — reste bien présent.
+ */
+describe("Pipeline audio humain", () => {
+  it("a une piste de manifest pour chaque exercice comprehension_orale, sans doublon ni orphelin", () => {
+    const realIds: string[] = [];
+    for (const m of MODULES) {
+      for (const l of m.lessons) {
+        for (const a of l.activities) {
+          for (const ex of a.exercises) if (ex.type === "comprehension_orale") realIds.push(ex.id);
+        }
+      }
+    }
+    for (const e of EXAMS) {
+      for (const section of e.sections) {
+        for (const ex of section.exercises) if (ex.type === "comprehension_orale") realIds.push(ex.id);
+      }
+    }
+
+    expect(duplicates(realIds)).toEqual([]);
+    expect(duplicates(AUDIO_TRACKS.map((t) => t.id))).toEqual([]);
+    expect(new Set(AUDIO_TRACKS.map((t) => t.id))).toEqual(new Set(realIds));
+  });
+
+  it("a un chemin humain conventionnel valide et distinct du chemin synthétique", () => {
+    const issues: string[] = [];
+    for (const t of AUDIO_TRACKS) {
+      if (t.humanSrc === t.syntheticSrc) issues.push(`${t.id}: humanSrc identique à syntheticSrc`);
+      const expectedSuffix = t.syntheticSrc.split("/").pop();
+      if (!t.humanSrc.includes("/human/") || !t.humanSrc.endsWith(`/human/${expectedSuffix}`)) {
+        issues.push(`${t.id}: humanSrc "${t.humanSrc}" ne suit pas la convention <dossier>/human/<même nom de fichier>`);
+      }
+    }
+    expect(issues).toEqual([]);
+  });
+
+  it("a un transcript, au moins un locuteur documenté et une locale pour chaque piste", () => {
+    const issues: string[] = [];
+    for (const t of AUDIO_TRACKS) {
+      if (!t.transcript.trim()) issues.push(`${t.id}: transcript vide`);
+      if (t.production.speakers.length === 0) {
+        issues.push(`${t.id}: aucun locuteur documenté dans AUDIO_PRODUCTION_META (manifest.ts) — plan d'enregistrement incomplet`);
+      }
+      if (!t.locale) issues.push(`${t.id}: locale manquante`);
+    }
+    expect(issues).toEqual([]);
+  });
+
+  it("n'a pas deux pistes différentes qui réutilisent le même fichier synthétique", () => {
+    expect(duplicates(AUDIO_TRACKS.map((t) => t.syntheticSrc))).toEqual([]);
+  });
+
+  it("a un fichier synthétique réellement présent sur disque pour chaque piste (filet de secours actif)", () => {
+    const missing = AUDIO_TRACKS.filter((t) => !existsUnderPublic(t.syntheticSrc)).map((t) => t.id);
+    expect(missing).toEqual([]);
   });
 });

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JsonLd, breadcrumbSchema } from "@/lib/seo/schema";
-import ParcoursClient from "./ParcoursClient";
+import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
+import ParcoursExperience from "./ParcoursExperience";
 
 export const metadata: Metadata = {
   title: "Ton parcours B1",
@@ -13,7 +14,7 @@ export default function ParcoursPage() {
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Parcours", path: "/parcours" }])} />
-      <ParcoursClient />
+      <ParcoursExperience publicModules={PUBLIC_MODULES} />
     </>
   );
 }

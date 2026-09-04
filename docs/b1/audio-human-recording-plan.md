@@ -1,8 +1,8 @@
 # Pack d'enregistrement humain — Audio B1 / DELF
 
-**Statut à la création de ce document :** aucun fichier audio n'a été remplacé. Les 18 pistes utilisées par l'application sont encore 100 % synthétiques (voix système macOS `Thomas`/`Amélie`, générées lors des chantiers DELF précédents). Ce document est le dossier de production complet permettant de passer à un enregistrement humain réel — maison, multi-locuteurs, ou confié à des comédien·nes externes — sans ambiguïté d'intégration.
+**Statut :** les 18 pistes utilisées par l'application sont encore 100 % synthétiques (voix système macOS `Thomas`/`Amélie`, générées lors des chantiers DELF précédents) — **aucun fichier humain n'existe à ce jour**. Ce qui a changé depuis la première version de ce document : le site est maintenant **techniquement prêt** à recevoir des enregistrements humains sans y toucher davantage — voir §8 (convention de nommage) et §11 (procédure d'intégration), toutes deux réécrites pour un remplacement par **ajout** (fichier humain déposé à côté du synthétique, jamais un écrasement) plutôt que par remplacement à chemin identique.
 
-Aucune piste n'a été remplacée par ce document. Aucune nouvelle voix synthétique n'a été générée.
+Aucune piste n'a été remplacée par ce document. Aucune nouvelle voix synthétique n'a été générée. Aucun fichier humain n'a été simulé ou fabriqué : le pipeline ci-dessous a été testé avec des fixtures de test temporaires (hors du dépôt), jamais avec un faux fichier déposé dans `public/`.
 
 ---
 
@@ -12,7 +12,8 @@ Aucune piste n'a été remplacée par ce document. Aucune nouvelle voix synthét
 - **0** référence cassée, **0** fichier orphelin, **0** incohérence script/questions détectée (vérifié à nouveau pour ce document).
 - **3 voix humaines** suffisent à couvrir l'ensemble de façon crédible (voir §5).
 - Aucune correction de script n'est nécessaire (voir §3) : les textes existants sont déjà corrects et adaptés au niveau B1.
-- Convention proposée : remplacement **à chemin identique**, aucune modification de code requise (voir §8).
+- **Le site sait déjà résoudre un fichier humain automatiquement** : chaque piste a un chemin humain conventionnel (§8), et le lecteur (`AudioExercise.tsx`) essaie ce chemin en premier, retombe sur le fichier synthétique actuel s'il est absent, et affiche un état d'erreur propre (avec un bouton « Réessayer ») si aucun des deux ne charge — jamais un lecteur figé. Déposer un fichier au bon endroit suffit, **aucune modification de code n'est nécessaire** (voir §8-9, et §11 pour la procédure).
+- Un manifest typé (`lib/pedagogy/audio/manifest.ts`) centralise, pour chaque piste : id, source synthétique, source humaine, transcript, locuteurs, locale — vérifié automatiquement par `npm test` (voir §12) et consultable via `npm run audio:status`.
 
 ---
 
@@ -80,6 +81,7 @@ Convention commune à toutes les fiches :
 - **Débit** : « naturel B1 » signifie un débit conversationnel réel, clair mais pas ralenti artificiellement — sauf mention contraire, aucune diction lente n'est demandée.
 - **Pauses** : une courte respiration (~0,3-0,5 s) à chaque changement de locuteur suffit ; ne pas marquer de pause pédagogique artificielle à l'intérieur d'une réplique.
 - **Silence final** : laisser ~1 s de silence propre après la dernière réplique avant de couper l'enregistrement (marge de sécurité au montage).
+- **Nom du fichier attendu** : le titre de chaque fiche ci-dessous (ex. `donner-son-opinion.m4a`) est le nom de fichier à livrer — mais dans le dossier `human/` du même répertoire, pas à la racine (voir la table complète en §8, colonne « Fichier humain attendu »). Aucun autre renommage.
 
 ### Piste 1 — `donner-son-opinion.m4a`
 **Usage** : Module *Donner son opinion*, compréhension orale · **Priorité P1**
@@ -397,30 +399,32 @@ Conversion WAV → m4a réalisable simplement avec `afconvert` (déjà présent 
 
 ## 8. Convention de nommage
 
-**Remplacement à chemin identique pour les 18 pistes — aucune modification de code nécessaire.**
+**Un fichier humain vit à côté du fichier synthétique qu'il remplace, dans un sous-dossier `human/` — même nom de fichier, dossier frère.** Implémentée par `toHumanAudioPath()` (`lib/pedagogy/audio/paths.ts`) et déjà branchée dans le lecteur : dès qu'un fichier apparaît au bon chemin, il est utilisé automatiquement, **sans toucher au code ni au fichier synthétique existant** (conservé comme filet, voir §9/§12).
 
-| # | Fichier actuel | Fichier humain final | Remplacement direct |
-|---|---|---|---|
-| 1 | `public/audio/b1/donner-son-opinion.m4a` | *(identique)* | **Oui** |
-| 2 | `public/audio/b1/raconter-un-evenement-passe.m4a` | *(identique)* | **Oui** |
-| 3 | `public/audio/b1/expliquer-un-probleme-et-demander-une-solution.m4a` | *(identique)* | **Oui** |
-| 4 | `public/audio/b1/parler-de-son-travail-et-projets.m4a` | *(identique)* | **Oui** |
-| 5 | `public/audio/b1/comprendre-une-demarche-administrative.m4a` | *(identique)* | **Oui** |
-| 6 | `public/audio/b1/decrire-vie-quotidienne.m4a` | *(identique)* | **Oui** |
-| 7 | `public/audio/b1/prendre-rendez-vous.m4a` | *(identique)* | **Oui** |
-| 8 | `public/audio/b1/comprendre-un-courrier-simple.m4a` | *(identique)* | **Oui** |
-| 9 | `public/audio/b1/utiliser-les-transports.m4a` | *(identique)* | **Oui** |
-| 10 | `public/audio/b1/discuter-avec-un-proprietaire.m4a` | *(identique)* | **Oui** |
-| 11 | `public/audio/b1/parler-de-ses-projets.m4a` | *(identique)* | **Oui** |
-| 12 | `public/audio/b1/aller-chez-le-medecin.m4a` | *(identique)* | **Oui** |
-| 13 | `public/audio/b1/parler-ecole-enfant.m4a` | *(identique)* | **Oui** |
-| 14 | `public/audio/b1/hypothese-et-conseil.m4a` | *(identique)* | **Oui** |
-| 15 | `public/audio/b1/rapporter-les-paroles.m4a` | *(identique)* | **Oui** |
-| 16 | `public/audio/demo/exam-b1-annonce.m4a` | *(identique)* | **Oui** |
-| 17 | `public/audio/examens/blanc-1/co-message-camping.m4a` | *(identique)* | **Oui** |
-| 18 | `public/audio/examens/blanc-1/co-dialogue-salon-lyon.m4a` | *(identique)* | **Oui** |
+*Pourquoi ce choix plutôt qu'un remplacement à chemin identique ou une convention `b1-mXX-sYY-...` :* les chemins actuels sont déjà sémantiques et stables (aucune raison de les renommer — voir la consigne du chantier), et un remplacement en place empêcherait de garder le synthétique comme filet pendant la transition. Ajouter `human/` avant le nom de fichier est la plus petite convention possible compatible avec ces deux contraintes.
 
-Les chemins actuels sont déjà sémantiques, stables et sans collision — aucune raison de les renommer. Livrer les fichiers humains sous exactement ces noms permet un remplacement binaire pur, sans toucher à `lib/pedagogy/data/modules.ts` ni `lib/pedagogy/data/exams.ts`.
+| # | Fichier synthétique (conservé, filet) | Fichier humain attendu |
+|---|---|---|
+| 1 | `public/audio/b1/donner-son-opinion.m4a` | `public/audio/b1/human/donner-son-opinion.m4a` |
+| 2 | `public/audio/b1/raconter-un-evenement-passe.m4a` | `public/audio/b1/human/raconter-un-evenement-passe.m4a` |
+| 3 | `public/audio/b1/expliquer-un-probleme-et-demander-une-solution.m4a` | `public/audio/b1/human/expliquer-un-probleme-et-demander-une-solution.m4a` |
+| 4 | `public/audio/b1/parler-de-son-travail-et-projets.m4a` | `public/audio/b1/human/parler-de-son-travail-et-projets.m4a` |
+| 5 | `public/audio/b1/comprendre-une-demarche-administrative.m4a` | `public/audio/b1/human/comprendre-une-demarche-administrative.m4a` |
+| 6 | `public/audio/b1/decrire-vie-quotidienne.m4a` | `public/audio/b1/human/decrire-vie-quotidienne.m4a` |
+| 7 | `public/audio/b1/prendre-rendez-vous.m4a` | `public/audio/b1/human/prendre-rendez-vous.m4a` |
+| 8 | `public/audio/b1/comprendre-un-courrier-simple.m4a` | `public/audio/b1/human/comprendre-un-courrier-simple.m4a` |
+| 9 | `public/audio/b1/utiliser-les-transports.m4a` | `public/audio/b1/human/utiliser-les-transports.m4a` |
+| 10 | `public/audio/b1/discuter-avec-un-proprietaire.m4a` | `public/audio/b1/human/discuter-avec-un-proprietaire.m4a` |
+| 11 | `public/audio/b1/parler-de-ses-projets.m4a` | `public/audio/b1/human/parler-de-ses-projets.m4a` |
+| 12 | `public/audio/b1/aller-chez-le-medecin.m4a` | `public/audio/b1/human/aller-chez-le-medecin.m4a` |
+| 13 | `public/audio/b1/parler-ecole-enfant.m4a` | `public/audio/b1/human/parler-ecole-enfant.m4a` |
+| 14 | `public/audio/b1/hypothese-et-conseil.m4a` | `public/audio/b1/human/hypothese-et-conseil.m4a` |
+| 15 | `public/audio/b1/rapporter-les-paroles.m4a` | `public/audio/b1/human/rapporter-les-paroles.m4a` |
+| 16 | `public/audio/demo/exam-b1-annonce.m4a` | `public/audio/demo/human/exam-b1-annonce.m4a` |
+| 17 | `public/audio/examens/blanc-1/co-message-camping.m4a` | `public/audio/examens/blanc-1/human/co-message-camping.m4a` |
+| 18 | `public/audio/examens/blanc-1/co-dialogue-salon-lyon.m4a` | `public/audio/examens/blanc-1/human/co-dialogue-salon-lyon.m4a` |
+
+Format attendu : `.m4a` (AAC), identique au format déjà servi par Next.js aujourd'hui — voir §7 pour la conversion. Cette table est aussi la « fiche filename » demandée en fin de chaque fiche §4.
 
 ---
 
@@ -490,18 +494,52 @@ Idéalement, enregistrer B et C **le même jour** pour caler le contraste de tim
 
 ## 11. Procédure d'intégration future
 
-À exécuter **uniquement quand les 18 fichiers humains existent réellement** :
+Le pipeline (manifest, résolution humain → synthétique → erreur, tests, script d'état) est déjà en place — voir §12. Cette procédure ne fait que déposer des fichiers et vérifier qu'ils sont pris en compte ; **aucune modification de code n'est nécessaire**, ni pour une seule piste, ni pour les 18.
 
-1. **Sauvegarder** les fichiers reçus dans un dossier hors du dépôt (ex. `~/audio-b1-masters/`), jamais directement écrasés sans copie de sécurité.
+À exécuter **au fur et à mesure que des fichiers humains deviennent disponibles** (piste par piste, ou toutes en même temps — les deux fonctionnent) :
+
+1. **Sauvegarder** les fichiers reçus dans un dossier hors du dépôt (ex. `~/audio-b1-masters/`), jamais directement déposés sans copie de sécurité.
 2. **Vérifier le format** de chaque fichier reçu (`afinfo <fichier>` : codec, canaux, fréquence, durée) contre les specs du §7.
 3. **Convertir si nécessaire** vers `.m4a` AAC mono 44,1 kHz (`afconvert -f mp4f -d aac ...`).
-4. **Remplacer** chaque fichier existant par le fichier humain, **au chemin identique** listé en §8 (jamais de renommage).
-5. **Conserver les chemins** — ne toucher à aucune ligne de `modules.ts` / `exams.ts` (les `audioSrc` ne changent pas).
-6. **Contrôler `git diff --stat`** : seuls les 18 fichiers `public/audio/...` doivent apparaître modifiés, aucun fichier de code.
-7. **Tester le lecteur** : ouvrir chaque module concerné, lire l'audio du début à la fin, vérifier pause/reprise.
-8. **Tester le DELF** : ouvrir `/parcours/examens/delf-b1-entrainement-demo` et `/parcours/examens/delf-b1-examen-blanc-1`, écouter les 3 pistes concernées dans le vrai parcours d'examen.
-9. **Vérifier l'absence de 404** : requête directe sur chacun des 18 chemins (`curl -I` en local) pour confirmer une réponse 200.
-10. **Lancer** `npm run build`, `npm run lint`, `npx tsc --noEmit` (aucune erreur attendue, aucun code n'aura changé).
-11. **Commit** unique regroupant les 18 remplacements audio (`feat(audio): replace synthetic B1/DELF audio with human recordings`), sans toucher à Auth/Neon/Stripe/progression/juridique/pricing/navigation/scoring.
+4. **Déposer** chaque fichier humain au chemin conventionnel de la table en §8 (dossier `human/`, même nom de fichier) — **ne pas toucher** au fichier synthétique du même dossier, il reste le filet.
+5. **Lancer `npm run audio:status`** : la piste doit passer de `synthetic` à `human` dans le rapport (icône 🎙️), sans avertissement de fichier orphelin ni de taille nulle.
+6. **Lancer `npm test`** : la suite `content-integrity.test.ts` (describe « Pipeline audio humain ») doit rester verte — elle vérifie entre autres que le fichier synthétique de secours existe toujours.
+7. **Contrôler `git diff --stat`** : seuls des fichiers sous `public/audio/**/human/` doivent apparaître en nouveaux fichiers, aucun fichier de code modifié.
+8. **Tester le lecteur** : ouvrir le module concerné, lire l'audio du début à la fin, vérifier que le badge affiche bien « Voix humaine » (pas « Voix de synthèse ») une fois la lecture démarrée.
+9. **Tester le DELF** si une piste d'examen est concernée : ouvrir `/parcours/examens/delf-b1-entrainement-demo` et/ou `/parcours/examens/delf-b1-examen-blanc-1`, écouter dans le vrai parcours d'examen.
+10. **Lancer** `npm test`, `npm run lint`, `npx tsc --noEmit`, `npm run build` (aucune erreur attendue).
+11. **Commit** regroupant les fichiers humains déposés (`feat(audio): add human recording for <pistes concernées>`), sans toucher à Auth/Neon/Stripe/progression/juridique/pricing/navigation/scoring.
+
+**Retrait du filet synthétique** (optionnel, seulement une fois les 18 pistes humaines confirmées bonnes en production pendant un temps raisonnable) : supprimer les 18 fichiers synthétiques `public/audio/{b1,demo,examens}/**/*.m4a` (pas ceux sous `human/`) est possible mais non requis — le fallback ne coûte rien tant qu'il n'est pas utilisé. Ne pas le faire tant qu'un doute subsiste sur une piste.
 
 Cette procédure n'a pas été exécutée : aucun fichier humain n'est disponible à ce jour.
+
+---
+
+## 12. Pipeline technique (implémenté)
+
+Résumé de ce qui existe déjà en code, pour ne pas le redévelopper :
+
+| Élément | Fichier | Rôle |
+|---|---|---|
+| Convention de chemin humain | `lib/pedagogy/audio/paths.ts` | `toHumanAudioPath()`, pure, utilisable côté client et scripts |
+| Manifest audio | `lib/pedagogy/audio/manifest.ts` | 18 pistes dérivées de `modules.ts`/`exams.ts` + métadonnées de production (locuteurs, voix, locale) — voir §4/§5 pour leur source |
+| État réel sur disque | `lib/pedagogy/audio/status.ts` | `getTrackAvailability()` (humain / synthétique / manquant), Node only |
+| Résolution de lecture | `lib/pedagogy/audio/playback.ts` | Machine à états pure (humain → synthétique → erreur, réessai) + coordinateur « une seule lecture à la fois » |
+| Lecteur | `components/pedagogy/AudioExercise.tsx` | Câble la résolution à un vrai `<audio>` : essaie humain, retombe sur synthétique, affiche un état d'erreur avec bouton Réessayer, affiche un badge de type de voix uniquement une fois confirmé (jamais un label trompeur) |
+| Tests | `lib/pedagogy/audio/audio-pipeline.test.ts` + section « Pipeline audio humain » de `lib/pedagogy/data/content-integrity.test.ts` | Logique de fallback, coordinateur de lecture, disponibilité via fixtures temporaires (jamais un faux fichier dans `public/`), et garde-fous de contenu (manifest complet, transcript présent, fichier synthétique toujours là) |
+| État des lieux | `scripts/audio-status.mjs` (`npm run audio:status`) | Rapport lisible : pistes humaines/synthétiques/manquantes, fichiers orphelins sous `human/`, tailles nulles |
+
+### Critères de qualité (résumé, pour le studio d'enregistrement)
+
+Détails complets en §7 (conditions techniques) et §10 (checklist par piste) ; résumé pour référence rapide :
+
+- Français standard, naturel — ni sur-articulé ni relâché.
+- Débit B1 : conversationnel réel (voir §4 par piste pour les nuances de rythme).
+- Articulation claire, sans ralentir artificiellement.
+- Niveau sonore homogène entre toutes les pistes (cible : pic -3 dBFS ou ~-18 LUFS, voir §7).
+- Aucun bruit de fond, aucun clic, aucun souffle micro audible.
+- Aucune musique, aucun habillage sonore.
+- Aucune réverbération perceptible (pièce traitée ou petite pièce meublée, jamais une pièce vide/carrelée).
+- Aucun silence excessif à l'intérieur d'une piste ; ~1 s de silence propre en fin de fichier (voir §4).
+- Format final cohérent : `.m4a` AAC mono 44,1 kHz, ~112-128 kbps (voir §7) — identique pour les 18 pistes.

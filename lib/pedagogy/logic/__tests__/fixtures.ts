@@ -1,5 +1,6 @@
 import { EMPTY_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
-import type { Module, ModuleProgress, StageId, UserProgress } from "@/lib/pedagogy/types";
+import { countModuleExercises } from "@/lib/pedagogy/logic/module-structure";
+import type { Module, ModuleProgress, PublicModule, StageId, UserProgress } from "@/lib/pedagogy/types";
 
 /**
  * Fixtures synthétiques (jamais le vrai `MODULES`/curriculum) : les tests de
@@ -45,6 +46,17 @@ export function makeModule(overrides: Partial<Module> & { id: string; slug: stri
     ],
     ...overrides,
   };
+}
+
+/**
+ * Vue publique d'un module de test (voir `makeModule`) : mêmes garanties
+ * (jamais le vrai contenu), avec `totalExercises` précalculé comme le fait
+ * `scripts/generate-public-modules.mjs` pour le vrai catalogue — voir
+ * `docs/architecture/user-lifecycle.md` § Premium content boundary.
+ */
+export function makePublicModule(overrides: Partial<Module> & { id: string; slug: string }): PublicModule {
+  const mod = makeModule(overrides);
+  return { ...mod, totalExercises: countModuleExercises(mod) };
 }
 
 export function makeModuleProgress(overrides: Partial<ModuleProgress> & { moduleId: string }): ModuleProgress {

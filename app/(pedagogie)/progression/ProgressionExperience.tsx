@@ -10,38 +10,47 @@ import WeaknessCard from "@/components/pedagogy/WeaknessCard";
 import ModuleCard from "@/components/pedagogy/ModuleCard";
 import DailySessionCard from "@/components/pedagogy/DailySessionCard";
 import { SKILLS, getSkillById } from "@/lib/pedagogy/data/skills";
-import { MODULES, getModulesByLevel, findModuleForSkill } from "@/lib/pedagogy/data/modules";
 import {
   getModuleCompletionRate,
   isModuleReviewed,
   statusFromCompletionRate,
 } from "@/lib/pedagogy/logic/progress";
+import { findModuleForSkill } from "@/lib/pedagogy/logic/module-structure";
 import { computeDailySession } from "@/lib/pedagogy/logic/recommendation";
 import { getParcoursSummary } from "@/lib/pedagogy/logic/parcours";
 import { getReviewItems } from "@/lib/pedagogy/logic/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
+import type { PublicModule } from "@/lib/pedagogy/types";
 
-export default function ProgressionClient() {
+/**
+ * Reçoit `publicModules` (métadonnées de navigation, jamais le contenu
+ * détaillé des exercices) depuis le Server Component `page.tsx` — voir
+ * `docs/architecture/user-lifecycle.md` § Premium content boundary.
+ */
+export default function ProgressionExperience({ publicModules }: { publicModules: PublicModule[] }) {
   const { progress, toggleReview } = useProgress();
   const { user } = useAuth();
-  const modules = getModulesByLevel(progress.level);
-  const dailySession = computeDailySession(progress, MODULES);
-  const dailySessionModule = dailySession ? MODULES.find((m) => m.id === dailySession.moduleId) : undefined;
+  const modules = publicModules.filter((mod) => mod.level === progress.level);
+  const dailySession = computeDailySession(progress, publicModules);
+  const dailySessionModule = dailySession
+    ? publicModules.find((m) => m.id === dailySession.moduleId)
+    : undefined;
   const dailySessionLocked = dailySessionModule
     ? !canAccess({ kind: "module", slug: dailySessionModule.slug }, user?.premiumUntil)
     : false;
-  const summary = getParcoursSummary(progress, MODULES);
+  const summary = getParcoursSummary(progress, publicModules);
   const isReadyForB1 = summary.completedStages === summary.totalStages;
   const startedSkills = SKILLS.filter((skill) =>
     progress.skillProgress.some((sp) => sp.skillId === skill.id && sp.completedExercises > 0)
   );
 
-  const completedModulesCount = MODULES.filter(
-    (mod) => statusFromCompletionRate(getModuleCompletionRate(progress, mod)) === "termine"
+  const completedModulesCount = publicModules.filter(
+    (mod) =>
+      statusFromCompletionRate(getModuleCompletionRate(progress, mod.id, mod.totalExercises)) === "termine"
   ).length;
-  const reviewItemsCount = getReviewItems(progress, MODULES).length;
+  const reviewItemsCount = getReviewItems(progress, publicModules).length;
 
   return (
     <div className="space-y-8">
@@ -50,7 +59,7 @@ export default function ProgressionClient() {
         <h1 className="mt-3 text-2xl font-bold text-foreground">Ton bilan</h1>
         <div className="mt-3 flex flex-wrap gap-2">
           <Badge variant="primary">
-            {completedModulesCount}/{MODULES.length} modules terminés
+            {completedModulesCount}/{publicModules.length} modules terminés
           </Badge>
           <Badge variant="neutral">
             {summary.completedStages}/{summary.totalStages} étapes terminées
@@ -104,7 +113,7 @@ export default function ProgressionClient() {
               const skill = getSkillById(skillId);
               if (!skill) return null;
               const skillProgress = progress.skillProgress.find((sp) => sp.skillId === skillId);
-              const skillModule = findModuleForSkill(skillId);
+              const skillModule = findModuleForSkill(publicModules, skillId);
               return (
                 <WeaknessCard
                   key={skillId}
@@ -149,7 +158,7 @@ export default function ProgressionClient() {
         <div className="grid gap-4 sm:grid-cols-2">
           {modules.map((mod) => {
             const locked = !canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
-            const completionRate = getModuleCompletionRate(progress, mod);
+            const completionRate = getModuleCompletionRate(progress, mod.id, mod.totalExercises);
             return (
               <ModuleCard
                 key={mod.id}

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth/dal";
 import { getUserProgress, saveUserProgress } from "@/lib/auth/progress-store";
+import { mergeUserProgress } from "@/lib/pedagogy/logic/progress";
+import { logServerError } from "@/lib/observability/log";
 import type { UserProgress } from "@/lib/pedagogy/types";
 
 /** Vérification de forme minimale — la validation métier vit dans `lib/pedagogy/logic`. */
@@ -14,11 +16,26 @@ export async function GET() {
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
 
-  const progress = await getUserProgress(user.id);
-  return NextResponse.json({ progress });
+  try {
+    const progress = await getUserProgress(user.id);
+    return NextResponse.json({ progress });
+  } catch (error) {
+    logServerError("progress.get", error);
+    return NextResponse.json({ error: "progress_unavailable" }, { status: 500 });
+  }
 }
 
-/** Remplace la progression stockée par celle envoyée — utilisé pour la synchro continue en arrière-plan. */
+/**
+ * Fusionne avec la progression déjà en base plutôt que de l'écraser —
+ * utilisé pour la synchro continue en arrière-plan (`useProgress.ts`,
+ * debounce 800 ms). Un simple remplacement perdrait silencieusement la
+ * progression d'un autre appareil connecté au même compte en parallèle : cet
+ * appareil-ci n'a que sa propre vue locale, qui peut être en retard sur ce
+ * qu'un autre appareil vient d'écrire entre-temps. `mergeUserProgress` est
+ * une union pure (déjà utilisée à la connexion pour le même problème) :
+ * rejouer un envoi de cet appareil ne peut jamais faire régresser ce que la
+ * base contient déjà.
+ */
 export async function PUT(request: Request) {
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ error: "unauthenticated" }, { status: 401 });
@@ -28,8 +45,15 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: "invalid_progress" }, { status: 400 });
   }
 
-  // `user.id` (issu de la session serveur), jamais un id fourni par le client :
-  // un utilisateur ne peut écrire que sa propre progression.
-  await saveUserProgress(user.id, body.progress);
-  return NextResponse.json({ ok: true });
+  try {
+    // `user.id` (issu de la session serveur), jamais un id fourni par le client :
+    // un utilisateur ne peut écrire que sa propre progression.
+    const remote = await getUserProgress(user.id);
+    const merged = remote ? mergeUserProgress(body.progress, remote) : { ...body.progress, userId: user.id };
+    await saveUserProgress(user.id, merged);
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    logServerError("progress.put", error);
+    return NextResponse.json({ error: "progress_unavailable" }, { status: 500 });
+  }
 }
