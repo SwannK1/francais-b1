@@ -90,6 +90,19 @@ export async function findUserByStripeCustomerId(customerId: string): Promise<Au
 }
 
 /**
+ * Id client Stripe du compte connecté — utilisé pour ouvrir le portail de
+ * gestion d'abonnement Stripe (résiliation en libre-service), jamais exposé
+ * tel quel côté client (voir app/api/billing-portal/route.ts).
+ */
+export async function findStripeCustomerIdByUserId(userId: string): Promise<string | null> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT stripe_customer_id FROM users WHERE id = ${userId}
+  `) as { stripe_customer_id: string | null }[];
+  return rows[0]?.stripe_customer_id ?? null;
+}
+
+/**
  * Active/renouvelle le premium jusqu'à `premiumUntil` (date ISO) et
  * mémorise l'id client Stripe pour retrouver ce compte aux prochains
  * événements d'abonnement (renouvellement, résiliation).

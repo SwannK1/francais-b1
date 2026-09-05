@@ -29,13 +29,23 @@ export default function MentionsLegalesPage() {
               <h2 className="text-base font-semibold text-foreground">Éditeur du site</h2>
               <dl className="mt-2 space-y-1.5">
                 {[
-                  ["Raison sociale / nom de l'éditeur", "À FOURNIR PAR LE PROPRIÉTAIRE"],
-                  ["Statut juridique (ex. SASU, EI, auto-entrepreneur...)", "À FOURNIR PAR LE PROPRIÉTAIRE"],
-                  ["Capital social (si applicable)", "À FOURNIR PAR LE PROPRIÉTAIRE"],
-                  ["RCS et ville d'immatriculation", "À FOURNIR PAR LE PROPRIÉTAIRE"],
-                  ["Numéro SIREN", "À FOURNIR PAR LE PROPRIÉTAIRE"],
-                  ["Numéro de TVA intracommunautaire (si applicable)", "À FOURNIR PAR LE PROPRIÉTAIRE"],
-                  ["Siège social", "À FOURNIR PAR LE PROPRIÉTAIRE"],
+                  ["Nom et prénom de l'exploitant", "Swann Kerboeuf"],
+                  [
+                    "Statut juridique",
+                    "Entrepreneur individuel (micro-entrepreneur), sous réserve de création effective de l'activité",
+                  ],
+                  ["Nom commercial (site)", "France B1 (provisoire)"],
+                  ["Adresse professionnelle", "[À COMPLÉTER APRÈS IMMATRICULATION]"],
+                  ["Numéro SIREN", "[À COMPLÉTER APRÈS IMMATRICULATION]"],
+                  ["Numéro SIRET (établissement)", "[À COMPLÉTER APRÈS IMMATRICULATION]"],
+                  [
+                    "Immatriculation (RCS, RM ou RNE selon la nature de l'activité)",
+                    "[À COMPLÉTER APRÈS IMMATRICULATION]",
+                  ],
+                  [
+                    "Numéro de TVA intracommunautaire",
+                    "[À COMPLÉTER APRÈS IMMATRICULATION — non applicable si la franchise en base de TVA (art. 293 B du Code général des impôts) s'applique]",
+                  ],
                 ].map(([label, value]) => (
                   <div key={label} className="flex flex-wrap gap-x-1.5">
                     <dt className="font-medium text-foreground">{label} :</dt>
@@ -47,7 +57,7 @@ export default function MentionsLegalesPage() {
 
             <section>
               <h2 className="text-base font-semibold text-foreground">Directeur de la publication</h2>
-              <p className="mt-1">À FOURNIR PAR LE PROPRIÉTAIRE.</p>
+              <p className="mt-1">Swann Kerboeuf.</p>
             </section>
 
             <section>
@@ -55,11 +65,11 @@ export default function MentionsLegalesPage() {
               <dl className="mt-2 space-y-1.5">
                 <div className="flex flex-wrap gap-x-1.5">
                   <dt className="font-medium text-foreground">Email :</dt>
-                  <dd>À FOURNIR PAR LE PROPRIÉTAIRE</dd>
+                  <dd>swann.kerboeuf@gmail.com</dd>
                 </div>
                 <div className="flex flex-wrap gap-x-1.5">
-                  <dt className="font-medium text-foreground">Téléphone (si applicable) :</dt>
-                  <dd>À FOURNIR PAR LE PROPRIÉTAIRE</dd>
+                  <dt className="font-medium text-foreground">Téléphone :</dt>
+                  <dd>06 07 52 42 81</dd>
                 </div>
               </dl>
             </section>
@@ -67,10 +77,9 @@ export default function MentionsLegalesPage() {
             <section>
               <h2 className="text-base font-semibold text-foreground">Hébergement</h2>
               <p className="mt-1">
-                À FOURNIR PAR LE PROPRIÉTAIRE (nom, adresse et contact de l&apos;hébergeur —
-                probablement Vercel Inc. au vu de la stack technique, mais à confirmer avant mise en
-                ligne : l&apos;hébergeur exact et ses coordonnées légales doivent être vérifiés au
-                moment du déploiement en production).
+                Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis (source :
+                pages légales publiques de Vercel — à revérifier avant mise en ligne commerciale, ces
+                informations pouvant évoluer).
               </p>
             </section>
 

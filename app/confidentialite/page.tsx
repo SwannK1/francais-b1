@@ -99,10 +99,9 @@ export default function ConfidentialitePage() {
               <h2 className="text-base font-semibold text-foreground">Finalités et durée de conservation</h2>
               <p className="mt-1">
                 Les données de compte et de progression sont conservées tant que le compte existe,
-                pour permettre l&apos;accès au service et le suivi pédagogique. Durée précise de
-                conservation après suppression du compte ou inactivité prolongée, et base légale
-                retenue pour chaque traitement (exécution du contrat, intérêt légitime...) : À
-                FOURNIR PAR LE PROPRIÉTAIRE.
+                pour permettre l&apos;accès au service et le suivi pédagogique — traitement fondé sur
+                l&apos;exécution du contrat d&apos;abonnement. Durée précise de conservation après
+                suppression du compte ou inactivité prolongée : [À COMPLÉTER APRÈS IMMATRICULATION].
               </p>
             </section>
 
@@ -111,9 +110,11 @@ export default function ConfidentialitePage() {
               <p className="mt-1">
                 Conformément au RGPD, tu disposes d&apos;un droit d&apos;accès, de rectification,
                 d&apos;effacement, de limitation et de portabilité de tes données, ainsi que d&apos;un
-                droit d&apos;opposition. Pour les exercer, écris-nous à : À FOURNIR PAR LE
-                PROPRIÉTAIRE (adresse email dédiée RGPD). Tu peux aussi introduire une réclamation
-                auprès de la CNIL (cnil.fr).
+                droit d&apos;opposition. Pour les exercer, écris-nous à{" "}
+                <a href="mailto:swann.kerboeuf@gmail.com" className="underline hover:text-foreground">
+                  swann.kerboeuf@gmail.com
+                </a>
+                . Tu peux aussi introduire une réclamation auprès de la CNIL (cnil.fr).
               </p>
             </section>
 

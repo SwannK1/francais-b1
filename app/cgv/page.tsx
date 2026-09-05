@@ -52,10 +52,12 @@ export default function CgvPage() {
             <section>
               <h2 className="text-base font-semibold text-foreground">3. Prix</h2>
               <p className="mt-1">
-                Le prix de l&apos;abonnement « {MAIN_PLAN.name} » est de {MAIN_PLAN.priceLabel} TTC
-                par {MAIN_PLAN.interval}, tel qu&apos;affiché sur la page Offre au moment de la
-                souscription. Taux de TVA applicable et régime fiscal de l&apos;éditeur : À FOURNIR
-                PAR LE PROPRIÉTAIRE.
+                Le prix de l&apos;abonnement « {MAIN_PLAN.name} » est de {MAIN_PLAN.priceLabel} par{" "}
+                {MAIN_PLAN.interval}, tel qu&apos;affiché sur la page Offre au moment de la
+                souscription. Régime de TVA applicable : [À COMPLÉTER APRÈS IMMATRICULATION —
+                franchise en base de TVA (art. 293 B du Code général des impôts, prix non soumis à
+                TVA) ou assujettissement à la TVA selon le régime finalement retenu par
+                l&apos;éditeur].
               </p>
             </section>
 
@@ -83,36 +85,68 @@ export default function CgvPage() {
               <p className="mt-1">
                 L&apos;abonnement est sans engagement de durée et se renouvelle automatiquement
                 chaque {MAIN_PLAN.interval} jusqu&apos;à résiliation par la personne abonnée.
-                L&apos;accès reste actif jusqu&apos;à la fin de la période déjà payée. La résiliation
-                en libre-service depuis le compte n&apos;est pas encore disponible : elle se fait en
-                contactant ParcoursFR (voir la page{" "}
+                L&apos;accès reste actif jusqu&apos;à la fin de la période déjà payée, sans
+                remboursement du temps restant. La résiliation se fait en libre-service, à tout
+                moment, depuis le bouton « Gérer mon abonnement » disponible sur la page{" "}
+                <Link href="/offre" className="underline hover:text-foreground">
+                  Offre
+                </Link>{" "}
+                une fois connecté·e (portail de gestion sécurisé fourni par Stripe). En cas de
+                difficulté, voir aussi la page{" "}
                 <Link href="/contact" className="underline hover:text-foreground">
                   Contact
                 </Link>
-                ).
+                .
               </p>
             </section>
 
             <section>
               <h2 className="text-base font-semibold text-foreground">7. Droit de rétractation</h2>
               <p className="mt-1">
-                Conformément au code de la consommation, tout consommateur dispose en principe d&apos;un
-                délai de 14 jours pour se rétracter d&apos;un achat en ligne. Ce droit peut toutefois
-                ne pas s&apos;appliquer à un contenu numérique dont l&apos;exécution a commencé
-                immédiatement avec l&apos;accord exprès du consommateur et sa renonciation expresse à
-                ce droit. <strong>Le point exact — formulation de la renonciation, moment de son
-                recueil au moment du paiement — doit être validé par un juriste avant mise en ligne</strong>,
-                car il conditionne la validité de toute clause de renonciation.
+                Conformément aux articles L221-18 et suivants du code de la consommation, tout
+                consommateur dispose d&apos;un délai de 14 jours à compter de la souscription pour se
+                rétracter, sans avoir à justifier de motif ni à supporter d&apos;autres coûts que ceux
+                prévus par la loi.
+              </p>
+              <p className="mt-2">
+                La loi prévoit que ce droit peut cesser de s&apos;appliquer, avant la fin des 14 jours,
+                pour un service ou un contenu numérique non fourni sur support matériel dont
+                l&apos;exécution a commencé, à la double condition que le consommateur ait donné son
+                accord préalable exprès pour une exécution immédiate <em>et</em> reconnu expressément
+                perdre son droit de rétractation une fois le service pleinement exécuté (articles
+                L221-28 12° et 13° du code de la consommation). <strong>Tant que le parcours de
+                paiement ne recueille pas explicitement cet accord et cette renonciation au moment de
+                la commande, cette exception ne peut pas être valablement invoquée par
+                l&apos;éditeur</strong> : le délai de rétractation de 14 jours s&apos;applique alors
+                dans les conditions de droit commun. La mise en conformité de ce point (recueil du
+                consentement dans le parcours de paiement) reste à finaliser techniquement — voir le
+                rapport d&apos;audit correspondant.
+              </p>
+              <p className="mt-2">
+                <strong>Modalités d&apos;exercice :</strong> pour exercer ce droit, écris une
+                déclaration dénuée d&apos;ambiguïté (par exemple le modèle ci-dessous) à l&apos;adresse{" "}
+                <a href="mailto:swann.kerboeuf@gmail.com" className="underline hover:text-foreground">
+                  swann.kerboeuf@gmail.com
+                </a>
+                , avant l&apos;expiration du délai de 14 jours. Adresse postale de l&apos;éditeur pour
+                l&apos;exercice de ce droit par courrier : [À COMPLÉTER APRÈS IMMATRICULATION].
+              </p>
+              <p className="mt-2 rounded-lg bg-muted p-3 text-xs italic">
+                Modèle de formulaire de rétractation (à compléter et renvoyer uniquement si tu
+                souhaites te rétracter) : « Je notifie par la présente ma rétractation du contrat
+                portant sur l&apos;abonnement « {MAIN_PLAN.name} » souscrit le [date]. Nom du
+                consommateur : [...]. Adresse du consommateur : [...]. Date : [...]. »
               </p>
             </section>
 
             <section>
               <h2 className="text-base font-semibold text-foreground">8. Remboursement</h2>
               <p className="mt-1">
-                Hors cas de rétractation valablement exercé (voir section 7), aucun remboursement
-                n&apos;est garanti pour une période d&apos;abonnement déjà entamée. Politique de
-                remboursement définitive (notamment en cas de dysfonctionnement du service imputable
-                à ParcoursFR) : À FOURNIR PAR LE PROPRIÉTAIRE.
+                En dehors des cas de rétractation valablement exercée (voir section 7) et des recours
+                prévus par la loi en cas de non-conformité du service imputable à l&apos;éditeur,
+                aucun remboursement supplémentaire n&apos;est proposé au titre d&apos;une période
+                d&apos;abonnement déjà entamée. Modalités pratiques de traitement d&apos;une demande de
+                remboursement légalement due : [À COMPLÉTER APRÈS IMMATRICULATION].
               </p>
             </section>
 
@@ -158,12 +192,12 @@ export default function CgvPage() {
               <h2 className="text-base font-semibold text-foreground">12. Droit applicable et litiges</h2>
               <dl className="mt-2 space-y-1.5">
                 <div className="flex flex-wrap gap-x-1.5">
-                  <dt className="font-medium text-foreground">Droit applicable / juridiction compétente :</dt>
-                  <dd>À FOURNIR PAR LE PROPRIÉTAIRE</dd>
+                  <dt className="font-medium text-foreground">Droit applicable :</dt>
+                  <dd>Droit français.</dd>
                 </div>
                 <div className="flex flex-wrap gap-x-1.5">
                   <dt className="font-medium text-foreground">Médiateur de la consommation :</dt>
-                  <dd>À FOURNIR PAR LE PROPRIÉTAIRE</dd>
+                  <dd>[MÉDIATEUR À DÉSIGNER AVANT OUVERTURE COMMERCIALE]</dd>
                 </div>
               </dl>
             </section>

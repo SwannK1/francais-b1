@@ -13,6 +13,8 @@ const subscriptionsRetrieve = vi.fn();
 const setUserPremium = vi.fn().mockResolvedValue(undefined);
 const clearUserPremium = vi.fn().mockResolvedValue(undefined);
 const findUserByStripeCustomerId = vi.fn();
+const findUserById = vi.fn();
+const trackServerEvent = vi.fn().mockResolvedValue(undefined);
 
 vi.mock("@/lib/commerce/stripe", () => ({
   isPaymentConfigured: () => true,
@@ -26,10 +28,11 @@ vi.mock("@/lib/auth/users", () => ({
   setUserPremium,
   clearUserPremium,
   findUserByStripeCustomerId,
+  findUserById,
 }));
 
 vi.mock("@/lib/analytics/server", () => ({
-  trackServerEvent: vi.fn().mockResolvedValue(undefined),
+  trackServerEvent,
 }));
 
 async function postWebhook(body: string, signature: string | null = "valid-sig") {
@@ -46,6 +49,8 @@ beforeEach(() => {
   setUserPremium.mockClear();
   clearUserPremium.mockClear();
   findUserByStripeCustomerId.mockReset();
+  findUserById.mockReset().mockResolvedValue(undefined);
+  trackServerEvent.mockClear();
 });
 
 describe("Signature", () => {
@@ -107,6 +112,13 @@ describe("checkout.session.completed", () => {
 
   it("idempotence : recevoir deux fois le même événement (redélivrance Stripe) produit le même état, pas un double effet", async () => {
     constructEvent.mockReturnValue(makeEvent());
+    // Premier appel : compte pas encore premium (état par défaut du mock).
+    // Second appel (redélivrance) : le compte est désormais premium, comme
+    // il le serait réellement après le premier passage de ce webhook.
+    findUserById
+      .mockResolvedValueOnce(undefined)
+      .mockResolvedValueOnce({ id: "user-1", email: "a@b.com", premiumUntil: "2999-01-01T00:00:00.000Z" });
+
     await postWebhook("{}");
     await postWebhook("{}");
 
@@ -114,6 +126,10 @@ describe("checkout.session.completed", () => {
     // Les deux appels écrivent exactement la même valeur — un "set" répété,
     // jamais un cumul : rejouer l'événement est sans risque.
     expect(setUserPremium.mock.calls[0]).toEqual(setUserPremium.mock.calls[1]);
+    // En revanche, l'event analytics `purchase_completed` n'est compté
+    // qu'une fois : la redélivrance ne doit jamais gonfler ce compteur.
+    expect(trackServerEvent).toHaveBeenCalledTimes(1);
+    expect(trackServerEvent).toHaveBeenCalledWith("purchase_completed");
   });
 
   it("n'écrit rien si une référence exploitable manque (pas de client_reference_id)", async () => {

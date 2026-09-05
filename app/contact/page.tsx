@@ -28,7 +28,21 @@ export default function ContactPage() {
 
           <Card className="mt-8">
             <h2 className="text-base font-semibold text-foreground">Nous écrire</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Email : À FOURNIR PAR LE PROPRIÉTAIRE</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Email :{" "}
+              <a
+                href="mailto:swann.kerboeuf@gmail.com"
+                className="underline hover:text-foreground"
+              >
+                swann.kerboeuf@gmail.com
+              </a>
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Téléphone :{" "}
+              <a href="tel:+33607524281" className="underline hover:text-foreground">
+                06 07 52 42 81
+              </a>
+            </p>
             <p className="mt-2 text-sm text-muted-foreground">
               Pour une question sur tes données personnelles, voir la{" "}
               <Link href="/confidentialite" className="underline hover:text-foreground">

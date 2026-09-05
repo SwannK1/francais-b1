@@ -1,7 +1,7 @@
 "use server";
 
-import { headers } from "next/headers";
 import { createUser, findUserByEmail, updateUserPassword, verifyCredentials } from "@/lib/auth/users";
+import { resolveAppOrigin } from "@/lib/http/app-origin";
 import { createSession, destroyAllUserSessions, destroySession } from "@/lib/auth/session";
 import { clearLoginAttempts, isLoginThrottled, recordFailedLoginAttempt } from "@/lib/auth/rate-limit";
 import { createPasswordResetToken, consumePasswordResetToken } from "@/lib/auth/password-reset";
@@ -17,33 +17,6 @@ export interface AuthFormState {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-/**
- * Origine à utiliser pour construire le lien envoyé par email — jamais
- * dérivée du header `Host` de la requête entrante en production : ce header
- * est fourni par le client et une valeur falsifiée y ferait pointer le lien
- * de réinitialisation vers un domaine choisi par un attaquant ("password
- * reset poisoning"). En production, on préfère donc une origine que le
- * client ne contrôle pas : `NEXT_PUBLIC_APP_URL` si l'opérateur l'a fixée,
- * sinon `VERCEL_URL` (fournie par la plateforme de déploiement elle-même,
- * jamais par la requête). En développement, l'hôte local n'est pas exposé
- * publiquement : dériver l'origine du header `Host` y est sans risque et
- * évite d'imposer une variable d'environnement pour travailler en local.
- */
-async function resolveAppOrigin(): Promise<string> {
-  if (process.env.NODE_ENV === "production") {
-    const configured = process.env.NEXT_PUBLIC_APP_URL;
-    if (configured) return configured.replace(/\/$/, "");
-
-    const vercelUrl = process.env.VERCEL_URL;
-    if (vercelUrl) return `https://${vercelUrl}`;
-
-    throw new Error("APP_ORIGIN_NOT_CONFIGURED");
-  }
-
-  const headersList = await headers();
-  return `http://${headersList.get("host")}`;
-}
 
 function validateCredentials(email: FormDataEntryValue | null, password: FormDataEntryValue | null) {
   const cleanEmail = typeof email === "string" ? email.trim().toLowerCase() : "";

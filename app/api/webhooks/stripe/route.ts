@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getStripeClient, isPaymentConfigured } from "@/lib/commerce/stripe";
-import { setUserPremium, clearUserPremium, findUserByStripeCustomerId } from "@/lib/auth/users";
+import { setUserPremium, clearUserPremium, findUserByStripeCustomerId, findUserById } from "@/lib/auth/users";
+import { isPremiumActive } from "@/lib/commerce/access";
 import { trackServerEvent } from "@/lib/analytics/server";
 
 /**
@@ -63,14 +64,27 @@ export async function POST(request: Request) {
         break;
       }
 
+      // `checkout.session.completed` ne devrait arriver qu'une fois par
+      // souscription, mais Stripe peut redélivrer le même événement (retry
+      // réseau). On ne compte l'achat qu'une fois : si le compte était déjà
+      // premium avant cet appel, ce webhook est une redélivrance d'un
+      // événement déjà traité (l'écriture `setUserPremium` reste, elle,
+      // idempotente et sans risque à rejouer).
+      const existingUser = await findUserById(userId);
+      const alreadyPremiumBefore = isPremiumActive(existingUser?.premiumUntil);
+
       const subscription = await stripe.subscriptions.retrieve(subscriptionId);
       const periodEnd = subscription.items.data[0]?.current_period_end;
       if (periodEnd) {
         await setUserPremium(userId, unixToIso(periodEnd), custId);
         // Seule source fiable pour `purchase_completed` : un événement Stripe
         // signé et vérifié, jamais un simple retour sur la page de succès
-        // (voir docs/analytics/product-analytics.md § achat).
-        void trackServerEvent("purchase_completed");
+        // (voir docs/analytics/product-analytics.md § achat) — jamais compté
+        // deux fois sur une redélivrance du même événement (voir commentaire
+        // ci-dessus).
+        if (!alreadyPremiumBefore) {
+          void trackServerEvent("purchase_completed");
+        }
       }
       break;
     }

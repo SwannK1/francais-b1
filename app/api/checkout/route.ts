@@ -5,6 +5,7 @@ import { isPremiumActive } from "@/lib/commerce/access";
 import { getCurrentUser } from "@/lib/auth/dal";
 import { trackServerEvent } from "@/lib/analytics/server";
 import { logServerError } from "@/lib/observability/log";
+import { resolveAppOrigin } from "@/lib/http/app-origin";
 
 /**
  * Démarre un paiement Stripe Checkout (page hébergée par Stripe : aucune
@@ -17,7 +18,7 @@ import { logServerError } from "@/lib/observability/log";
  * l'accès premium une fois le paiement confirmé — sans ça, Stripe confirme
  * un paiement mais on ne saurait jamais qui vient de payer.
  */
-export async function POST(request: Request) {
+export async function POST() {
   if (!isPaymentConfigured()) {
     void trackServerEvent("checkout_failed", { reason: "payment_not_configured" });
     return NextResponse.json(
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "already_premium" }, { status: 409 });
   }
 
-  const origin = new URL(request.url).origin;
+  const origin = await resolveAppOrigin();
   const stripe = getStripeClient();
 
   let session;

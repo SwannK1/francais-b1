@@ -6,6 +6,7 @@ import Container from "@/components/ui/Container";
 import Card from "@/components/ui/Card";
 import { CheckIcon } from "@/components/ui/icons";
 import CheckoutButton from "@/components/commerce/CheckoutButton";
+import ManageSubscriptionButton from "@/components/commerce/ManageSubscriptionButton";
 import { MAIN_PLAN, FREE_PLAN_FEATURES } from "@/lib/commerce/plans";
 import { isPaymentConfigured } from "@/lib/commerce/stripe";
 import { isPremiumActive } from "@/lib/commerce/access";
@@ -91,12 +92,15 @@ export default async function OffrePage() {
                       ? ` — actif jusqu'au ${new Date(user.premiumUntil).toLocaleDateString("fr-FR")}.`
                       : "."}
                   </p>
-                  <Link
-                    href="/parcours"
-                    className="mt-4 inline-flex items-center text-sm font-semibold text-primary hover:underline"
-                  >
-                    Continuer mon parcours
-                  </Link>
+                  <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                    <Link
+                      href="/parcours"
+                      className="text-sm font-semibold text-primary hover:underline"
+                    >
+                      Continuer mon parcours
+                    </Link>
+                    <ManageSubscriptionButton size="md" />
+                  </div>
                 </>
               ) : paymentReady ? (
                 <CheckoutButton label={MAIN_PLAN.ctaLabel} className="mt-8 w-full" source="offre_page" />
@@ -110,7 +114,8 @@ export default async function OffrePage() {
           </div>
 
           <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-muted-foreground">
-            Prix TTC. Abonnement sans engagement, résiliable à tout moment. Voir les{" "}
+            Prix exprimé en euros, régime de TVA applicable précisé dans les conditions générales de
+            vente. Abonnement sans engagement, résiliable à tout moment. Voir les{" "}
             <Link href="/cgv" className="underline hover:text-foreground">
               conditions générales de vente
             </Link>{" "}
