@@ -410,3 +410,95 @@ Suite complète : 71 tests (40 avant ce chantier + 31 nouveaux), tous verts.
 | Webhook Stripe : événements traités hors ordre chronologique réel | Faible (scénario rare) | Documenté, non corrigé (voir §6) |
 | `STRIPE_PRICE_ID` distant non vérifié automatiquement contre `MAIN_PLAN.priceLabel` | Faible (erreur de saisie opérateur, pas un bug de code) | Documenté (voir §6) |
 | Multi-appareil : décalage d'affichage temporaire sur un appareil resté inactif pendant qu'un autre progresse | Faible (pas de perte de données, juste un rafraîchissement à faire) | Assumé comme stratégie déterministe (voir §4) |
+| Pas d'email de reprise/réengagement (inactivité) | Faible (produit fonctionne sans) | Décision documentée (voir §11) — infrastructure de préférences/consentement et de tâche planifiée absentes, non construites dans la précipitation |
+| QA du cycle de vie non exercée en navigateur réel dans ce chantier | Faible (couverture par tests unitaires + lecture de code) | Aucune base de données/Stripe configurée dans cet environnement de travail (voir §11) |
+
+---
+
+## 11. Emails transactionnels et onboarding (chantier lifecycle)
+
+Audit du cycle de vie complet (inscription, onboarding, récupération, paiement,
+reprise, réengagement). Contraintes respectées : aucun email réel envoyé
+pendant l'audit, aucune donnée inutile collectée, infrastructure email
+existante réutilisée telle quelle (Resend, déjà en place pour la
+réinitialisation de mot de passe — voir `lib/auth/mailer.ts`), cœur
+pédagogique non touché.
+
+### Inventaire des emails avant ce chantier
+
+| Email | Déclencheur | Provider | État |
+|---|---|---|---|
+| Réinitialisation de mot de passe | `requestPasswordReset` (`app/actions/auth.ts`) | Resend | Prod si configuré, sinon lien journalisé en dev, échec explicite en prod non configuré |
+| Reçu/facture Stripe | Paiement réussi | Stripe (natif, hors de ce code) | Géré entièrement par Stripe — volontairement non dupliqué |
+| Bienvenue à l'inscription | — | — | **Absent avant ce chantier** |
+| Reprise / réengagement | — | — | Absent (voir décision ci-dessous) |
+
+### Gap identifié et corrigé : email de bienvenue absent
+
+`signup()` créait le compte et la session sans aucune confirmation par email.
+Ajouté `sendWelcomeEmail` (`lib/auth/mailer.ts`), même contrat que l'email de
+réinitialisation existant (mêmes variables d'environnement `RESEND_API_KEY`/
+`AUTH_EMAIL_FROM`, même canal de test en développement — lien/contenu
+journalisé en console, jamais un vrai envoi hors production). Contenu :
+confirmation de création de compte, rappel du niveau B1 visé, lien vers
+`/parcours`, lien vers `/test-niveau` — **aucun CTA commercial/premium**
+(testé explicitement, voir `lib/auth/mailer.test.ts`).
+
+Appelé depuis `signup()` **après** la création du compte et de la session,
+dans son propre `try/catch` : un échec Resend (mauvaise config, panne
+provider) est journalisé (`logServerError("auth.welcome_email", ...)`) mais
+ne fait **jamais** échouer l'inscription — l'utilisateur garde son compte et
+sa session même si l'email ne part pas.
+
+### Décision : pas d'email de reprise/réengagement dans ce chantier
+
+Le schéma (`lib/auth/schema.sql`) ne porte aujourd'hui aucune colonne de
+préférence email ni de distinction transactionnel/marketing, et il n'existe
+aucun mécanisme de désinscription. Construire un email de reprise
+("inactif depuis X jours") nécessiterait une tâche planifiée (aucune
+infrastructure de cron existante dans ce projet) et un consentement explicite
+préalable — ni l'un ni l'autre n'existe. Conformément à la consigne du
+chantier ("ne l'ajoute que si l'infrastructure et le consentement le
+permettent"), cet email n'a **pas** été ajouté plutôt que de construire dans
+la précipitation une infrastructure de préférences/consentement hors de
+proportion avec le reste du produit. Piste documentée pour un futur chantier
+dédié, pas implémentée ici.
+
+### Consentement / préférences (Phase 8 de l'audit)
+
+Aucun email marketing n'existe dans ce projet (seulement transactionnel :
+bienvenue, réinitialisation) — la distinction transactionnel/marketing et le
+consentement RGPD associé sont donc sans objet aujourd'hui. Rien à corriger ;
+à réévaluer si un email non transactionnel est ajouté un jour (voir décision
+ci-dessus).
+
+### Observabilité (Phase 10 de l'audit)
+
+`requestPasswordReset` utilisait un `console.error` brut au lieu de
+`logServerError` (seule fonction qui garantit qu'aucune clé sensible —
+`email` y compris — n'atteint un log, voir `lib/observability/log.ts`) —
+harmonisé. Le token de réinitialisation n'a jamais transité dans un log en
+dehors du canal de test explicite (dev, provider non configuré) ; l'email de
+bienvenue ne porte aucun secret.
+
+### Tests ajoutés (Phase 11 de l'audit)
+
+`lib/auth/mailer.test.ts` (9 tests, SDK Resend mocké, aucun vrai envoi) —
+absent avant ce chantier alors que ce fichier gère déjà un email de
+production (réinitialisation). Couvre pour les deux emails (bienvenue,
+réinitialisation) : canal de test en dev (aucun envoi réel), échec explicite
+en production si non configuré, appel effectif à Resend avec les bons
+destinataire/liens en configuration valide, propagation d'une erreur du
+provider plutôt que masquée, et l'absence de CTA commercial dans l'email de
+bienvenue.
+
+### QA (Phase 12 de l'audit)
+
+Aucune base de données ni clé Stripe n'est configurée dans cet environnement
+de travail (`.env.local` absent, `git worktree` isolé) — signup/login/reset/
+checkout n'ont donc pas pu être exercés dans un navigateur réel pendant ce
+chantier. Vérification faite par lecture de code + tests unitaires
+uniquement pour la partie modifiée ; le reste du cycle (session, fusion de
+progression, accès premium, webhook Stripe) était déjà couvert par les
+chantiers précédents (voir §1-9 ci-dessus) et n'a pas été retesté en
+conditions réelles ici.
