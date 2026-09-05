@@ -5,7 +5,7 @@ import { createUser, findUserByEmail, updateUserPassword, verifyCredentials } fr
 import { createSession, destroyAllUserSessions, destroySession } from "@/lib/auth/session";
 import { clearLoginAttempts, isLoginThrottled, recordFailedLoginAttempt } from "@/lib/auth/rate-limit";
 import { createPasswordResetToken, consumePasswordResetToken } from "@/lib/auth/password-reset";
-import { sendPasswordResetEmail } from "@/lib/auth/mailer";
+import { sendPasswordResetEmail, sendWelcomeEmail } from "@/lib/auth/mailer";
 import { hashPassword } from "@/lib/auth/password";
 import { trackServerEvent } from "@/lib/analytics/server";
 import { logServerError } from "@/lib/observability/log";
@@ -66,6 +66,21 @@ export async function signup(_prevState: AuthFormState, formData: FormData): Pro
     const user = await createUser(validated.email, validated.password);
     await createSession(user.id);
     void trackServerEvent("signup_completed");
+
+    // Email secondaire : ne doit jamais bloquer ni faire échouer l'inscription
+    // elle-même — un incident Resend reste invisible pour l'utilisateur, qui a
+    // bien son compte et sa session, seulement journalisé côté serveur.
+    try {
+      const origin = await resolveAppOrigin();
+      await sendWelcomeEmail({
+        to: validated.email,
+        parcoursUrl: `${origin}/parcours`,
+        testNiveauUrl: `${origin}/test-niveau`,
+      });
+    } catch (error) {
+      logServerError("auth.welcome_email", error);
+    }
+
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "EMAIL_TAKEN") {
@@ -142,7 +157,7 @@ export async function requestPasswordReset(
   } catch (error) {
     // Ne jamais exposer cet échec au client (ça révélerait à la fois
     // l'existence du compte et un problème d'infra) — uniquement en log serveur.
-    console.error("[auth] échec d'envoi de l'email de réinitialisation", error);
+    logServerError("auth.password_reset_email", error);
   }
 
   return GENERIC_RESET_REQUESTED;
