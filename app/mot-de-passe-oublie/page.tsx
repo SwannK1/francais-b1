@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function MotDePasseOubliePage() {
+export default async function MotDePasseOubliePage({ searchParams }: PageProps<"/mot-de-passe-oublie">) {
+  const { next } = await searchParams;
+  const nextHref = typeof next === "string" && next.startsWith("/") ? next : undefined;
+
   return (
     <>
       <Header />
@@ -23,10 +26,13 @@ export default function MotDePasseOubliePage() {
             mot de passe.
           </p>
           <Card className="mt-6">
-            <ForgotPasswordForm />
+            <ForgotPasswordForm next={nextHref} />
           </Card>
           <p className="mt-4 text-sm text-muted-foreground">
-            <Link href="/connexion" className="font-medium text-primary hover:underline">
+            <Link
+              href={nextHref ? `/connexion?next=${encodeURIComponent(nextHref)}` : "/connexion"}
+              className="font-medium text-primary hover:underline"
+            >
               ← Retour à la connexion
             </Link>
           </p>

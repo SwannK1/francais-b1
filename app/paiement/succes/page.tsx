@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import { CheckIcon } from "@/components/ui/icons";
 import { getCurrentUser } from "@/lib/auth/dal";
 import { isPremiumActive } from "@/lib/commerce/access";
+import PendingRefresh from "./PendingRefresh";
 
 export const metadata: Metadata = {
   title: "Paiement confirmé",
@@ -34,18 +35,23 @@ export default async function PaiementSuccesPage() {
             <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/10 text-success">
               <CheckIcon className="h-5 w-5" />
             </span>
-            <h1 className="mt-4 text-xl font-bold text-foreground">Paiement confirmé</h1>
+            <h1 className="mt-4 text-xl font-bold text-foreground">
+              {active ? "Paiement confirmé" : "Paiement reçu"}
+            </h1>
             {active ? (
               <p className="mt-2 text-sm text-muted-foreground">
                 Merci ! Ton accès complet est activé sur ton compte.
               </p>
             ) : (
-              <p className="mt-2 text-sm text-muted-foreground">
-                Merci ! Ton paiement a bien été reçu par Stripe. L&apos;activation de ton accès complet
-                est en cours de confirmation (généralement quelques secondes) — actualise cette page
-                dans un instant. Si l&apos;accès complet n&apos;apparaît toujours pas d&apos;ici
-                quelques minutes, écris-nous en indiquant l&apos;email utilisé pour le paiement.
-              </p>
+              <>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Merci ! Ton paiement a bien été reçu par Stripe. L&apos;activation de ton accès complet
+                  est en cours de confirmation (généralement quelques secondes) — cette page se met à
+                  jour automatiquement. Si l&apos;accès complet n&apos;apparaît toujours pas d&apos;ici
+                  quelques minutes, écris-nous en indiquant l&apos;email utilisé pour le paiement.
+                </p>
+                <PendingRefresh />
+              </>
             )}
             <Button href="/parcours" size="lg" className="mt-6">
               Retourner au parcours

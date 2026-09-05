@@ -6,7 +6,7 @@ import { buttonClasses } from "@/components/ui/button-styles";
 
 const initialState: AuthFormState = {};
 
-export default function ForgotPasswordForm() {
+export default function ForgotPasswordForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(requestPasswordReset, initialState);
 
   if (state.success) {
@@ -19,6 +19,7 @@ export default function ForgotPasswordForm() {
 
   return (
     <form action={action} className="space-y-4">
+      {next ? <input type="hidden" name="next" value={next} /> : null}
       <div className="space-y-1.5">
         <label htmlFor="email" className="text-sm font-medium text-foreground">
           Email

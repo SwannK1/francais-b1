@@ -9,18 +9,19 @@ import { buttonClasses } from "@/components/ui/button-styles";
 
 const initialState: AuthFormState = {};
 
-export default function LoginForm({ next = "/parcours" }: { next?: string }) {
+export default function LoginForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(login, initialState);
   const { refresh } = useAuth();
   const router = useRouter();
+  const redirectTo = next ?? "/parcours";
 
   useEffect(() => {
     if (!state.success) return;
     void refresh().then(() => {
-      router.push(next);
+      router.push(redirectTo);
       router.refresh();
     });
-  }, [state.success, refresh, router, next]);
+  }, [state.success, refresh, router, redirectTo]);
 
   return (
     <form action={action} className="space-y-4">
@@ -42,7 +43,10 @@ export default function LoginForm({ next = "/parcours" }: { next?: string }) {
           <label htmlFor="password" className="text-sm font-medium text-foreground">
             Mot de passe
           </label>
-          <Link href="/mot-de-passe-oublie" className="text-xs font-medium text-primary hover:underline">
+          <Link
+            href={next ? `/mot-de-passe-oublie?next=${encodeURIComponent(next)}` : "/mot-de-passe-oublie"}
+            className="text-xs font-medium text-primary hover:underline"
+          >
             Mot de passe oublié ?
           </Link>
         </div>

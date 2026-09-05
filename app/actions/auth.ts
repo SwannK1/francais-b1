@@ -136,6 +136,10 @@ export async function requestPasswordReset(
 ): Promise<AuthFormState> {
   const rawEmail = formData.get("email");
   const email = typeof rawEmail === "string" ? rawEmail.trim().toLowerCase() : "";
+  // Repris tel quel dans le lien envoyé par email : seul un chemin interne
+  // ("/...") est accepté, jamais une URL absolue (open redirect).
+  const rawNext = formData.get("next");
+  const next = typeof rawNext === "string" && rawNext.startsWith("/") ? rawNext : undefined;
 
   if (!EMAIL_RE.test(email)) {
     return { error: "Adresse email invalide." };
@@ -152,7 +156,7 @@ export async function requestPasswordReset(
 
   try {
     const origin = await resolveAppOrigin();
-    const resetUrl = `${origin}/reinitialiser-mot-de-passe?token=${token}`;
+    const resetUrl = `${origin}/reinitialiser-mot-de-passe?token=${token}${next ? `&next=${encodeURIComponent(next)}` : ""}`;
     await sendPasswordResetEmail({ to: email, resetUrl });
   } catch (error) {
     // Ne jamais exposer cet échec au client (ça révélerait à la fois

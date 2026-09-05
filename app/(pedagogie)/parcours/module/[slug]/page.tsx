@@ -56,6 +56,8 @@ export default async function ModulePage({ params }: PageProps<"/parcours/module
         <JsonLd data={[breadcrumb, learningResource]} />
         <PremiumLock
           title={mod.title}
+          description={mod.description}
+          objectives={mod.objectives}
           backHref={stage ? `/parcours/${stage.slug}` : "/parcours"}
           backLabel={stage ? `← Retour à l'étape « ${stage.title} »` : "← Retour au parcours"}
         />
