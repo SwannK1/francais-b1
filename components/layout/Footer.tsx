@@ -5,10 +5,19 @@ const columns = [
   {
     title: "Produit",
     links: [
-      { href: "/#apprentissage", label: "Apprendre" },
-      { href: "/#examens", label: "Examens" },
+      { href: "/parcours", label: "Parcours B1" },
+      { href: "/test-niveau", label: "Test de niveau" },
       { href: "/offre", label: "Offre" },
       { href: "/faq", label: "FAQ" },
+    ],
+  },
+  {
+    title: "Apprendre le B1",
+    links: [
+      { href: "/francais-b1", label: "Le niveau B1" },
+      { href: "/exercices-b1", label: "Exercices B1" },
+      { href: "/grammaire-b1", label: "Grammaire B1" },
+      { href: "/comprehension-orale-b1", label: "Compréhension orale B1" },
     ],
   },
   {
@@ -32,8 +41,8 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-background">
       <Container className="py-12">
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
-          <div className="col-span-2 sm:col-span-1">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <span className="text-lg font-bold tracking-tight text-foreground">
               Parcours<span className="text-primary">FR</span>
             </span>
