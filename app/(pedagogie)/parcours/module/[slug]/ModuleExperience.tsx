@@ -213,7 +213,7 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
                   onClick={() => goTo(index)}
                   aria-current={isCurrent ? "step" : undefined}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+                    "flex items-center gap-1.5 rounded-full border px-3 py-2.5 text-xs font-medium transition-colors",
                     isCurrent
                       ? "border-primary bg-primary/5 text-primary"
                       : "border-border text-muted-foreground hover:bg-muted"

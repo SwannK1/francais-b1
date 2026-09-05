@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "@/components/ui/Container";
 import PrimaryCta from "@/components/marketing/PrimaryCta";
 import { MenuIcon, XIcon } from "@/components/ui/icons";
@@ -16,6 +16,19 @@ const navItems = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+
+  // Fermeture au clavier : le panneau mobile n'est pas une vraie modale
+  // (le contenu de la page reste tabulable derrière), mais Échap pour
+  // fermer un menu ouvert reste le raccourci attendu, y compris quand le
+  // focus est resté sur un lien du menu plutôt que sur le bouton bascule.
+  useEffect(() => {
+    if (!open) return;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   return (
     <>
@@ -60,7 +73,7 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
           >
             {open ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           </button>

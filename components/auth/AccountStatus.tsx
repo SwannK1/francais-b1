@@ -25,13 +25,13 @@ export default function AccountStatus({ className }: { className?: string }) {
       <div className={cn("flex items-center gap-4", className)}>
         <Link
           href="/connexion"
-          className="text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+          className="inline-flex items-center py-3 text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
         >
           Se connecter
         </Link>
         <Link
           href="/inscription"
-          className="text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+          className="inline-flex items-center py-3 text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
         >
           Créer un compte
         </Link>
@@ -58,7 +58,7 @@ export default function AccountStatus({ className }: { className?: string }) {
         type="button"
         onClick={handleLogout}
         disabled={pending}
-        className="text-sm font-medium text-foreground transition-colors hover:text-primary disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+        className="inline-flex items-center py-3 text-sm font-medium text-foreground transition-colors hover:text-primary disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
       >
         {pending ? "Déconnexion…" : "Se déconnecter"}
       </button>

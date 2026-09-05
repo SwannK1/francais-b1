@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "@/components/ui/Container";
 import AccountStatus from "@/components/auth/AccountStatus";
 import { MenuIcon, XIcon } from "@/components/ui/icons";
@@ -19,6 +19,16 @@ const navItems = [
  */
 export default function AppHeader() {
   const [open, setOpen] = useState(false);
+
+  // Fermeture au clavier : voir la même logique dans components/layout/Header.tsx.
+  useEffect(() => {
+    if (!open) return;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   return (
     <>
@@ -56,7 +66,7 @@ export default function AppHeader() {
             aria-expanded={open}
             aria-controls="app-mobile-menu"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
           >
             {open ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           </button>
