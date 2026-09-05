@@ -1,0 +1,1210 @@
+import type { A1Module } from "@/lib/pedagogy/data/a1/types";
+
+/**
+ * Étape "Ma vie quotidienne" (a1-vie-quotidienne) : décrire une personne,
+ * vêtements et couleurs, la maison, les jours/mois, l'heure — puis un bilan
+ * intermédiaire qui recycle le vocabulaire des étapes 1 et 2.
+ */
+export const MODULES_A1_VIE_QUOTIDIENNE: A1Module[] = [
+  {
+    id: "a1-decrire-une-personne",
+    slug: "decrire-une-personne",
+    level: "A1",
+    title: "Décrire une personne",
+    description: "À la fin de ce module, tu peux décrire l'apparence et le caractère de quelqu'un simplement.",
+    objectives: [
+      "Décrire le physique d'une personne",
+      "Décrire le caractère avec des mots simples",
+      "Utiliser les adjectifs au masculin et au féminin",
+    ],
+    domain: "vocabulaire",
+    stageId: "a1-vie-quotidienne",
+    estimatedMinutes: 18,
+    situation: "Julie attend son amie Sofia à la gare, mais elle ne la connaît pas encore. Sofia lui décrit son frère par message pour qu'il vienne les chercher.",
+    vocabulary: [
+      { term: "grand(e) / petit(e)", category: "principal" },
+      { term: "jeune / âgé(e)", category: "principal" },
+      { term: "les cheveux longs / courts", category: "principal" },
+      { term: "les cheveux blonds / bruns / roux", category: "principal" },
+      { term: "les yeux bleus / verts / marron", category: "principal" },
+      { term: "gentil / gentille", category: "principal" },
+      { term: "sympathique", category: "principal" },
+      { term: "timide", category: "principal" },
+      { term: "drôle", category: "principal" },
+      { term: "avoir les cheveux / les yeux", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "L'accord des adjectifs (masculin/féminin)",
+        explanation:
+          "Beaucoup d'adjectifs ajoutent -e au féminin : grand → grande, petit → petite, gentil → gentille. Certains ne changent pas à l'oral : sympathique, timide, drôle.",
+      },
+      {
+        title: "Avoir les cheveux / les yeux",
+        explanation: "Pour décrire le physique, on utilise « avoir » : il a les cheveux courts, elle a les yeux bleus.",
+      },
+    ],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "decrire-une-personne-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "decrire-une-personne-comprendre-activite",
+            title: "Lire un message de description",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "m05-e1",
+                type: "comprehension_ecrite",
+                skillId: "a1-ce-messages-simples",
+                difficulty: "A1",
+                instructions: "Lis le message de Sofia, puis réponds.",
+                text:
+                  "Mon frère Hugo va venir te chercher à la gare. Il est grand, il a les cheveux courts et bruns " +
+                  "et les yeux marron. Il est très sympathique, un peu timide au début, mais très drôle quand on " +
+                  "le connaît !",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "m05-e1-q1",
+                    prompt: "Comment sont les cheveux de Hugo ?",
+                    choices: [
+                      { id: "a", text: "Longs et blonds" },
+                      { id: "b", text: "Courts et bruns" },
+                      { id: "c", text: "Longs et roux" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "Courts et bruns", explanation: "Le texte dit « les cheveux courts et bruns »." },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "m05-e1-q2",
+                    prompt: "Vrai ou faux : Hugo est toujours timide.",
+                    correctAnswer: false,
+                    correction: { correctAnswer: "Faux.", explanation: "Il est « un peu timide au début », puis « très drôle » une fois qu'on le connaît." },
+                  },
+                  {
+                    kind: "libre",
+                    id: "m05-e1-q3",
+                    prompt: "De quelle couleur sont les yeux de Hugo ?",
+                    expectedAnswer: "Marron",
+                    correction: { correctAnswer: "Marron", explanation: "« les yeux marron »." },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "decrire-une-personne-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "decrire-une-personne-entrainement-activite",
+            title: "Décrire quelqu'un",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "m05-g1",
+                type: "qcm",
+                skillId: "a1-voc-description",
+                difficulty: "A1",
+                instructions: "Choisis la description qui correspond à l'image mentale : une femme petite avec des cheveux longs.",
+                question: {
+                  kind: "qcm",
+                  id: "m05-g1-q",
+                  prompt: "Quelle phrase décrit bien cette personne ?",
+                  choices: [
+                    { id: "a", text: "Elle est petite et elle a les cheveux longs." },
+                    { id: "b", text: "Il est grand et il a les cheveux courts." },
+                    { id: "c", text: "Elle est âgée et timide." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "Elle est petite et elle a les cheveux longs.", explanation: "Petite (taille) et cheveux longs correspondent à la description donnée." },
+                },
+              },
+              {
+                id: "m05-g2",
+                type: "texte_a_trous",
+                skillId: "a1-voc-description",
+                difficulty: "A1",
+                instructions: "Accorde l'adjectif au féminin si besoin.",
+                textWithBlanks:
+                  "Ma sœur est {{1}} (grand) et {{2}} (gentil). Mon frère est {{3}} (petit) et très drôle.",
+                blanks: [
+                  { id: "1", answer: "grande" },
+                  { id: "2", answer: "gentille" },
+                  { id: "3", answer: "petit" },
+                ],
+                correction: {
+                  correctAnswer: "grande — gentille — petit",
+                  explanation: "« Sœur » est féminin (accord en -e) ; « frère » est masculin (pas d'accord).",
+                },
+              },
+              {
+                id: "m05-g3",
+                type: "association",
+                skillId: "a1-voc-description",
+                difficulty: "A1",
+                instructions: "Associe chaque mot à son contraire.",
+                pairs: [
+                  { id: "1", left: "grand", right: "petit" },
+                  { id: "2", left: "jeune", right: "âgé" },
+                  { id: "3", left: "les cheveux longs", right: "les cheveux courts" },
+                ],
+                correction: {
+                  correctAnswer: "1 → petit ; 2 → âgé ; 3 → les cheveux courts",
+                  explanation: "Ces paires de mots sont des contraires utiles pour décrire quelqu'un.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "decrire-une-personne-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "decrire-une-personne-ecriture-activite",
+            title: "Décrire quelqu'un par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "m05-h",
+                type: "production_ecrite",
+                skillId: "a1-pe-decrire",
+                difficulty: "A1",
+                instructions: "Écris ta réponse.",
+                consigne: "Décris une personne de ta famille ou un(e) ami(e) en 3 ou 4 phrases (physique et caractère).",
+                minWords: 15,
+                maxWords: 40,
+                correctionCriteria: [
+                  "Une caractéristique physique est donnée (/1)",
+                  "Un trait de caractère est donné (/1)",
+                  "Les adjectifs sont accordés correctement (/1)",
+                  "Phrases simples et compréhensibles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "decrire-une-personne-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "decrire-une-personne-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "m05-i1",
+                type: "qcm",
+                skillId: "a1-voc-description",
+                difficulty: "A1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "m05-i1-q",
+                  prompt: "Le contraire de « grand » est :",
+                  choices: [
+                    { id: "a", text: "petit" },
+                    { id: "b", text: "jeune" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "petit", explanation: "Grand ≠ petit." },
+                },
+              },
+              {
+                id: "m05-i2",
+                type: "reponse_courte",
+                skillId: "a1-voc-description",
+                difficulty: "A1",
+                instructions: "Item 2.",
+                question: "Comment dit-on « funny » en français ?",
+                acceptedAnswers: ["drôle"],
+                correction: { correctAnswer: "drôle", explanation: "« Drôle » = qui fait rire." },
+              },
+              {
+                id: "m05-i3",
+                type: "vrai_faux",
+                skillId: "a1-ce-messages-simples",
+                difficulty: "A1",
+                instructions: "Item 3. D'après le texte de ce module.",
+                statement: "Hugo a les cheveux longs et blonds.",
+                correctAnswer: false,
+                correction: { correctAnswer: "Faux.", explanation: "Il a les cheveux courts et bruns." },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "a1-vetements-et-couleurs",
+    slug: "vetements-et-couleurs",
+    level: "A1",
+    title: "Vêtements et couleurs",
+    description: "À la fin de ce module, tu peux nommer des vêtements et des couleurs, et décrire une tenue simple.",
+    objectives: [
+      "Nommer des vêtements courants",
+      "Nommer des couleurs",
+      "Décrire ce que porte quelqu'un",
+    ],
+    domain: "vocabulaire",
+    stageId: "a1-vie-quotidienne",
+    estimatedMinutes: 16,
+    situation: "Au bureau des objets trouvés, un employé demande à Camille de décrire le manteau qu'elle a perdu.",
+    vocabulary: [
+      { term: "un pantalon", category: "principal" },
+      { term: "une robe", category: "principal" },
+      { term: "un manteau", category: "principal" },
+      { term: "une chemise", category: "principal" },
+      { term: "des chaussures", category: "principal" },
+      { term: "un pull", category: "principal" },
+      { term: "porter", category: "verbe" },
+      { term: "rouge, bleu(e), vert(e), noir(e), blanc(he)", category: "principal" },
+      { term: "jaune, gris(e), orange, marron", category: "principal" },
+    ],
+    languagePoints: [
+      {
+        title: "L'accord des couleurs",
+        explanation:
+          "Les couleurs s'accordent comme des adjectifs : un pull bleu / une robe bleue. Mais « marron » et « orange » ne s'accordent jamais : des chaussures marron.",
+      },
+      {
+        title: "Le verbe porter",
+        explanation: "« Porter » sert à dire ce qu'on a comme vêtement : je porte un manteau noir.",
+      },
+    ],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "vetements-et-couleurs-ecoute",
+        type: "ecoute",
+        title: "Compréhension orale",
+        optional: false,
+        activities: [
+          {
+            id: "vetements-et-couleurs-ecoute-activite",
+            title: "Écouter une description de vêtement",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "m06-f1",
+                type: "comprehension_orale",
+                skillId: "a1-co-dialogues-quotidiens",
+                difficulty: "A1",
+                instructions: "Écoute, puis réponds aux questions.",
+                audioSrc: "/audio/a1/vetements-et-couleurs/m06-f1.mp3",
+                transcript: "— Vous pouvez décrire votre manteau ? — Oui, c'est un manteau noir, assez long, avec des boutons gris.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "m06-f1-q1",
+                    prompt: "De quelle couleur est le manteau ?",
+                    choices: [
+                      { id: "a", text: "Gris" },
+                      { id: "b", text: "Noir" },
+                      { id: "c", text: "Bleu" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "Noir", explanation: "« C'est un manteau noir. »" },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "m06-f1-q2",
+                    prompt: "Vrai ou faux : les boutons sont gris.",
+                    correctAnswer: true,
+                    correction: { correctAnswer: "Vrai.", explanation: "« avec des boutons gris »." },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "vetements-et-couleurs-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "vetements-et-couleurs-entrainement-activite",
+            title: "Vêtements et couleurs",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "m06-g1",
+                type: "qcm",
+                skillId: "a1-voc-vetements",
+                difficulty: "A1",
+                instructions: "Choisis le mot qui correspond.",
+                question: {
+                  kind: "qcm",
+                  id: "m06-g1-q",
+                  prompt: "On porte ça aux pieds :",
+                  choices: [
+                    { id: "a", text: "des chaussures" },
+                    { id: "b", text: "un pull" },
+                    { id: "c", text: "une chemise" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "des chaussures", explanation: "Les chaussures se portent aux pieds." },
+                },
+              },
+              {
+                id: "m06-g2",
+                type: "texte_a_trous",
+                skillId: "a1-voc-vetements",
+                difficulty: "A1",
+                instructions: "Accorde la couleur si nécessaire.",
+                textWithBlanks: "Elle porte une robe {{1}} (vert) et des chaussures {{2}} (marron).",
+                blanks: [
+                  { id: "1", answer: "verte" },
+                  { id: "2", answer: "marron" },
+                ],
+                correction: {
+                  correctAnswer: "verte — marron",
+                  explanation: "« Robe » est féminin (verte) ; « marron » ne s'accorde jamais.",
+                },
+              },
+              {
+                id: "m06-g3",
+                type: "association",
+                skillId: "a1-voc-vetements",
+                difficulty: "A1",
+                instructions: "Associe le vêtement à une couleur possible.",
+                pairs: [
+                  { id: "1", left: "un ciel", right: "bleu" },
+                  { id: "2", left: "une tomate", right: "rouge" },
+                  { id: "3", left: "l'herbe", right: "vert" },
+                ],
+                correction: {
+                  correctAnswer: "1 → bleu ; 2 → rouge ; 3 → vert",
+                  explanation: "Associations classiques entre objet et couleur.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "vetements-et-couleurs-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "vetements-et-couleurs-ecriture-activite",
+            title: "Décrire une tenue",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "m06-h",
+                type: "production_ecrite",
+                skillId: "a1-pe-decrire",
+                difficulty: "A1",
+                instructions: "Écris ta réponse.",
+                consigne: "Décris ce que tu portes aujourd'hui, en 2 ou 3 phrases (vêtements et couleurs).",
+                minWords: 10,
+                maxWords: 30,
+                correctionCriteria: [
+                  "Au moins deux vêtements nommés (/2)",
+                  "Les couleurs sont accordées correctement (/1)",
+                  "Le verbe « porter » est utilisé (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "vetements-et-couleurs-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "vetements-et-couleurs-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "m06-i1",
+                type: "qcm",
+                skillId: "a1-voc-vetements",
+                difficulty: "A1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "m06-i1-q",
+                  prompt: "Une couleur qui ne s'accorde jamais :",
+                  choices: [
+                    { id: "a", text: "marron" },
+                    { id: "b", text: "verte" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "marron", explanation: "Marron (et orange) sont invariables." },
+                },
+              },
+              {
+                id: "m06-i2",
+                type: "reponse_courte",
+                skillId: "a1-voc-vetements",
+                difficulty: "A1",
+                instructions: "Item 2.",
+                question: "Quel verbe utilise-t-on pour dire ce qu'on a comme vêtement ?",
+                acceptedAnswers: ["porter"],
+                correction: { correctAnswer: "porter", explanation: "« Je porte un manteau noir. »" },
+              },
+              {
+                id: "m06-i3",
+                type: "vrai_faux",
+                skillId: "a1-co-dialogues-quotidiens",
+                difficulty: "A1",
+                instructions: "Item 3. D'après l'audio de ce module.",
+                statement: "Le manteau perdu est bleu.",
+                correctAnswer: false,
+                correction: { correctAnswer: "Faux.", explanation: "Le manteau est noir." },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "a1-ma-maison",
+    slug: "ma-maison",
+    level: "A1",
+    title: "Ma maison",
+    description: "À la fin de ce module, tu peux décrire ton logement et dire où sont les objets.",
+    objectives: [
+      "Nommer les pièces d'un logement",
+      "Nommer des objets courants",
+      "Utiliser il y a et les prépositions de lieu",
+    ],
+    domain: "grammaire",
+    stageId: "a1-vie-quotidienne",
+    estimatedMinutes: 20,
+    situation: "Emma fait visiter son nouvel appartement à son amie Chloé par appel vidéo.",
+    vocabulary: [
+      { term: "un salon", category: "principal" },
+      { term: "une chambre", category: "principal" },
+      { term: "une cuisine", category: "principal" },
+      { term: "une salle de bains", category: "principal" },
+      { term: "un lit", category: "principal" },
+      { term: "une table", category: "principal" },
+      { term: "un canapé", category: "principal" },
+      { term: "il y a", category: "expression" },
+      { term: "sur, sous, dans, devant, derrière", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Il y a",
+        explanation: "« Il y a » signale une présence, au singulier comme au pluriel : il y a un lit, il y a deux chaises.",
+      },
+      {
+        title: "Les prépositions de lieu",
+        explanation: "sur (la table), sous (le lit), dans (la chambre), devant/derrière (la porte). Elles précisent où se trouve un objet.",
+      },
+    ],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "ma-maison-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "ma-maison-comprendre-activite",
+            title: "Lire la description d'un appartement",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "m07-e1",
+                type: "comprehension_ecrite",
+                skillId: "a1-ce-messages-simples",
+                difficulty: "A1",
+                instructions: "Lis le texte, puis réponds.",
+                text:
+                  "Mon appartement a deux pièces : une chambre et un salon. Dans le salon, il y a un canapé et " +
+                  "une table. Il y a aussi une petite cuisine, à côté du salon. La salle de bains est en face de " +
+                  "la chambre.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "m07-e1-q1",
+                    prompt: "Où est le canapé ?",
+                    choices: [
+                      { id: "a", text: "Dans la chambre" },
+                      { id: "b", text: "Dans le salon" },
+                      { id: "c", text: "Dans la cuisine" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "Dans le salon", explanation: "« Dans le salon, il y a un canapé. »" },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "m07-e1-q2",
+                    prompt: "Vrai ou faux : l'appartement a trois chambres.",
+                    correctAnswer: false,
+                    correction: { correctAnswer: "Faux.", explanation: "Il a deux pièces : une chambre et un salon." },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "ma-maison-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "ma-maison-entrainement-activite",
+            title: "Décrire un logement",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "m07-g1",
+                type: "qcm",
+                skillId: "a1-gr-il-y-a-cest",
+                difficulty: "A1",
+                instructions: "Choisis la bonne phrase.",
+                question: {
+                  kind: "qcm",
+                  id: "m07-g1-q",
+                  prompt: "Comment dire qu'il y a un lit dans la chambre ?",
+                  choices: [
+                    { id: "a", text: "Il y a un lit dans la chambre." },
+                    { id: "b", text: "C'est un lit dans la chambre." },
+                    { id: "c", text: "Il a un lit dans la chambre." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "Il y a un lit dans la chambre.", explanation: "« Il y a » signale une présence." },
+                },
+              },
+              {
+                id: "m07-g2",
+                type: "texte_a_trous",
+                skillId: "a1-gr-prepositions-lieu",
+                difficulty: "A1",
+                instructions: "Complète avec sur, sous, dans ou devant.",
+                textWithBlanks: "Le livre est {{1}} la table. Les chaussures sont {{2}} le lit. Il y a une plante {{3}} la fenêtre.",
+                blanks: [
+                  { id: "1", answer: "sur" },
+                  { id: "2", answer: "sous" },
+                  { id: "3", answer: "devant" },
+                ],
+                correction: {
+                  correctAnswer: "sur — sous — devant",
+                  explanation: "Chaque préposition précise une position différente de l'objet.",
+                },
+              },
+              {
+                id: "m07-g3",
+                type: "association",
+                skillId: "a1-voc-maison",
+                difficulty: "A1",
+                instructions: "Associe la pièce à ce qu'on y fait.",
+                pairs: [
+                  { id: "1", left: "la cuisine", right: "préparer les repas" },
+                  { id: "2", left: "la chambre", right: "dormir" },
+                  { id: "3", left: "la salle de bains", right: "se laver" },
+                ],
+                correction: {
+                  correctAnswer: "1 → préparer les repas ; 2 → dormir ; 3 → se laver",
+                  explanation: "Chaque pièce correspond à une activité principale du quotidien.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "ma-maison-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "ma-maison-ecriture-activite",
+            title: "Décrire son logement",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "m07-h",
+                type: "production_ecrite",
+                skillId: "a1-pe-decrire",
+                difficulty: "A1",
+                instructions: "Écris ta réponse.",
+                consigne: "Décris ton logement en 4 phrases : les pièces, et un objet avec sa position (il y a... / sur, dans...).",
+                minWords: 18,
+                maxWords: 45,
+                correctionCriteria: [
+                  "Au moins deux pièces nommées (/2)",
+                  "« Il y a » est utilisé correctement (/1)",
+                  "Une préposition de lieu est utilisée (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "ma-maison-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "ma-maison-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "m07-i1",
+                type: "qcm",
+                skillId: "a1-gr-il-y-a-cest",
+                difficulty: "A1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "m07-i1-q",
+                  prompt: "___ deux chaises dans la cuisine.",
+                  choices: [
+                    { id: "a", text: "Il y a" },
+                    { id: "b", text: "C'est" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "Il y a", explanation: "« Il y a » + nombre + nom." },
+                },
+              },
+              {
+                id: "m07-i2",
+                type: "reponse_courte",
+                skillId: "a1-voc-maison",
+                difficulty: "A1",
+                instructions: "Item 2.",
+                question: "Dans quelle pièce dort-on ?",
+                acceptedAnswers: ["la chambre", "une chambre", "chambre"],
+                correction: { correctAnswer: "la chambre", explanation: "On dort dans la chambre." },
+              },
+              {
+                id: "m07-i3",
+                type: "vrai_faux",
+                skillId: "a1-ce-messages-simples",
+                difficulty: "A1",
+                instructions: "Item 3. D'après le texte de ce module.",
+                statement: "La salle de bains est en face de la chambre.",
+                correctAnswer: true,
+                correction: { correctAnswer: "Vrai.", explanation: "C'est écrit dans le texte." },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "a1-jours-et-mois",
+    slug: "jours-et-mois",
+    level: "A1",
+    title: "Les jours et les mois",
+    description: "À la fin de ce module, tu peux donner une date et parler des jours de la semaine.",
+    objectives: [
+      "Nommer les jours de la semaine",
+      "Nommer les mois de l'année",
+      "Donner une date",
+    ],
+    domain: "vocabulaire",
+    stageId: "a1-vie-quotidienne",
+    estimatedMinutes: 16,
+    situation: "Au cabinet médical, la secrétaire propose un rendez-vous à Marc et ils cherchent une date.",
+    vocabulary: [
+      { term: "lundi, mardi, mercredi...", category: "principal" },
+      { term: "janvier, février, mars...", category: "principal" },
+      { term: "aujourd'hui", category: "principal" },
+      { term: "demain", category: "principal" },
+      { term: "hier", category: "principal" },
+      { term: "quelle est la date ?", category: "expression" },
+      { term: "on est le...", category: "expression" },
+      { term: "le printemps, l'été, l'automne, l'hiver", category: "principal" },
+    ],
+    languagePoints: [
+      {
+        title: "Donner la date",
+        explanation:
+          "On est le + nombre + mois : on est le 3 mars. Pour le premier jour du mois, on dit « le premier » : le premier mai.",
+      },
+      {
+        title: "Les jours ne prennent pas de majuscule",
+        explanation: "En français, contrairement à l'anglais, les jours (lundi) et les mois (janvier) s'écrivent sans majuscule.",
+      },
+    ],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "jours-et-mois-ecoute",
+        type: "ecoute",
+        title: "Compréhension orale",
+        optional: false,
+        activities: [
+          {
+            id: "jours-et-mois-ecoute-activite",
+            title: "Écouter une prise de rendez-vous",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "m08-f1",
+                type: "comprehension_orale",
+                skillId: "a1-co-dialogues-quotidiens",
+                difficulty: "A1",
+                instructions: "Écoute, puis réponds.",
+                audioSrc: "/audio/a1/jours-et-mois/m08-f1.mp3",
+                transcript: "— On est le combien aujourd'hui ? — On est le 12 mars. — Alors, votre rendez-vous, c'est le 15 mars, un vendredi.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "m08-f1-q1",
+                    prompt: "Quel jour de la semaine est le rendez-vous ?",
+                    choices: [
+                      { id: "a", text: "Mardi" },
+                      { id: "b", text: "Vendredi" },
+                      { id: "c", text: "Lundi" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: { correctAnswer: "Vendredi", explanation: "« C'est le 15 mars, un vendredi. »" },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "jours-et-mois-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "jours-et-mois-entrainement-activite",
+            title: "Jours, mois et dates",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "m08-g1",
+                type: "remise_en_ordre",
+                skillId: "a1-voc-temps",
+                difficulty: "A1",
+                instructions: "Remets les jours dans l'ordre de la semaine (à partir de lundi).",
+                items: [
+                  { id: "a", text: "jeudi" },
+                  { id: "b", text: "lundi" },
+                  { id: "c", text: "mardi" },
+                  { id: "d", text: "mercredi" },
+                ],
+                correctOrder: ["b", "c", "d", "a"],
+                correction: {
+                  correctAnswer: "lundi, mardi, mercredi, jeudi",
+                  explanation: "Ordre habituel de la semaine en France : lundi en premier.",
+                },
+              },
+              {
+                id: "m08-g2",
+                type: "qcm",
+                skillId: "a1-voc-temps",
+                difficulty: "A1",
+                instructions: "Choisis la bonne saison.",
+                question: {
+                  kind: "qcm",
+                  id: "m08-g2-q",
+                  prompt: "Décembre, janvier et février sont les mois de :",
+                  choices: [
+                    { id: "a", text: "l'été" },
+                    { id: "b", text: "l'hiver" },
+                    { id: "c", text: "le printemps" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: { correctAnswer: "l'hiver", explanation: "Décembre-février = l'hiver en France." },
+                },
+              },
+              {
+                id: "m08-g3",
+                type: "texte_a_trous",
+                skillId: "a1-voc-temps",
+                difficulty: "A1",
+                instructions: "Complète avec le jour ou le mois.",
+                textWithBlanks: "Mon anniversaire est le 3 {{1}} (avril). Le rendez-vous est {{2}} (vendredi) prochain.",
+                blanks: [
+                  { id: "1", answer: "avril" },
+                  { id: "2", answer: "vendredi" },
+                ],
+                correction: { correctAnswer: "avril — vendredi", explanation: "Les mois et les jours s'écrivent sans majuscule." },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "jours-et-mois-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "jours-et-mois-ecriture-activite",
+            title: "Donner une date",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "m08-h",
+                type: "production_ecrite",
+                skillId: "a1-pe-message-simple",
+                difficulty: "A1",
+                instructions: "Écris ta réponse.",
+                consigne: "Écris 2 phrases : la date de ton anniversaire, et un jour où tu ne travailles/étudies pas.",
+                minWords: 8,
+                maxWords: 25,
+                correctionCriteria: [
+                  "Une date complète est donnée (jour + mois) (/2)",
+                  "Un jour de la semaine est mentionné (/1)",
+                  "Pas de majuscule aux jours/mois (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "jours-et-mois-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "jours-et-mois-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "m08-i1",
+                type: "qcm",
+                skillId: "a1-voc-temps",
+                difficulty: "A1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "m08-i1-q",
+                  prompt: "Le jour après mercredi est :",
+                  choices: [
+                    { id: "a", text: "jeudi" },
+                    { id: "b", text: "mardi" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "jeudi", explanation: "lundi, mardi, mercredi, jeudi..." },
+                },
+              },
+              {
+                id: "m08-i2",
+                type: "reponse_courte",
+                skillId: "a1-voc-temps",
+                difficulty: "A1",
+                instructions: "Item 2.",
+                question: "Quel est le premier mois de l'année ?",
+                acceptedAnswers: ["janvier"],
+                correction: { correctAnswer: "janvier", explanation: "L'année commence en janvier." },
+              },
+              {
+                id: "m08-i3",
+                type: "vrai_faux",
+                skillId: "a1-co-dialogues-quotidiens",
+                difficulty: "A1",
+                instructions: "Item 3. D'après l'audio de ce module.",
+                statement: "Le rendez-vous est le 15 mars.",
+                correctAnswer: true,
+                correction: { correctAnswer: "Vrai.", explanation: "« Votre rendez-vous, c'est le 15 mars. »" },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "a1-lheure-et-lemploi-du-temps",
+    slug: "lheure-et-lemploi-du-temps",
+    level: "A1",
+    title: "L'heure et l'emploi du temps",
+    description: "À la fin de ce module, tu peux dire l'heure et parler de ton emploi du temps.",
+    objectives: [
+      "Demander et dire l'heure",
+      "Parler des horaires d'une activité",
+      "Utiliser les verbes en -er pour l'emploi du temps",
+    ],
+    domain: "grammaire",
+    stageId: "a1-vie-quotidienne",
+    estimatedMinutes: 18,
+    situation: "Au téléphone, Inès demande à sa collègue Paul à quelle heure commence la réunion.",
+    vocabulary: [
+      { term: "quelle heure est-il ?", category: "expression" },
+      { term: "il est... heures", category: "expression" },
+      { term: "et demie / et quart / moins le quart", category: "expression" },
+      { term: "le matin, l'après-midi, le soir", category: "principal" },
+      { term: "commencer", category: "verbe" },
+      { term: "finir", category: "verbe" },
+      { term: "à... heures", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Dire l'heure",
+        explanation:
+          "Il est + nombre + heure(s) : il est trois heures. Avec les minutes : il est trois heures et quart, trois heures et demie, quatre heures moins le quart.",
+      },
+      {
+        title: "Rappel : les verbes en -er",
+        explanation: "commencer et finir (finir est un peu différent) se combinent avec « à » pour donner un horaire : la réunion commence à 10 heures.",
+      },
+    ],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "lheure-et-lemploi-du-temps-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "lheure-et-lemploi-du-temps-comprendre-activite",
+            title: "Lire un emploi du temps",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "m09-e1",
+                type: "comprehension_ecrite",
+                skillId: "a1-ce-panneaux-annonces",
+                difficulty: "A1",
+                instructions: "Lis le programme, puis réponds.",
+                text: "Cours de français : le matin de 9h à 12h. Pause déjeuner de 12h à 13h30. L'après-midi, atelier de conversation de 14h à 15h30.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "m09-e1-q1",
+                    prompt: "À quelle heure commence le cours de français ?",
+                    choices: [
+                      { id: "a", text: "9h" },
+                      { id: "b", text: "12h" },
+                      { id: "c", text: "14h" },
+                    ],
+                    correctChoiceId: "a",
+                    correction: { correctAnswer: "9h", explanation: "« Le matin de 9h à 12h. »" },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "m09-e1-q2",
+                    prompt: "Vrai ou faux : la pause déjeuner dure une heure et demie.",
+                    correctAnswer: true,
+                    correction: { correctAnswer: "Vrai.", explanation: "De 12h à 13h30, c'est une heure et demie." },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "lheure-et-lemploi-du-temps-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "lheure-et-lemploi-du-temps-entrainement-activite",
+            title: "Dire l'heure",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "m09-g1",
+                type: "qcm",
+                skillId: "a1-voc-nombres",
+                difficulty: "A1",
+                instructions: "Choisis l'heure correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "m09-g1-q",
+                  prompt: "10h30 se dit :",
+                  choices: [
+                    { id: "a", text: "dix heures et demie" },
+                    { id: "b", text: "dix heures et quart" },
+                    { id: "c", text: "dix heures moins le quart" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "dix heures et demie", explanation: "30 minutes = « et demie »." },
+                },
+              },
+              {
+                id: "m09-g2",
+                type: "texte_a_trous",
+                skillId: "a1-gr-verbes-er",
+                difficulty: "A1",
+                instructions: "Complète avec « commence » ou « finit ».",
+                textWithBlanks: "La réunion {{1}} à 10 heures et elle {{2}} à midi.",
+                blanks: [
+                  { id: "1", answer: "commence" },
+                  { id: "2", answer: "finit" },
+                ],
+                correction: { correctAnswer: "commence — finit", explanation: "Commencer et finir décrivent le début et la fin d'une activité." },
+              },
+              {
+                id: "m09-g3",
+                type: "association",
+                skillId: "a1-voc-temps",
+                difficulty: "A1",
+                instructions: "Associe le moment de la journée à une activité habituelle.",
+                pairs: [
+                  { id: "1", left: "le matin", right: "se lever" },
+                  { id: "2", left: "l'après-midi", right: "travailler" },
+                  { id: "3", left: "le soir", right: "dîner" },
+                ],
+                correction: {
+                  correctAnswer: "1 → se lever ; 2 → travailler ; 3 → dîner",
+                  explanation: "Associations habituelles entre moment de la journée et activité.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "lheure-et-lemploi-du-temps-ecriture",
+        type: "ecriture",
+        title: "Réutiliser",
+        optional: false,
+        activities: [
+          {
+            id: "lheure-et-lemploi-du-temps-ecriture-activite",
+            title: "Décrire son emploi du temps",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "m09-h",
+                type: "production_ecrite",
+                skillId: "a1-pe-decrire",
+                difficulty: "A1",
+                instructions: "Écris ta réponse.",
+                consigne: "Écris 3 phrases sur ton emploi du temps aujourd'hui, avec des heures précises.",
+                minWords: 15,
+                maxWords: 35,
+                correctionCriteria: [
+                  "Au moins 2 heures précises sont données (/2)",
+                  "Un verbe en -er est utilisé correctement (/1)",
+                  "Phrases simples et compréhensibles (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "lheure-et-lemploi-du-temps-ecriture-activite-orale",
+            title: "Dire l'heure à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "m09-h-oral",
+                type: "production_orale",
+                skillId: "a1-pe-decrire",
+                difficulty: "A1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne: "Quelqu'un te demande l'heure et à quelle heure commence ton cours de français. Réponds à voix haute.",
+                prepSeconds: 20,
+                maxSpeakSeconds: 25,
+                selfAssessmentCriteria: [
+                  "J'ai dit l'heure correctement.",
+                  "J'ai donné l'heure de début du cours.",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "lheure-et-lemploi-du-temps-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "lheure-et-lemploi-du-temps-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "m09-i1",
+                type: "qcm",
+                skillId: "a1-voc-nombres",
+                difficulty: "A1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "m09-i1-q",
+                  prompt: "8h45 se dit :",
+                  choices: [
+                    { id: "a", text: "neuf heures moins le quart" },
+                    { id: "b", text: "huit heures et quart" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: { correctAnswer: "neuf heures moins le quart", explanation: "45 minutes = « moins le quart » de l'heure suivante." },
+                },
+              },
+              {
+                id: "m09-i2",
+                type: "reponse_courte",
+                skillId: "a1-gr-verbes-er",
+                difficulty: "A1",
+                instructions: "Item 2.",
+                question: "Quel est le contraire de « commencer » ?",
+                acceptedAnswers: ["finir"],
+                correction: { correctAnswer: "finir", explanation: "Commencer ≠ finir." },
+              },
+              {
+                id: "m09-i3",
+                type: "vrai_faux",
+                skillId: "a1-ce-panneaux-annonces",
+                difficulty: "A1",
+                instructions: "Item 3. D'après le programme de ce module.",
+                statement: "L'atelier de conversation a lieu le matin.",
+                correctAnswer: false,
+                correction: { correctAnswer: "Faux.", explanation: "Il a lieu l'après-midi, de 14h à 15h30." },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
