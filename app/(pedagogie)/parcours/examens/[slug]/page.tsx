@@ -51,7 +51,12 @@ export default async function ExamPage({ params }: PageProps<"/parcours/examens/
     return (
       <>
         <JsonLd data={[breadcrumb, learningResource]} />
-        <PremiumLock title={exam.title} backHref="/parcours/examens" backLabel="← Retour aux examens" />
+        <PremiumLock
+          title={exam.title}
+          description={exam.description}
+          backHref="/parcours/examens"
+          backLabel="← Retour aux examens"
+        />
       </>
     );
   }

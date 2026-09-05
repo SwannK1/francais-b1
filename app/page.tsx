@@ -9,6 +9,7 @@ import LearningTypes from "@/components/marketing/LearningTypes";
 import Exams from "@/components/marketing/Exams";
 import Pricing from "@/components/marketing/Pricing";
 import { JsonLd, websiteSchema } from "@/lib/seo/schema";
+import ViewTracker from "@/lib/analytics/ViewTracker";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -18,6 +19,7 @@ export default function Home() {
   return (
     <>
       <JsonLd data={websiteSchema()} />
+      <ViewTracker event="homepage_viewed" />
       <Header />
       <main id="main-content">
         <Hero />

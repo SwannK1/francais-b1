@@ -7,15 +7,20 @@ import { buttonClasses } from "@/components/ui/button-styles";
 
 const initialState: AuthFormState = {};
 
-export default function ResetPasswordForm({ token }: { token: string }) {
+export default function ResetPasswordForm({ token, next }: { token: string; next?: string }) {
   const [state, action, pending] = useActionState(resetPassword, initialState);
   const router = useRouter();
+  // Les sessions ouvertes sont détruites par la réinitialisation (voir
+  // `resetPassword`, app/actions/auth.ts) : on repasse par la connexion,
+  // avec `next` reporté pour ne pas perdre l'intention initiale (ex. un
+  // module premium qui a déclenché tout ce détour).
+  const loginHref = next ? `/connexion?next=${encodeURIComponent(next)}` : "/connexion";
 
   useEffect(() => {
     if (!state.success) return;
-    const timeout = setTimeout(() => router.push("/connexion"), 2000);
+    const timeout = setTimeout(() => router.push(loginHref), 2000);
     return () => clearTimeout(timeout);
-  }, [state.success, router]);
+  }, [state.success, router, loginHref]);
 
   if (state.success) {
     return (

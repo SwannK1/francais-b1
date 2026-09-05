@@ -7,6 +7,7 @@
  */
 export const ANALYTICS_EVENTS = [
   // Acquisition / navigation du parcours
+  "homepage_viewed",
   "primary_cta_clicked",
   "resume_clicked",
   "journey_viewed",

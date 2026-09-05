@@ -15,8 +15,9 @@ export const metadata: Metadata = {
 export default async function ReinitialiserMotDePassePage({
   searchParams,
 }: PageProps<"/reinitialiser-mot-de-passe">) {
-  const { token } = await searchParams;
+  const { token, next } = await searchParams;
   const rawToken = typeof token === "string" ? token : null;
+  const nextHref = typeof next === "string" && next.startsWith("/") ? next : undefined;
   const status = rawToken ? await checkPasswordResetToken(rawToken) : "invalid";
 
   return (
@@ -27,7 +28,7 @@ export default async function ReinitialiserMotDePassePage({
           <h1 className="text-2xl font-bold text-foreground">Nouveau mot de passe</h1>
           <Card className="mt-6">
             {status === "valid" && rawToken ? (
-              <ResetPasswordForm token={rawToken} />
+              <ResetPasswordForm token={rawToken} next={nextHref} />
             ) : (
               <div className="space-y-3">
                 <p role="alert" className="text-sm text-foreground">
