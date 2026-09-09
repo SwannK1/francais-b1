@@ -41,16 +41,28 @@ Cette cartographie décrit la sélection de contenu effectuée depuis la sauvega
 |---|---|---|
 | `components/pedagogy/DailySessionCard.tsx` | Non retenu | Non référencé, type supprimé, remplacé explicitement par `GuidedSessionCard` ; reste dans origin/main et recovery |
 | `components/pedagogy/LessonStep.tsx` | Non retenu | Ancien composant non référencé, runner actuel intégré à `SeanceExperience` |
+| `ParcoursClient.tsx`, `ProgressionClient.tsx` | Non retenus | Anciens noms/composants remplacés par les expériences actuelles ; aucune référence active |
 | `exams-public-a2*.ts`, `modules-public-a2*.ts` | Non retenu comme runtime | Variantes intermédiaires remplacées par les catalogues unifiés générés ; conservées dans recovery |
 | générateurs publics A2 séparés | Non retenus | Pipeline unifié `generate-public-modules/exams` présent et testé |
 | `audio-playback.ts` ancien emplacement | Non retenu | Remplacé par `lib/pedagogy/audio/playback.ts` et ses tests |
 | `check-audio-assets.mjs` | Non retenu | Couverture assurée par les tests de manifests/fichiers A1/A2/B1 et `audio:status` |
+| `alias-loader.mjs` | Non retenu | Ancienne variante ; `ts-alias-loader.mjs` et `register-alias-loader.mjs` sont utilisés par tous les scripts actuels |
 | `docs/analytics.md` | Non retenu | Remplacé par `docs/analytics/product-analytics.md` et les plans produit plus récents |
-| `docs/user-testing-protocol.md` | À conserver dans recovery | Document SEO/UX historique sans incidence runtime ; à réévaluer hors reconstruction |
+| `docs/user-testing-protocol.md` | Intégré | Document autonome utile, sans secret ni dépendance runtime |
 | `BlockerFeedback.tsx` | Non retenu | Composant expérimental SEO non référencé dans le produit final |
 | `initial-user-progress 2.ts` | Non retenu | Doublon nommé accidentellement ; version canonique testée présente |
+| `.claude/scheduled_tasks.lock` | Non retenu | Verrou d'outil local, sans contenu produit |
+
+## Couverture reconstruite
+
+| Niveau | Modules | Leçons | Activités | Exercices | Examens | Évaluations liées | Audio |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| A1 | 27 | 123 | 131 | 283 | 1 | 2 | 65 |
+| A2 | 23 | 100 | 121 | 234 | 2 | 3 | 31 |
+| B1 | 26 | 114 | 120 | 310 | 2 | 1 | 16 |
+
+Trois fichiers audio supplémentaires servent aux examens/démos, soit 115 fichiers sélectionnés au total. Le catalogue contient 76 modules, 337 leçons, 372 activités et 827 exercices.
 
 ## Secrets
 
 Seul `.env.example` est autorisé dans Git. Aucun `.env.local` provenant du recovery n'est importé. Les valeurs réelles nécessaires à la base, Stripe, Resend ou l'URL applicative doivent être configurées hors Git.
-
