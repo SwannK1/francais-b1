@@ -19,6 +19,22 @@ Document de travail du chantier « excellence pédagogique ». Les constats sont
 
 ## Lots
 
+## Échantillon pédagogique représentatif
+
+| Niveau | Début | Milieu | Fin | Constat principal |
+|---|---|---|---|---|
+| A1 | Se saluer et se présenter | Faire les courses | Bilan / banque d’écoute | Consignes et feedback fermés solides ; production simple adaptée ; écoute surtout distribuée dans 11/26 modules cœur et la banque dédiée |
+| A2 | Se présenter en détail | Parler de son travail | Bilan / banque d’écoute | Production très présente (21/22 modules cœur), progression vers le récit et les situations quotidiennes cohérente |
+| B1 | Se présenter | Travail et projets | Bilan B1 | Contextes plausibles et écrit fréquent ; oral guidé sous-représenté dans les modules cœur (6/26) malgré la route orale séparée |
+
+Le comptage transversal confirme 11/26, 10/22 et 16/26 modules cœur avec compréhension orale pour A1, A2 et B1. Le produit dispose bien de 115 fichiers audio, mais leur présence en banque séparée ne garantit pas leur réutilisation au moment où une compétence est apprise. L’intégration contextuelle de l’écoute et le renforcement de l’oral B1 restent des P1 éditoriaux ; ils ne justifient pas une génération audio globale dans ce chantier.
+
+## Transitions et évaluations
+
+- Les passages A1→A2 et A2→B1 couvrent compréhension écrite, vocabulaire, grammaire, compréhension orale et production guidée, avec seuil global documenté à 60 %.
+- Les résultats par dimension signalent les lacunes ; la production guidée reste explicitement auto-évaluée et n’est pas présentée comme une note officielle.
+- Limite réelle : les tentatives d’évaluation vivent encore hors de `UserProgress`. Le parcours peut donc constater qu’un catalogue est terminé, mais ne peut pas utiliser un passage réussi comme preuve centrale de préparation. Relier ces données exige une migration de schéma et reste P1, à traiter séparément plutôt que par une dérivation fragile côté UI.
+
 ### Lot 1 — prochaine action, erreurs et maîtrise
 
 - Problème démontré : la séance du jour utilisait l’ancien mécanisme de rappel et le premier identifiant faible, tandis que `/reviser` classait déjà les compétences selon erreurs récentes, répétition, couverture et ancienneté.
