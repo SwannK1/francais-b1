@@ -1,7 +1,9 @@
 # Audit BEST OF — Français A1 / A2 / B1
 
-Date : 9 septembre 2026  
-HEAD initial : `58b475ab127f80fd207a2e89f47d983d6100509b`  
+Date : 9 septembre 2026
+
+HEAD initial : `58b475ab127f80fd207a2e89f47d983d6100509b`
+
 Référence : `main` gagne par défaut ; une variante n'est retenue que si son gain est démontré et supérieur au risque.
 
 ## Méthode et périmètre
