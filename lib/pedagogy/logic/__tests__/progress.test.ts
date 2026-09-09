@@ -142,3 +142,68 @@ describe("recordExerciseResult never loses previously recorded progress", () => 
     expect(mp?.completed).toBe(true);
   });
 });
+
+describe("recordExerciseResult — historique par compétence (lib/review)", () => {
+  // `gr-pronoms-complements` : un vrai skillId du catalogue (voir `data/skills.ts`) —
+  // requis ici, `computeSkillProgress` n'émet une `SkillProgress` (et donc son
+  // historique) que pour les compétences réellement présentes dans `PUBLIC_MODULES`.
+  it("sets lastPracticedAt and starts recentOutcomes on the first result for a skill", () => {
+    const mod = makeModule({
+      id: "m3",
+      slug: "m3",
+      lessons: [{ id: "m3-lesson", type: "entrainement", title: "Leçon", optional: false, activities: [{ id: "m3-activity", title: "Activité", skillDomain: "grammaire", exercises: [{ id: "m3-ex1", type: "vrai_faux", skillId: "gr-pronoms-complements", difficulty: "B1", instructions: "", statement: "A", correctAnswer: true, correction: { correctAnswer: "Vrai", explanation: "x" } }] }] }],
+    });
+    const progress = recordExerciseResult(makeProgress(), mod, mod.lessons[0].activities[0].exercises[0], false);
+
+    const sp = progress.skillProgress.find((s) => s.skillId === "gr-pronoms-complements");
+    expect(sp?.recentOutcomes).toEqual([false]);
+    expect(sp?.lastPracticedAt).not.toBeNull();
+  });
+
+  it("appends to recentOutcomes across successive results for the same skill, bounded to the last 5", () => {
+    const exercises = Array.from({ length: 6 }, (_, i) => ({
+      id: `m4-ex${i}`,
+      type: "vrai_faux" as const,
+      skillId: "gr-pronoms-complements",
+      difficulty: "B1" as const,
+      instructions: "",
+      statement: "A",
+      correctAnswer: true,
+      correction: { correctAnswer: "Vrai", explanation: "x" },
+    }));
+    const mod = makeModule({
+      id: "m4",
+      slug: "m4",
+      lessons: [{ id: "m4-lesson", type: "entrainement", title: "Leçon", optional: false, activities: [{ id: "m4-activity", title: "Activité", skillDomain: "vocabulaire", exercises }] }],
+    });
+
+    let progress = makeProgress();
+    const outcomes = [true, false, true, true, false, true];
+    for (let i = 0; i < exercises.length; i++) {
+      progress = recordExerciseResult(progress, mod, exercises[i], outcomes[i]);
+    }
+
+    const sp = progress.skillProgress.find((s) => s.skillId === "gr-pronoms-complements");
+    expect(sp?.recentOutcomes).toEqual([false, true, true, false, true]); // les 5 derniers, la première pratique tombée hors fenêtre
+  });
+});
+
+describe("mergeUserProgress — historique par compétence (lib/review)", () => {
+  it("keeps the history from whichever side practiced the skill most recently", () => {
+    const staleLocal = makeProgress({
+      skillProgress: [
+        { skillId: "gr-pronoms-complements", domain: "grammaire", totalExercises: 5, completedExercises: 1, correctExercises: 1, successRate: 100, lastPracticedAt: "2026-01-01T00:00:00.000Z", recentOutcomes: [true] },
+      ],
+    });
+    const freshRemote = makeProgress({
+      skillProgress: [
+        { skillId: "gr-pronoms-complements", domain: "grammaire", totalExercises: 5, completedExercises: 2, correctExercises: 0, successRate: 0, lastPracticedAt: "2026-02-01T00:00:00.000Z", recentOutcomes: [true, false] },
+      ],
+    });
+
+    const merged = mergeUserProgress(staleLocal, freshRemote);
+    const sp = merged.skillProgress.find((s) => s.skillId === "gr-pronoms-complements");
+    expect(sp?.lastPracticedAt).toBe("2026-02-01T00:00:00.000Z");
+    expect(sp?.recentOutcomes).toEqual([true, false]);
+  });
+});

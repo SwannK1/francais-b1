@@ -28,7 +28,9 @@ export type AccessLevel = "free" | "premium";
 export type AccessResource =
   | { kind: "stage"; stageId: StageId }
   | { kind: "module"; slug: string }
-  | { kind: "exam"; slug: string };
+  | { kind: "exam"; slug: string }
+  | { kind: "speaking"; exerciseId: string }
+  | { kind: "assessment"; checkpointId: string };
 
 /** Étapes intégralement gratuites (test de positionnement : sert à qualifier le visiteur, pas à le retenir). */
 const FREE_STAGE_IDS: StageId[] = ["faire-le-point"];
@@ -38,8 +40,26 @@ const FREE_STAGE_IDS: StageId[] = ["faire-le-point"];
  * méthode avant de payer. Choisis parmi les modules fondateurs de la phase
  * "Poser les bases du B1" (voir `lib/pedagogy/data/modules.ts`), pas par
  * ordre arbitraire du tableau.
+ *
+ * Asymétrie connue et volontairement non arbitrée ici : aucun module A1/A2
+ * n'est gratuit, contrairement au B1 — un utilisateur diagnostiqué A1/A2
+ * n'a donc aucun module réellement gratuit à son niveau, et
+ * `getNextModule` (lib/pedagogy/logic/recommendation.ts) peut recommander
+ * ce module B1 dès la première visite d'un utilisateur gratuit. Documenté
+ * de façon répétée comme décision commerciale hors périmètre technique
+ * (`docs/integration/product-v1.md` § 5, `docs/product/free-premium-audit.md`) —
+ * voir `docs/product/release-candidate.md` § limites restantes avant de
+ * rouvrir ce choix.
  */
 const FREE_MODULE_SLUGS: string[] = ["se-presenter", "decrire-vie-quotidienne"];
+
+/**
+ * Exercices oraux offerts en découverte gratuite (chantier speaking-assessment,
+ * `lib/speaking/`) — un exercice de chaque famille la plus simple (répétition,
+ * situation) pour essayer la zone "Expression orale" avant de payer, même
+ * logique que `FREE_MODULE_SLUGS`.
+ */
+const FREE_SPEAKING_EXERCISE_IDS: string[] = ["repetition-bonjour", "situation-se-presenter"];
 
 export function isFreeResource(resource: AccessResource): boolean {
   switch (resource.kind) {
@@ -50,6 +70,12 @@ export function isFreeResource(resource: AccessResource): boolean {
     case "exam":
       // Aucun examen blanc n'est offert en découverte : c'est la valeur
       // principale de l'offre complète (voir lib/commerce/plans.ts).
+      return false;
+    case "speaking":
+      return FREE_SPEAKING_EXERCISE_IDS.includes(resource.exerciseId);
+    case "assessment":
+      // Même raisonnement que "exam" : les évaluations de passage sont une
+      // valeur de l'offre complète, pas un contenu de découverte.
       return false;
   }
 }

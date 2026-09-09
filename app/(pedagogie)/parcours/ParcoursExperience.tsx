@@ -3,12 +3,13 @@
 import Link from "next/link";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
 import StageCard from "@/components/pedagogy/StageCard";
-import DailySessionCard from "@/components/pedagogy/DailySessionCard";
+import GuidedSessionCard from "@/components/pedagogy/GuidedSessionCard";
 import ResumeCard from "@/components/pedagogy/ResumeCard";
 import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
 import { getLearningGoalById } from "@/lib/pedagogy/data/goals";
-import { computeDailySession, getNextModule } from "@/lib/pedagogy/logic/recommendation";
-import { getStageCompletionRate, getStageStatus } from "@/lib/pedagogy/logic/parcours";
+import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
+import { buildDailySession } from "@/lib/daily/session-engine";
+import { getEffectiveLevel, getStageCompletionRate, getStageStatus } from "@/lib/pedagogy/logic/parcours";
 import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
 import { getReviewItems } from "@/lib/pedagogy/logic/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
@@ -41,6 +42,9 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
   const { user } = useAuth();
   const stages = [...PARCOURS_STAGES].sort((a, b) => a.order - b.order);
   const goal = progress.goalId ? getLearningGoalById(progress.goalId) : undefined;
+  // "Où en suis-je maintenant" (niveau effectif), pas seulement le dernier
+  // résultat du test de positionnement — voir `getEffectiveLevel`.
+  const effectiveLevel = getEffectiveLevel(progress, publicModules);
 
   const isAccessible = (mod: PublicModule) =>
     canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
@@ -53,16 +57,21 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
   const resumeTarget = getNextModule(progress, publicModules, { isAccessible });
   const rawTarget = resumeTarget ? null : getNextModule(progress, publicModules);
 
-  const dailySession = computeDailySession(progress, publicModules);
-  const dailySessionModule = dailySession
-    ? publicModules.find((m) => m.id === dailySession.moduleId)
-    : undefined;
-  const dailySessionLocked = dailySessionModule ? !isAccessible(dailySessionModule) : false;
-  // Éviter d'afficher deux cartes redondantes ("Reprendre" et "Séance du
-  // jour") pointant vers le même module : la séance du jour n'apporte alors
-  // rien de plus, elle est masquée plutôt que dupliquée.
-  const showDailySession =
-    dailySession && dailySessionModule && dailySessionModule.id !== resumeTarget?.module.id;
+  // Séance guidée du jour (`lib/daily/`) : chantier indépendant du
+  // diagnostic et du moteur de révision espacée, qui construit une vraie
+  // séance à plusieurs étapes (jamais une simple carte-lien vers un
+  // module). Contrairement à l'ancienne carte "Séance du jour" (un simple
+  // lien, redondant avec "Reprendre" quand elle pointait vers le même
+  // module — d'où la déduplication historique), celle-ci affiche toujours
+  // une information supplémentaire réelle (durée, nombre d'étapes, contenu
+  // détaillé) même quand elle cible le même module que "Reprendre" : elle
+  // n'est donc jamais masquée pour éviter un doublon. Même précaution que
+  // `resumeTarget`/`rawTarget` ci-dessus pour le verrouillage :
+  // `guidedSession` ignore les modules verrouillés, `rawGuidedSession` sert
+  // uniquement à distinguer "rien à faire" de "tout est verrouillé".
+  const guidedSession = buildDailySession(progress, publicModules, { isAccessible });
+  const rawGuidedSession = guidedSession ? null : buildDailySession(progress, publicModules);
+  const showGuidedSession = Boolean(guidedSession || rawGuidedSession);
 
   const reviewItemsCount = getReviewItems(progress, publicModules).length;
 
@@ -70,10 +79,10 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
     <div>
       <ViewTracker event="journey_viewed" />
       <header>
-        <LevelBadge level={progress.level} />
-        <h1 className="mt-3 text-2xl font-bold text-foreground sm:text-3xl">Ton parcours B1</h1>
+        <LevelBadge level={effectiveLevel} />
+        <h1 className="mt-3 text-2xl font-bold text-foreground sm:text-3xl">Ton parcours {effectiveLevel}</h1>
         <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-          Un chemin en {stages.length} étapes pour être prêt·e pour un examen de niveau B1.
+          Un chemin en {stages.length} étapes, de A1 à B1, pour progresser vers plus d&apos;autonomie en français.
           {goal ? (
             <>
               {" "}
@@ -116,18 +125,52 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
         </section>
       ) : null}
 
-      {showDailySession ? (
+      {showGuidedSession ? (
         <section aria-labelledby="daily-session-title" className="mt-8">
           <h2 id="daily-session-title" className="mb-3 text-lg font-semibold text-foreground">
             Séance du jour
           </h2>
-          <DailySessionCard
-            session={dailySession}
-            href={dailySessionLocked ? "/offre" : `/parcours/module/${dailySessionModule.slug}`}
-            locked={dailySessionLocked}
+          <GuidedSessionCard
+            plan={guidedSession ?? rawGuidedSession!}
+            href={guidedSession ? `/parcours/seance?module=${guidedSession.moduleSlug}` : "/offre"}
+            locked={!guidedSession}
           />
         </section>
       ) : null}
+
+      {/*
+        Section purement additive : liens vers les zones "Expression orale"
+        (lib/speaking/) et "Évaluations de passage" (lib/assessment/), toutes
+        deux volontairement indépendantes du diagnostic/de la révision
+        espacée/de la séance du jour ci-dessus — aucune des fonctions
+        (getStageStatus, computeDailySession, getReviewItems...) qui
+        alimentent le reste de cette page n'est utilisée ici.
+      */}
+      <section aria-labelledby="extra-practice-title" className="mt-8">
+        <h2 id="extra-practice-title" className="mb-3 text-lg font-semibold text-foreground">
+          Entraînement complémentaire
+        </h2>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Link
+            href="/oral"
+            className="block rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted"
+          >
+            <p className="font-semibold text-foreground">Expression orale</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Répétition, lecture, mini-réponses et mises en situation, avec auto-évaluation guidée.
+            </p>
+          </Link>
+          <Link
+            href="/parcours/evaluations"
+            className="block rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted"
+          >
+            <p className="font-semibold text-foreground">Évaluations de passage</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Bilans de fin A1/A2 et passages A1 → A2, A2 → B1, avec résultat détaillé par compétence.
+            </p>
+          </Link>
+        </div>
+      </section>
 
       <section aria-labelledby="stages-title" className="mt-8">
         <h2 id="stages-title" className="mb-3 text-lg font-semibold text-foreground">

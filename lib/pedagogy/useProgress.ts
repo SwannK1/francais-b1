@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import { INITIAL_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
-import { recordExerciseResult, toggleModuleReview } from "@/lib/pedagogy/logic/progress";
+import { recordExerciseResult, resolvePlacementLevel, toggleModuleReview } from "@/lib/pedagogy/logic/progress";
 import {
   abandonExamAttempt,
   completeExamAttempt,
@@ -148,11 +148,20 @@ export function useProgress() {
    * affiché ailleurs dans l'app (badge, parcours) restait celui du seed de
    * démo (B1) quel que soit le résultat réel du test — incohérence relevée
    * par le chantier UX, corrigée à l'intégration.
+   *
+   * `resolvePlacementLevel` protège un apprenant qui a déjà une vraie
+   * progression : refaire le test et obtenir un résultat plus bas (erreur
+   * de manipulation, mauvaise journée...) ne le fait jamais redescendre en
+   * dessous du niveau déjà couvert par des exercices réellement complétés —
+   * voir `docs/product/diagnostic-progress-integration.md` § règle de
+   * priorité. `placementCompletedAt` est toujours mis à jour : la date du
+   * test reste honnête même quand le niveau affiché ne bouge pas.
    */
   const markPlacementCompleted = useCallback((level: CEFRLevel) => {
+    const current = parseProgress(readRaw());
     writeProgress({
-      ...parseProgress(readRaw()),
-      level,
+      ...current,
+      level: resolvePlacementLevel(current.moduleProgress, level),
       placementCompletedAt: new Date().toISOString(),
     });
   }, []);

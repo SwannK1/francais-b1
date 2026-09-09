@@ -32,7 +32,7 @@ export {
   mergeUserProgress,
   type ModuleStatus,
 } from "./progress";
-export { computeDailySession, getNextModule, type NextModuleTarget } from "./recommendation";
+export { getNextModule, type NextModuleTarget } from "./recommendation";
 export { getReviewItems, type ReviewItem, type ReviewItemKind } from "./review";
 export {
   getStageModules,

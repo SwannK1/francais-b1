@@ -30,6 +30,8 @@ export const INITIAL_USER_PROGRESS: UserProgress = {
       completedExercises: 1,
       correctExercises: 1,
       successRate: 100,
+      lastPracticedAt: "2026-08-23T09:15:00.000Z",
+      recentOutcomes: [true],
     },
     {
       skillId: "gr-pronoms-complements",
@@ -38,6 +40,8 @@ export const INITIAL_USER_PROGRESS: UserProgress = {
       completedExercises: 1,
       correctExercises: 0,
       successRate: 0,
+      lastPracticedAt: "2026-08-23T09:15:00.000Z",
+      recentOutcomes: [false],
     },
   ],
   globalSuccessRate: 50,

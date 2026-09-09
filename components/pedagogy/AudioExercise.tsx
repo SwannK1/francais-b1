@@ -38,9 +38,17 @@ const STAGE_LABEL: Record<"human" | "synthetic", string> = {
 export default function AudioExercise({
   exercise,
   onExerciseAnswered,
+  onQuestionAnswered,
 }: {
   exercise: ComprehensionOraleExercise;
   onExerciseAnswered?: (correct: boolean) => void;
+  /**
+   * Optionnel : correction par sous-question, en plus de l'agrégat
+   * `onExerciseAnswered`. Utilisé par les évaluations de passage
+   * (`lib/assessment/`), qui notent chaque dimension question par question
+   * plutôt qu'exercice par exercice — voir `components/assessment/blocks/ListeningBlock.tsx`.
+   */
+  onQuestionAnswered?: (questionId: string, correct: boolean) => void;
 }) {
   const humanSrc = toHumanAudioPath(exercise.audioSrc);
   const syntheticSrc = exercise.audioSrc;
@@ -164,6 +172,7 @@ export default function AudioExercise({
   }, [stage]);
 
   function handleAnswered(questionId: string, correct: boolean) {
+    onQuestionAnswered?.(questionId, correct);
     const next = { ...answeredCorrect, [questionId]: correct };
     setAnsweredCorrect(next);
     if (Object.keys(next).length === exercise.questions.length) {
@@ -179,7 +188,7 @@ export default function AudioExercise({
       <div className="flex items-center gap-3 rounded-xl border border-border bg-background p-4">
         <HeadphonesIcon className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
         {stage === "error" ? (
-          <div className="flex flex-1 flex-wrap items-center justify-between gap-2">
+          <div role="status" aria-live="polite" className="flex flex-1 flex-wrap items-center justify-between gap-2">
             <p className="text-sm text-muted-foreground">
               Audio non disponible pour le moment. Utilise la transcription ci-dessous.
             </p>

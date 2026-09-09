@@ -31,7 +31,7 @@ export default function CgvPage() {
               <h2 className="text-base font-semibold text-foreground">1. Objet</h2>
               <p className="mt-1">
                 Les présentes conditions régissent la vente de l&apos;abonnement « {MAIN_PLAN.name} »
-                donnant accès à la formation de français niveau B1 proposée sur ParcoursFR.
+                donnant accès à la formation de français (niveaux A1 à B1) proposée sur ParcoursFR.
               </p>
             </section>
 

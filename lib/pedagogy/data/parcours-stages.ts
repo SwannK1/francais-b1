@@ -1,4 +1,6 @@
 import type { StageId } from "@/lib/pedagogy/types";
+import { A1_PARCOURS_STAGES } from "@/lib/pedagogy/data/a1/parcours-stages-a1";
+import { PARCOURS_STAGES_A2 } from "@/lib/pedagogy/data/parcours-stages-a2";
 
 /**
  * Grandes étapes du parcours B1 — calquées sur les 3 phases du programme
@@ -29,10 +31,12 @@ export interface ParcoursStage {
 }
 
 export const PARCOURS_STAGES: ParcoursStage[] = [
+  ...A1_PARCOURS_STAGES,
+  ...PARCOURS_STAGES_A2,
   {
     id: "faire-le-point",
     slug: "faire-le-point",
-    order: 1,
+    order: 13,
     kind: "diagnostic",
     title: "Faire le point",
     objective: "Je connais mon niveau actuel et l'objectif à atteindre.",
@@ -42,7 +46,7 @@ export const PARCOURS_STAGES: ParcoursStage[] = [
   {
     id: "b1-debut",
     slug: "poser-les-bases",
-    order: 2,
+    order: 14,
     kind: "content",
     title: "Poser les bases du B1",
     objective:
@@ -53,7 +57,7 @@ export const PARCOURS_STAGES: ParcoursStage[] = [
   {
     id: "b1-intermediaire",
     slug: "argumenter-et-echanger",
-    order: 3,
+    order: 15,
     kind: "content",
     title: "Argumenter et échanger",
     objective:
@@ -64,7 +68,7 @@ export const PARCOURS_STAGES: ParcoursStage[] = [
   {
     id: "b1-consolidation",
     slug: "consolider-le-b1",
-    order: 4,
+    order: 16,
     kind: "content",
     title: "Consolider le niveau B1",
     objective: "Je peux nuancer mes propos et comprendre l'essentiel de documents plus riches.",
@@ -74,7 +78,7 @@ export const PARCOURS_STAGES: ParcoursStage[] = [
   {
     id: "preparation-examen",
     slug: "preparation-examen",
-    order: 5,
+    order: 17,
     kind: "practice",
     title: "Se préparer à l'examen",
     objective: "Je peux m'entraîner dans les conditions d'une épreuve type DELF B1 ou TCF IRN.",
@@ -83,7 +87,7 @@ export const PARCOURS_STAGES: ParcoursStage[] = [
   {
     id: "pret-pour-le-b1",
     slug: "pret-pour-le-b1",
-    order: 6,
+    order: 18,
     kind: "bilan",
     title: "Prêt pour le B1",
     objective: "Je connais mes compétences maîtrisées et celles qu'il me reste à travailler.",

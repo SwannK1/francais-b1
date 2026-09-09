@@ -1,4 +1,6 @@
 import type { Skill } from "@/lib/pedagogy/types";
+import { SKILLS_A1 } from "@/lib/pedagogy/data/a1/skills-a1";
+import { SKILLS_A2 } from "@/lib/pedagogy/data/skills-a2";
 
 export const SKILLS: Skill[] = [
   {
@@ -373,6 +375,8 @@ export const SKILLS: Skill[] = [
     name: "Vocabulaire de la société et de l'actualité",
     description: "Mots pour parler d'une question de société simple.",
   },
+  ...SKILLS_A1,
+  ...SKILLS_A2,
 ];
 
 export function getSkillById(id: string): Skill | undefined {

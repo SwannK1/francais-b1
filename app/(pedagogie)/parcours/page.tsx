@@ -4,9 +4,9 @@ import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import ParcoursExperience from "./ParcoursExperience";
 
 export const metadata: Metadata = {
-  title: "Ton parcours B1",
+  title: "Ton parcours de français",
   description:
-    "Suis ton parcours guidé en plusieurs étapes pour atteindre le niveau B1 en français et te préparer au DELF B1.",
+    "Suis ton parcours guidé en plusieurs étapes, de A1 à B1, pour progresser en français et gagner en autonomie dans la vie quotidienne en France.",
   alternates: { canonical: "/parcours" },
 };
 

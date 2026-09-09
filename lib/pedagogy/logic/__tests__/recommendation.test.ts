@@ -74,3 +74,46 @@ describe("getNextModule — reprise", () => {
     expect(target).toBeNull();
   });
 });
+
+describe("getNextModule — plancher de niveau (résultat du test de positionnement)", () => {
+  it("ne renvoie jamais un utilisateur B1 sans progression vers un module A1 (régression du bug diagnostic→parcours)", () => {
+    const a1Module = makePublicModule({ id: "a1-mod", slug: "a1-mod", level: "A1" });
+    const b1Module = makePublicModule({ id: "b1-mod", slug: "b1-mod", level: "B1" });
+    const progress = makeProgress({ level: "B1" });
+
+    const target = getNextModule(progress, [a1Module, b1Module]);
+    expect(target?.module.id).toBe("b1-mod");
+    expect(target?.isResuming).toBe(false);
+  });
+
+  it("un utilisateur A2 saute les modules A1 mais reste éligible aux modules A2 et B1", () => {
+    const a1Module = makePublicModule({ id: "a1-mod", slug: "a1-mod", level: "A1" });
+    const a2Module = makePublicModule({ id: "a2-mod", slug: "a2-mod", level: "A2" });
+    const progress = makeProgress({ level: "A2" });
+
+    const target = getNextModule(progress, [a1Module, a2Module]);
+    expect(target?.module.id).toBe("a2-mod");
+  });
+
+  it("retombe sur un module en-dessous du plancher plutôt que de renvoyer null si rien d'autre n'existe", () => {
+    const a1Module = makePublicModule({ id: "a1-only", slug: "a1-only", level: "A1" });
+    const progress = makeProgress({ level: "B1" });
+
+    const target = getNextModule(progress, [a1Module]);
+    expect(target?.module.id).toBe("a1-only");
+  });
+
+  it("une reprise (module déjà en cours) ignore le plancher de niveau — on ne bloque jamais une reprise réelle", () => {
+    const a1Module = makePublicModule({ id: "a1-in-progress", slug: "a1-in-progress", level: "A1" });
+    const progress = makeProgress({
+      level: "B1",
+      moduleProgress: [
+        makeModuleProgress({ moduleId: a1Module.id, completed: false, lastActivityAt: "2026-01-01T00:00:00.000Z" }),
+      ],
+    });
+
+    const target = getNextModule(progress, [a1Module]);
+    expect(target?.module.id).toBe("a1-in-progress");
+    expect(target?.isResuming).toBe(true);
+  });
+});

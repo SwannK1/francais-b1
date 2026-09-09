@@ -74,3 +74,15 @@ describe.each([
     expect(toggle).toHaveAttribute("aria-expanded", "false");
   });
 });
+
+describe("AppHeader (application) — navigation", () => {
+  it("donne accès aux fonctions principales du produit (parcours, révision, oral, progression, offre)", () => {
+    renderWithMain(<AppHeader />);
+    const nav = screen.getByRole("navigation", { name: "Navigation de l'application" });
+    expect(nav.querySelector('a[href="/parcours"]')).not.toBeNull();
+    expect(nav.querySelector('a[href="/reviser"]')).not.toBeNull();
+    expect(nav.querySelector('a[href="/oral"]')).not.toBeNull();
+    expect(nav.querySelector('a[href="/progression"]')).not.toBeNull();
+    expect(nav.querySelector('a[href="/offre"]')).not.toBeNull();
+  });
+});

@@ -1,4 +1,6 @@
 import type { Module } from "@/lib/pedagogy/types";
+import { MODULES_A1 } from "@/lib/pedagogy/data/a1/modules-a1";
+import { MODULES_A2 } from "@/lib/pedagogy/data/modules-a2";
 
 /**
  * Modules B1 réels, transcrits depuis les fichiers pilotes rédigés dans le
@@ -764,15 +766,15 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« On s'organise ? », Léa et Fatou, 30 secondes), puis répondez.",
+                instructions: "Écoutez le dialogue (« On s'organise ? », Léa et Fatou, 32 secondes), puis répondez.",
                 audioSrc: "/audio/b1/decrire-vie-quotidienne.m4a",
                 transcript:
-                  "Fatou — Bon, pour les courses, on fait comment ? Toutes les deux chacune son tour ?\n" +
+                  "Fatou — Bon, pour les courses, on fait comment ? Toutes les deux, chacune son tour ?\n" +
                   "Léa — Ça me va. Moi je peux y aller le mardi, j'ai moins cours ce jour-là.\n" +
                   "Fatou — Parfait, et moi le samedi matin, avant que ce soit trop plein.\n" +
-                  "Léa — Et pour le ménage ? Moi, en semaine, j'ai vraiment jamais le temps.\n" +
+                  "Léa — Et pour le ménage ? Moi, en semaine, j'ai vraiment jamais le temps...\n" +
                   "Fatou — Pas de souci, on le fait le dimanche, toutes les deux, ça ira plus vite.\n" +
-                  "Léa — Bonne idée. Et la vaisselle, on ne la laisse jamais traîner, d'accord ?\n" +
+                  "Léa — Bonne idée. Et la vaisselle, on ne la laisse jamais traîner, hein ?\n" +
                   "Fatou — D'accord, chacune la sienne, tout de suite après manger.",
                 questions: [
                   {
@@ -2061,18 +2063,18 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez l'appel entre Amélie et Mme Lefèvre (« Organiser une visite », 35 secondes), puis répondez.",
+                  "Écoutez l'appel entre Amélie et Mme Lefèvre (« Organiser une visite », 39 secondes), puis répondez.",
                 audioSrc: "/audio/b1/discuter-avec-un-proprietaire.m4a",
                 transcript:
                   "Amélie — Bonjour madame, je vous appelle au sujet de l'annonce pour le studio rue des " +
-                  "Lilas. Est-ce qu'il est toujours disponible ?\n" +
+                  "Lilas... il est toujours disponible ?\n" +
                   "Mme Lefèvre — Oui, tout à fait ! Vous voulez le visiter ?\n" +
-                  "Amélie — Avec plaisir. Serait-il possible de venir samedi matin ?\n" +
-                  "Mme Lefèvre — Samedi, je ne suis pas disponible, mais dimanche après-midi, ça vous irait ?\n" +
-                  "Amélie — Oui, parfait. Une dernière question : faut-il un garant pour ce logement ?\n" +
-                  "Mme Lefèvre — Oui, c'est obligatoire. Envoyez-moi votre dossier avant la visite si possible, " +
+                  "Amélie — Avec plaisir, oui. Est-ce que ce serait possible samedi matin ?\n" +
+                  "Mme Lefèvre — Ah, samedi je ne suis pas disponible, désolée — mais dimanche après-midi, ça vous irait ?\n" +
+                  "Amélie — Oui, oui, parfait. Euh, une dernière question : est-ce qu'il faut un garant pour ce logement ?\n" +
+                  "Mme Lefèvre — Oui, c'est obligatoire. Envoyez-moi votre dossier avant la visite, si vous pouvez, " +
                   "ça ira plus vite.\n" +
-                  "Amélie — Très bien, je vous l'envoie aujourd'hui. Merci beaucoup, à dimanche !",
+                  "Amélie — Très bien, je vous l'envoie aujourd'hui même. Merci beaucoup, à dimanche !",
                 questions: [
                   {
                     kind: "qcm",
@@ -2979,17 +2981,17 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez l'appel (« Mettre à jour son dossier », Amina et un conseiller, 30 secondes), puis répondez.",
+                instructions: "Écoutez l'appel (« Mettre à jour son dossier », Amina et un conseiller, 37 secondes), puis répondez.",
                 audioSrc: "/audio/b1/comprendre-un-courrier-simple.m4a",
                 transcript:
                   "Conseiller — Bonjour, CAF, j'écoute.\n" +
-                  "Amina — Bonjour, j'ai reçu un courrier qui me demande de mettre à jour mon dossier, mais " +
-                  "je ne suis pas sûre de tout comprendre.\n" +
-                  "Conseiller — Pas de souci. Il faut juste nous envoyer votre avis d'imposition et un " +
-                  "justificatif de domicile récent.\n" +
-                  "Amina — D'accord, et je peux les envoyer par internet ou seulement par courrier ?\n" +
+                  "Amina — Bonjour, alors voilà, j'ai reçu un courrier qui me demande de mettre à jour mon " +
+                  "dossier, mais... je ne suis pas sûre de tout comprendre.\n" +
+                  "Conseiller — Pas de souci, c'est simple : il faut juste nous envoyer votre avis d'imposition, " +
+                  "et un justificatif de domicile récent.\n" +
+                  "Amina — D'accord. Je peux les envoyer par internet, ou seulement par courrier ?\n" +
                   "Conseiller — Vous pouvez tout faire depuis votre espace en ligne, c'est plus rapide.\n" +
-                  "Amina — Très bien, et j'ai jusqu'à quand exactement ?\n" +
+                  "Amina — Très bien. Et j'ai jusqu'à quand, exactement ?\n" +
                   "Conseiller — Jusqu'au 30 septembre. Après cette date, le versement sera mis en pause.",
                 questions: [
                   {
@@ -3427,15 +3429,15 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez l'appel (« Prendre rendez-vous », Karim et le secrétariat, 25 secondes), puis répondez.",
+                instructions: "Écoutez l'appel (« Prendre rendez-vous », Karim et le secrétariat, 30 secondes), puis répondez.",
                 audioSrc: "/audio/b1/prendre-rendez-vous.m4a",
                 transcript:
                   "Secrétariat — Cabinet Leroy, bonjour.\n" +
-                  "Karim — Bonjour, je vous appelle pour prendre rendez-vous, j'ai une douleur depuis deux jours.\n" +
+                  "Karim — Bonjour, je vous appelle pour prendre rendez-vous... j'ai une douleur depuis deux jours.\n" +
                   "Secrétariat — D'accord, est-ce que demain matin vous conviendrait ?\n" +
-                  "Karim — Ah non, désolé, je travaille toute la matinée. L'après-midi, ce sera possible ?\n" +
-                  "Secrétariat — Alors j'ai un créneau à 16h30.\n" +
-                  "Karim — Parfait, ça me va très bien.\n" +
+                  "Karim — Ah non, désolé, je travaille toute la matinée. L'après-midi, ce serait possible ?\n" +
+                  "Secrétariat — Alors, laissez-moi voir... j'ai un créneau à 16h30.\n" +
+                  "Karim — Parfait, ça me va très bien !\n" +
                   "Secrétariat — Très bien, c'est noté. Vous recevrez un SMS de confirmation dans quelques minutes.",
                 questions: [
                   {
@@ -3941,16 +3943,16 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Pour ou contre le compost ? », Nadia et Marc, 40 secondes), puis répondez.",
+                instructions: "Écoutez le dialogue (« Pour ou contre le compost ? », Nadia et Marc, 45 secondes), puis répondez.",
                 audioSrc: "/audio/b1/donner-son-opinion.m4a",
                 transcript:
                   "Marc — Moi, franchement, je suis contre ce projet de compost.\n" +
                   "Nadia — Ah bon ? Pourquoi ?\n" +
-                  "Marc — Parce que je pense que ça va sentir mauvais, surtout l'été, et qu'il va y avoir des insectes.\n" +
+                  "Marc — Parce que je pense que ça va sentir mauvais, surtout l'été... et qu'il va y avoir des insectes.\n" +
                   "Nadia — Je comprends ton inquiétude, mais je ne suis pas d'accord avec toi. Si on l'entretient bien, il n'y a pas de mauvaise odeur.\n" +
                   "Marc — Peut-être, mais qui va s'en occuper ? Personne n'a le temps pour ça.\n" +
-                  "Nadia — On peut organiser un planning, un voisin différent chaque semaine. À mon avis, ça peut vraiment marcher si on s'organise.\n" +
-                  "Marc — Bon, ça se discute. Mais j'aimerais qu'on essaie d'abord pendant trois mois, pour voir.\n" +
+                  "Nadia — On peut organiser un planning, un voisin différent chaque semaine. À mon avis, ça peut vraiment marcher, si on s'organise.\n" +
+                  "Marc — Bon... ça se discute. Mais j'aimerais qu'on essaie d'abord pendant trois mois, pour voir.\n" +
                   "Nadia — Ça me semble raisonnable, oui. On propose ça à la réunion ?\n" +
                   "Marc — D'accord, on propose ça.",
                 questions: [
@@ -4681,17 +4683,17 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez l'entretien entre Yassine et sa conseillère (« Un projet de formation », 35 secondes), puis répondez.",
+                  "Écoutez l'entretien entre Yassine et sa conseillère (« Un projet de formation », 38 secondes), puis répondez.",
                 audioSrc: "/audio/b1/parler-de-ses-projets.m4a",
                 transcript:
                   "Conseillère — Bonjour Yassine, vous vouliez me parler de votre projet ?\n" +
-                  "Yassine — Oui, j'envisage de faire une formation en logistique l'année prochaine.\n" +
+                  "Yassine — Oui, j'envisage de faire une formation en logistique... l'année prochaine.\n" +
                   "Conseillère — Très bien. Et concrètement, quelles sont les étapes ?\n" +
-                  "Yassine — D'abord, je vais m'inscrire en ligne avant la fin du mois. Ensuite, si mon dossier " +
+                  "Yassine — Alors, d'abord, je vais m'inscrire en ligne avant la fin du mois. Ensuite, si mon dossier " +
                   "est accepté, je commencerai la formation en septembre.\n" +
                   "Conseillère — Et si votre dossier n'est pas accepté du premier coup ?\n" +
                   "Yassine — Dans ce cas, je referai une demande l'année suivante. Mais je préfère rester positif !\n" +
-                  "Conseillère — C'est une bonne attitude. Je vais vous envoyer la liste des documents à préparer.",
+                  "Conseillère — C'est une bonne attitude, ça. Je vais vous envoyer la liste des documents à préparer.",
                 questions: [
                   {
                     kind: "qcm",
@@ -5077,18 +5079,18 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Nouveau dans l'équipe », Julie et Karim, 50 secondes), puis répondez.",
+                instructions: "Écoutez le dialogue (« Nouveau dans l'équipe », Julie et Karim, 52 secondes), puis répondez.",
                 audioSrc: "/audio/b1/parler-de-son-travail-et-projets.m4a",
                 transcript:
                   "Julie — Alors, tu es nouveau dans l'équipe ! Tu faisais quoi avant ?\n" +
                   "Karim — Avant, j'ai travaillé dans la restauration pendant cinq ans, comme serveur.\n" +
                   "Julie — Ah bon ? Et pourquoi tu as changé ?\n" +
-                  "Karim — Parce que je voulais un métier plus technique, avec moins de contact avec le public, en fait. Alors j'ai suivi une formation en maintenance industrielle.\n" +
+                  "Karim — Parce que je voulais un métier plus technique, avec moins de contact avec le public, en fait... Alors j'ai suivi une formation en maintenance industrielle.\n" +
                   "Julie — Et ça s'est bien passé ?\n" +
                   "Karim — Oui, très bien. Grâce à cette formation, j'ai trouvé un premier poste, et maintenant je suis ici.\n" +
                   "Julie — Et tu as des projets, pour la suite ?\n" +
                   "Karim — Oui, je vais commencer une formation en électronique le mois prochain. J'aimerais évoluer vers un poste de responsable technique d'ici deux ou trois ans.\n" +
-                  "Julie — C'est un bon objectif ! Moi, je travaille ici depuis longtemps, je pourrai t'aider si tu as des questions.\n" +
+                  "Julie — C'est un bon objectif, ça ! Moi, je travaille ici depuis longtemps, je pourrai t'aider si tu as des questions.\n" +
                   "Karim — Merci, c'est gentil !",
                 questions: [
                   {
@@ -5503,7 +5505,7 @@ export const MODULES: Module[] = [
                   "Médecin — Bonjour madame, qu'est-ce qui vous amène ?\n" +
                   "Farida — Bonjour docteur, j'ai mal à la gorge et un peu de fièvre depuis trois jours.\n" +
                   "Médecin — Vous toussez aussi ?\n" +
-                  "Farida — Oui, surtout le soir. Et je me sens très fatiguée.\n" +
+                  "Farida — Oui, surtout le soir... et je me sens très fatiguée.\n" +
                   "Médecin — D'accord. Est-ce que ça s'améliore, ou est-ce que ça empire depuis le début ?\n" +
                   "Farida — Ça empire un peu, je trouve.\n" +
                   "Médecin — Je vais vous prescrire un médicament contre la fièvre. Reposez-vous, buvez beaucoup " +
@@ -5898,15 +5900,15 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Appel au service technique », Amélie et le conseiller, 50 secondes), puis répondez.",
+                instructions: "Écoutez le dialogue (« Appel au service technique », Amélie et le conseiller, 53 secondes), puis répondez.",
                 audioSrc: "/audio/b1/expliquer-un-probleme-et-demander-une-solution.m4a",
                 transcript:
                   "Conseiller — Service technique, bonjour, je vous écoute.\n" +
-                  "Amélie — Bonjour, je vous appelle parce que je n'ai plus internet depuis une semaine.\n" +
+                  "Amélie — Bonjour, je vous appelle parce que je n'ai plus internet... depuis une semaine, maintenant.\n" +
                   "Conseiller — D'accord, je vais regarder ça. Vous avez déjà essayé de redémarrer votre box ?\n" +
-                  "Amélie — Oui, plusieurs fois, mais le problème persiste. Comme je travaille depuis chez moi, c'est vraiment gênant.\n" +
-                  "Conseiller — Je comprends. Je vois effectivement une anomalie sur la ligne. Il va falloir qu'un technicien intervienne chez vous.\n" +
-                  "Amélie — D'accord. Et ça peut se faire quand ?\n" +
+                  "Amélie — Oui, plusieurs fois, mais le problème persiste. Et comme je travaille depuis chez moi, c'est vraiment gênant.\n" +
+                  "Conseiller — Je comprends. Alors, je vois effectivement une anomalie sur la ligne. Il va falloir qu'un technicien intervienne chez vous.\n" +
+                  "Amélie — D'accord... et ça peut se faire quand ?\n" +
                   "Conseiller — Le premier créneau disponible est après-demain, entre 9h et 12h.\n" +
                   "Amélie — C'est un peu tard, mais bon, je n'ai pas le choix. Est-ce qu'un dédommagement est prévu pour cette semaine sans connexion ?\n" +
                   "Conseiller — Oui, on va vous créditer une semaine d'abonnement, c'est automatique dans ce genre de situation.\n" +
@@ -6684,17 +6686,17 @@ export const MODULES: Module[] = [
                 type: "comprehension_orale",
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
-                instructions: "Écoutez le dialogue (« Au guichet de la préfecture », Youssef et l'agent, 50 secondes), puis répondez.",
+                instructions: "Écoutez le dialogue (« Au guichet de la préfecture », Youssef et l'agent, 53 secondes), puis répondez.",
                 audioSrc: "/audio/b1/comprendre-une-demarche-administrative.m4a",
                 transcript:
                   "Agent — Bonjour, vous venez pour quelle démarche ?\n" +
-                  "Youssef — Bonjour, je voudrais renouveler mon titre de séjour, il expire dans trois mois.\n" +
+                  "Youssef — Bonjour, je voudrais renouveler mon titre de séjour... il expire dans trois mois.\n" +
                   "Agent — Très bien. Est-ce que vous avez déjà pris rendez-vous en ligne ?\n" +
                   "Youssef — Pas encore, je voulais d'abord savoir quels documents il me faut.\n" +
-                  "Agent — D'accord. Il faut que vous ayez une pièce d'identité, un justificatif de domicile de moins de trois mois, deux photos d'identité, et votre titre actuel.\n" +
+                  "Agent — D'accord. Alors, il faut que vous ayez une pièce d'identité, un justificatif de domicile de moins de trois mois, deux photos d'identité, et votre titre actuel.\n" +
                   "Youssef — Et pour le justificatif de domicile, une facture d'électricité, ça convient ?\n" +
                   "Agent — Oui, tout à fait, à condition qu'elle ait moins de trois mois.\n" +
-                  "Youssef — Très bien. Et combien de temps ça prend, en général ?\n" +
+                  "Youssef — Très bien. Et ça prend combien de temps, en général ?\n" +
                   "Agent — Comptez entre deux et quatre mois après le dépôt du dossier. En attendant, vous recevrez un récépissé qui vous permet de continuer à vivre normalement en France.\n" +
                   "Youssef — D'accord, merci beaucoup pour ces précisions.",
                 questions: [
@@ -7083,17 +7085,17 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez l'échange entre Karim et l'institutrice de son fils (« Un rendez-vous à l'école », 45 secondes), puis répondez.",
+                  "Écoutez l'échange entre Karim et l'institutrice de son fils (« Un rendez-vous à l'école », 47 secondes), puis répondez.",
                 audioSrc: "/audio/b1/parler-ecole-enfant.m4a",
                 transcript:
                   "Institutrice — Bonjour monsieur, merci d'être venu. Je voulais vous parler de Léo.\n" +
                   "Karim — Bonjour madame, oui, j'ai reçu votre message dans le carnet de liaison. Il y a un problème ?\n" +
                   "Institutrice — Rien de grave, mais je trouve qu'il a du mal à se concentrer depuis quelques " +
                   "semaines, surtout en mathématiques.\n" +
-                  "Karim — Je vois. Il rentre fatigué le soir, c'est vrai. Vous pensez que c'est lié ?\n" +
+                  "Karim — Je vois. Il rentre fatigué le soir, c'est vrai... Vous pensez que c'est lié ?\n" +
                   "Institutrice — C'est possible. Je pense qu'un peu plus de repos pourrait l'aider. Est-ce " +
                   "qu'il pourrait se coucher un peu plus tôt ?\n" +
-                  "Karim — On va essayer, oui. Et pour rattraper son retard en maths, vous avez un conseil ?\n" +
+                  "Karim — On va essayer, oui. Et pour rattraper son retard en maths, vous auriez un conseil ?\n" +
                   "Institutrice — Je vous conseille quelques exercices simples à la maison, dix minutes par jour. " +
                   "Je vous envoie une liste.\n" +
                   "Karim — D'accord, merci beaucoup madame. N'hésitez pas à me recontacter si besoin.",
@@ -7448,10 +7450,10 @@ export const MODULES: Module[] = [
                 instructions: "Écoutez l'annonce (« Changement de voie », gare, 20 secondes), puis répondez.",
                 audioSrc: "/audio/b1/utiliser-les-transports.m4a",
                 transcript:
-                  "« Mesdames, messieurs, votre attention s'il vous plaît. En raison d'un incident technique, " +
+                  "« Mesdames, messieurs, votre attention s'il vous plaît : en raison d'un incident technique, " +
                   "le train à destination de Lyon partira exceptionnellement voie 4 au lieu de la voie 2. " +
                   "Ce train est annoncé avec dix minutes de retard. Nous vous prions de nous excuser pour la " +
-                  "gêne occasionnée et vous remercions de votre compréhension. »",
+                  "gêne occasionnée, et vous remercions de votre compréhension. »",
                 questions: [
                   {
                     kind: "libre",
@@ -8140,20 +8142,20 @@ export const MODULES: Module[] = [
                 skillId: "co-dialogues-simples",
                 difficulty: "B1",
                 instructions:
-                  "Écoutez la conversation entre Yasmine et Camille (« Deux offres d'emploi », 40 secondes), puis répondez.",
+                  "Écoutez la conversation entre Yasmine et Camille (« Deux offres d'emploi », 48 secondes), puis répondez.",
                 audioSrc: "/audio/b1/hypothese-et-conseil.m4a",
                 transcript:
-                  "Yasmine — J'ai reçu deux propositions de travail, et je ne sais pas laquelle choisir.\n" +
-                  "Camille — Raconte-moi ! C'est quoi la différence ?\n" +
-                  "Yasmine — La première est mieux payée, mais il faudrait que je déménage. La deuxième est plus " +
-                  "proche, mais moins stable : c'est un CDD de six mois.\n" +
-                  "Camille — Si j'étais toi, je réfléchirais d'abord à ce qui compte le plus pour moi : l'argent " +
-                  "ou la stabilité ?\n" +
-                  "Yasmine — La stabilité, je crois. Mais si je refusais la première offre, je risquerais de " +
-                  "le regretter.\n" +
+                  "Yasmine — Bon, j'ai reçu deux propositions de travail, et... je ne sais vraiment pas laquelle choisir.\n" +
+                  "Camille — Ah bon ? Raconte-moi, c'est quoi la différence ?\n" +
+                  "Yasmine — Alors, la première est mieux payée, mais il faudrait que je déménage. La deuxième, " +
+                  "elle est plus proche, mais moins stable : c'est un CDD de six mois.\n" +
+                  "Camille — Hmm... si j'étais toi, je réfléchirais d'abord à ce qui compte le plus pour moi : " +
+                  "l'argent, ou la stabilité ?\n" +
+                  "Yasmine — La stabilité, je crois. Mais bon, si je refusais la première offre, je risquerais de " +
+                  "le regretter, non ?\n" +
                   "Camille — Tu pourrais aussi demander un délai de réflexion à l'entreprise, non ?\n" +
-                  "Yasmine — Bonne idée, je n'y avais pas pensé. Je vais essayer.\n" +
-                  "Camille — À ta place, je ferais ça avant de me décider définitivement.",
+                  "Yasmine — Ah, bonne idée, j'y avais pas pensé ! Je vais essayer.\n" +
+                  "Camille — À ta place, c'est ce que je ferais, avant de me décider définitivement.",
                 questions: [
                   {
                     kind: "qcm",
@@ -8441,9 +8443,9 @@ export const MODULES: Module[] = [
                   "Écoutez le message vocal reçu par Inès (« Un colis à livrer », 20 secondes), puis répondez.",
                 audioSrc: "/audio/b1/rapporter-les-paroles.m4a",
                 transcript:
-                  "Bonjour, c'est le livreur de chez ColisPlus. Je suis passé mais il n'y avait personne. Je " +
+                  "Bonjour, c'est le livreur de chez ColisPlus. Je suis passé, mais il n'y avait personne... Je " +
                   "repasserai demain matin, vers 9 heures. Est-ce que quelqu'un sera présent ? Si besoin, vous " +
-                  "pouvez me rappeler au 06 12 34 56 78. Merci, bonne journée.",
+                  "pouvez me rappeler au 06 12 34 56 78. Merci, bonne journée !",
                 questions: [
                   {
                     kind: "qcm",
@@ -9658,6 +9660,8 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  ...MODULES_A1,
+  ...MODULES_A2,
 ];
 
 export function getModuleBySlug(slug: string): Module | undefined {

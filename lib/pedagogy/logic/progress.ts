@@ -1,7 +1,9 @@
 import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import { getSkillById } from "@/lib/pedagogy/data/skills";
 import { countModuleExercises } from "@/lib/pedagogy/logic/module-structure";
+import { CEFR_LEVELS } from "@/lib/pedagogy/types";
 import type {
+  CEFRLevel,
   ExamAttempt,
   Exercise,
   Lesson,
@@ -24,6 +26,20 @@ import type {
  */
 
 const WEAK_SKILL_THRESHOLD = 50;
+
+/**
+ * Taille de la fenêtre `SkillProgress.recentOutcomes` conservée par
+ * compétence — juste assez pour que le moteur de révision espacée
+ * (`lib/review/`) distingue une erreur isolée d'une série, sans faire de
+ * cette progression un journal d'événements complet.
+ */
+const RECENT_OUTCOMES_LIMIT = 5;
+
+/** Historique (hors totaux, recalculés à part) porté par une `SkillProgress` existante. */
+interface SkillHistory {
+  lastPracticedAt: string | null;
+  recentOutcomes: boolean[];
+}
 
 interface ExerciseRef {
   id: string;
@@ -103,7 +119,19 @@ export function recordExerciseResult(
     updatedModuleProgress,
   ];
 
-  const skillProgress = computeSkillProgress(moduleProgress);
+  const skillHistory = new Map<string, SkillHistory>(
+    progress.skillProgress.map((sp) => [
+      sp.skillId,
+      { lastPracticedAt: sp.lastPracticedAt ?? null, recentOutcomes: sp.recentOutcomes ?? [] },
+    ])
+  );
+  const previousOutcomes = skillHistory.get(exercise.skillId)?.recentOutcomes ?? [];
+  skillHistory.set(exercise.skillId, {
+    lastPracticedAt: now,
+    recentOutcomes: [...previousOutcomes, correct].slice(-RECENT_OUTCOMES_LIMIT),
+  });
+
+  const skillProgress = computeSkillProgress(moduleProgress, skillHistory);
   const totalCompleted = skillProgress.reduce((sum, sp) => sum + sp.completedExercises, 0);
   const totalCorrect = skillProgress.reduce((sum, sp) => sum + sp.correctExercises, 0);
   const globalSuccessRate =
@@ -123,7 +151,17 @@ export function recordExerciseResult(
   };
 }
 
-function computeSkillProgress(moduleProgress: ModuleProgress[]): SkillProgress[] {
+/**
+ * `skillHistory` porte ce que `moduleProgress` ne peut pas redonner en le
+ * recalculant depuis les ensembles `completedExerciseIds`/`correctExerciseIds`
+ * (pas d'ordre ni d'horodatage par exercice) : dernière pratique et fenêtre
+ * récente par compétence, propagées telles quelles depuis l'appelant
+ * (`recordExerciseResult`, `mergeUserProgress`) plutôt que redérivées ici.
+ */
+function computeSkillProgress(
+  moduleProgress: ModuleProgress[],
+  skillHistory: Map<string, SkillHistory>
+): SkillProgress[] {
   const skillTotals = countExercisesBySkill(PUBLIC_MODULES);
   const completedBySkill = new Map<string, number>();
   const correctBySkill = new Map<string, number>();
@@ -146,6 +184,7 @@ function computeSkillProgress(moduleProgress: ModuleProgress[]): SkillProgress[]
     const skill = getSkillById(skillId);
     const completed = completedBySkill.get(skillId) ?? 0;
     const correct = correctBySkill.get(skillId) ?? 0;
+    const history = skillHistory.get(skillId);
     return {
       skillId,
       domain: skill?.domain ?? "vocabulaire",
@@ -153,6 +192,8 @@ function computeSkillProgress(moduleProgress: ModuleProgress[]): SkillProgress[]
       completedExercises: completed,
       correctExercises: correct,
       successRate: completed > 0 ? Math.round((correct / completed) * 100) : 0,
+      lastPracticedAt: history?.lastPracticedAt ?? null,
+      recentOutcomes: history?.recentOutcomes ?? [],
     };
   });
 }
@@ -279,6 +320,46 @@ function mergeExamAttempts(local: ExamAttempt[], remote: ExamAttempt[]): ExamAtt
 }
 
 /**
+ * Plus haut niveau CECRL couvert par une activité réellement constatée (au
+ * moins un exercice complété sur un module de ce niveau) — indépendant de
+ * `progress.level`, qui peut n'être qu'une valeur par défaut
+ * (`EMPTY_USER_PROGRESS`) ou un ancien résultat de test jamais recalculé.
+ * `null` pour un apprenant qui n'a encore rien fait (aucune progression à
+ * protéger).
+ */
+function highestLevelWithRealActivity(moduleProgress: ModuleProgress[]): CEFRLevel | null {
+  let highest: CEFRLevel | null = null;
+  for (const mp of moduleProgress) {
+    if (mp.completedExerciseIds.length === 0) continue;
+    const mod = PUBLIC_MODULES.find((m) => m.id === mp.moduleId);
+    if (!mod) continue;
+    if (highest === null || CEFR_LEVELS.indexOf(mod.level) > CEFR_LEVELS.indexOf(highest)) {
+      highest = mod.level;
+    }
+  }
+  return highest;
+}
+
+/**
+ * Règle de priorité "progrès existants > résultat du diagnostic" (voir
+ * `docs/product/diagnostic-progress-integration.md`) : un nouveau résultat
+ * de test de positionnement ne fait jamais redescendre `level` en dessous
+ * du plus haut niveau déjà couvert par une vraie activité. Sans activité
+ * réelle (nouvel apprenant, ou apprenant qui n'a fait que le test jusqu'ici),
+ * le résultat du test est retenu tel quel — c'est le cas normal, pas
+ * l'exception. Utilisée à la fois pour une reprise du test en direct
+ * (`markPlacementCompleted`) et pour la fusion de comptes ci-dessous.
+ */
+export function resolvePlacementLevel(
+  moduleProgress: ModuleProgress[],
+  diagnosticLevel: CEFRLevel
+): CEFRLevel {
+  const highest = highestLevelWithRealActivity(moduleProgress);
+  if (!highest) return diagnosticLevel;
+  return CEFR_LEVELS.indexOf(diagnosticLevel) >= CEFR_LEVELS.indexOf(highest) ? diagnosticLevel : highest;
+}
+
+/**
  * `level` n'a de sens qu'accompagné de la date du test de positionnement qui
  * l'a produit (voir `markPlacementCompleted`, `lib/pedagogy/useProgress.ts` :
  * les deux sont toujours écrits ensemble, jamais l'un sans l'autre). Résoudre
@@ -288,25 +369,63 @@ function mergeExamAttempts(local: ExamAttempt[], remote: ExamAttempt[]): ExamAtt
  * qui ne correspond à aucun test réellement passé. Un seul côté "gagne" les
  * deux champs ensemble : celui qui a un test plus récent, ou le seul des
  * deux à en avoir passé un.
+ *
+ * `mergedModuleProgress` (déjà fusionné par l'appelant, voir
+ * `mergeUserProgress`) protège ensuite ce choix via `resolvePlacementLevel` :
+ * si le côté "gagnant" par date de test est un compte fraîchement
+ * repositionné plus bas (ex. test refait par erreur sur un nouvel appareil,
+ * niveau A1) alors que l'autre côté a une vraie progression plus avancée
+ * (ex. plusieurs modules A2 terminés), on ne redescend pas `level` — voir
+ * `docs/product/diagnostic-progress-integration.md`. `placementCompletedAt`
+ * reste la date du test le plus récent, honnête sur "quand" même quand le
+ * niveau affiché a été relevé par cette protection.
  */
 function resolvePlacement(
   local: UserProgress,
-  remote: UserProgress
+  remote: UserProgress,
+  mergedModuleProgress: ModuleProgress[]
 ): Pick<UserProgress, "level" | "placementCompletedAt"> {
-  if (local.placementCompletedAt && remote.placementCompletedAt) {
-    return local.placementCompletedAt > remote.placementCompletedAt
-      ? { level: local.level, placementCompletedAt: local.placementCompletedAt }
-      : { level: remote.level, placementCompletedAt: remote.placementCompletedAt };
+  const picked = (() => {
+    if (local.placementCompletedAt && remote.placementCompletedAt) {
+      return local.placementCompletedAt > remote.placementCompletedAt
+        ? { level: local.level, placementCompletedAt: local.placementCompletedAt }
+        : { level: remote.level, placementCompletedAt: remote.placementCompletedAt };
+    }
+    if (remote.placementCompletedAt) {
+      return { level: remote.level, placementCompletedAt: remote.placementCompletedAt };
+    }
+    if (local.placementCompletedAt) {
+      return { level: local.level, placementCompletedAt: local.placementCompletedAt };
+    }
+    // Ni l'un ni l'autre n'a passé de test : aucun niveau n'est réellement
+    // fondé, le choix entre les deux valeurs par défaut est sans conséquence.
+    return { level: local.level, placementCompletedAt: null };
+  })();
+
+  return { ...picked, level: resolvePlacementLevel(mergedModuleProgress, picked.level) };
+}
+
+/**
+ * Historique par compétence non recomposable depuis `moduleProgress` (voir
+ * `computeSkillProgress`) : contrairement aux ensembles d'exercices, il ne
+ * s'agit pas d'une union mais d'un choix entre les deux côtés, tranché par
+ * la dernière pratique la plus récente — même principe que `resolvePlacement`
+ * ci-dessus (un seul côté gagne, jamais un mélange qui n'aurait pas de sens
+ * chronologique, ex. concaténer deux fenêtres récentes de deux appareils).
+ */
+function mergeSkillHistory(local: SkillProgress[], remote: SkillProgress[]): Map<string, SkillHistory> {
+  const merged = new Map<string, SkillHistory>();
+  for (const sp of [...local, ...remote]) {
+    const candidate: SkillHistory = {
+      lastPracticedAt: sp.lastPracticedAt ?? null,
+      recentOutcomes: sp.recentOutcomes ?? [],
+    };
+    const existing = merged.get(sp.skillId);
+    if (!existing || (candidate.lastPracticedAt ?? "") > (existing.lastPracticedAt ?? "")) {
+      merged.set(sp.skillId, candidate);
+    }
   }
-  if (remote.placementCompletedAt) {
-    return { level: remote.level, placementCompletedAt: remote.placementCompletedAt };
-  }
-  if (local.placementCompletedAt) {
-    return { level: local.level, placementCompletedAt: local.placementCompletedAt };
-  }
-  // Ni l'un ni l'autre n'a passé de test : aucun niveau n'est réellement
-  // fondé, le choix entre les deux valeurs par défaut est sans conséquence.
-  return { level: local.level, placementCompletedAt: null };
+  return merged;
 }
 
 /**
@@ -319,7 +438,7 @@ function resolvePlacement(
  */
 export function mergeUserProgress(local: UserProgress, remote: UserProgress): UserProgress {
   const moduleProgress = mergeModuleProgress(local, remote);
-  const skillProgress = computeSkillProgress(moduleProgress);
+  const skillProgress = computeSkillProgress(moduleProgress, mergeSkillHistory(local.skillProgress, remote.skillProgress));
   const totalCompleted = skillProgress.reduce((sum, sp) => sum + sp.completedExercises, 0);
   const totalCorrect = skillProgress.reduce((sum, sp) => sum + sp.correctExercises, 0);
   const globalSuccessRate = totalCompleted > 0 ? Math.round((totalCorrect / totalCompleted) * 100) : 0;
@@ -329,7 +448,7 @@ export function mergeUserProgress(local: UserProgress, remote: UserProgress): Us
 
   return {
     userId: remote.userId,
-    ...resolvePlacement(local, remote),
+    ...resolvePlacement(local, remote, moduleProgress),
     goalId: local.goalId ?? remote.goalId,
     moduleProgress,
     skillProgress,

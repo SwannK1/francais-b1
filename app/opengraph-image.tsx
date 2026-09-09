@@ -1,14 +1,15 @@
 import { ImageResponse } from "next/og";
 import { SITE_NAME } from "@/lib/seo/site";
 
-const tagline = "Un test de niveau, un parcours de modules guidés et des examens blancs DELF B1.";
+const tagline =
+  "Un test de niveau, un parcours guidé de A1 à B1 et un entraînement au français utile en France.";
 
 /**
  * Image de partage générée à partir des vraies couleurs de marque
  * (app/globals.css) et du vrai texte de description du site — pas un
  * visuel factice importé d'ailleurs.
  */
-export const alt = `${SITE_NAME} — Apprends le français à ton rythme`;
+export const alt = `${SITE_NAME} — Apprends le français pour vivre en France, de A1 à B1`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -48,7 +49,7 @@ export default function Image() {
             lineHeight: 1.15,
           }}
         >
-          Apprends le français à ton rythme
+          Apprends le français pour vivre en France
         </div>
         <div
           style={{
@@ -74,7 +75,7 @@ export default function Image() {
             alignSelf: "flex-start",
           }}
         >
-          Niveau B1 · Préparation DELF B1
+          A1 → A2 → B1 · Préparation DELF B1
         </div>
       </div>
     ),

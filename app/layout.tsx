@@ -10,7 +10,7 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const defaultTitle = `${SITE_NAME} — Apprends le français à ton rythme`;
+const defaultTitle = `${SITE_NAME} — Apprends le français pour vivre en France, de A1 à B1`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

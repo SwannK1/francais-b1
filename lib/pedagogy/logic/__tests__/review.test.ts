@@ -3,6 +3,20 @@ import { getReviewItems } from "@/lib/pedagogy/logic/review";
 import { makePublicModule, makeModuleProgress, makeProgress } from "./fixtures";
 import type { ExamAttempt } from "@/lib/pedagogy/types";
 
+describe("getReviewItems — le diagnostic seul ne pollue jamais la révision", () => {
+  it("un apprenant qui vient seulement de passer le test de positionnement (aucun exercice fait) n'a rien à réviser", () => {
+    const mod = makePublicModule({ id: "untouched", slug: "untouched" });
+    const progress = makeProgress({
+      level: "B1",
+      placementCompletedAt: "2026-09-08T00:00:00.000Z",
+      moduleProgress: [],
+      weakSkillIds: [],
+      reviewedModuleIds: [],
+    });
+    expect(getReviewItems(progress, [mod])).toEqual([]);
+  });
+});
+
 describe("getReviewItems — ordre et dédoublonnage", () => {
   it("lists a module marked à revoir first", () => {
     const mod = makePublicModule({ id: "flagged", slug: "flagged", title: "Module marqué" });

@@ -8,7 +8,7 @@ import ProgressBar from "@/components/pedagogy/ProgressBar";
 import SkillScore from "@/components/pedagogy/SkillScore";
 import WeaknessCard from "@/components/pedagogy/WeaknessCard";
 import ModuleCard from "@/components/pedagogy/ModuleCard";
-import DailySessionCard from "@/components/pedagogy/DailySessionCard";
+import GuidedSessionCard from "@/components/pedagogy/GuidedSessionCard";
 import { SKILLS, getSkillById } from "@/lib/pedagogy/data/skills";
 import {
   getModuleCompletionRate,
@@ -16,8 +16,8 @@ import {
   statusFromCompletionRate,
 } from "@/lib/pedagogy/logic/progress";
 import { findModuleForSkill } from "@/lib/pedagogy/logic/module-structure";
-import { computeDailySession } from "@/lib/pedagogy/logic/recommendation";
-import { getParcoursSummary } from "@/lib/pedagogy/logic/parcours";
+import { buildDailySession } from "@/lib/daily/session-engine";
+import { getEffectiveLevel, getParcoursSummary } from "@/lib/pedagogy/logic/parcours";
 import { getReviewItems } from "@/lib/pedagogy/logic/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
@@ -32,16 +32,22 @@ import type { PublicModule } from "@/lib/pedagogy/types";
 export default function ProgressionExperience({ publicModules }: { publicModules: PublicModule[] }) {
   const { progress, toggleReview } = useProgress();
   const { user } = useAuth();
-  const modules = publicModules.filter((mod) => mod.level === progress.level);
-  const dailySession = computeDailySession(progress, publicModules);
-  const dailySessionModule = dailySession
-    ? publicModules.find((m) => m.id === dailySession.moduleId)
-    : undefined;
-  const dailySessionLocked = dailySessionModule
-    ? !canAccess({ kind: "module", slug: dailySessionModule.slug }, user?.premiumUntil)
-    : false;
+  // Niveau effectif ("où en suis-je maintenant"), pas le seul résultat brut
+  // du dernier test de positionnement — voir `getEffectiveLevel`. Sans ça,
+  // un apprenant qui avance naturellement au niveau suivant via `/parcours`
+  // voyait son propre bilan rester bloqué sur son ancien niveau, masquant sa
+  // vraie progression la plus récente.
+  const effectiveLevel = getEffectiveLevel(progress, publicModules);
+  const modules = publicModules.filter((mod) => mod.level === effectiveLevel);
+  const isAccessible = (mod: PublicModule) =>
+    canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
+  // Même moteur que `/parcours` (`lib/daily/`, voir `ParcoursExperience.tsx`)
+  // — jamais un second moteur de séance concurrent (l'ancien
+  // `computeDailySession`/`DailySessionCard` a été retiré).
+  const guidedSession = buildDailySession(progress, publicModules, { isAccessible });
+  const rawGuidedSession = guidedSession ? null : buildDailySession(progress, publicModules);
   const summary = getParcoursSummary(progress, publicModules);
-  const isReadyForB1 = summary.completedStages === summary.totalStages;
+  const isReadyForB1 = summary.readyForB1;
   const startedSkills = SKILLS.filter((skill) =>
     progress.skillProgress.some((sp) => sp.skillId === skill.id && sp.completedExercises > 0)
   );
@@ -55,7 +61,7 @@ export default function ProgressionExperience({ publicModules }: { publicModules
   return (
     <div className="space-y-8">
       <header>
-        <LevelBadge level={progress.level} />
+        <LevelBadge level={effectiveLevel} />
         <h1 className="mt-3 text-2xl font-bold text-foreground">Ton bilan</h1>
         <div className="mt-3 flex flex-wrap gap-2">
           <Badge variant="primary">
@@ -76,9 +82,11 @@ export default function ProgressionExperience({ publicModules }: { publicModules
             : "Aucune activité récente."}
         </p>
         <p className="mt-3 text-sm text-foreground">
-          {isReadyForB1
-            ? "Toutes les étapes du parcours sont terminées : tu es prêt·e à passer un examen blanc B1."
-            : `${summary.completedStages}/${summary.totalStages} étapes du parcours terminées.`}
+          {summary.currentStage === null
+            ? "Tu as parcouru tout le contenu A1, A2 et B1 : tu es prêt·e à passer un examen blanc B1."
+            : isReadyForB1
+              ? "A1 et A2 terminés : tu es prêt·e pour le B1."
+              : `${summary.completedStages}/${summary.totalStages} étapes du parcours terminées.`}
         </p>
         {reviewItemsCount > 0 ? (
           <p className="mt-3 text-sm text-foreground">
@@ -90,15 +98,15 @@ export default function ProgressionExperience({ publicModules }: { publicModules
         ) : null}
       </header>
 
-      {dailySession && dailySessionModule ? (
+      {guidedSession || rawGuidedSession ? (
         <section aria-labelledby="daily-session-title">
           <h2 id="daily-session-title" className="mb-3 text-lg font-semibold text-foreground">
             Séance recommandée
           </h2>
-          <DailySessionCard
-            session={dailySession}
-            href={dailySessionLocked ? "/offre" : `/parcours/module/${dailySessionModule.slug}`}
-            locked={dailySessionLocked}
+          <GuidedSessionCard
+            plan={guidedSession ?? rawGuidedSession!}
+            href={guidedSession ? `/parcours/seance?module=${guidedSession.moduleSlug}` : "/offre"}
+            locked={!guidedSession}
           />
         </section>
       ) : null}
@@ -153,7 +161,7 @@ export default function ProgressionExperience({ publicModules }: { publicModules
 
       <section aria-labelledby="modules-title">
         <h2 id="modules-title" className="mb-3 text-lg font-semibold text-foreground">
-          Modules — niveau {progress.level}
+          Modules — niveau {effectiveLevel}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {modules.map((mod) => {

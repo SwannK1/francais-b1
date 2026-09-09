@@ -78,8 +78,8 @@ function welcomeEmailText(parcoursUrl: string, testNiveauUrl: string): string {
   return [
     "Bienvenue sur ParcoursFR",
     "",
-    "Votre compte est créé. Vous êtes sur un parcours de français niveau B1 :",
-    "l'objectif est de consolider votre niveau intermédiaire, à votre rythme.",
+    "Votre compte est créé. Vous êtes sur un parcours de français de A1 à B1 :",
+    "l'objectif est de progresser vers plus d'autonomie, à votre rythme.",
     "",
     `Reprendre le parcours : ${parcoursUrl}`,
     `Pas sûr·e de votre niveau ? Faites le test de positionnement : ${testNiveauUrl}`,
@@ -104,8 +104,8 @@ function welcomeEmailHtml(parcoursUrl: string, testNiveauUrl: string): string {
             <tr>
               <td style="font-size:14px;line-height:1.6;color:#3a3f4b;padding-bottom:24px;">
                 Votre compte est créé. Vous êtes sur un parcours de français
-                niveau <strong>B1</strong> : l'objectif est de consolider votre niveau
-                intermédiaire, à votre rythme.
+                de <strong>A1 à B1</strong> : l'objectif est de progresser vers
+                plus d&apos;autonomie, à votre rythme.
               </td>
             </tr>
             <tr>

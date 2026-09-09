@@ -5,7 +5,7 @@ import TestNiveauClient from "./TestNiveauClient";
 export const metadata: Metadata = {
   title: "Test de niveau de français",
   description:
-    "Estime gratuitement ton niveau de français (A1 à B2) avec ce test de positionnement, et découvre le parcours B1 adapté.",
+    "Estime gratuitement ton niveau de français (A1 à B2) avec ce test de positionnement, et découvre le parcours A1 à B1 adapté à ton niveau.",
   alternates: { canonical: "/test-niveau" },
 };
 

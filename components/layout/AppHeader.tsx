@@ -7,8 +7,11 @@ import AccountStatus from "@/components/auth/AccountStatus";
 import { MenuIcon, XIcon } from "@/components/ui/icons";
 
 const navItems = [
-  { href: "/parcours", label: "Tableau de bord" },
+  { href: "/parcours", label: "Parcours" },
+  { href: "/reviser", label: "Réviser" },
+  { href: "/oral", label: "Oral" },
   { href: "/progression", label: "Progression" },
+  { href: "/offre", label: "Offre" },
 ];
 
 /**

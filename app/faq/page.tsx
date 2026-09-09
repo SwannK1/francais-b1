@@ -8,7 +8,7 @@ import { JsonLd, faqPageSchema } from "@/lib/seo/schema";
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Réponses aux questions fréquentes sur ParcoursFR : niveaux couverts, essai gratuit, contenu de l'offre, résiliation et paiement.",
+    "Réponses aux questions fréquentes sur ParcoursFR : niveaux A1 à B1 couverts, essai gratuit, contenu de l'offre, résiliation et paiement.",
   alternates: { canonical: "/faq" },
 };
 
@@ -16,21 +16,21 @@ const faqs = [
   {
     question: "À qui s'adresse ParcoursFR ?",
     answer:
-      "À toute personne qui veut atteindre le niveau B1 en français, avec ou sans objectif d'examen : vie quotidienne en France, travail, études, ou préparation du DELF B1.",
+      "À toute personne qui veut progresser en français pour vivre en France avec plus d'autonomie, du niveau A1 au niveau B1 : vie quotidienne, travail, démarches administratives, ou préparation du DELF B1.",
   },
   {
     question: "Le produit couvre-t-il tous les niveaux, du A1 au C2 ?",
     answer:
-      "Non. Le test de positionnement estime ton niveau sur l'échelle A1 à B2 pour te dire si le parcours te convient, mais le contenu du parcours (modules, exercices, examens blancs) couvre le niveau B1.",
+      "Le test de positionnement estime ton niveau sur l'échelle A1 à B2. Le contenu du parcours (modules, exercices, examens blancs) couvre les niveaux A1, A2 et B1 ; au-delà de B1, aucun parcours dédié n'est encore disponible.",
   },
   {
     question: "Qu'est-ce que je peux essayer gratuitement ?",
     answer:
-      "Le test de positionnement et 2 modules complets du parcours B1, avec leurs exercices, audios et corrections — pas des versions tronquées.",
+      "Le test de positionnement (ou le diagnostic détaillé) et 2 modules B1 complets, avec leurs exercices, audios et corrections — pas des versions tronquées. Si ton niveau estimé est A1 ou A2, tu peux consulter la fiche des modules correspondants, mais l'exercice lui-même reste réservé à l'offre complète : la découverte gratuite n'ouvre pour l'instant que 2 modules B1.",
   },
   {
     question: `Qu'est-ce que contient l'offre « ${MAIN_PLAN.name} » ?`,
-    answer: `Les 26 modules du parcours B1, tous les audios, les productions écrites avec grille d'auto-évaluation, un examen blanc DELF B1 complet et le suivi de progression. Voir le détail sur la page Offre.`,
+    answer: `Le parcours complet du niveau A1 au niveau B1 (des dizaines de modules), tous les audios, la pratique orale, les productions écrites avec grille d'auto-évaluation, des examens blancs DELF (A2 et B1) et une évaluation finale A1, et le suivi de progression. Voir le détail sur la page Offre.`,
   },
   {
     question: "Le DELF B1 est-il garanti ?",

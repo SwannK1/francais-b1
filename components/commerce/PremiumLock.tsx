@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
@@ -22,6 +23,13 @@ export default function PremiumLock({
   backHref: string;
   backLabel: string;
 }) {
+  const viewTracked = useRef(false);
+  useEffect(() => {
+    if (viewTracked.current) return;
+    viewTracked.current = true;
+    trackEvent("paywall_viewed");
+  }, []);
+
   return (
     <div className="space-y-6">
       <Link href={backHref} className="text-sm font-medium text-primary hover:underline">

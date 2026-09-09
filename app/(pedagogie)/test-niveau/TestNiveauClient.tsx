@@ -127,11 +127,15 @@ export default function TestNiveauClient() {
           {isB1OrBelow ? (
             <>
               <p className="text-sm text-foreground">
-                Ton niveau estimé est <strong>{result.estimatedLevel}</strong>, au niveau B1 ou en
-                dessous. Le parcours B1 de la plateforme est adapté pour progresser à partir de là.
+                Ton niveau estimé est <strong>{result.estimatedLevel}</strong>. Le parcours de la
+                plateforme (A1 → A2 → B1) t&apos;emmène à partir de là, pas à partir de zéro.
               </p>
-              <Link href="/parcours" className={cn(buttonClasses("primary", "md"), "mt-3")}>
-                Commencer mon parcours B1
+              <Link
+                href="/parcours"
+                className={cn(buttonClasses("primary", "md"), "mt-3")}
+                onClick={() => trackEvent("placement_cta_clicked", { placementLevel: result.estimatedLevel })}
+              >
+                Commencer mon parcours {result.estimatedLevel}
               </Link>
             </>
           ) : (
@@ -141,12 +145,24 @@ export default function TestNiveauClient() {
                 disponible sur la plateforme : tu peux explorer le parcours B1 pour consolider tes
                 bases en attendant.
               </p>
-              <Link href="/parcours" className={cn(buttonClasses("secondary", "md"), "mt-3")}>
+              <Link
+                href="/parcours"
+                className={cn(buttonClasses("secondary", "md"), "mt-3")}
+                onClick={() => trackEvent("placement_cta_clicked", { placementLevel: result.estimatedLevel })}
+              >
                 Découvrir le parcours B1
               </Link>
             </>
           )}
         </Card>
+
+        <p className="text-sm text-muted-foreground">
+          Envie d&apos;un bilan plus détaillé, compétence par compétence ?{" "}
+          <Link href="/diagnostic" className="font-medium text-primary hover:underline">
+            Fais le diagnostic complet
+          </Link>
+          .
+        </p>
 
         <button type="button" onClick={restart} className={buttonClasses("secondary", "md")}>
           Recommencer le test

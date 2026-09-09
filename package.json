@@ -10,6 +10,8 @@
     "test": "vitest run && npm run test:seo",
     "test:seo": "node --import ./scripts/register-alias-loader.mjs --test scripts/*.test.ts",
     "audio:status": "node scripts/audio-status.mjs",
+    "audio:a2:status": "node scripts/a2-audio-validate.mjs",
+    "audio:a2:generate": "node scripts/a2-audio-generate.mjs",
     "generate:public-modules": "node scripts/generate-public-modules.mjs",
     "generate:public-exams": "node scripts/generate-public-exams.mjs",
     "db:migrate": "node scripts/migrate.mjs"

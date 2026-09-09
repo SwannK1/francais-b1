@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/marketing/Hero";
+import Levels from "@/components/marketing/Levels";
 import Goals from "@/components/marketing/Goals";
+import Benefits from "@/components/marketing/Benefits";
 import HowItWorks from "@/components/marketing/HowItWorks";
 import ProgressShowcase from "@/components/marketing/ProgressShowcase";
 import LearningTypes from "@/components/marketing/LearningTypes";
@@ -21,7 +23,9 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
+        <Levels />
         <Goals />
+        <Benefits />
         <HowItWorks />
         <ProgressShowcase />
         <LearningTypes />

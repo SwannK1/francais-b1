@@ -1,5 +1,7 @@
 import { DELF_B1_REFERENCE } from "@/lib/pedagogy/data/delf-b1-reference";
 import type { Exam } from "@/lib/pedagogy/types";
+import { EXAMS_A1 } from "@/lib/pedagogy/data/a1/exams-a1";
+import { EXAMS_A2 } from "@/lib/pedagogy/data/exams-a2";
 
 const { maxScorePerSection, passingScoreTotal, maxScoreTotal, eliminatoryScorePerSection } =
   DELF_B1_REFERENCE;
@@ -655,6 +657,8 @@ export const EXAMS: Exam[] = [
       },
     ],
   },
+  ...EXAMS_A1,
+  ...EXAMS_A2,
 ];
 
 export function getExamBySlug(slug: string): Exam | undefined {

@@ -1,10 +1,23 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import PremiumLock from "@/components/commerce/PremiumLock";
+import { trackEvent } from "@/lib/analytics/client";
+
+vi.mock("@/lib/analytics/client", () => ({ trackEvent: vi.fn() }));
 
 afterEach(cleanup);
+beforeEach(() => {
+  vi.mocked(trackEvent).mockClear();
+});
 
 describe("PremiumLock", () => {
+  it("tracks paywall_viewed once on mount", () => {
+    render(<PremiumLock title="Module test" backHref="/parcours" backLabel="← Retour" />);
+    expect(trackEvent).toHaveBeenCalledTimes(1);
+    expect(trackEvent).toHaveBeenCalledWith("paywall_viewed");
+  });
+
+
   it("shows the module's public description and objectives as a preview, never just a bare title", () => {
     render(
       <PremiumLock

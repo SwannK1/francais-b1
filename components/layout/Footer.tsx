@@ -5,14 +5,14 @@ const columns = [
   {
     title: "Produit",
     links: [
-      { href: "/parcours", label: "Parcours B1" },
+      { href: "/parcours", label: "Parcours A1 → B1" },
       { href: "/test-niveau", label: "Test de niveau" },
       { href: "/offre", label: "Offre" },
       { href: "/faq", label: "FAQ" },
     ],
   },
   {
-    title: "Apprendre le B1",
+    title: "Ressources niveau B1",
     links: [
       { href: "/francais-b1", label: "Le niveau B1" },
       { href: "/exercices-b1", label: "Exercices B1" },
@@ -47,7 +47,7 @@ export default function Footer() {
               Parcours<span className="text-primary">FR</span>
             </span>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Apprendre le français et préparer son DELF B1, à son rythme.
+              Apprendre le français pour vivre en France, du niveau A1 au niveau B1.
             </p>
           </div>
 

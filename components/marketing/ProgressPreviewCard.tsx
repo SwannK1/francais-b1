@@ -35,7 +35,7 @@ export default function ProgressPreviewCard({
 
       <div className="mt-5">
         <div className="flex items-baseline justify-between text-sm">
-          <span className="font-medium text-foreground">Progression B1</span>
+          <span className="font-medium text-foreground">Progression vers l&apos;objectif</span>
           <span className="font-semibold text-success">42 %</span>
         </div>
         <div
@@ -44,7 +44,7 @@ export default function ProgressPreviewCard({
           aria-valuenow={42}
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-label="Progression vers le niveau B1"
+          aria-label="Progression vers ton objectif de niveau"
         >
           <div className="h-full rounded-full bg-success" style={{ width: "42%" }} />
         </div>

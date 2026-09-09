@@ -7,7 +7,7 @@ import Container from "@/components/ui/Container";
 export const metadata: Metadata = {
   title: "À propos",
   description:
-    "ParcoursFR est une formation en ligne originale pour atteindre le niveau B1 en français et préparer le DELF B1, sans affiliation avec un organisme officiel.",
+    "ParcoursFR est une formation en ligne originale pour apprendre le français, de A1 à B1, et vivre en France avec plus d'autonomie — sans affiliation avec un organisme officiel.",
   alternates: { canonical: "/a-propos" },
 };
 
@@ -23,10 +23,10 @@ export default function AProposPage() {
 
           <div className="mt-6 space-y-4 text-sm text-muted-foreground">
             <p>
-              ParcoursFR est une formation en ligne de français niveau B1 : un test de
-              positionnement, un parcours de modules guidés (grammaire, vocabulaire, compréhension
-              orale et écrite, production), et une préparation structurée au DELF B1 avec un examen
-              blanc complet.
+              ParcoursFR est une formation en ligne de français pour vivre en France avec plus
+              d&apos;autonomie : un test de niveau, un parcours guidé du niveau A1 au niveau B1
+              (grammaire, vocabulaire, compréhension orale et écrite, production, pratique orale),
+              et une préparation structurée au DELF B1 avec un examen blanc complet.
             </p>
             <p>
               Le contenu pédagogique (textes, exercices, audios, examens blancs) est entièrement

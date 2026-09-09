@@ -16,7 +16,7 @@ import ViewTracker from "@/lib/analytics/ViewTracker";
 export const metadata: Metadata = {
   title: "Offre",
   description:
-    "Découvre l'offre ParcoursFR : les 26 modules du parcours B1, les audios, les productions écrites corrigées et un examen blanc DELF B1 complet.",
+    "Découvre l'offre ParcoursFR : le parcours complet de A1 à B1, les audios, la pratique orale, les productions écrites corrigées et un examen blanc DELF B1 complet.",
   alternates: { canonical: "/offre" },
 };
 
@@ -40,11 +40,11 @@ export default async function OffrePage() {
 
           <div className="mx-auto mt-8 max-w-2xl text-center">
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Une formation complète de français B1, une seule offre
+              Une formation complète de A1 à B1, une seule offre
             </h1>
             <p className="mt-4 text-muted-foreground">
               Pas d&apos;abonnements multiples à comparer. Un accès gratuit pour essayer, un accès
-              complet pour aller jusqu&apos;au DELF B1.
+              complet pour progresser jusqu&apos;au niveau B1 et au DELF B1.
             </p>
           </div>
 

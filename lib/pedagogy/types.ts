@@ -242,7 +242,29 @@ export type StageId =
   | "b1-intermediaire"
   | "b1-consolidation"
   | "preparation-examen"
-  | "pret-pour-le-b1";
+  | "pret-pour-le-b1"
+  /**
+   * Étapes du parcours A1 (`lib/pedagogy/data/parcours-stages-a1.ts`) —
+   * voir `docs/integration/a1-content.md`.
+   */
+  | "a1-decouverte"
+  | "a1-vie-quotidienne"
+  | "a1-sortir-et-bouger"
+  | "a1-quotidien-et-loisirs"
+  | "a1-preparation-examen"
+  | "a1-bilan"
+  /**
+   * Étapes du parcours A2 (`lib/pedagogy/data/parcours-stages-a2.ts`) —
+   * voir `docs/integration/a2-content.md`. Même structure à 6 étapes que le
+   * B1 (diagnostic → 3 phases de contenu → entraînement → bilan), préfixée
+   * `a2-` pour ne jamais collisionner avec les identifiants B1/A1.
+   */
+  | "a2-faire-le-point"
+  | "a2-debut"
+  | "a2-intermediaire"
+  | "a2-consolidation"
+  | "a2-preparation-examen"
+  | "a2-pret-pour-le-b1";
 
 export interface Module {
   id: string;
@@ -352,6 +374,22 @@ export interface SkillProgress {
   completedExercises: number;
   correctExercises: number;
   successRate: number;
+  /**
+   * Horodatage du dernier exercice enregistré pour cette compétence (voir
+   * `logic/progress.ts: recordExerciseResult`), `null` si jamais pratiquée.
+   * Optionnel : une progression écrite avant l'ajout de ce champ (chantier
+   * révision espacée) n'en dispose pas tant qu'aucun nouvel exercice n'est
+   * enregistré — toujours lu avec `?? null` (voir `lib/review/adapter.ts`).
+   */
+  lastPracticedAt?: string | null;
+  /**
+   * Fenêtre bornée des derniers résultats (`true` = correct), du plus ancien
+   * au plus récent, plafonnée à `RECENT_OUTCOMES_LIMIT` (`logic/progress.ts`).
+   * Alimente le moteur de révision espacée (`lib/review/`) : détection
+   * d'erreurs répétées, de reprise après erreur, taux de réussite récent.
+   * Optionnel pour la même raison que `lastPracticedAt` ci-dessus.
+   */
+  recentOutcomes?: boolean[];
 }
 
 export interface ModuleProgress {
@@ -386,21 +424,6 @@ export interface UserProgress {
    * existante sans ce champ reste valide (voir `useProgress.ts: parseProgress`).
    */
   reviewedModuleIds: string[];
-}
-
-// --- Séance recommandée ---
-
-export interface DailySession {
-  goalLevel: CEFRLevel;
-  moduleId: string;
-  moduleTitle: string;
-  lessonId: string;
-  lessonTitle: string;
-  exerciseCount: number;
-  includesListening: boolean;
-  includesWriting: boolean;
-  focusSkillId: string | null;
-  reason: string;
 }
 
 // --- Test de positionnement ---

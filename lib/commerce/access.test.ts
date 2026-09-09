@@ -38,9 +38,28 @@ describe("isFreeResource", () => {
     expect(isFreeResource({ kind: "module", slug: "donner-son-opinion" })).toBe(false);
   });
 
+  /**
+   * Asymétrie connue (voir lib/commerce/access.ts) : aucun module A1/A2
+   * n'est gratuit, contrairement au B1. Documenté, pas arbitré ici.
+   */
+  it("aucun module A1/A2 n'est gratuit (asymétrie connue vs. B1)", () => {
+    expect(isFreeResource({ kind: "module", slug: "se-presenter-a1" })).toBe(false);
+    expect(isFreeResource({ kind: "module", slug: "se-presenter-en-detail" })).toBe(false);
+  });
+
   it("aucun examen n'est gratuit (valeur centrale de l'offre payante)", () => {
     expect(isFreeResource({ kind: "exam", slug: "delf-b1-examen-blanc-1" })).toBe(false);
     expect(isFreeResource({ kind: "exam", slug: "n'importe-quoi" })).toBe(false);
+  });
+
+  it("2 exercices oraux de découverte sont gratuits, les autres non", () => {
+    expect(isFreeResource({ kind: "speaking", exerciseId: "repetition-bonjour" })).toBe(true);
+    expect(isFreeResource({ kind: "speaking", exerciseId: "situation-se-presenter" })).toBe(true);
+    expect(isFreeResource({ kind: "speaking", exerciseId: "situation-rendez-vous" })).toBe(false);
+  });
+
+  it("aucune évaluation de passage n'est gratuite (même raisonnement que les examens)", () => {
+    expect(isFreeResource({ kind: "assessment", checkpointId: "fin-a1" })).toBe(false);
   });
 });
 

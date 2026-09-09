@@ -140,6 +140,21 @@ describe("Frontière statique : aucun composant client n'atteint le contenu int�
     "@/lib/pedagogy/data/modules",
     "@/lib/pedagogy/data/exams",
     "@/lib/pedagogy/data",
+    // Sources isolées A1/A2 (voir docs/integration/*.md) : fusionnées dans
+    // data/modules.ts et data/exams.ts ci-dessus, mais protégées aussi à la
+    // source pour qu'un import direct (contournant le barrel) soit détecté
+    // ici en profondeur de défense, pas seulement via le barrel.
+    "@/lib/pedagogy/data/a1/modules-a1",
+    "@/lib/pedagogy/data/a1/index",
+    "@/lib/pedagogy/data/a1/exams-a1",
+    "@/lib/pedagogy/data/modules-a2",
+    "@/lib/pedagogy/data/modules-a2-part1",
+    "@/lib/pedagogy/data/modules-a2-part2",
+    "@/lib/pedagogy/data/modules-a2-part3",
+    "@/lib/pedagogy/data/modules-a2-banque-ecoute",
+    "@/lib/pedagogy/data/exams-a2",
+    "@/lib/pedagogy/audio/a1/manifest",
+    "@/lib/pedagogy/audio/a2/manifest",
   ];
 
   function listSourceFiles(dir: string, out: string[] = []): string[] {

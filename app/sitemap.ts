@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { MODULES } from "@/lib/pedagogy/data/modules";
 import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
 import { EXAMS } from "@/lib/pedagogy/data/exams";
+import { SPEAKING_EXERCISES } from "@/lib/speaking/data/exercises";
+import { ASSESSMENTS } from "@/lib/assessment/data/index";
 import { SITE_URL } from "@/lib/seo/site";
 
 /**
@@ -24,7 +26,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/offre`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/parcours`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/parcours/examens`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${SITE_URL}/oral`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${SITE_URL}/parcours/evaluations`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE_URL}/test-niveau`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/diagnostic`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/francais-b1`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/exercices-b1`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/grammaire-b1`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
@@ -65,5 +70,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...stagePages, ...modulePages, ...examPages];
+  const speakingPages: MetadataRoute.Sitemap = SPEAKING_EXERCISES.map((exercise) => ({
+    url: `${SITE_URL}/oral/${exercise.id}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  const assessmentPages: MetadataRoute.Sitemap = ASSESSMENTS.map((assessment) => ({
+    url: `${SITE_URL}/parcours/evaluations/${assessment.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [
+    ...staticPages,
+    ...stagePages,
+    ...modulePages,
+    ...examPages,
+    ...speakingPages,
+    ...assessmentPages,
+  ];
 }

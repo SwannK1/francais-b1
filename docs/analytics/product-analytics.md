@@ -132,6 +132,45 @@ plus, sans dupliquer `placement_completed` par un `placement_test_abandoned`
 explicite (dérivable en comparant les volumes de `placement_started` et de
 la dernière valeur de `questionIndex` atteinte).
 
+### Diagnostic de niveau (chantier diagnostic-level, ajouté à cet audit V1)
+
+| Événement | Déclencheur réel | Propriétés |
+|---|---|---|
+| `diagnostic_started` | Clic sur "Commencer le diagnostic" (`DiagnosticClient.tsx`, sortie de l'écran d'intro) | — |
+| `diagnostic_completed` | Calcul réel du résultat (fin normale ou arrêt anticipé plancher/plafond) | `diagnosticLevel` (le niveau recommandé A1/A2/B1) |
+
+Manquait entièrement avant cet audit — le diagnostic est arrivé après la
+rédaction initiale de ce document. Pas de `diagnostic_question_answered` :
+contrairement au test de positionnement (longueur fixe), le diagnostic a un
+nombre de questions variable selon l'arrêt anticipé — la position de
+décrochage se lit déjà via `stopReason`, pas utile de la dupliquer question
+par question pour un premier chantier analytics sur cette fonctionnalité.
+
+### Séance du jour (chantier daily-session, ajouté à cet audit V1)
+
+| Événement | Déclencheur réel | Propriétés |
+|---|---|---|
+| `daily_session_started` | Montage de `SeanceExperience` (`/parcours/seance`) avec au moins une étape construite (jamais si `steps.length === 0`) | `moduleId` |
+| `daily_session_completed` | Clic sur "Terminer la séance" (dernière étape) | `moduleId` |
+
+Distinct de `module_started`/`module_completed` : une séance du jour peut
+mélanger plusieurs types d'étapes (leçon, rappel de révision) sur un seul
+module cible, ce n'est pas la même unité de mesure qu'ouvrir une page module
+classique.
+
+### Révision espacée (chantier spaced-review, ajouté à cet audit V1)
+
+| Événement | Déclencheur réel | Propriétés |
+|---|---|---|
+| `review_page_viewed` | Montage de `/reviser` (`ViewTracker`) | — |
+
+`/reviser` n'existait pas encore à la rédaction initiale de ce document (voir
+l'ancienne note "fonctionnalité inexistante" ci-dessous, périmée). Pas de
+détail par section (priorité haute/à revoir/consolidation) pour un premier
+chantier : la vue d'ensemble suffit à mesurer l'usage réel de la page ;
+détailler par bande de priorité pourra s'ajouter plus tard si le besoin se
+confirme, sans complexifier la mesure par anticipation.
+
 ### Apprentissage
 
 | Événement | Déclencheur réel | Propriétés |
@@ -154,15 +193,15 @@ séparés. Ouvrir un module revient à le commencer (pas de mode "aperçu" dans
 l'UI) ; un exercice affiché mais non complété n'a pas d'état intermédiaire
 observable qui vaille la peine d'un événement dédié.
 
-**Fonctionnalité inexistante — non instrumentée :** "à revoir"
-(`module_marked_for_review`/`module_unmarked_for_review`), la page
-`/reviser` et son `review_page_viewed`. Aucune de ces fonctionnalités
-n'existe dans le code actuel (vérifié par une recherche exhaustive sur
-"revoir"/"réviser"/"review" dans `app/` et `lib/`). Les ajouter aurait
-signifié construire une fonctionnalité produit entière au prétexte de la
-mesurer — hors périmètre d'un chantier analytics. **À instrumenter au
-moment où cette fonctionnalité sera réellement développée**, en suivant la
-procédure "Ajouter un événement" ci-dessus.
+**Périmé, corrigé par l'audit V1 :** ce paragraphe indiquait que `/reviser`
+n'existait pas encore et que sa mesure serait hors périmètre tant qu'elle ne
+serait pas développée. Elle existe désormais (chantier spaced-review) et est
+instrumentée — voir § Révision espacée ci-dessus. Reste non instrumenté :
+`module_marked_for_review`/`module_unmarked_for_review` (marquer/démarquer
+un module "à revoir" à la main) — signal secondaire, déjà partiellement
+observable via la présence du module dans le contenu de `review_page_viewed`
+côté produit (non côté analytics), pas ajouté ici pour ne pas complexifier
+un premier chantier de mesure sur cette page.
 
 ### Audio (compréhension orale — modules et examens)
 
@@ -206,6 +245,7 @@ pour tout exercice `comprehension_orale`, où qu'il soit utilisé.
 | Événement | Déclencheur réel | Propriétés |
 |---|---|---|
 | `premium_offer_viewed` | Vue de `/offre` | `isPremium`, `authenticated` |
+| `paywall_viewed` | Montage de `PremiumLock` — un utilisateur non premium arrive sur du contenu verrouillé (module, examen, séance, oral, évaluation) | — |
 | `premium_cta_clicked` | Clic sur un CTA premium réel : `PremiumLock` (module verrouillé), section Tarifs de l'accueil, ou bouton d'achat de `/offre` | `source` (`premium_lock`\|`pricing`\|`offre_page`) |
 | `checkout_started` | `POST /api/checkout`, uniquement après création réelle d'une session Stripe Checkout | — |
 | `checkout_failed` | Échec réel du démarrage du paiement : config manquante, session Stripe non créée, pas d'URL renvoyée, ou erreur réseau côté client | `source`?, `reason` (`payment_not_configured`\|`stripe_session_creation_failed`\|`no_checkout_url`\|`client_no_checkout_url`\|`client_network_error`) |
@@ -265,7 +305,7 @@ journey_viewed → stage_viewed → module_started → lesson_started
 ### Funnel 3 — Module gratuit → offre → checkout → achat
 
 ```
-module_started (module gratuit) → premium_cta_clicked (source=premium_lock, sur un module suivant verrouillé)
+module_started (module gratuit) → paywall_viewed → premium_cta_clicked (source=premium_lock, sur un module suivant verrouillé)
   → premium_offer_viewed → premium_cta_clicked (source=offre_page|pricing)
   → checkout_started (ou checkout_failed) → purchase_completed
 ```

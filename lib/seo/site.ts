@@ -22,4 +22,4 @@ export const SITE_URL = configuredUrl || vercelUrl || "http://localhost:3000";
 export const SITE_NAME = "ParcoursFR";
 
 export const SITE_DESCRIPTION =
-  "Formation complète de français niveau B1 : teste ton niveau, suis un parcours de modules guidés et prépare le DELF B1 avec des examens blancs, à ton rythme.";
+  "Apprends le français pour vivre en France avec plus d'autonomie : teste ton niveau, suis un parcours guidé de A1 à B1 et entraîne-toi au français utile du quotidien, du travail et des démarches.";

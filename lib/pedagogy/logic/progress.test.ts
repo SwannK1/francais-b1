@@ -1,6 +1,23 @@
 import { describe, expect, it } from "vitest";
-import { mergeUserProgress } from "@/lib/pedagogy/logic/progress";
-import type { UserProgress } from "@/lib/pedagogy/types";
+import { mergeUserProgress, resolvePlacementLevel } from "@/lib/pedagogy/logic/progress";
+import type { ModuleProgress, UserProgress } from "@/lib/pedagogy/types";
+
+/** Modules réels (voir `data/modules-public.generated.ts`) — un par niveau, pour ancrer `mod.level` dans les tests de plancher de niveau. */
+const A1_MODULE_ID = "a1-se-presenter";
+const A2_MODULE_ID = "a2-se-presenter-en-detail";
+const B1_MODULE_ID = "b1-se-presenter";
+
+function completedProgress(moduleId: string, overrides: Partial<ModuleProgress> = {}): ModuleProgress {
+  return {
+    moduleId,
+    completed: true,
+    completedLessonIds: ["l1"],
+    completedExerciseIds: ["e1"],
+    correctExerciseIds: ["e1"],
+    lastActivityAt: "2026-08-01T00:00:00.000Z",
+    ...overrides,
+  };
+}
 
 /**
  * `mergeUserProgress` est le point critique du cycle utilisateur : c'est ce
@@ -208,5 +225,87 @@ describe("mergeUserProgress — cas local seul / serveur seul (via la route API,
     const secondMerge = mergeUserProgress(firstMerge, firstMerge);
 
     expect(secondMerge.moduleProgress).toEqual(firstMerge.moduleProgress);
+  });
+});
+
+describe("resolvePlacementLevel — priorité aux progrès existants sur un nouveau résultat de test", () => {
+  it("retient le résultat du test tel quel pour un apprenant sans aucune activité réelle", () => {
+    expect(resolvePlacementLevel([], "A1")).toBe("A1");
+    expect(resolvePlacementLevel([], "B1")).toBe("B1");
+  });
+
+  it("ne redescend jamais en dessous du plus haut niveau déjà couvert par une activité réelle", () => {
+    const moduleProgress = [completedProgress(A2_MODULE_ID)];
+    expect(resolvePlacementLevel(moduleProgress, "A1")).toBe("A2");
+  });
+
+  it("accepte un résultat de test au niveau de l'activité réelle ou au-dessus", () => {
+    const moduleProgress = [completedProgress(A2_MODULE_ID)];
+    expect(resolvePlacementLevel(moduleProgress, "A2")).toBe("A2");
+    expect(resolvePlacementLevel(moduleProgress, "B1")).toBe("B1");
+  });
+
+  it("une activité réelle seulement au niveau A1 n'empêche pas un résultat de test plus élevé", () => {
+    const moduleProgress = [completedProgress(A1_MODULE_ID)];
+    expect(resolvePlacementLevel(moduleProgress, "B1")).toBe("B1");
+  });
+
+  it("ignore un module touché mais sans aucun exercice complété (pas une vraie activité)", () => {
+    const moduleProgress = [
+      completedProgress(B1_MODULE_ID, { completed: false, completedExerciseIds: [], correctExerciseIds: [] }),
+    ];
+    expect(resolvePlacementLevel(moduleProgress, "A1")).toBe("A1");
+  });
+});
+
+describe("mergeUserProgress — le niveau ne régresse jamais en dessous d'une vraie progression", () => {
+  it("un diagnostic A1 refait par erreur sur un nouvel appareil ne fait pas redescendre un compte avec des modules A2 terminés", () => {
+    // Compte réel : plusieurs modules A2 terminés, testé A2 il y a un mois.
+    const remote = baseProgress({
+      level: "A2",
+      placementCompletedAt: "2026-08-01T00:00:00.000Z",
+      moduleProgress: [completedProgress(A2_MODULE_ID)],
+    });
+    // Nouvel appareil, anonyme, vient de refaire le test et obtient A1 par accident.
+    const local = baseProgress({
+      level: "A1",
+      placementCompletedAt: "2026-09-08T00:00:00.000Z",
+      moduleProgress: [],
+    });
+
+    const merged = mergeUserProgress(local, remote);
+
+    expect(merged.level).toBe("A2");
+    // La date du test le plus récent reste honnête, seul le niveau est protégé.
+    expect(merged.placementCompletedAt).toBe("2026-09-08T00:00:00.000Z");
+    // Les modules réellement terminés ne sont jamais perdus.
+    expect(merged.moduleProgress.find((mp) => mp.moduleId === A2_MODULE_ID)?.completed).toBe(true);
+  });
+
+  it("un utilisateur sans progression B1 peut se voir recommander une entrée B1 par le diagnostic", () => {
+    const remote = baseProgress({ level: "A2", placementCompletedAt: "2026-08-01T00:00:00.000Z", moduleProgress: [] });
+    const local = baseProgress({ level: "B1", placementCompletedAt: "2026-09-08T00:00:00.000Z", moduleProgress: [] });
+
+    const merged = mergeUserProgress(local, remote);
+
+    expect(merged.level).toBe("B1");
+  });
+
+  it("un compte B1 avec des modules terminés n'est pas redescendu à A2 par un nouveau diagnostic A2", () => {
+    const remote = baseProgress({
+      level: "B1",
+      placementCompletedAt: "2026-07-01T00:00:00.000Z",
+      moduleProgress: [completedProgress(B1_MODULE_ID)],
+    });
+    const local = baseProgress({
+      level: "A2",
+      placementCompletedAt: "2026-09-08T00:00:00.000Z",
+      moduleProgress: [],
+    });
+
+    const merged = mergeUserProgress(local, remote);
+
+    expect(merged.level).toBe("B1");
+    expect(merged.moduleProgress.find((mp) => mp.moduleId === B1_MODULE_ID)?.completed).toBe(true);
   });
 });

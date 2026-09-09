@@ -169,6 +169,24 @@ describe("AudioExercise", () => {
     expect(trackEvent).toHaveBeenCalledWith("audio_retry", { exerciseId: "ex-1" });
   });
 
+  it("reports per-question correctness via onQuestionAnswered, in addition to the aggregate onExerciseAnswered", () => {
+    const onQuestionAnswered = vi.fn();
+    const onExerciseAnswered = vi.fn();
+    render(
+      <AudioExercise
+        exercise={makeExercise()}
+        onQuestionAnswered={onQuestionAnswered}
+        onExerciseAnswered={onExerciseAnswered}
+      />
+    );
+
+    fireEvent.click(screen.getByRole("radio", { name: /réponse a/i }));
+    fireEvent.click(screen.getByRole("button", { name: /vérifier/i }));
+
+    expect(onQuestionAnswered).toHaveBeenCalledWith("ex-1-q1", true);
+    expect(onExerciseAnswered).toHaveBeenCalledWith(true);
+  });
+
   it("can track a fresh audio_play_started after a retry (the guard resets per attempt)", () => {
     const { container } = render(<AudioExercise exercise={makeExercise()} />);
     fireEvent.error(container.querySelector("audio")!);
