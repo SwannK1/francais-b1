@@ -4,6 +4,7 @@ import Badge from "@/components/ui/Badge";
 import { GraduationCapIcon, LockIcon } from "@/components/ui/icons";
 import { flattenAssessmentQuestions } from "@/lib/assessment/logic/flatten";
 import { CHECKPOINT_LABELS } from "@/lib/assessment/logic/labels";
+import AssessmentAttemptSummary from "@/components/assessment/AssessmentAttemptSummary";
 import type { AssessmentDefinition } from "@/lib/assessment/types";
 
 const KIND_LABEL: Record<AssessmentDefinition["checkpointKind"], string> = {
@@ -54,6 +55,12 @@ export default function AssessmentCard({
           <dd>Seuil de réussite</dd>
         </div>
       </dl>
+
+      <AssessmentAttemptSummary
+        checkpointId={assessment.id}
+        questionCount={questionCount}
+        passingRatio={assessment.passingRatio}
+      />
 
       <Link
         href={locked ? "/offre" : href}

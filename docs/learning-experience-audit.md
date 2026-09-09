@@ -34,6 +34,7 @@ Le comptage transversal confirme 11/26, 10/22 et 16/26 modules cœur avec compr�
 - Les passages A1→A2 et A2→B1 couvrent compréhension écrite, vocabulaire, grammaire, compréhension orale et production guidée, avec seuil global documenté à 60 %.
 - Les résultats par dimension signalent les lacunes ; la production guidée reste explicitement auto-évaluée et n’est pas présentée comme une note officielle.
 - Limite réelle : les tentatives d’évaluation vivent encore hors de `UserProgress`. Le parcours peut donc constater qu’un catalogue est terminé, mais ne peut pas utiliser un passage réussi comme preuve centrale de préparation. Relier ces données exige une migration de schéma et reste P1, à traiter séparément plutôt que par une dérivation fragile côté UI.
+- Gain sûr appliqué : la liste des évaluations réaffiche désormais la dernière tentative locale réelle (score et seuil atteint / consolidation) ou signale une tentative à reprendre. Aucun score n’est déduit d’une activité incomplète et aucune réponse protégée n’est envoyée au client.
 
 ### Lot 1 — prochaine action, erreurs et maîtrise
 
