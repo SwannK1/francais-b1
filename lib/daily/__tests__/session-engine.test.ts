@@ -304,6 +304,77 @@ describe("buildDailySession — cas utilisateurs", () => {
     expect(plan?.moduleId).toBe(weakModule.id);
     expect(plan?.focusSkillId).toBe("grammaire-x");
   });
+
+  it("consolidation : la priorité du moteur de révision gagne sur l'ordre brut des compétences faibles", () => {
+    const firstWeak = makeSessionPublicModule({ id: "first-weak", slug: "first-weak", skillId: "skill-a" });
+    const repeatedErrors = makeSessionPublicModule({ id: "repeated-errors", slug: "repeated-errors", skillId: "skill-b" });
+    const progress = makeProgress({
+      placementCompletedAt: "2025-01-01T00:00:00.000Z",
+      lastActivityAt: "2026-06-14T00:00:00.000Z",
+      globalSuccessRate: 40,
+      weakSkillIds: ["skill-a", "skill-b"],
+      skillProgress: [
+        {
+          skillId: "skill-a",
+          domain: "vocabulaire",
+          totalExercises: 12,
+          completedExercises: 2,
+          correctExercises: 1,
+          successRate: 50,
+          recentOutcomes: [true, false],
+          lastPracticedAt: "2026-06-14T00:00:00.000Z",
+        },
+        {
+          skillId: "skill-b",
+          domain: "grammaire",
+          totalExercises: 12,
+          completedExercises: 4,
+          correctExercises: 1,
+          successRate: 25,
+          recentOutcomes: [true, false, false],
+          lastPracticedAt: "2026-06-14T00:00:00.000Z",
+        },
+      ],
+    });
+
+    const plan = buildDailySession(progress, [firstWeak, repeatedErrors], { now: NOW });
+
+    expect(plan?.mode).toBe("consolidation");
+    expect(plan?.moduleId).toBe(repeatedErrors.id);
+    expect(plan?.focusSkillId).toBe("skill-b");
+    expect(plan?.steps[0]).toMatchObject({
+      kind: "rappel",
+      reviewHref: `/parcours/module/${repeatedErrors.slug}`,
+    });
+    expect(plan?.steps[0]?.description).toContain("Erreurs répétées");
+  });
+
+  it("apprentissage : une erreur récente entre dans la séance comme rappel explicable", () => {
+    const mod = makeSessionPublicModule({ id: "recent-error", slug: "recent-error", skillId: "skill-error" });
+    const progress = makeProgress({
+      placementCompletedAt: "2025-01-01T00:00:00.000Z",
+      lastActivityAt: "2026-06-14T00:00:00.000Z",
+      globalSuccessRate: 80,
+      skillProgress: [
+        {
+          skillId: "skill-error",
+          domain: "comprehension_orale",
+          totalExercises: 12,
+          completedExercises: 3,
+          correctExercises: 2,
+          successRate: 67,
+          recentOutcomes: [true, true, false],
+          lastPracticedAt: "2026-06-14T00:00:00.000Z",
+        },
+      ],
+    });
+
+    const plan = buildDailySession(progress, [mod], { now: NOW });
+
+    expect(plan?.mode).toBe("apprentissage");
+    expect(plan?.steps[0]?.kind).toBe("rappel");
+    expect(plan?.steps[0]?.description).toContain("Dernière tentative en échec");
+  });
 });
 
 describe("buildSessionSteps — dédoublonnage", () => {

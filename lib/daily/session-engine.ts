@@ -5,6 +5,7 @@ import { findModuleForSkill } from "@/lib/pedagogy/logic/module-structure";
 import { getNextModule, type NextModuleTarget } from "@/lib/pedagogy/logic/recommendation";
 import { getEffectiveLevel, getStageCompletionRate, getParcoursSummary } from "@/lib/pedagogy/logic/parcours";
 import { getReviewItems, type ReviewItem } from "@/lib/pedagogy/logic/review";
+import { getSkillReviewRecommendations } from "@/lib/review";
 import type { PublicModule, UserProgress } from "@/lib/pedagogy/types";
 import type {
   DailySessionMode,
@@ -17,9 +18,9 @@ import type {
 
 /**
  * Moteur de sélection de la séance guidée du jour — pur, sans effet de bord.
- * Indépendant du diagnostic (test-niveau) et du moteur de révision espacée :
- * consomme `getReviewItems`/`getNextModule` comme interface légère, sans
- * jamais dépendre de leur implémentation interne. Ne choisit jamais un
+ * Indépendant du diagnostic (test-niveau) et consommateur des interfaces
+ * publiques de recommandation/révision (`getNextModule`, `getReviewItems`,
+ * `getSkillReviewRecommendations`). Ne choisit jamais un
  * module hors du catalogue reçu (`PublicModule[]`) — aucune référence
  * inventée n'est possible par construction.
  */
@@ -119,10 +120,14 @@ function pickTargetModule(
   mode: DailySessionMode,
   progress: UserProgress,
   levelModules: PublicModule[],
-  isAccessible: (mod: PublicModule) => boolean
+  isAccessible: (mod: PublicModule) => boolean,
+  prioritizedSkillId: string | null = null
 ): NextModuleTarget | null {
   if (mode === "consolidation") {
-    for (const skillId of progress.weakSkillIds) {
+    const skillIds = [prioritizedSkillId, ...progress.weakSkillIds].filter(
+      (skillId, index, all): skillId is string => !!skillId && all.indexOf(skillId) === index
+    );
+    for (const skillId of skillIds) {
       const mod = findModuleForSkill(levelModules, skillId);
       if (!mod || !isAccessible(mod)) continue;
       const stage = getStageById(mod.stageId);
@@ -166,11 +171,13 @@ function pickLessonsForBudget(lessons: SessionLessonLike[]): SessionLessonLike[]
  * consolidation sur un module fini), retombe sur l'ensemble de ses leçons —
  * refaire les exercices reste une révision valide plutôt qu'une séance vide.
  */
+type SessionReviewTarget = Pick<ReviewItem, "description" | "href">;
+
 export function buildSessionSteps(
   mod: SessionModuleLike,
   progress: UserProgress,
   mode: DailySessionMode,
-  reviewItem: ReviewItem | null
+  reviewItem: SessionReviewTarget | null
 ): DailySessionStep[] {
   const moduleProgress = getModuleProgress(progress, mod.id);
   const completedLessonIds = moduleProgress?.completedLessonIds ?? [];
@@ -270,17 +277,25 @@ export function buildDailySession(
   if (levelModules.length === 0) return null;
 
   const mode = determineDailySessionMode(progress, levelModules, now);
-  const target = pickTargetModule(mode, progress, levelModules, isAccessible);
+  const skillReview = getSkillReviewRecommendations(progress, levelModules, now).find((recommendation) => {
+    const reviewModule = findModuleForSkill(levelModules, recommendation.skillId);
+    return !!reviewModule && isAccessible(reviewModule);
+  }) ?? null;
+  const target = pickTargetModule(mode, progress, levelModules, isAccessible, skillReview?.skillId ?? null);
   if (!target) return null;
 
   const reviewItems = getReviewItems(progress, levelModules);
-  const reviewItem = reviewItems[0] ?? null;
+  const reviewItem: SessionReviewTarget | null = skillReview
+    ? { description: `${skillReview.title} — ${skillReview.reason}.`, href: skillReview.href }
+    : (reviewItems[0] ?? null);
 
   const steps = buildSessionSteps(target.module, progress, mode, reviewItem);
   if (steps.length === 0) return null;
 
   const totalEstimatedMinutes = steps.reduce((sum, step) => sum + step.estimatedMinutes, 0);
-  const focusSkillId = mode === "consolidation" ? (progress.weakSkillIds[0] ?? null) : null;
+  const focusSkillId = mode === "consolidation"
+    ? (skillReview?.skillId ?? progress.weakSkillIds[0] ?? null)
+    : null;
   const focusSkillName = focusSkillId ? (getSkillById(focusSkillId)?.name ?? null) : null;
 
   return {

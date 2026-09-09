@@ -15,6 +15,7 @@ export default function SkillScore({
   const successRate = progress?.successRate ?? 0;
   const completed = progress?.completedExercises ?? 0;
   const total = progress?.totalExercises ?? 0;
+  const coverageRate = total > 0 ? (completed / total) * 100 : 0;
 
   return (
     <Card className={className}>
@@ -28,9 +29,14 @@ export default function SkillScore({
       </div>
       <p className="mb-3 text-sm text-muted-foreground">{skill.description}</p>
       <ProgressBar
-        value={successRate}
-        label={completed > 0 ? `${completed}/${total} exercices` : "Pas encore commencé"}
+        value={coverageRate}
+        label={completed > 0 ? `${completed}/${total} exercices pratiqués` : "Pas encore commencé"}
       />
+      {completed > 0 ? (
+        <p className="mt-2 text-xs text-muted-foreground">
+          Réussite sur les exercices tentés : <span className="font-semibold text-foreground">{successRate}%</span>
+        </p>
+      ) : null}
     </Card>
   );
 }

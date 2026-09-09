@@ -1,0 +1,27 @@
+# Audit de l’expérience apprenant
+
+Document de travail du chantier « excellence pédagogique ». Les constats sont reliés à une correction vérifiable ; les améliorations purement cosmétiques restent hors périmètre.
+
+## Parcours réel
+
+| Étape | Ce qui fonctionne | Friction ou risque | Priorité | Correction proposée | Statut |
+|---|---|---|---|---|---|
+| Diagnostic → résultat | Niveau, forces et recommandations alimentent la progression existante | À confirmer sur les cas limites A1/A2/B1 | P1 | QA ciblée et tests de cohérence | À auditer |
+| Résultat → parcours | Le niveau effectif suit l’avancement, même après le niveau diagnostiqué | Deux actions proches peuvent concurrencer la séance recommandée | P2 | Vérifier la hiérarchie en QA, conserver si elle reste claire | À auditer |
+| Parcours → séance du jour | Séance déterministe, courte, ordonnée et compatible A1/A2/B1 | La priorité avancée de `/reviser` n’alimentait pas la séance ; l’ordre brut de `weakSkillIds` gagnait | P1 | Réutiliser la priorité du moteur de révision espacé dans la séance | Corrigé, tests en cours |
+| Exercice → feedback | Chaque exercice dispose d’une correction structurée dans le modèle | Qualité éditoriale inégale possible ; à mesurer sur échantillon | P1 | Échantillon début/milieu/fin par niveau | À auditer |
+| Erreur → révision | Résultats récents, erreurs répétées et ancienneté alimentent `/reviser` | La boucle s’arrêtait avant la Daily Session | P1 | Ajouter le rappel prioritaire et cibler la compétence fragile | Corrigé, tests en cours |
+| Progression → maîtrise | Compétences et taux de réussite sont visibles | Une seule bonne réponse sur dix pouvait afficher une barre à 100 %, confondant réussite et couverture | P1 | Barre = couverture ; réussite affichée séparément | Corrigé, tests en cours |
+| Révision → nouvelle tentative | Les liens ramènent vers un vrai module du catalogue | Vérifier la sortie de révision après réussite | P1 | Tests moteur + QA du parcours | À auditer |
+| Évaluation → passage de niveau | Parcours unifié et niveaux effectifs existent | Couverture et seuils à valider pédagogiquement | P1 | Audit ciblé des transitions A1→A2 et A2→B1 | À auditer |
+
+## Lots
+
+### Lot 1 — prochaine action, erreurs et maîtrise
+
+- Problème démontré : la séance du jour utilisait l’ancien mécanisme de rappel et le premier identifiant faible, tandis que `/reviser` classait déjà les compétences selon erreurs récentes, répétition, couverture et ancienneté.
+- Décision : réutiliser la recommandation prioritaire existante, uniquement lorsqu’elle correspond à un module réel du niveau effectif.
+- Garde-fous : sélection déterministe, repli sur le comportement historique, aucun module inventé, aucune donnée nouvelle.
+- Problème démontré : le composant de compétence présentait le taux de réussite comme remplissage de progression.
+- Décision : séparer la couverture du catalogue pratiqué et la réussite sur les tentatives.
+- Tests : à compléter puis quality gate globale.
