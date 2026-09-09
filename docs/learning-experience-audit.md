@@ -14,6 +14,7 @@ Document de travail du chantier « excellence pédagogique ». Les constats sont
 | Progression → maîtrise | Compétences et taux de réussite sont visibles | Une seule bonne réponse sur dix pouvait afficher une barre à 100 %, confondant réussite et couverture | P1 | Barre = couverture ; réussite affichée séparément | Corrigé, tests en cours |
 | Révision → nouvelle tentative | Les liens ramènent vers un vrai module du catalogue | Vérifier la sortie de révision après réussite | P1 | Tests moteur + QA du parcours | À auditer |
 | Évaluation → passage de niveau | Parcours unifié et niveaux effectifs existent | Couverture et seuils à valider pédagogiquement | P1 | Audit ciblé des transitions A1→A2 et A2→B1 | À auditer |
+| Production → maîtrise | Des productions écrites et orales contextualisées existent aux trois niveaux | Toute production envoyée était comptée correcte, sans tenir compte de la grille | P0 | Faire de l’auto-évaluation existante le signal de réussite | Corrigé et validé |
 
 ## Lots
 
@@ -25,3 +26,12 @@ Document de travail du chantier « excellence pédagogique ». Les constats sont
 - Problème démontré : le composant de compétence présentait le taux de réussite comme remplissage de progression.
 - Décision : séparer la couverture du catalogue pratiqué et la réussite sur les tentatives.
 - Tests : à compléter puis quality gate globale.
+
+### Lot 2 — productions et preuve de maîtrise
+
+- Échantillon : début/milieu/fin A1, A2 et B1, puis inventaire transversal des types d’exercice.
+- Constat : les productions proposent déjà contexte, consigne et critères, mais leur simple envoi appelait `onExerciseAnswered(true)`.
+- Risque : progression, taux global, compétence faible et révision étaient tous alimentés par une réussite non démontrée.
+- Décision : conserver l’auto-évaluation (pas de fausse correction automatique), enregistrer la réussite seulement lorsque tous les critères sont cochés ; sinon terminer l’activité comme compétence à consolider.
+- Portée : toutes les productions écrites et les 42 productions orales du catalogue, sans modifier leur contenu ni ajouter d’IA.
+- Validation : tests ciblés écrit/oral/progression, suite complète, lint, TypeScript, build, audit dépendances et QA mobile 390 px sur le module B1 « Se présenter ».

@@ -18,6 +18,8 @@ export default function WrittenExercise({
 }) {
   const [value, setValue] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [assessmentCompleted, setAssessmentCompleted] = useState(false);
+  const [checkedCriteria, setCheckedCriteria] = useState<Record<number, boolean>>({});
   const textareaId = useId();
 
   if (exercise.type === "reponse_courte") {
@@ -102,10 +104,6 @@ export default function WrittenExercise({
           type="button"
           onClick={() => {
             setSubmitted(true);
-            // Pas de correction automatique fiable sur une production écrite :
-            // "envoyée" compte comme complétée pour la progression, sans
-            // notion de bonne/mauvaise réponse.
-            onExerciseAnswered?.(true);
           }}
           disabled={value.trim().length === 0}
           className={cn(buttonClasses("primary", "md"), "disabled:opacity-50")}
@@ -121,11 +119,44 @@ export default function WrittenExercise({
             La correction automatique de la production écrite n&apos;est pas encore disponible.
             En attendant, vérifie toi-même les points suivants :
           </p>
-          <ul className="mt-2 list-inside list-disc text-muted-foreground">
-            {exercise.correctionCriteria.map((criterion) => (
-              <li key={criterion}>{criterion}</li>
+          <ul className="mt-3 space-y-2">
+            {exercise.correctionCriteria.map((criterion, index) => (
+              <li key={criterion}>
+                <label className="flex items-start gap-2.5 text-muted-foreground">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(checkedCriteria[index])}
+                    disabled={assessmentCompleted}
+                    onChange={(event) =>
+                      setCheckedCriteria((previous) => ({ ...previous, [index]: event.target.checked }))
+                    }
+                    className="mt-0.5 h-4 w-4 accent-[var(--primary)]"
+                  />
+                  {criterion}
+                </label>
+              </li>
             ))}
           </ul>
+          {!assessmentCompleted ? (
+            <button
+              type="button"
+              onClick={() => {
+                setAssessmentCompleted(true);
+                onExerciseAnswered?.(
+                  exercise.correctionCriteria.every((_, index) => Boolean(checkedCriteria[index]))
+                );
+              }}
+              className={`${buttonClasses("primary", "md")} mt-3`}
+            >
+              Valider mon auto-évaluation
+            </button>
+          ) : (
+            <p className="mt-3 font-semibold" role="status">
+              {exercise.correctionCriteria.every((_, index) => Boolean(checkedCriteria[index]))
+                ? "Objectif atteint selon ta grille."
+                : "Cette production reste à consolider."}
+            </p>
+          )}
         </div>
       )}
     </div>

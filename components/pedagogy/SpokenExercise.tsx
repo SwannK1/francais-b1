@@ -203,7 +203,9 @@ export default function SpokenExercise({
 
   function finish() {
     setPhase("done");
-    onExerciseAnswered?.(true);
+    onExerciseAnswered?.(
+      exercise.selfAssessmentCriteria.every((_, index) => Boolean(checkedCriteria[index]))
+    );
   }
 
   function restartExercise() {
@@ -355,7 +357,11 @@ export default function SpokenExercise({
 
       {phase === "done" ? (
         <div className="space-y-3 rounded-lg bg-muted p-3 text-sm text-foreground" role="status">
-          <p className="font-semibold">Exercice terminé.</p>
+          <p className="font-semibold">
+            {exercise.selfAssessmentCriteria.every((_, index) => Boolean(checkedCriteria[index]))
+              ? "Objectif atteint selon ta grille."
+              : "Exercice terminé — cette production reste à consolider."}
+          </p>
           {audioUrl ? (
             <div className="space-y-2">
               <p className="text-muted-foreground">Tu peux réécouter ta prise :</p>

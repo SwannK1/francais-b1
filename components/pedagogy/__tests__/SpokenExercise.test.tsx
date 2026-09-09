@@ -70,8 +70,8 @@ describe("SpokenExercise", () => {
     fireEvent.click(screen.getByRole("button", { name: /continuer sans enregistrement/i }));
     fireEvent.click(screen.getByRole("button", { name: /terminer l'exercice/i }));
 
-    expect(screen.getByText(/exercice terminé/i)).toBeInTheDocument();
-    expect(onExerciseAnswered).toHaveBeenCalledWith(true);
+    expect(screen.getByText(/reste à consolider/i)).toBeInTheDocument();
+    expect(onExerciseAnswered).toHaveBeenCalledWith(false);
   });
 
   it("shows a clear message when microphone permission is denied, without blocking the exercise", async () => {
@@ -119,9 +119,13 @@ describe("SpokenExercise", () => {
     expect(stopTrack).toHaveBeenCalled();
 
     fireEvent.click(screen.getByRole("button", { name: /^continuer →/i }));
+    for (const criterion of makeExercise().selfAssessmentCriteria) {
+      fireEvent.click(screen.getByRole("checkbox", { name: criterion }));
+    }
     fireEvent.click(screen.getByRole("button", { name: /terminer l'exercice/i }));
 
     expect(onExerciseAnswered).toHaveBeenCalledWith(true);
+    expect(screen.getByText(/objectif atteint selon ta grille/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/ton enregistrement/i)).toBeInTheDocument();
   });
 });
