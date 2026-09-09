@@ -353,6 +353,31 @@ const TYPE_LABEL: Record<Exercise["type"], string> = {
   production_orale: "Production orale",
 };
 
+const ACTION_INSTRUCTION: Record<Exercise["type"], string> = {
+  qcm: "Choisis la bonne réponse.",
+  vrai_faux: "Indique si l’affirmation est vraie ou fausse.",
+  texte_a_trous: "Complète le texte avec les formes qui conviennent.",
+  remise_en_ordre: "Remets les éléments dans le bon ordre.",
+  association: "Associe chaque élément à la bonne réponse.",
+  comprehension_ecrite: "Lis le document, puis réponds aux questions.",
+  comprehension_orale: "Écoute le document, puis réponds aux questions.",
+  reponse_courte: "Écris une réponse courte.",
+  production_ecrite: "Rédige une réponse en suivant la consigne.",
+  production_orale: "Prépare ta réponse, puis entraîne-toi à voix haute.",
+};
+
+/**
+ * Les premiers catalogues utilisaient « Item 1. » comme repère interne dans
+ * les mini-bilans. Ce texte n'aide pas l'apprenant à agir. On conserve toute
+ * vraie consigne éditoriale et on remplace uniquement ce placeholder reconnu,
+ * à partir du type réel de l'exercice.
+ */
+export function getLearnerInstruction(exercise: Exercise): string {
+  return /^Item \d+\.$/.test(exercise.instructions.trim())
+    ? ACTION_INSTRUCTION[exercise.type]
+    : exercise.instructions;
+}
+
 export default function ExerciseCard({
   exercise,
   onCompleted,
@@ -367,7 +392,7 @@ export default function ExerciseCard({
         <Badge variant="secondary">{DIFFICULTY_LABEL[exercise.difficulty]}</Badge>
       </div>
 
-      <p className="mb-3 text-sm text-muted-foreground">{exercise.instructions}</p>
+      <p className="mb-3 text-sm text-muted-foreground">{getLearnerInstruction(exercise)}</p>
 
       {exercise.type === "qcm" ? (
         <QuizQuestion question={exercise.question} onAnswered={onCompleted} />

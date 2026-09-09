@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, render } from "@testing-library/react";
-import ExerciseCard from "@/components/pedagogy/ExerciseCard";
+import ExerciseCard, { getLearnerInstruction } from "@/components/pedagogy/ExerciseCard";
 import type { ComprehensionOraleExercise, VraiFauxExercise } from "@/lib/pedagogy/types";
 
 afterEach(cleanup);
@@ -44,5 +44,12 @@ describe("ExerciseCard", () => {
   it("renders the audio player for a comprehension_orale exercise", () => {
     const { container } = render(<ExerciseCard exercise={comprehensionOrale} />);
     expect(container.querySelector("audio")).not.toBeNull();
+  });
+
+  it("replaces only legacy item placeholders with an actionable instruction", () => {
+    expect(getLearnerInstruction({ ...vraiFaux, instructions: "Item 2." })).toBe(
+      "Indique si l’affirmation est vraie ou fausse."
+    );
+    expect(getLearnerInstruction(vraiFaux)).toBe("Vrai ou faux ?");
   });
 });

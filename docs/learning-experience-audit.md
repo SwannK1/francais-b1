@@ -15,6 +15,7 @@ Document de travail du chantier « excellence pédagogique ». Les constats sont
 | Révision → nouvelle tentative | Les liens ramènent vers un vrai module du catalogue | Vérifier la sortie de révision après réussite | P1 | Tests moteur + QA du parcours | À auditer |
 | Évaluation → passage de niveau | Parcours unifié et niveaux effectifs existent | Couverture et seuils à valider pédagogiquement | P1 | Audit ciblé des transitions A1→A2 et A2→B1 | À auditer |
 | Production → maîtrise | Des productions écrites et orales contextualisées existent aux trois niveaux | Toute production envoyée était comptée correcte, sans tenir compte de la grille | P0 | Faire de l’auto-évaluation existante le signal de réussite | Corrigé et validé |
+| Mini-bilan → consigne | Les questions et corrections sont structurées | 189 exercices affichaient un repère interne (« Item N. ») au lieu d’indiquer l’action attendue | P1 | Déduire une consigne claire du type, uniquement pour ce placeholder | Corrigé et validé |
 
 ## Lots
 
@@ -35,3 +36,10 @@ Document de travail du chantier « excellence pédagogique ». Les constats sont
 - Décision : conserver l’auto-évaluation (pas de fausse correction automatique), enregistrer la réussite seulement lorsque tous les critères sont cochés ; sinon terminer l’activité comme compétence à consolider.
 - Portée : toutes les productions écrites et les 42 productions orales du catalogue, sans modifier leur contenu ni ajouter d’IA.
 - Validation : tests ciblés écrit/oral/progression, suite complète, lint, TypeScript, build, audit dépendances et QA mobile 390 px sur le module B1 « Se présenter ».
+
+### Lot 3 — consignes actionnables
+
+- Constat transversal : 59 exercices A1, 45 A2 et 85 B1 conservaient une consigne technique de génération (« Item N. »), surtout dans les mini-bilans.
+- Décision : au rendu, remplacer seulement ce motif exact par une instruction adaptée au type (choisir, compléter, associer, lire, écouter, produire).
+- Garde-fou : toutes les consignes pédagogiques spécifiques restent inchangées ; les données et identifiants du catalogue ne bougent pas.
+- Validation : test ciblé, suite complète (542 tests), SEO, lint, TypeScript, build, audit et QA mobile 375 px sur le mini-bilan B1.
