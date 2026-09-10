@@ -6,9 +6,10 @@ import type { AssessmentAttempt, CheckpointId } from "@/lib/assessment/types";
 /**
  * Stockage local dédié aux tentatives d'évaluation de passage — clé
  * distincte de `francais-b1:user-progress` (voir
- * `lib/pedagogy/useProgress.ts`) : ce chantier reste indépendant du
- * diagnostic, de la révision espacée et de la séance du jour, donc n'écrit
- * jamais dans `UserProgress`. Même schéma que `lib/speaking/useSpeakingPractice.ts`.
+ * `lib/pedagogy/useProgress.ts`). Les réponses détaillées restent isolées
+ * ici ; seule une preuve compacte construite après finalisation est ensuite
+ * enregistrée dans `UserProgress`. Même schéma de stockage local que
+ * `lib/speaking/useSpeakingPractice.ts`.
  */
 const STORAGE_KEY = "francais-b1:assessment-attempts";
 

@@ -60,6 +60,20 @@ Le comptage transversal confirme 11/26, 10/22 et 16/26 modules cœur avec compr�
 - Chaque ajout contient une situation, un objectif communicatif, un temps de préparation, une durée conseillée, quatre critères observables et une stratégie courte. Couverture obtenue : 11/26 modules cœur, par sélection qualitative.
 - QA : catalogue public régénéré et contrôles d’intégrité/TypeScript réussis. Le navigateur a chargé le module sans overlay, mais le contenu est légitimement verrouillé pour la session anonyme ; le daemon a ensuite expiré. Ce lot n’est donc pas déclaré validé visuellement en mobile sans session premium.
 
+### Lot 7 — cartographie et décision d’intégration audio
+
+- Cartographie du catalogue complet : A1 compte 12 exercices/pistes dans les modules cœur et 51 dans sa banque ; A2 en compte 10 dans les modules cœur et 18 dans sa banque ; B1 en compte 16 dans les modules cœur. Les huit autres pistes appartiennent aux évaluations/examens, soit 115/115 au total.
+- Essai contrôlé : deux pistes de banque ont été rattachées à des modules correspondants (première rencontre A1, premier jour de travail A2). Le manifeste a immédiatement signalé une identité d’exercice sans métadonnées propres et deux fichiers synthétiques réutilisés sous des pistes différentes.
+- Décision : essai retiré avant commit, tests rétablis. Une intégration future devra ajouter une référence pédagogique explicite vers une piste existante, ou créer une nouvelle piste avec son propre manifest ; dupliquer l’exercice ou contourner l’unicité dégraderait la progression et le pipeline audio.
+- Aucun fichier audio n’a été régénéré, remplacé ou supprimé.
+
+### Lot 8 — scénarios de transition complets
+
+- A1 réussi : score complet → preuve centrale → niveau A2 → prochaine action A2.
+- A1 insuffisant : preuve d’échec → niveau A1 conservé → module A1 du domaine faible avec raison explicite.
+- A2 réussi : score complet → preuve centrale → niveau B1 → prochaine action B1.
+- Les tests complètent les garde-fous unitaires existants sur l’abandon, l’incomplétude, l’idempotence et la fusion multi-appareils.
+
 ### Lot 1 — prochaine action, erreurs et maîtrise
 
 - Problème démontré : la séance du jour utilisait l’ancien mécanisme de rappel et le premier identifiant faible, tandis que `/reviser` classait déjà les compétences selon erreurs récentes, répétition, couverture et ancienneté.

@@ -5,6 +5,8 @@ import { flattenAssessmentQuestions } from "@/lib/assessment/logic/flatten";
 import { scoreAssessment } from "@/lib/assessment/logic/scoring";
 import { buildAssessmentEvidence, recordAssessmentEvidence } from "@/lib/assessment/logic/progress-evidence";
 import { makeProgress } from "@/lib/pedagogy/logic/__tests__/fixtures";
+import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
+import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
 import type { AssessmentAttempt } from "@/lib/assessment/types";
 
 function answers(correct: boolean): Record<string, boolean> {
@@ -91,5 +93,52 @@ describe("assessment evidence", () => {
     )!;
 
     expect(recordAssessmentEvidence(makeProgress({ level: "A2" }), evidence).level).toBe("B1");
+  });
+
+  it("enchaîne une réussite A1→A2 avec une prochaine action réellement A2", () => {
+    const completed = attempt();
+    const evidence = buildAssessmentEvidence(
+      PASSAGE_A1_A2,
+      completed,
+      scoreAssessment(PASSAGE_A1_A2, completed.answeredCorrect)
+    )!;
+    const progress = recordAssessmentEvidence(makeProgress({ level: "A1" }), evidence);
+
+    expect(getNextModule(progress, PUBLIC_MODULES)?.module.level).toBe("A2");
+  });
+
+  it("enchaîne un échec A1→A2 avec une remédiation A1 expliquée", () => {
+    const failed = attempt({ answeredCorrect: answers(false) });
+    const evidence = buildAssessmentEvidence(
+      PASSAGE_A1_A2,
+      failed,
+      scoreAssessment(PASSAGE_A1_A2, failed.answeredCorrect)
+    )!;
+    const progress = recordAssessmentEvidence(makeProgress({ level: "A1" }), evidence);
+    const target = getNextModule(progress, PUBLIC_MODULES);
+
+    expect(progress.level).toBe("A1");
+    expect(target?.module.level).toBe("A1");
+    expect(target?.reason).toMatch(/dernier passage indique une priorité/i);
+  });
+
+  it("enchaîne une réussite A2→B1 avec une prochaine action réellement B1", () => {
+    const answeredCorrect = Object.fromEntries(
+      flattenAssessmentQuestions(PASSAGE_A2_B1).map((item) => [item.id, true])
+    );
+    const completed: AssessmentAttempt = {
+      ...attempt(),
+      id: "attempt-a2-b1-journey",
+      checkpointId: PASSAGE_A2_B1.id,
+      answeredCorrect,
+    };
+    const evidence = buildAssessmentEvidence(
+      PASSAGE_A2_B1,
+      completed,
+      scoreAssessment(PASSAGE_A2_B1, answeredCorrect)
+    )!;
+    const progress = recordAssessmentEvidence(makeProgress({ level: "A2" }), evidence);
+
+    expect(getNextModule(progress, PUBLIC_MODULES)?.module.level).toBe("B1");
   });
 });
