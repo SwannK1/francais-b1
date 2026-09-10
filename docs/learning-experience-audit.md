@@ -51,6 +51,15 @@ Le comptage transversal confirme 11/26, 10/22 et 16/26 modules cœur avec compr�
 - Explication apprenant : la carte de reprise et la Session du jour peuvent afficher la raison factuelle issue du passage (« priorité en compréhension orale », par exemple).
 - Garde-fous : une réussite plus récente annule l’ancienne remédiation ; un module verrouillé est ignoré ; aucun échec, abandon ou résultat incomplet n’est transformé en preuve par le lot précédent.
 
+### Lot 6 — production orale B1 ciblée
+
+- Inventaire : 6 modules cœur B1 sur 26 proposaient une production orale avant ce lot. Les 20 absences restantes ont été classées selon la valeur communicative, sans viser une couverture artificielle à 100 %.
+- Catégorie A intégrée : raconter une expérience, téléphoner pour visiter un logement, expliquer ses symptômes en consultation, négocier une réclamation et nuancer une opinion dans une discussion.
+- Catégorie B conservée pour revue ultérieure : prise de rendez-vous, projets, entretien professionnel, conseil, voyage et clarification administrative ; ajout seulement si les tests apprenants montrent un besoin.
+- Catégorie C conservée sans oral ajouté : modules centrés sur la réception d’un courrier, une annonce de transport ou un point grammatical quand la répétition orale n’apporterait pas une interaction authentique.
+- Chaque ajout contient une situation, un objectif communicatif, un temps de préparation, une durée conseillée, quatre critères observables et une stratégie courte. Couverture obtenue : 11/26 modules cœur, par sélection qualitative.
+- QA : catalogue public régénéré et contrôles d’intégrité/TypeScript réussis. Le navigateur a chargé le module sans overlay, mais le contenu est légitimement verrouillé pour la session anonyme ; le daemon a ensuite expiré. Ce lot n’est donc pas déclaré validé visuellement en mobile sans session premium.
+
 ### Lot 1 — prochaine action, erreurs et maîtrise
 
 - Problème démontré : la séance du jour utilisait l’ancien mécanisme de rappel et le premier identifiant faible, tandis que `/reviser` classait déjà les compétences selon erreurs récentes, répétition, couverture et ancienneté.

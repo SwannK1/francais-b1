@@ -301,6 +301,23 @@ describe("Modules", () => {
     }
     expect(issues).toEqual([]);
   });
+
+  it("conserve les productions orales B1 contextualisées ajoutées aux situations prioritaires", () => {
+    const expectedIds = new Set(["exp-h-oral", "log-h-oral", "med-h-oral", "rec-h-oral", "soc-h-oral"]);
+    const found = MODULES.flatMap((module) =>
+      module.lessons.flatMap((lesson) =>
+        lesson.activities.flatMap((activity) => activity.exercises)
+      )
+    ).filter((exercise) => exercise.type === "production_orale" && expectedIds.has(exercise.id));
+
+    expect(found.map((exercise) => exercise.id).sort()).toEqual([...expectedIds].sort());
+    for (const exercise of found) {
+      if (exercise.type !== "production_orale") continue;
+      expect(exercise.context?.trim()).toBeTruthy();
+      expect(exercise.maxSpeakSeconds).toBeGreaterThanOrEqual(60);
+      expect(exercise.selfAssessmentCriteria).toHaveLength(4);
+    }
+  });
 });
 
 describe("Placement questions", () => {

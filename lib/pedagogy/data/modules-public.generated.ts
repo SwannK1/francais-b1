@@ -233,6 +233,19 @@ export const PUBLIC_MODULES: PublicModule[] = [
                 "difficulty": "B1"
               }
             ]
+          },
+          {
+            "id": "experience-ecriture-activite-orale",
+            "title": "Raconter une expérience à un proche",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "exp-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-recit",
+                "difficulty": "B1"
+              }
+            ]
           }
         ]
       },
@@ -270,7 +283,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
         ]
       }
     ],
-    "totalExercises": 8
+    "totalExercises": 9
   },
   {
     "id": "b1-decrire-vie-quotidienne",
@@ -560,6 +573,19 @@ export const PUBLIC_MODULES: PublicModule[] = [
                 "difficulty": "B1"
               }
             ]
+          },
+          {
+            "id": "logement-ecriture-activite-orale",
+            "title": "Téléphoner pour demander une visite",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "log-h-oral",
+                "type": "production_orale",
+                "skillId": "voc-logement",
+                "difficulty": "B1"
+              }
+            ]
           }
         ]
       },
@@ -597,7 +623,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
         ]
       }
     ],
-    "totalExercises": 8
+    "totalExercises": 9
   },
   {
     "id": "b1-habitudes-et-gouts",
@@ -2378,6 +2404,19 @@ export const PUBLIC_MODULES: PublicModule[] = [
                 "difficulty": "B1"
               }
             ]
+          },
+          {
+            "id": "medecin-ecriture-activite-orale",
+            "title": "Expliquer ses symptômes en consultation",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "med-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-expliquer-probleme",
+                "difficulty": "B1"
+              }
+            ]
           }
         ]
       },
@@ -2415,7 +2454,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
         ]
       }
     ],
-    "totalExercises": 8
+    "totalExercises": 9
   },
   {
     "id": "b1-expliquer-un-probleme-et-demander-une-solution",
@@ -2711,6 +2750,19 @@ export const PUBLIC_MODULES: PublicModule[] = [
                 "difficulty": "B1"
               }
             ]
+          },
+          {
+            "id": "reclamation-ecriture-activite-orale",
+            "title": "Négocier une solution avec le service client",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "rec-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-expliquer-probleme",
+                "difficulty": "B1"
+              }
+            ]
           }
         ]
       },
@@ -2748,7 +2800,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
         ]
       }
     ],
-    "totalExercises": 8
+    "totalExercises": 9
   },
   {
     "id": "b1-comprendre-une-demarche-administrative",
@@ -3888,6 +3940,19 @@ export const PUBLIC_MODULES: PublicModule[] = [
                 "difficulty": "B1"
               }
             ]
+          },
+          {
+            "id": "societe-ecriture-activite-orale",
+            "title": "Participer à une discussion d'opinion",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "soc-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-exprimer-avis",
+                "difficulty": "B1"
+              }
+            ]
           }
         ]
       },
@@ -3925,7 +3990,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
         ]
       }
     ],
-    "totalExercises": 8
+    "totalExercises": 9
   },
   {
     "id": "b1-bilan-se-presenter-examen",
