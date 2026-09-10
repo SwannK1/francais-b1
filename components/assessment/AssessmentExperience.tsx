@@ -14,6 +14,8 @@ import ReadingBlock from "@/components/assessment/blocks/ReadingBlock";
 import ListeningBlock from "@/components/assessment/blocks/ListeningBlock";
 import { useAssessmentAttempts } from "@/lib/assessment/useAssessmentAttempts";
 import { scoreAssessment, type AssessmentResult } from "@/lib/assessment/logic/scoring";
+import { buildAssessmentEvidence } from "@/lib/assessment/logic/progress-evidence";
+import { useProgress } from "@/lib/pedagogy/useProgress";
 import { ASSESSMENT_DIMENSION_LABELS, CHECKPOINT_LABELS } from "@/lib/assessment/logic/labels";
 import { trackEvent } from "@/lib/analytics/client";
 import type { AssessmentAttempt, AssessmentDefinition } from "@/lib/assessment/types";
@@ -128,6 +130,7 @@ function AttemptRow({ assessment, attempt }: { assessment: AssessmentDefinition;
 export default function AssessmentExperience({ assessment }: { assessment: AssessmentDefinition }) {
   const { startAttempt, recordAnswer, markGuidedProductionDone, finishAttempt, getActiveAttempt, getAttempts } =
     useAssessmentAttempts();
+  const { recordAssessmentEvidence } = useProgress();
 
   const viewTracked = useRef<string | null>(null);
   useEffect(() => {
@@ -263,7 +266,11 @@ export default function AssessmentExperience({ assessment }: { assessment: Asses
               onFinish={
                 activeAttempt
                   ? () => {
-                      finishAttempt(activeAttempt.id);
+                      const completedAttempt = finishAttempt(activeAttempt.id);
+                      const evidence = completedAttempt
+                        ? buildAssessmentEvidence(assessment, completedAttempt, focusResult)
+                        : null;
+                      if (evidence) recordAssessmentEvidence(evidence);
                       trackEvent("assessment_completed", {
                         assessmentId: assessment.id,
                         correct: focusResult.passed ?? undefined,

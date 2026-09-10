@@ -309,3 +309,27 @@ describe("mergeUserProgress — le niveau ne régresse jamais en dessous d'une v
     expect(merged.moduleProgress.find((mp) => mp.moduleId === B1_MODULE_ID)?.completed).toBe(true);
   });
 });
+
+describe("mergeUserProgress — preuves d'évaluation", () => {
+  it("préserve une transition A1→A2 prouvée lors de la fusion avec un compte plus ancien", () => {
+    const evidence = {
+      assessmentId: "passage-a1-a2",
+      attemptId: "assessment-proof-1",
+      checkpointKind: "passage" as const,
+      fromLevel: "A1" as const,
+      toLevel: "A2" as const,
+      completedAt: "2026-09-10T09:00:00.000Z",
+      overallCorrect: 18,
+      overallTotal: 21,
+      passed: true,
+      insufficientDomains: [],
+    };
+    const local = baseProgress({ level: "A2", assessmentEvidence: [evidence] });
+    const remote = baseProgress({ level: "A1", assessmentEvidence: [] });
+
+    const merged = mergeUserProgress(local, remote);
+
+    expect(merged.level).toBe("A2");
+    expect(merged.assessmentEvidence).toEqual([evidence]);
+  });
+});

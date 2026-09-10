@@ -50,6 +50,7 @@ export const INITIAL_USER_PROGRESS: UserProgress = {
   placementCompletedAt: null,
   examAttempts: [],
   reviewedModuleIds: [],
+  assessmentEvidence: [],
 };
 
 /**
@@ -68,4 +69,5 @@ export const EMPTY_USER_PROGRESS: UserProgress = {
   placementCompletedAt: null,
   examAttempts: [],
   reviewedModuleIds: [],
+  assessmentEvidence: [],
 };

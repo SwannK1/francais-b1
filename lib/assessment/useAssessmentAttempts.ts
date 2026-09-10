@@ -87,15 +87,16 @@ export function useAssessmentAttempts() {
     );
   }, []);
 
-  const finishAttempt = useCallback((attemptId: string) => {
+  const finishAttempt = useCallback((attemptId: string): AssessmentAttempt | null => {
     const current = parseAttempts(readRaw());
-    writeAttempts(
-      current.map((attempt) =>
-        attempt.id === attemptId
-          ? { ...attempt, status: "completed" as const, completedAt: new Date().toISOString() }
-          : attempt
-      )
-    );
+    let completed: AssessmentAttempt | null = null;
+    const next = current.map((attempt) => {
+      if (attempt.id !== attemptId) return attempt;
+      completed = { ...attempt, status: "completed", completedAt: new Date().toISOString() };
+      return completed;
+    });
+    writeAttempts(next);
+    return completed;
   }, []);
 
   const abandonAttempt = useCallback((attemptId: string) => {

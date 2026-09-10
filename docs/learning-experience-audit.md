@@ -33,8 +33,16 @@ Le comptage transversal confirme 11/26, 10/22 et 16/26 modules cœur avec compr�
 
 - Les passages A1→A2 et A2→B1 couvrent compréhension écrite, vocabulaire, grammaire, compréhension orale et production guidée, avec seuil global documenté à 60 %.
 - Les résultats par dimension signalent les lacunes ; la production guidée reste explicitement auto-évaluée et n’est pas présentée comme une note officielle.
-- Limite réelle : les tentatives d’évaluation vivent encore hors de `UserProgress`. Le parcours peut donc constater qu’un catalogue est terminé, mais ne peut pas utiliser un passage réussi comme preuve centrale de préparation. Relier ces données exige une migration de schéma et reste P1, à traiter séparément plutôt que par une dérivation fragile côté UI.
+- Correction : une tentative finalisée produit désormais dans `UserProgress` une preuve compacte (verdict, score, date et dimensions faibles), sans réponses individuelles. Une réussite de passage peut relever le niveau ; un échec, un abandon ou une tentative incomplète ne le peut jamais.
+- Compatibilité : le nouveau champ reste optionnel pour les anciens documents JSONB, est initialisé pour les nouveaux profils et fusionné sans doublon entre appareils. Une preuve de passage réussie protège aussi le niveau contre une régression lors de la fusion.
 - Gain sûr appliqué : la liste des évaluations réaffiche désormais la dernière tentative locale réelle (score et seuil atteint / consolidation) ou signale une tentative à reprendre. Aucun score n’est déduit d’une activité incomplète et aucune réponse protégée n’est envoyée au client.
+
+### Lot 4 — preuve d’évaluation centrale
+
+- Passage A1→A2 et A2→B1 : le niveau est relevé uniquement après une tentative `completed`, un score complet et un seuil atteint.
+- Échec complet : preuve conservée avec les dimensions insuffisantes, niveau inchangé.
+- Tentative en cours, abandonnée ou incomplète : preuve refusée.
+- Synchronisation : union par identifiant de tentative ; les réponses détaillées restent dans le stockage d’évaluation et ne sont jamais envoyées dans la progression centrale.
 
 ### Lot 1 — prochaine action, erreurs et maîtrise
 

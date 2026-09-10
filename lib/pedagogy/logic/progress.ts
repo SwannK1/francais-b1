@@ -3,6 +3,7 @@ import { getSkillById } from "@/lib/pedagogy/data/skills";
 import { countModuleExercises } from "@/lib/pedagogy/logic/module-structure";
 import { CEFR_LEVELS } from "@/lib/pedagogy/types";
 import type {
+  AssessmentEvidence,
   CEFRLevel,
   ExamAttempt,
   Exercise,
@@ -319,6 +320,25 @@ function mergeExamAttempts(local: ExamAttempt[], remote: ExamAttempt[]): ExamAtt
   return Array.from(byId.values()).sort((a, b) => a.startedAt.localeCompare(b.startedAt));
 }
 
+function mergeAssessmentEvidence(
+  local: AssessmentEvidence[] | undefined,
+  remote: AssessmentEvidence[] | undefined
+): AssessmentEvidence[] {
+  const byAttempt = new Map(
+    [...(local ?? []), ...(remote ?? [])].map((evidence) => [evidence.attemptId, evidence])
+  );
+  return Array.from(byAttempt.values()).sort((a, b) => a.completedAt.localeCompare(b.completedAt));
+}
+
+function levelProvenByAssessment(evidence: AssessmentEvidence[]): CEFRLevel | null {
+  let highest: CEFRLevel | null = null;
+  for (const item of evidence) {
+    if (item.checkpointKind !== "passage" || !item.passed) continue;
+    if (!highest || CEFR_LEVELS.indexOf(item.toLevel) > CEFR_LEVELS.indexOf(highest)) highest = item.toLevel;
+  }
+  return highest;
+}
+
 /**
  * Plus haut niveau CECRL couvert par une activité réellement constatée (au
  * moins un exercice complété sur un module de ce niveau) — indépendant de
@@ -438,6 +458,12 @@ function mergeSkillHistory(local: SkillProgress[], remote: SkillProgress[]): Map
  */
 export function mergeUserProgress(local: UserProgress, remote: UserProgress): UserProgress {
   const moduleProgress = mergeModuleProgress(local, remote);
+  const assessmentEvidence = mergeAssessmentEvidence(local.assessmentEvidence, remote.assessmentEvidence);
+  const placement = resolvePlacement(local, remote, moduleProgress);
+  const provenLevel = levelProvenByAssessment(assessmentEvidence);
+  const level = provenLevel && CEFR_LEVELS.indexOf(provenLevel) > CEFR_LEVELS.indexOf(placement.level)
+    ? provenLevel
+    : placement.level;
   const skillProgress = computeSkillProgress(moduleProgress, mergeSkillHistory(local.skillProgress, remote.skillProgress));
   const totalCompleted = skillProgress.reduce((sum, sp) => sum + sp.completedExercises, 0);
   const totalCorrect = skillProgress.reduce((sum, sp) => sum + sp.correctExercises, 0);
@@ -448,7 +474,8 @@ export function mergeUserProgress(local: UserProgress, remote: UserProgress): Us
 
   return {
     userId: remote.userId,
-    ...resolvePlacement(local, remote, moduleProgress),
+    ...placement,
+    level,
     goalId: local.goalId ?? remote.goalId,
     moduleProgress,
     skillProgress,
@@ -463,5 +490,6 @@ export function mergeUserProgress(local: UserProgress, remote: UserProgress): Us
     reviewedModuleIds: Array.from(
       new Set([...(local.reviewedModuleIds ?? []), ...(remote.reviewedModuleIds ?? [])])
     ),
+    assessmentEvidence,
   };
 }

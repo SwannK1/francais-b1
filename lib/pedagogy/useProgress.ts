@@ -11,6 +11,8 @@ import {
 } from "@/lib/pedagogy/logic/exam";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import type { CEFRLevel, DelfSection, Exam, Exercise, Module, UserProgress } from "@/lib/pedagogy/types";
+import { recordAssessmentEvidence as applyAssessmentEvidence } from "@/lib/assessment/logic/progress-evidence";
+import type { AssessmentEvidence } from "@/lib/pedagogy/types";
 
 /**
  * État applicatif du "compte" apprenant. localStorage reste la source de
@@ -191,6 +193,10 @@ export function useProgress() {
     writeProgress(toggleModuleReview(parseProgress(readRaw()), moduleId));
   }, []);
 
+  const recordAssessmentEvidence = useCallback((evidence: AssessmentEvidence) => {
+    writeProgress(applyAssessmentEvidence(parseProgress(readRaw()), evidence));
+  }, []);
+
   return {
     progress,
     recordResult,
@@ -200,5 +206,6 @@ export function useProgress() {
     finishExam,
     abandonExam,
     toggleReview,
+    recordAssessmentEvidence,
   };
 }

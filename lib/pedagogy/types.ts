@@ -424,6 +424,25 @@ export interface UserProgress {
    * existante sans ce champ reste valide (voir `useProgress.ts: parseProgress`).
    */
   reviewedModuleIds: string[];
+  /**
+   * Preuves compactes issues des évaluations terminées. Aucune réponse
+   * individuelle n'est conservée ici : seulement le verdict explicable
+   * nécessaire à la progression et à la synchronisation multi-appareils.
+   */
+  assessmentEvidence?: AssessmentEvidence[];
+}
+
+export interface AssessmentEvidence {
+  assessmentId: string;
+  attemptId: string;
+  checkpointKind: "bilan" | "passage";
+  fromLevel: CEFRLevel;
+  toLevel: CEFRLevel;
+  completedAt: string;
+  overallCorrect: number;
+  overallTotal: number;
+  passed: boolean;
+  insufficientDomains: SkillDomain[];
 }
 
 // --- Test de positionnement ---

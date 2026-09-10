@@ -5,6 +5,10 @@ import { trackEvent } from "@/lib/analytics/client";
 import type { AssessmentDefinition } from "@/lib/assessment/types";
 
 vi.mock("@/lib/analytics/client", () => ({ trackEvent: vi.fn() }));
+const recordAssessmentEvidence = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/pedagogy/useProgress", () => ({
+  useProgress: () => ({ recordAssessmentEvidence }),
+}));
 
 function fixture(overrides: Partial<AssessmentDefinition> = {}): AssessmentDefinition {
   return {
@@ -130,6 +134,7 @@ afterEach(() => {
   cleanup();
   window.localStorage.clear();
   vi.mocked(trackEvent).mockClear();
+  recordAssessmentEvidence.mockClear();
 });
 
 describe("AssessmentExperience", () => {
@@ -195,6 +200,9 @@ describe("AssessmentExperience", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /terminer la tentative/i }));
     expect(trackEvent).toHaveBeenCalledWith("assessment_completed", { assessmentId: "fin-a1", correct: true });
+    expect(recordAssessmentEvidence).toHaveBeenCalledWith(
+      expect.objectContaining({ assessmentId: "fin-a1", passed: true, overallCorrect: 4, overallTotal: 4 })
+    );
     expect(screen.getByRole("button", { name: /recommencer une tentative/i })).toBeInTheDocument();
   });
 });
