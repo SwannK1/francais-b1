@@ -44,6 +44,13 @@ Le comptage transversal confirme 11/26, 10/22 et 16/26 modules cœur avec compr�
 - Tentative en cours, abandonnée ou incomplète : preuve refusée.
 - Synchronisation : union par identifiant de tentative ; les réponses détaillées restent dans le stockage d’évaluation et ne sont jamais envoyées dans la progression centrale.
 
+### Lot 5 — remédiation après un passage insuffisant
+
+- Problème démontré : les dimensions faibles d’un passage raté étaient désormais conservées, mais la prochaine action continuait à suivre seulement l’ordre générique du parcours.
+- Décision : après toute reprise réellement commencée, cibler le premier module incomplet et accessible correspondant à l’une des dimensions faibles du dernier passage du niveau courant.
+- Explication apprenant : la carte de reprise et la Session du jour peuvent afficher la raison factuelle issue du passage (« priorité en compréhension orale », par exemple).
+- Garde-fous : une réussite plus récente annule l’ancienne remédiation ; un module verrouillé est ignoré ; aucun échec, abandon ou résultat incomplet n’est transformé en preuve par le lot précédent.
+
 ### Lot 1 — prochaine action, erreurs et maîtrise
 
 - Problème démontré : la séance du jour utilisait l’ancien mécanisme de rappel et le premier identifiant faible, tandis que `/reviser` classait déjà les compétences selon erreurs récentes, répétition, couverture et ancienneté.

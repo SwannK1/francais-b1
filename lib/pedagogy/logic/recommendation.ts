@@ -1,5 +1,6 @@
 import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
+import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import { getModuleProgress } from "@/lib/pedagogy/logic/progress";
 import { getEffectiveLevel, getStageModules } from "@/lib/pedagogy/logic/parcours";
@@ -11,6 +12,18 @@ export interface NextModuleTarget {
   stage: ParcoursStage;
   /** true si l'apprenant a déjà commencé ce module (reprise), false pour une découverte. */
   isResuming: boolean;
+  /** Explication factuelle de la priorité quand elle vient d'une preuve récente. */
+  reason?: string;
+}
+
+function getLatestPassageEvidence(progress: UserProgress) {
+  return [...(progress.assessmentEvidence ?? [])]
+    .filter(
+      (evidence) =>
+        evidence.checkpointKind === "passage" &&
+        evidence.fromLevel === getEffectiveLevel(progress, PUBLIC_MODULES)
+    )
+    .sort((a, b) => b.completedAt.localeCompare(a.completedAt))[0];
 }
 
 /**
@@ -83,6 +96,29 @@ export function getNextModule(
   const levelFloorIndex = effectiveLevel ? CEFR_LEVELS.indexOf(effectiveLevel) : -1;
   const meetsLevelFloor = (mod: PublicModule) =>
     levelFloorIndex < 0 || CEFR_LEVELS.indexOf(mod.level) >= levelFloorIndex;
+
+  // Après un passage échoué, la preuve la plus récente guide vers un module
+  // incomplet du domaine réellement fragile. Une réussite plus récente annule
+  // naturellement cette remédiation. La reprise d'un module déjà commencé
+  // reste prioritaire (bloc ci-dessus), afin de ne jamais casser la continuité.
+  const latestPassage = getLatestPassageEvidence(progress);
+  if (latestPassage && !latestPassage.passed) {
+    for (const domain of latestPassage.insufficientDomains) {
+      for (const stage of stagesInOrder) {
+        const remediation = getStageModules(stage, modules).find(
+          (mod) => mod.domain === domain && isNextCandidate(mod) && meetsLevelFloor(mod)
+        );
+        if (remediation) {
+          return {
+            module: remediation,
+            stage,
+            isResuming: false,
+            reason: `Ton dernier passage indique une priorité en ${DOMAIN_LABELS[domain].toLowerCase()}.`,
+          };
+        }
+      }
+    }
+  }
 
   for (const stage of stagesInOrder) {
     const next = getStageModules(stage, modules).find(

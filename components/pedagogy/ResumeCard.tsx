@@ -35,6 +35,11 @@ export default function ResumeCard({
 
       <h3 className="text-lg font-semibold text-foreground">{target.module.title}</h3>
       <p className="mt-1 text-sm text-muted-foreground">{target.stage.title}</p>
+      {target.reason ? (
+        <p className="mt-2 text-sm text-foreground">
+          <span className="font-medium">Pourquoi&nbsp;?</span> {target.reason}
+        </p>
+      ) : null}
 
       {locked ? null : (
         <ProgressBar value={completionRate} label="Progression du module" className="mt-3" />

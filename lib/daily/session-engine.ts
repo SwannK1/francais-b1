@@ -241,7 +241,7 @@ function buildReason(mode: DailySessionMode, target: NextModuleTarget, focusSkil
       return `Reprends là où tu t'es arrêté·e dans « ${target.module.title} ».`;
     case "apprentissage":
     default:
-      return `Séance choisie pour continuer « ${target.module.title} », ta prochaine étape.`;
+      return target.reason ?? `Séance choisie pour continuer « ${target.module.title} », ta prochaine étape.`;
   }
 }
 

@@ -117,3 +117,59 @@ describe("getNextModule — plancher de niveau (résultat du test de positionnem
     expect(target?.isResuming).toBe(true);
   });
 });
+
+describe("getNextModule — remédiation après un passage de niveau", () => {
+  const failedEvidence = {
+    assessmentId: "passage-a1-a2",
+    attemptId: "attempt-failed",
+    checkpointKind: "passage" as const,
+    fromLevel: "A1" as const,
+    toLevel: "A2" as const,
+    completedAt: "2026-09-09T12:00:00.000Z",
+    overallCorrect: 4,
+    overallTotal: 10,
+    passed: false,
+    insufficientDomains: ["comprehension_orale" as const],
+  };
+
+  it("propose d'abord un module accessible du domaine faible", () => {
+    const generic = makePublicModule({ id: "generic", slug: "generic", level: "A1", domain: "vocabulaire", stageId: "a1-decouverte" });
+    const listening = makePublicModule({ id: "listening", slug: "listening", level: "A1", domain: "comprehension_orale", stageId: "a1-decouverte" });
+    const target = getNextModule(makeProgress({ level: "A1", assessmentEvidence: [failedEvidence] }), [generic, listening]);
+
+    expect(target?.module.id).toBe("listening");
+    expect(target?.reason).toContain("compréhension orale");
+  });
+
+  it("ignore un module de remédiation verrouillé", () => {
+    const listening = makePublicModule({ id: "listening", slug: "listening", level: "A1", domain: "comprehension_orale", stageId: "a1-decouverte" });
+    const generic = makePublicModule({ id: "generic", slug: "generic", level: "A1", domain: "vocabulaire", stageId: "a1-decouverte" });
+    const target = getNextModule(
+      makeProgress({ level: "A1", assessmentEvidence: [failedEvidence] }),
+      [listening, generic],
+      { isAccessible: (mod) => mod.id !== "listening" }
+    );
+
+    expect(target?.module.id).toBe("generic");
+    expect(target?.reason).toBeUndefined();
+  });
+
+  it("une réussite plus récente annule la remédiation issue d'un ancien échec", () => {
+    const generic = makePublicModule({ id: "generic", slug: "generic", level: "A1", domain: "vocabulaire", stageId: "a1-decouverte" });
+    const listening = makePublicModule({ id: "listening", slug: "listening", level: "A1", domain: "comprehension_orale", stageId: "a1-decouverte" });
+    const passedEvidence = {
+      ...failedEvidence,
+      attemptId: "attempt-passed",
+      completedAt: "2026-09-10T12:00:00.000Z",
+      passed: true,
+      insufficientDomains: [],
+    };
+    const target = getNextModule(
+      makeProgress({ level: "A1", assessmentEvidence: [failedEvidence, passedEvidence] }),
+      [generic, listening]
+    );
+
+    expect(target?.module.id).toBe("generic");
+    expect(target?.reason).toBeUndefined();
+  });
+});
