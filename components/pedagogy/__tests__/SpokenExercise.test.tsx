@@ -74,6 +74,16 @@ describe("SpokenExercise", () => {
     expect(onExerciseAnswered).toHaveBeenCalledWith(false);
   });
 
+  it("uses the full labelled row as a practical touch target for every criterion", () => {
+    render(<SpokenExercise exercise={makeExercise()} />);
+    fireEvent.click(screen.getByRole("button", { name: /passer à l'enregistrement/i }));
+    fireEvent.click(screen.getByRole("button", { name: /continuer sans enregistrement/i }));
+
+    for (const criterion of makeExercise().selfAssessmentCriteria) {
+      expect(screen.getByRole("checkbox", { name: criterion }).closest("label")).toHaveClass("min-h-11");
+    }
+  });
+
   it("shows a clear message when microphone permission is denied, without blocking the exercise", async () => {
     vi.stubGlobal("MediaRecorder", FakeMediaRecorder);
     const getUserMedia = vi.fn().mockRejectedValue(new DOMException("denied", "NotAllowedError"));

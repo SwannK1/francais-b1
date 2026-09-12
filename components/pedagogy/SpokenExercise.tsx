@@ -329,7 +329,7 @@ export default function SpokenExercise({
           <ul className="space-y-2">
             {exercise.selfAssessmentCriteria.map((criterion, index) => (
               <li key={index}>
-                <label className="flex items-start gap-2.5 text-sm text-foreground">
+                <label className="flex min-h-11 items-start gap-2.5 py-2 text-sm text-foreground">
                   <input
                     type="checkbox"
                     checked={Boolean(checkedCriteria[index])}

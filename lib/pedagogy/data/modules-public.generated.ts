@@ -3858,7 +3858,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
     "slug": "opinion-question-de-societe",
     "level": "B1",
     "title": "Donner son opinion sur une question de société",
-    "description": "À la fin de ce module, tu pourras exprimer et structurer ton opinion sur un sujet de société simple, à l'écrit.",
+    "description": "À la fin de ce module, tu pourras exprimer et structurer ton opinion sur un sujet de société simple, à l'écrit comme à l'oral.",
     "objectives": [
       "Identifier différents points de vue",
       "Argumenter et nuancer une opinion",
