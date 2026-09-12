@@ -22,7 +22,7 @@ npm run qa:smoke
 npm run qa:dev
 ```
 
-`qa:setup` crée au premier lancement `.env.qa.local` avec des valeurs aléatoires, mode 0600. Le fichier est couvert par `.env*` dans `.gitignore`. Les exécutions suivantes réappliquent le schéma idempotent et remettent les deux comptes dans l'état attendu.
+`qa:setup` crée au premier lancement `.env.qa.local` avec des valeurs aléatoires, mode 0600. Le fichier est couvert par `.env*` dans `.gitignore`. Les exécutions suivantes réappliquent le schéma idempotent, remettent les deux comptes dans l'état attendu et réinitialisent uniquement leur progression QA afin de conserver des scénarios déterministes.
 
 `qa:dev` charge ce fichier dans l'environnement du processus Next sans le copier vers `.env.local` et sans afficher son contenu.
 

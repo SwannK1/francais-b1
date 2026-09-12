@@ -30,6 +30,12 @@ test("le compte QA premium utilise l'auth réelle et reçoit le contenu protég�
   expect(user.id).toBeTruthy();
   expect(new Date(user.premiumUntil).getTime()).toBeGreaterThan(Date.now());
 
+  const progressMerge = await page.request.post("/api/progress/merge", {
+    data: { progress: null },
+  });
+  expect(progressMerge.ok()).toBe(true);
+  expect((await progressMerge.json()).progress.moduleProgress).toEqual(expect.any(Array));
+
   await expect(page.getByRole("heading", { name: "Raconter une expérience personnelle" })).toBeVisible();
   await page.getByRole("button", { name: "Produire" }).click();
   await expect(page.getByText(PREMIUM_ACTIVITY)).toBeVisible();

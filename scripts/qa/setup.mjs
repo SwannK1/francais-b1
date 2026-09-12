@@ -82,6 +82,10 @@ try {
     } else {
       await sql`UPDATE users SET premium_until = NULL, stripe_customer_id = NULL WHERE id = ${id}`;
     }
+    // Un bootstrap QA repart volontairement d'une progression vide : les
+    // scénarios navigateur restent déterministes et aucune donnée réelle ne
+    // vit dans cette base locale réservée aux deux comptes générés ci-dessus.
+    await sql`DELETE FROM user_progress WHERE user_id = ${id}`;
   }
 
   await seedUser(process.env.QA_USER_EMAIL, process.env.QA_USER_PASSWORD, true);

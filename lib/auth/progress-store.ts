@@ -17,7 +17,7 @@ export async function saveUserProgress(userId: string, progress: UserProgress): 
   const sql = getSql();
   await sql`
     INSERT INTO user_progress (user_id, data, updated_at)
-    VALUES (${userId}, ${data}::jsonb, now())
+    VALUES (${userId}, (${data}::text)::jsonb, now())
     ON CONFLICT (user_id) DO UPDATE SET data = excluded.data, updated_at = excluded.updated_at
   `;
 }
