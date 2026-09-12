@@ -1,4 +1,5 @@
-import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
+import { neon } from "@neondatabase/serverless";
+import postgres from "postgres";
 
 /**
  * Postgres serverless (Neon) via son driver HTTP officiel — chaque requête
@@ -14,9 +15,14 @@ import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
  * effectivement exécutée sans variable d'environnement lève une erreur
  * explicite.
  */
-let cached: NeonQueryFunction<false, false> | null = null;
+export type SqlClient = (
+  strings: TemplateStringsArray,
+  ...values: unknown[]
+) => Promise<unknown>;
 
-export function getSql(): NeonQueryFunction<false, false> {
+let cached: SqlClient | null = null;
+
+export function getSql(): SqlClient {
   if (cached) return cached;
 
   const url = process.env.DATABASE_URL;
@@ -26,6 +32,12 @@ export function getSql(): NeonQueryFunction<false, false> {
     );
   }
 
-  cached = neon(url);
+  if (process.env.DATABASE_DRIVER === "postgres") {
+    const local = postgres(url, { max: 5 });
+    cached = (strings, ...values) => local(strings, ...values as never[]) as unknown as Promise<unknown>;
+  } else {
+    const remote = neon(url);
+    cached = (strings, ...values) => remote(strings, ...values as never[]) as Promise<unknown>;
+  }
   return cached;
 }

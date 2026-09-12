@@ -14,18 +14,25 @@
     "audio:a2:generate": "node scripts/a2-audio-generate.mjs",
     "generate:public-modules": "node scripts/generate-public-modules.mjs",
     "generate:public-exams": "node scripts/generate-public-exams.mjs",
-    "db:migrate": "node scripts/migrate.mjs"
+    "db:migrate": "node scripts/migrate.mjs",
+    "qa:setup": "node --experimental-strip-types scripts/qa/setup.mjs",
+    "qa:verify": "node --env-file=.env.qa.local --experimental-strip-types scripts/qa/verify.mjs",
+    "qa:dev": "node --experimental-strip-types scripts/qa/dev.mjs",
+    "qa:smoke": "playwright test e2e/qa-auth-premium.spec.ts",
+    "qa:down": "docker compose --env-file .env.qa.local -f docker-compose.qa.yml down"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
     "@vercel/analytics": "^2.0.1",
     "next": "16.3.4",
+    "postgres": "^3.4.9",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "resend": "^6.24.0",
     "stripe": "^22.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
