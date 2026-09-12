@@ -11,7 +11,17 @@ async function login(page: import("@playwright/test").Page, email: string, passw
   await page.waitForURL(`**${PREMIUM_ROUTE}`);
 }
 
+function monitorCriticalBrowserErrors(page: import("@playwright/test").Page) {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  return () => expect(errors, "Aucune erreur critique ne doit atteindre la console navigateur").toEqual([]);
+}
+
 test("le compte QA premium utilise l'auth réelle et reçoit le contenu protégé", async ({ page }) => {
+  const expectNoBrowserErrors = monitorCriticalBrowserErrors(page);
   await login(page, process.env.QA_USER_EMAIL!, process.env.QA_USER_PASSWORD!);
 
   const session = await page.request.get("/api/auth/me");
@@ -25,9 +35,11 @@ test("le compte QA premium utilise l'auth réelle et reçoit le contenu protég�
   await expect(page.getByText(PREMIUM_ACTIVITY)).toBeVisible();
   await expect(page.getByText("Voir l'offre complète")).toHaveCount(0);
   await page.context().storageState({ path: "playwright/.auth/qa-user.json" });
+  expectNoBrowserErrors();
 });
 
 test("le compte QA gratuit reste bloqué et ne reçoit pas l'activité premium", async ({ page }) => {
+  const expectNoBrowserErrors = monitorCriticalBrowserErrors(page);
   await login(page, process.env.QA_FREE_USER_EMAIL!, process.env.QA_FREE_USER_PASSWORD!);
 
   const session = await page.request.get("/api/auth/me");
@@ -38,4 +50,5 @@ test("le compte QA gratuit reste bloqué et ne reçoit pas l'activité premium",
 
   await expect(page.getByRole("link", { name: "Voir l'offre complète" })).toBeVisible();
   await expect(page.getByText(PREMIUM_ACTIVITY)).toHaveCount(0);
+  expectNoBrowserErrors();
 });
