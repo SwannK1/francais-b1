@@ -226,4 +226,52 @@ describe("SpeakingExerciseCard", () => {
 
     expect(screen.getByRole("button", { name: /passer à l'enregistrement/i })).toBeInTheDocument();
   });
+
+  it("offers a way forward to another exercise once done, not just retry", async () => {
+    render(<SpeakingExerciseCard exercise={situationExercise()} />);
+    await reachRecordReady();
+    fireEvent.click(screen.getByRole("button", { name: /continuer sans enregistrement/i }));
+    await finishSelfAssessment();
+
+    const continueLink = screen.getByRole("link", { name: /^continuer →/i });
+    expect(continueLink).toHaveAttribute("href", "/oral");
+  });
+
+  it("stops the microphone if the component unmounts while the permission request is still pending", async () => {
+    vi.stubGlobal("MediaRecorder", FakeMediaRecorder);
+    const stream = fakeStream();
+    const stopTrack = stream.getTracks()[0].stop as ReturnType<typeof vi.fn>;
+    let resolveGetUserMedia!: (stream: MediaStream) => void;
+    const getUserMedia = vi.fn().mockReturnValue(
+      new Promise<MediaStream>((resolve) => {
+        resolveGetUserMedia = resolve;
+      })
+    );
+    Object.defineProperty(navigator, "mediaDevices", { value: { getUserMedia }, configurable: true });
+
+    const { unmount } = render(<SpeakingExerciseCard exercise={situationExercise()} />);
+    await reachRecordReady();
+    fireEvent.click(screen.getByRole("button", { name: /démarrer l'enregistrement/i }));
+
+    // Changement d'exercice / navigation avant que le navigateur ait répondu
+    // à la demande de permission micro.
+    unmount();
+    resolveGetUserMedia(stream);
+
+    await waitFor(() => expect(stopTrack).toHaveBeenCalled());
+  });
+
+  it("ignores a second click while a microphone permission request is still pending", async () => {
+    vi.stubGlobal("MediaRecorder", FakeMediaRecorder);
+    const getUserMedia = vi.fn().mockReturnValue(new Promise<MediaStream>(() => {}));
+    Object.defineProperty(navigator, "mediaDevices", { value: { getUserMedia }, configurable: true });
+
+    render(<SpeakingExerciseCard exercise={situationExercise()} />);
+    await reachRecordReady();
+    const startButton = screen.getByRole("button", { name: /démarrer l'enregistrement/i });
+    fireEvent.click(startButton);
+    fireEvent.click(startButton);
+
+    expect(getUserMedia).toHaveBeenCalledTimes(1);
+  });
 });

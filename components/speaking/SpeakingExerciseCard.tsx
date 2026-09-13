@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
 import { buttonClasses } from "@/components/ui/button-styles";
@@ -78,15 +79,30 @@ export default function SpeakingExerciseCard({ exercise }: { exercise: SpeakingE
   const [checkedCriteria, setCheckedCriteria] = useState<Record<number, boolean>>({});
   const [selfRating, setSelfRating] = useState<SpeakingSelfRating | null>(null);
   const [modelSpeaking, setModelSpeaking] = useState(false);
+  /**
+   * `isRecordingSupported`/`isSpeechModelSupported` valent toujours `false`
+   * côté serveur (`typeof window === "undefined"`) : les lire directement
+   * au premier rendu client — avant que React n'ait eu la main pour
+   * réconcilier après hydratation — produit un HTML différent de celui du
+   * serveur (ex. bouton « Écouter le modèle » vs message de repli) et
+   * déclenche une erreur d'hydratation. `mounted` ne passe à `true` qu'après
+   * le montage, donc le tout premier rendu client reste identique au HTML
+   * serveur ; la vraie valeur s'applique juste après, dans un rendu normal.
+   */
+  const [mounted, setMounted] = useState(false);
 
   const streamRef = useRef<MediaStream | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const audioUrlRef = useRef<string | null>(null);
+  /** false une fois démonté — `getUserMedia` peut résoudre après un changement d'exercice ou une navigation. */
+  const mountedRef = useRef(true);
+  /** Anti-rebond : évite une deuxième requête micro pendant que la première est encore en attente (double clic). */
+  const requestingMicRef = useRef(false);
 
-  const recordingSupported = isRecordingSupported();
-  const speechModelSupported = isSpeechModelSupported();
+  const recordingSupported = mounted && isRecordingSupported();
+  const speechModelSupported = mounted && isSpeechModelSupported();
 
   function clearTick() {
     if (intervalRef.current) {
@@ -111,7 +127,16 @@ export default function SpeakingExerciseCard({ exercise }: { exercise: SpeakingE
   // Filet de sécurité : quitter la page en pleine préparation/enregistrement
   // libère quand même le micro, l'URL du blob, et coupe toute synthèse vocale en cours.
   useEffect(() => {
+    mountedRef.current = true;
+    // Fonction imbriquée (même motif que `lib/auth/AuthProvider.tsx`) : la
+    // règle react-hooks/set-state-in-effect refuse un `setState` au premier
+    // niveau du corps de l'effet.
+    function markMounted() {
+      setMounted(true);
+    }
+    markMounted();
     return () => {
+      mountedRef.current = false;
       clearTick();
       releaseMic();
       revokeAudioUrl();
@@ -157,6 +182,7 @@ export default function SpeakingExerciseCard({ exercise }: { exercise: SpeakingE
   }
 
   async function startRecording() {
+    if (requestingMicRef.current) return;
     setMicError(null);
     if (!recordingSupported) {
       setMicError(
@@ -165,8 +191,19 @@ export default function SpeakingExerciseCard({ exercise }: { exercise: SpeakingE
       return;
     }
 
+    requestingMicRef.current = true;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      // Le composant a été démonté pendant l'attente (changement d'exercice,
+      // navigation) : le filet de sécurité du cleanup a déjà été exécuté et
+      // ne sera pas rappelé — sans ce garde-fou, ce flux resterait actif
+      // indéfiniment (micro allumé) après le départ de l'apprenant.
+      if (!mountedRef.current) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+
       streamRef.current = stream;
 
       // Interruption externe (permission révoquée en cours, périphérique
@@ -210,7 +247,9 @@ export default function SpeakingExerciseCard({ exercise }: { exercise: SpeakingE
         setElapsed((current) => current + 1);
       }, 1000);
     } catch (error) {
-      setMicError(describeMicError(error));
+      if (mountedRef.current) setMicError(describeMicError(error));
+    } finally {
+      requestingMicRef.current = false;
     }
   }
 
@@ -479,9 +518,14 @@ export default function SpeakingExerciseCard({ exercise }: { exercise: SpeakingE
                 </audio>
               </div>
             ) : null}
-            <button type="button" onClick={restartExercise} className={buttonClasses("secondary", "md")}>
-              Refaire cet exercice
-            </button>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/oral" className={buttonClasses("primary", "md")}>
+                Continuer →
+              </Link>
+              <button type="button" onClick={restartExercise} className={buttonClasses("secondary", "md")}>
+                Refaire cet exercice
+              </button>
+            </div>
           </div>
         ) : null}
       </div>

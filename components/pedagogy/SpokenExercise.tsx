@@ -63,6 +63,10 @@ export default function SpokenExercise({
   const chunksRef = useRef<Blob[]>([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const audioUrlRef = useRef<string | null>(null);
+  /** false une fois démonté — `getUserMedia` peut résoudre après un changement d'exercice (`key={exercise.id}` dans SeanceExperience) ou une navigation. */
+  const mountedRef = useRef(true);
+  /** Anti-rebond : évite une deuxième requête micro pendant que la première est encore en attente (double clic). */
+  const requestingMicRef = useRef(false);
 
   const recordingSupported = isRecordingSupported();
 
@@ -89,7 +93,9 @@ export default function SpokenExercise({
   // Filet de sécurité : si l'apprenant quitte la page en pleine préparation
   // ou en plein enregistrement, on libère quand même le micro et l'URL du blob.
   useEffect(() => {
+    mountedRef.current = true;
     return () => {
+      mountedRef.current = false;
       clearTick();
       releaseMic();
       revokeAudioUrl();
@@ -122,6 +128,7 @@ export default function SpokenExercise({
   }
 
   async function startRecording() {
+    if (requestingMicRef.current) return;
     setMicError(null);
     if (!recordingSupported) {
       setMicError(
@@ -130,8 +137,20 @@ export default function SpokenExercise({
       return;
     }
 
+    requestingMicRef.current = true;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      // Le composant a été démonté pendant l'attente (l'étape en cours a
+      // changé, `key={exercise.id}` démonte cette instance — voir
+      // SeanceExperience) : le filet de sécurité du cleanup a déjà tourné et
+      // ne sera pas rappelé — sans ce garde-fou, ce flux resterait actif
+      // indéfiniment (micro allumé) après le départ de l'apprenant.
+      if (!mountedRef.current) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+
       streamRef.current = stream;
 
       // Interruption externe (ex. permission révoquée en cours d'enregistrement,
@@ -174,7 +193,9 @@ export default function SpokenExercise({
         setElapsed((current) => current + 1);
       }, 1000);
     } catch (error) {
-      setMicError(describeMicError(error));
+      if (mountedRef.current) setMicError(describeMicError(error));
+    } finally {
+      requestingMicRef.current = false;
     }
   }
 
