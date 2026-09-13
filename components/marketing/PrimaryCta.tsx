@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { buttonClasses, type ButtonSize } from "@/components/ui/button-styles";
-import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
+import { buildDailySession } from "@/lib/daily/session-engine";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
@@ -15,12 +15,15 @@ import { trackEvent } from "@/lib/analytics/client";
  * CTA d'entrée dans l'application, partagée par le header et le hero de la
  * page d'accueil : dirige un visiteur qui n'a encore rien fait vers le test
  * de niveau, et quiconque a déjà de la progression enregistrée directement
- * vers la suite pertinente de son parcours (`getNextModule`) plutôt que de
- * le renvoyer au test de positionnement à chaque visite.
+ * vers sa séance du jour (`buildDailySession`, `lib/daily/`) — la même
+ * recommandation que le bloc "Aujourd'hui" de `/parcours` — plutôt qu'un
+ * lien générique vers le tableau de bord ou un module isolé : un seul
+ * chemin evident, jamais deux recommandations différentes selon l'endroit
+ * où l'on clique.
  *
- * Si ce prochain module fait partie de l'offre complète, on l'annonce dans
+ * Si cette séance porte sur un module de l'offre complète, on l'annonce dans
  * le libellé et on envoie directement vers `/offre` plutôt que de faire
- * cliquer vers un module pour découvrir un `PremiumLock` sans contexte.
+ * cliquer vers une séance pour découvrir un `PremiumLock` sans contexte.
  *
  * Les métadonnées de modules viennent de `/api/modules/public` (fetch),
  * jamais d'un import direct de `data/modules-public` : ce composant est
@@ -106,14 +109,21 @@ export default function PrimaryCta({
     );
   }
 
-  const next = getNextModule(progress, modules);
-  const nextIsLocked = next
-    ? !canAccess({ kind: "module", slug: next.module.slug }, user?.premiumUntil)
-    : false;
-  const href = !next ? "/parcours" : nextIsLocked ? "/offre" : `/parcours/module/${next.module.slug}`;
-  const recommendationType = !next
+  const isAccessible = (mod: PublicModule) =>
+    canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
+  const guidedSession = buildDailySession(progress, modules, { isAccessible });
+  const rawGuidedSession = guidedSession ? null : buildDailySession(progress, modules);
+  const target = guidedSession ?? rawGuidedSession;
+  const locked = !guidedSession && Boolean(rawGuidedSession);
+
+  // Ni séance accessible ni séance verrouillée à proposer (parcours du
+  // niveau effectif entièrement terminé, ou catalogue pas encore couvert à
+  // ce niveau) : jamais de lien mort, on renvoie vers le tableau de bord
+  // `/parcours`, qui affiche lui-même l'état "rien à faire" honnête.
+  const href = !target ? "/parcours" : locked ? "/offre" : `/parcours/seance?module=${target.moduleSlug}`;
+  const recommendationType = !target
     ? "journey_complete"
-    : next.isResuming
+    : target.isResuming
       ? "resume_in_progress"
       : "next_new_module";
 
@@ -124,14 +134,14 @@ export default function PrimaryCta({
         trackEvent("resume_clicked", {
           source,
           authenticated,
-          moduleId: next?.module.id,
+          moduleId: target?.moduleId,
           recommendationType,
         });
         onClick?.();
       }}
       className={cn(buttonClasses("primary", size), className)}
     >
-      {nextIsLocked ? "Débloquer la suite du parcours" : "Continuer mon parcours"}
+      {locked ? "Débloquer ma séance" : target?.isResuming ? "Continuer ma séance" : "Commencer ma séance"}
     </Link>
   );
 }

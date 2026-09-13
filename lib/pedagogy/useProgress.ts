@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
-import { INITIAL_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
+import { EMPTY_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
 import { recordExerciseResult, resolvePlacementLevel, toggleModuleReview } from "@/lib/pedagogy/logic/progress";
 import {
   abandonExamAttempt,
@@ -96,14 +96,26 @@ function writeProgress(next: UserProgress) {
   scheduleServerSync(next);
 }
 
+/**
+ * `EMPTY_USER_PROGRESS`, jamais `INITIAL_USER_PROGRESS` (le fixture de démo
+ * marketing — un B1 avec un exercice déjà fait et une compétence déjà
+ * fragile, daté et jamais rafraîchi) : ce dernier n'est légitime que pour
+ * illustrer l'aperçu statique de la marketing (`ProgressPreviewCard`, non
+ * connecté à cet état). Le confondre avec l'état réel d'un nouvel apprenant
+ * lui faisait afficher une "Séance du jour" incohérente ("reprends là où tu
+ * t'es arrêté·e") pour un module qu'il n'a jamais ouvert, et pouvait même
+ * faire fuiter cette fausse progression vers un compte tout juste créé via
+ * `/api/progress/merge` dès qu'une écriture locale (ex. `setGoal`) avait eu
+ * lieu avant la création du compte.
+ */
 function parseProgress(raw: string): UserProgress {
-  if (!raw) return INITIAL_USER_PROGRESS;
+  if (!raw) return EMPTY_USER_PROGRESS;
   try {
-    // Fusionne avec l'état initial pour rester valide si de nouveaux champs
-    // ont été ajoutés au type depuis la dernière visite de l'utilisateur.
-    return { ...INITIAL_USER_PROGRESS, ...(JSON.parse(raw) as Partial<UserProgress>) };
+    // Fusionne avec l'état vide pour rester valide si de nouveaux champs ont
+    // été ajoutés au type depuis la dernière visite de l'utilisateur.
+    return { ...EMPTY_USER_PROGRESS, ...(JSON.parse(raw) as Partial<UserProgress>) };
   } catch {
-    return INITIAL_USER_PROGRESS;
+    return EMPTY_USER_PROGRESS;
   }
 }
 

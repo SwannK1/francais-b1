@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Card from "@/components/ui/Card";
+import { buttonClasses } from "@/components/ui/button-styles";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
 import StageCard from "@/components/pedagogy/StageCard";
 import GuidedSessionCard from "@/components/pedagogy/GuidedSessionCard";
@@ -12,9 +15,11 @@ import { buildDailySession } from "@/lib/daily/session-engine";
 import { getEffectiveLevel, getStageCompletionRate, getStageStatus } from "@/lib/pedagogy/logic/parcours";
 import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
 import { getReviewItems } from "@/lib/pedagogy/logic/review";
+import { getSkillReviewRecommendations } from "@/lib/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
+import { cn } from "@/lib/cn";
 import ViewTracker from "@/lib/analytics/ViewTracker";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
 import type { PublicModule } from "@/lib/pedagogy/types";
@@ -49,31 +54,46 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
   const isAccessible = (mod: PublicModule) =>
     canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
 
-  // `resumeTarget` : jamais un module verrouillé, `getNextModule` les
-  // ignore déjà (voir `logic/recommendation.ts`). S'il vaut `null` alors
-  // qu'un module existe encore objectivement (`rawTarget`), c'est que tout
-  // ce qu'il reste est verrouillé — un cas distinct de "plus rien à faire"
-  // (fallback propre : deux messages différents, jamais un lien mort).
-  const resumeTarget = getNextModule(progress, publicModules, { isAccessible });
-  const rawTarget = resumeTarget ? null : getNextModule(progress, publicModules);
-
-  // Séance guidée du jour (`lib/daily/`) : chantier indépendant du
-  // diagnostic et du moteur de révision espacée, qui construit une vraie
-  // séance à plusieurs étapes (jamais une simple carte-lien vers un
-  // module). Contrairement à l'ancienne carte "Séance du jour" (un simple
-  // lien, redondant avec "Reprendre" quand elle pointait vers le même
-  // module — d'où la déduplication historique), celle-ci affiche toujours
-  // une information supplémentaire réelle (durée, nombre d'étapes, contenu
-  // détaillé) même quand elle cible le même module que "Reprendre" : elle
-  // n'est donc jamais masquée pour éviter un doublon. Même précaution que
-  // `resumeTarget`/`rawTarget` ci-dessus pour le verrouillage :
-  // `guidedSession` ignore les modules verrouillés, `rawGuidedSession` sert
-  // uniquement à distinguer "rien à faire" de "tout est verrouillé".
+  // Séance guidée du jour (`lib/daily/`) : point d'entrée PRINCIPAL de cette
+  // page (section "Aujourd'hui" ci-dessous), jamais affichée à côté d'une
+  // seconde recommandation concurrente — elle construit une vraie séance à
+  // plusieurs étapes (durée, contenu détaillé), strictement plus informative
+  // qu'un simple lien "prochain module". `guidedSession` ignore les modules
+  // verrouillés ; `rawGuidedSession` sert uniquement à distinguer "rien à
+  // faire aujourd'hui" de "tout est verrouillé" (offre complète) — jamais
+  // affichés tous les deux à la fois.
   const guidedSession = buildDailySession(progress, publicModules, { isAccessible });
   const rawGuidedSession = guidedSession ? null : buildDailySession(progress, publicModules);
-  const showGuidedSession = Boolean(guidedSession || rawGuidedSession);
+  const sessionModule = guidedSession
+    ? publicModules.find((mod) => mod.id === guidedSession.moduleId)
+    : undefined;
+  const sessionCompletionRate = sessionModule
+    ? getModuleCompletionRate(progress, sessionModule.id, sessionModule.totalExercises)
+    : undefined;
 
-  const reviewItemsCount = getReviewItems(progress, publicModules).length;
+  // Repli vers l'ancienne recommandation "prochain module", uniquement pour
+  // le cas — distinct — où le moteur de séance ne peut rien construire (ex.
+  // module sans leçon exploitable) alors qu'il reste objectivement un
+  // prochain module : jamais affiché en plus de la séance guidée, seulement
+  // à sa place, pour ne jamais laisser "Aujourd'hui" vide.
+  const hasGuidedSessionOutcome = Boolean(guidedSession || rawGuidedSession);
+  const resumeTarget = hasGuidedSessionOutcome
+    ? null
+    : getNextModule(progress, publicModules, { isAccessible });
+  const rawTarget = hasGuidedSessionOutcome || resumeTarget
+    ? null
+    : getNextModule(progress, publicModules);
+
+  // Même décompte que /reviser (voir ReviserExperience) : modules marqués à
+  // revoir + épreuves sous le seuil (legacy `getReviewItems`) et compétences
+  // signalées par le moteur de révision espacée (`lib/review`) — jamais un
+  // second calcul divergent qui promettrait "N points" ici pour afficher
+  // "rien à réviser" une fois sur /reviser.
+  const legacyReviewItems = getReviewItems(progress, publicModules).filter(
+    (item) => item.kind === "module_flagged" || item.kind === "exam_section"
+  );
+  const skillReviewCount = getSkillReviewRecommendations(progress, publicModules).length;
+  const reviewCount = legacyReviewItems.length + skillReviewCount;
 
   return (
     <div>
@@ -90,66 +110,91 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
             </>
           ) : null}
         </p>
-        {reviewItemsCount > 0 ? (
-          <p className="mt-3 text-sm text-foreground">
-            {reviewItemsCount} élément{reviewItemsCount > 1 ? "s" : ""} à réviser —{" "}
-            <Link href="/reviser" className="font-semibold text-primary hover:underline">
-              voir la révision
-            </Link>
-          </p>
-        ) : null}
       </header>
 
-      {resumeTarget ? (
-        <section aria-labelledby="resume-title" className="mt-8">
-          <h2 id="resume-title" className="mb-3 text-lg font-semibold text-foreground">
-            {resumeTarget.isResuming ? "Reprendre" : "Prochaine étape"}
-          </h2>
+      {/*
+        1. Aujourd'hui — point d'entrée PRINCIPAL de la page : une seule
+        recommandation à la fois (séance guidée si le moteur peut en
+        construire une, sinon repli sur le prochain module, sinon état "rien
+        à faire" honnête), jamais deux cartes concurrentes pour la même
+        action — voir le calcul de `guidedSession`/`resumeTarget` ci-dessus.
+      */}
+      <section aria-labelledby="today-title" className="mt-8">
+        <h2 id="today-title" className="mb-3 text-lg font-semibold text-foreground">
+          Aujourd&apos;hui
+        </h2>
+        {guidedSession || rawGuidedSession ? (
+          <GuidedSessionCard
+            plan={guidedSession ?? rawGuidedSession!}
+            href={guidedSession ? `/parcours/seance?module=${guidedSession.moduleSlug}` : "/offre"}
+            locked={!guidedSession}
+            prominent
+            completionRate={sessionCompletionRate}
+          />
+        ) : resumeTarget ? (
           <ResumeCard
             target={resumeTarget}
             completionRate={getModuleCompletionRate(progress, resumeTarget.module.id, resumeTarget.module.totalExercises)}
             href={`/parcours/module/${resumeTarget.module.slug}`}
           />
-        </section>
-      ) : rawTarget ? (
-        <section aria-labelledby="resume-title" className="mt-8">
-          <h2 id="resume-title" className="mb-3 text-lg font-semibold text-foreground">
-            {rawTarget.isResuming ? "Reprendre" : "Prochaine étape"}
-          </h2>
+        ) : rawTarget ? (
           <ResumeCard
             target={rawTarget}
             completionRate={getModuleCompletionRate(progress, rawTarget.module.id, rawTarget.module.totalExercises)}
             href="/offre"
             locked
           />
-        </section>
-      ) : null}
+        ) : (
+          <Card>
+            <p className="text-sm font-semibold text-foreground">
+              Bravo, il n&apos;y a plus de nouveau module à ton niveau pour le moment !
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Consulte ta progression, ou entraîne-toi librement en attendant la suite.
+            </p>
+            <Link href="/progression" className={cn(buttonClasses("primary", "md"), "mt-4 gap-1.5")}>
+              Voir ma progression
+              <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </Card>
+        )}
+      </section>
 
-      {showGuidedSession ? (
-        <section aria-labelledby="daily-session-title" className="mt-8">
-          <h2 id="daily-session-title" className="mb-3 text-lg font-semibold text-foreground">
-            Séance du jour
+      {/*
+        2. À revoir — secondaire par construction : un simple bandeau-lien,
+        jamais un `<Card>` de même poids visuel que le bloc "Aujourd'hui" au-dessus.
+      */}
+      {reviewCount > 0 ? (
+        <section aria-labelledby="review-title" className="mt-4">
+          <h2 id="review-title" className="sr-only">
+            À revoir
           </h2>
-          <GuidedSessionCard
-            plan={guidedSession ?? rawGuidedSession!}
-            href={guidedSession ? `/parcours/seance?module=${guidedSession.moduleSlug}` : "/offre"}
-            locked={!guidedSession}
-          />
+          <Link
+            href="/reviser"
+            className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <span>
+              <span className="font-semibold text-foreground">À revoir</span>{" "}
+              <span className="text-muted-foreground">
+                — {reviewCount} point{reviewCount > 1 ? "s" : ""}{" "}
+                {reviewCount > 1 ? "méritent" : "mérite"} une nouvelle tentative
+              </span>
+            </span>
+            <ArrowRightIcon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+          </Link>
         </section>
       ) : null}
 
       {/*
-        Section purement additive : liens vers les zones "Expression orale"
-        (lib/speaking/) et "Évaluations de passage" (lib/assessment/), toutes
-        deux volontairement indépendantes du diagnostic/de la révision
-        espacée/de la séance du jour ci-dessus — aucune des fonctions
-        (getStageStatus, computeDailySession, getReviewItems...) qui
-        alimentent le reste de cette page n'est utilisée ici.
+        3. Explorer librement — tertiaire : parcours par étapes, oral,
+        évaluations. Toujours accessible, jamais mis en avant visuellement
+        autant que "Aujourd'hui" ci-dessus (titre de section plus discret).
       */}
-      <section aria-labelledby="extra-practice-title" className="mt-8">
-        <h2 id="extra-practice-title" className="mb-3 text-lg font-semibold text-foreground">
-          Entraînement complémentaire
+      <section aria-labelledby="explore-title" className="mt-10 border-t border-border pt-8">
+        <h2 id="explore-title" className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          Explorer librement
         </h2>
+
         <div className="grid gap-3 sm:grid-cols-2">
           <Link
             href="/oral"
@@ -170,13 +215,8 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
             </p>
           </Link>
         </div>
-      </section>
 
-      <section aria-labelledby="stages-title" className="mt-8">
-        <h2 id="stages-title" className="mb-3 text-lg font-semibold text-foreground">
-          Les étapes
-        </h2>
-        <div className="space-y-4">
+        <div className="mt-6 space-y-4">
           {stages.map((stage) => {
             const status = getStageStatus(stage, progress, publicModules);
             const completionRate = getStageCompletionRate(stage, progress, publicModules);
