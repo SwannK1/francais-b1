@@ -10,7 +10,7 @@ import {
   startExamAttempt,
 } from "@/lib/pedagogy/logic/exam";
 import { useAuth } from "@/lib/auth/AuthProvider";
-import type { CEFRLevel, DelfSection, Exam, Exercise, Module, UserProgress } from "@/lib/pedagogy/types";
+import type { CEFRLevel, DelfSection, Exam, Exercise, LearningGoalId, Module, UserProgress } from "@/lib/pedagogy/types";
 import { recordAssessmentEvidence as applyAssessmentEvidence } from "@/lib/assessment/logic/progress-evidence";
 import type { AssessmentEvidence } from "@/lib/pedagogy/types";
 
@@ -193,6 +193,19 @@ export function useProgress() {
     writeProgress(toggleModuleReview(parseProgress(readRaw()), moduleId));
   }, []);
 
+  /**
+   * Enregistre l'objectif choisi par l'apprenant (page d'accueil, test de
+   * niveau...). Simple champ de `UserProgress`, déjà lu par
+   * `ParcoursExperience` (bandeau "Objectif : ...") et fusionné entre
+   * appareils (`logic/progress.ts`) — jusqu'ici jamais écrit nulle part,
+   * faute d'un point d'entrée UI pour le choisir.
+   */
+  const setGoal = useCallback((goalId: LearningGoalId) => {
+    const current = parseProgress(readRaw());
+    if (current.goalId === goalId) return;
+    writeProgress({ ...current, goalId });
+  }, []);
+
   const recordAssessmentEvidence = useCallback((evidence: AssessmentEvidence) => {
     writeProgress(applyAssessmentEvidence(parseProgress(readRaw()), evidence));
   }, []);
@@ -206,6 +219,7 @@ export function useProgress() {
     finishExam,
     abandonExam,
     toggleReview,
+    setGoal,
     recordAssessmentEvidence,
   };
 }

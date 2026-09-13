@@ -11,22 +11,43 @@ import { cn } from "@/lib/cn";
 import { PLACEMENT_QUESTIONS } from "@/lib/pedagogy/data/placement-questions";
 import { computePlacementResult } from "@/lib/pedagogy/logic/placement";
 import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
+import { LEARNING_GOALS } from "@/lib/pedagogy/data/goals";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { trackEvent } from "@/lib/analytics/client";
-import type { PlacementAnswer } from "@/lib/pedagogy/types";
+import type { LearningGoal, PlacementAnswer } from "@/lib/pedagogy/types";
 
 export default function TestNiveauClient() {
-  const { markPlacementCompleted } = useProgress();
+  const { markPlacementCompleted, setGoal } = useProgress();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<PlacementAnswer[]>([]);
   const [finished, setFinished] = useState(false);
+  const [goal, setGoalDisplay] = useState<LearningGoal | null>(null);
 
   const startTracked = useRef(false);
   useEffect(() => {
     if (startTracked.current) return;
     startTracked.current = true;
     trackEvent("placement_started");
-  }, []);
+
+    // Objectif choisi sur l'accueil (`/test-niveau?goal=...`, voir
+    // `components/marketing/Goals.tsx`) : enregistré tout de suite, avant
+    // même la fin du test — l'apprenant nous a déjà dit pourquoi il est là.
+    // Lecture directe de `location.search` plutôt que `useSearchParams()`
+    // pour éviter d'imposer une frontière Suspense à toute la page pour ce
+    // seul besoin d'amélioration progressive. Logique isolée dans une
+    // fonction imbriquée (même motif que `AuthProvider`) : la règle
+    // react-hooks/set-state-in-effect refuse un `setState` au premier niveau
+    // du corps de l'effet.
+    function applyGoalFromUrl() {
+      const goalId = new URLSearchParams(window.location.search).get("goal");
+      const matchedGoal = LEARNING_GOALS.find((candidate) => candidate.id === goalId);
+      if (matchedGoal) {
+        setGoal(matchedGoal.id);
+        setGoalDisplay(matchedGoal);
+      }
+    }
+    applyGoalFromUrl();
+  }, [setGoal]);
 
   const question = PLACEMENT_QUESTIONS[step];
   const currentAnswer = answers.find((a) => a.questionId === question?.id);
@@ -73,6 +94,12 @@ export default function TestNiveauClient() {
             Ce résultat est un niveau estimé à titre indicatif, il ne remplace pas une
             certification CECRL officielle.
           </p>
+          {goal ? (
+            <p className="mt-2 text-sm text-foreground">
+              Objectif : <strong>{goal.title}</strong>
+              {goal.note ? <span className="text-muted-foreground"> — {goal.note}</span> : null}
+            </p>
+          ) : null}
         </header>
 
         <Card>
@@ -181,6 +208,11 @@ export default function TestNiveauClient() {
           Quelques questions pour estimer ton niveau. Ce n&apos;est pas une certification
           officielle.
         </p>
+        {goal ? (
+          <p className="mt-2 text-sm text-foreground">
+            Objectif : <strong>{goal.title}</strong>
+          </p>
+        ) : null}
       </header>
 
       <ProgressBar
