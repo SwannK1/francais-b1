@@ -1,7 +1,7 @@
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import PrimaryCta from "@/components/marketing/PrimaryCta";
-import ProgressPreviewCard from "@/components/marketing/ProgressPreviewCard";
+import HeroSessionPreview from "@/components/marketing/HeroSessionPreview";
 
 export default function Hero() {
   return (
@@ -23,7 +23,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <ProgressPreviewCard variant="compact" className="lg:max-w-md lg:justify-self-end" />
+        <HeroSessionPreview className="lg:max-w-md lg:justify-self-end" />
       </Container>
     </section>
   );

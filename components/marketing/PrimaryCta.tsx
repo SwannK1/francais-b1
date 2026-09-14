@@ -8,6 +8,7 @@ import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
 import { cn } from "@/lib/cn";
+import { fetchPublicModules, getCachedPublicModules } from "@/lib/pedagogy/publicModulesCache";
 import type { PublicModule } from "@/lib/pedagogy/types";
 import { trackEvent } from "@/lib/analytics/client";
 
@@ -32,27 +33,6 @@ import { trackEvent } from "@/lib/analytics/client";
  * `docs/architecture/user-lifecycle.md` § Premium content boundary.
  */
 
-/** Une seule requête par onglet, même si plusieurs CTA sont montés à la fois (header desktop + mobile). */
-let cachedModules: PublicModule[] | null = null;
-let pendingFetch: Promise<PublicModule[]> | null = null;
-
-function fetchPublicModules(): Promise<PublicModule[]> {
-  if (cachedModules) return Promise.resolve(cachedModules);
-  if (!pendingFetch) {
-    pendingFetch = fetch("/api/modules/public")
-      .then((res) => (res.ok ? res.json() : { modules: [] }))
-      .then((data: { modules?: PublicModule[] }) => {
-        cachedModules = data.modules ?? [];
-        return cachedModules;
-      })
-      .catch(() => {
-        cachedModules = [];
-        return cachedModules;
-      });
-  }
-  return pendingFetch;
-}
-
 export default function PrimaryCta({
   size = "md",
   className,
@@ -70,7 +50,7 @@ export default function PrimaryCta({
   const { progress } = useProgress();
   const { user } = useAuth();
   const hasStarted = Boolean(progress.placementCompletedAt) || progress.moduleProgress.length > 0;
-  const [modules, setModules] = useState<PublicModule[] | null>(cachedModules);
+  const [modules, setModules] = useState<PublicModule[] | null>(getCachedPublicModules());
   const authenticated = Boolean(user);
 
   useEffect(() => {
