@@ -15,6 +15,7 @@ export {
   getConsolidationSuggestion,
 } from "./engine";
 export { buildReviewHistory } from "./adapter";
+export { summarizeMastery } from "./summary";
 export type {
   ReviewState,
   ReviewPriorityBand,
@@ -22,10 +23,12 @@ export type {
   ReviewPriority,
   ReviewRecommendation,
 } from "./types";
+export type { MasterySummary } from "./summary";
 
 import type { PublicModule, UserProgress } from "@/lib/pedagogy/types";
 import { buildReviewHistory } from "./adapter";
 import { buildReviewRecommendations, getConsolidationSuggestion } from "./engine";
+import { summarizeMastery, type MasterySummary } from "./summary";
 import type { ReviewRecommendation } from "./types";
 
 /** Point d'entrée unique pour l'UI (`/reviser`) : progression -> recommandations triées. */
@@ -44,4 +47,13 @@ export function getSkillConsolidationSuggestion(
   now: Date = new Date()
 ): ReviewRecommendation | null {
   return getConsolidationSuggestion(buildReviewHistory(progress, modules), now);
+}
+
+/** Point d'entrée unique pour l'UI (`/progression`) : compte d'acquis/à consolider/à revoir. */
+export function getMasterySummary(
+  progress: UserProgress,
+  modules: PublicModule[],
+  now: Date = new Date()
+): MasterySummary {
+  return summarizeMastery(buildReviewHistory(progress, modules), now);
 }

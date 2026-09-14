@@ -5,20 +5,25 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
 import ProgressBar from "@/components/pedagogy/ProgressBar";
-import SkillScore from "@/components/pedagogy/SkillScore";
-import WeaknessCard from "@/components/pedagogy/WeaknessCard";
+import SkillReviewCard from "@/components/pedagogy/SkillReviewCard";
 import ModuleCard from "@/components/pedagogy/ModuleCard";
 import GuidedSessionCard from "@/components/pedagogy/GuidedSessionCard";
-import { SKILLS, getSkillById } from "@/lib/pedagogy/data/skills";
+import { CheckIcon } from "@/components/ui/icons";
 import {
   getModuleCompletionRate,
   isModuleReviewed,
   statusFromCompletionRate,
 } from "@/lib/pedagogy/logic/progress";
-import { findModuleForSkill } from "@/lib/pedagogy/logic/module-structure";
 import { buildDailySession } from "@/lib/daily/session-engine";
 import { getEffectiveLevel, getParcoursSummary } from "@/lib/pedagogy/logic/parcours";
 import { getReviewItems } from "@/lib/pedagogy/logic/review";
+import {
+  buildReviewHistory,
+  buildReviewRecommendations,
+  classifySkillState,
+  getConsolidationSuggestion,
+  summarizeMastery,
+} from "@/lib/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
@@ -57,9 +62,24 @@ export default function ProgressionExperience({ publicModules }: { publicModules
   const rawGuidedSession = guidedSession ? null : buildDailySession(progress, publicModules);
   const summary = getParcoursSummary(progress, publicModules);
   const isReadyForB1 = summary.readyForB1;
-  const startedSkills = SKILLS.filter((skill) =>
-    progress.skillProgress.some((sp) => sp.skillId === skill.id && sp.completedExercises > 0)
+
+  // Une seule dérivation de `progress.skillProgress` par le moteur de
+  // révision espacée (`lib/review/`, déjà utilisé par `/reviser` et par le
+  // CTA d'accueil) : jamais une deuxième règle de "maîtrise" — voir chantier
+  // "maîtrise et révisions ciblées". `nouvelle` (jamais pratiquée) reste
+  // exclue des trois catégories, il n'y a encore rien à y classer.
+  const reviewHistory = buildReviewHistory(progress, publicModules);
+  const mastery = summarizeMastery(reviewHistory);
+  const skillRecommendations = buildReviewRecommendations(reviewHistory);
+  const toReview = skillRecommendations.filter(
+    (r) => r.priority.band === "haute" || r.priority.band === "a_revoir"
   );
+  const toConsolidate = skillRecommendations.filter((r) => r.priority.band === "consolidation");
+  const consolidationSuggestion =
+    toReview.length === 0 && toConsolidate.length === 0 ? getConsolidationSuggestion(reviewHistory) : null;
+  const acquisNames = reviewHistory
+    .filter((entry) => classifySkillState(entry) === "maitrisee")
+    .map((entry) => entry.skillName);
 
   const completedModulesCount = publicModules.filter(
     (mod) =>
@@ -144,53 +164,74 @@ export default function ProgressionExperience({ publicModules }: { publicModules
         </section>
       ) : null}
 
-      {progress.weakSkillIds.length > 0 ? (
-        <section aria-labelledby="weaknesses-title">
-          <h2 id="weaknesses-title" className="mb-3 text-lg font-semibold text-foreground">
-            Points à travailler
+      {mastery.total > 0 ? (
+        <section aria-labelledby="mastery-title">
+          <h2 id="mastery-title" className="text-lg font-semibold text-foreground">
+            Votre progression
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {progress.weakSkillIds.map((skillId) => {
-              const skill = getSkillById(skillId);
-              if (!skill) return null;
-              const skillProgress = progress.skillProgress.find((sp) => sp.skillId === skillId);
-              const skillModule = findModuleForSkill(publicModules, skillId);
-              return (
-                <WeaknessCard
-                  key={skillId}
-                  skill={skill}
-                  progress={skillProgress}
-                  href={skillModule ? `/parcours/module/${skillModule.slug}` : undefined}
-                />
-              );
-            })}
-          </div>
+          <p className="mb-4 mt-1 text-sm text-muted-foreground">
+            {mastery.acquis} acquis · {mastery.aConsolider} à consolider · {mastery.aRevoir} à revoir
+          </p>
+
+          {toReview.length > 0 ? (
+            <div className="mb-6">
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                À revoir
+              </h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {toReview.map((r) => (
+                  <SkillReviewCard key={r.key} recommendation={r} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {toConsolidate.length > 0 ? (
+            <div className="mb-6">
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                À consolider
+              </h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {toConsolidate.map((r) => (
+                  <SkillReviewCard key={r.key} recommendation={r} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {toReview.length === 0 && toConsolidate.length === 0 ? (
+            <Card className="mb-6">
+              <p className="text-sm text-foreground">
+                Tout est à jour. Continuez votre parcours pour découvrir de nouvelles notions.
+              </p>
+              {consolidationSuggestion ? (
+                <div className="mt-4">
+                  <p className="mb-2 text-xs font-medium text-muted-foreground">
+                    Ou faites une petite révision légère :
+                  </p>
+                  <SkillReviewCard recommendation={consolidationSuggestion} />
+                </div>
+              ) : null}
+            </Card>
+          ) : null}
+
+          {acquisNames.length > 0 ? (
+            <div>
+              <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Acquis
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {acquisNames.map((name) => (
+                  <Badge key={name} variant="success">
+                    <CheckIcon className="h-3 w-3" />
+                    {name}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </section>
       ) : null}
-
-      <section aria-labelledby="skills-title">
-        <h2 id="skills-title" className="mb-3 text-lg font-semibold text-foreground">
-          Progression par compétence
-        </h2>
-        {startedSkills.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2">
-            {startedSkills.map((skill) => (
-              <SkillScore
-                key={skill.id}
-                skill={skill}
-                progress={progress.skillProgress.find((sp) => sp.skillId === skill.id)}
-              />
-            ))}
-          </div>
-        ) : (
-          <Card>
-            <p className="text-sm text-muted-foreground">
-              Tes compétences apparaîtront ici au fil de tes exercices. Termine ta première leçon
-              pour commencer à suivre ta progression.
-            </p>
-          </Card>
-        )}
-      </section>
 
       <section aria-labelledby="modules-title">
         <h2 id="modules-title" className="mb-3 text-lg font-semibold text-foreground">

@@ -3,19 +3,18 @@
 import Link from "next/link";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
+import SkillReviewCard from "@/components/pedagogy/SkillReviewCard";
 import { buttonClasses } from "@/components/ui/button-styles";
 import { ArrowRightIcon, FlagIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import ViewTracker from "@/lib/analytics/ViewTracker";
 import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
-import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import { getReviewItems, type ReviewItem } from "@/lib/pedagogy/logic/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import {
   getSkillConsolidationSuggestion,
   getSkillReviewRecommendations,
   type ReviewPriorityBand,
-  type ReviewRecommendation,
 } from "@/lib/review";
 
 /**
@@ -30,12 +29,6 @@ const BAND_LABELS: Record<ReviewPriorityBand, string> = {
   haute: "Priorité haute",
   a_revoir: "À revoir",
   consolidation: "Consolidation",
-};
-
-const BAND_BADGE_VARIANT: Record<ReviewPriorityBand, "primary" | "secondary" | "neutral"> = {
-  haute: "primary",
-  a_revoir: "secondary",
-  consolidation: "neutral",
 };
 
 function FlaggedModuleCard({ item, onRemove }: { item: ReviewItem; onRemove: () => void }) {
@@ -87,36 +80,6 @@ function ExamSectionCard({ item }: { item: ReviewItem }) {
   );
 }
 
-function SkillRecommendationCard({ recommendation }: { recommendation: ReviewRecommendation }) {
-  return (
-    <Card>
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <div>
-          <p className="text-xs font-medium text-muted-foreground">{DOMAIN_LABELS[recommendation.domain]}</p>
-          <h3 className="text-sm font-semibold text-foreground">{recommendation.title}</h3>
-        </div>
-        <Badge variant={BAND_BADGE_VARIANT[recommendation.priority.band]}>
-          {BAND_LABELS[recommendation.priority.band]}
-        </Badge>
-      </div>
-      <ul className="mt-2 space-y-0.5">
-        {recommendation.reasons.map((reason) => (
-          <li key={reason} className="text-sm text-muted-foreground">
-            {reason}
-          </li>
-        ))}
-      </ul>
-      <Link
-        href={recommendation.href}
-        className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-      >
-        {recommendation.actionLabel}
-        <ArrowRightIcon className="h-4 w-4" />
-      </Link>
-    </Card>
-  );
-}
-
 export default function ReviserExperience() {
   const { progress, toggleReview } = useProgress();
 
@@ -152,7 +115,7 @@ export default function ReviserExperience() {
               Rien d&apos;urgent — une petite révision légère ?
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              <SkillRecommendationCard recommendation={consolidationSuggestion} />
+              <SkillReviewCard recommendation={consolidationSuggestion} />
             </div>
           </section>
         ) : (
@@ -182,7 +145,7 @@ export default function ReviserExperience() {
                   />
                 ))}
                 {bySkillBand("haute").map((r) => (
-                  <SkillRecommendationCard key={r.key} recommendation={r} />
+                  <SkillReviewCard key={r.key} recommendation={r} />
                 ))}
               </div>
             </section>
@@ -195,7 +158,7 @@ export default function ReviserExperience() {
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 {bySkillBand("a_revoir").map((r) => (
-                  <SkillRecommendationCard key={r.key} recommendation={r} />
+                  <SkillReviewCard key={r.key} recommendation={r} />
                 ))}
               </div>
             </section>
@@ -208,7 +171,7 @@ export default function ReviserExperience() {
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 {bySkillBand("consolidation").map((r) => (
-                  <SkillRecommendationCard key={r.key} recommendation={r} />
+                  <SkillReviewCard key={r.key} recommendation={r} />
                 ))}
               </div>
             </section>
