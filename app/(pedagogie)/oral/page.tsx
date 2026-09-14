@@ -4,6 +4,8 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Breadcrumbs from "@/components/pedagogy/Breadcrumbs";
 import { LockIcon } from "@/components/ui/icons";
+import SpeakingPracticeBadge from "@/components/speaking/SpeakingPracticeBadge";
+import SpeakingPracticeSummary from "@/components/speaking/SpeakingPracticeSummary";
 import { SPEAKING_EXERCISES } from "@/lib/speaking/data/exercises";
 import { SPEAKING_KIND_LABELS } from "@/lib/speaking/logic/exercises";
 import { canAccess } from "@/lib/commerce/access";
@@ -41,6 +43,8 @@ export default async function OralPage() {
         </p>
       </header>
 
+      <SpeakingPracticeSummary />
+
       {KIND_ORDER.map((kind) => {
         const exercises = SPEAKING_EXERCISES.filter((exercise) => exercise.kind === kind);
         if (exercises.length === 0) return null;
@@ -65,7 +69,9 @@ export default async function OralPage() {
                           <LockIcon className="h-3 w-3" />
                           Offre complète
                         </Badge>
-                      ) : null}
+                      ) : (
+                        <SpeakingPracticeBadge exerciseId={exercise.id} />
+                      )}
                     </div>
                     <h3 className="text-base font-semibold text-foreground">{exercise.title}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">{exercise.instructions}</p>
