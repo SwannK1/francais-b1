@@ -58,6 +58,10 @@ export default function HeroSessionPreview({ className }: { className?: string }
             href={guidedSession ? `/parcours/seance?module=${guidedSession.moduleSlug}` : "/offre"}
             locked={!guidedSession}
             completionRate={completionRate}
+            // Le bouton d'action réel est `PrimaryCta`, juste à côté dans le
+            // hero : sans ce drapeau, la même action ("Continuer ma
+            // séance") apparaissait en double sur le même écran.
+            hideCta
           />
         </div>
       );

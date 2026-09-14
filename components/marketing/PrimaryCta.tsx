@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { buttonClasses, type ButtonSize } from "@/components/ui/button-styles";
 import { buildDailySession } from "@/lib/daily/session-engine";
+import { getReviewItems } from "@/lib/pedagogy/logic/review";
+import { getSkillReviewRecommendations } from "@/lib/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
@@ -98,14 +100,42 @@ export default function PrimaryCta({
 
   // Ni séance accessible ni séance verrouillée à proposer (parcours du
   // niveau effectif entièrement terminé, ou catalogue pas encore couvert à
-  // ce niveau) : jamais de lien mort, on renvoie vers le tableau de bord
-  // `/parcours`, qui affiche lui-même l'état "rien à faire" honnête.
-  const href = !target ? "/parcours" : locked ? "/offre" : `/parcours/seance?module=${target.moduleSlug}`;
-  const recommendationType = !target
-    ? "journey_complete"
-    : target.isResuming
+  // ce niveau) : avant de renvoyer vers le tableau de bord générique, on
+  // vérifie s'il existe de vraies révisions utiles — même calcul que le
+  // bandeau "À revoir" de `/parcours` (`ParcoursExperience.tsx`), jamais un
+  // second moteur — pour proposer une action réelle plutôt qu'un lien mort
+  // ou un libellé "Commencer ma séance" incohérent avec sa destination.
+  const reviewCount = !target
+    ? getReviewItems(progress, modules).filter(
+        (item) => item.kind === "module_flagged" || item.kind === "exam_section"
+      ).length + getSkillReviewRecommendations(progress, modules).length
+    : 0;
+
+  const href = target
+    ? locked
+      ? "/offre"
+      : `/parcours/seance?module=${target.moduleSlug}`
+    : reviewCount > 0
+      ? "/reviser"
+      : "/progression";
+  const label = target
+    ? locked
+      ? "Débloquer ma séance"
+      : target.isResuming
+        ? "Continuer ma séance"
+        : "Commencer ma séance"
+    : reviewCount > 0
+      ? reviewCount > 1
+        ? `Réviser mes ${reviewCount} points`
+        : "Réviser mon point à revoir"
+      : "Voir ma progression";
+  const recommendationType = target
+    ? target.isResuming
       ? "resume_in_progress"
-      : "next_new_module";
+      : "next_new_module"
+    : reviewCount > 0
+      ? "review_available"
+      : "journey_complete";
 
   return (
     <Link
@@ -121,7 +151,7 @@ export default function PrimaryCta({
       }}
       className={cn(buttonClasses("primary", size), className)}
     >
-      {locked ? "Débloquer ma séance" : target?.isResuming ? "Continuer ma séance" : "Commencer ma séance"}
+      {label}
     </Link>
   );
 }

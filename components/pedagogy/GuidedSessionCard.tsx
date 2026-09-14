@@ -22,6 +22,7 @@ export default function GuidedSessionCard({
   locked = false,
   prominent = false,
   completionRate,
+  hideCta = false,
 }: {
   plan: DailySessionPlan;
   href: string;
@@ -31,6 +32,16 @@ export default function GuidedSessionCard({
   prominent?: boolean;
   /** Progression du module ciblé (0-100) — omis si non pertinent (ex. verrouillé). */
   completionRate?: number;
+  /**
+   * Masque le bouton final — uniquement pour le hero de l'accueil
+   * (`HeroSessionPreview`), qui affiche cette carte comme contexte à côté
+   * du vrai bouton d'action (`PrimaryCta`) : sans ce drapeau, la même action
+   * ("Continuer ma séance") apparaissait deux fois sur le même écran — voir
+   * chantier "prochaine action évidente". Toujours `false` (comportement
+   * inchangé) sur les autres usages (`/parcours`, `/progression`), où cette
+   * carte reste la seule action de sa section.
+   */
+  hideCta?: boolean;
 }) {
   const includesListening = plan.steps.some((step) => step.lessonType === "ecoute");
   const stepCount = plan.steps.length;
@@ -97,13 +108,15 @@ export default function GuidedSessionCard({
         ))}
       </ol>
 
-      <Link
-        href={href}
-        className={cn(buttonClasses("primary", prominent ? "lg" : "md"), "mt-4 gap-1.5")}
-      >
-        {locked ? "Débloquer cette séance" : plan.isResuming ? "Continuer ma séance" : "Commencer ma séance"}
-        <ArrowRightIcon className="h-4 w-4" />
-      </Link>
+      {!hideCta ? (
+        <Link
+          href={href}
+          className={cn(buttonClasses("primary", prominent ? "lg" : "md"), "mt-4 gap-1.5")}
+        >
+          {locked ? "Débloquer cette séance" : plan.isResuming ? "Continuer ma séance" : "Commencer ma séance"}
+          <ArrowRightIcon className="h-4 w-4" />
+        </Link>
+      ) : null}
     </Card>
   );
 }
