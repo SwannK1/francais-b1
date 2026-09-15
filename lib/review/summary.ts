@@ -1,18 +1,29 @@
 import { classifySkillState } from "./engine";
-import type { ReviewHistoryEntry } from "./types";
+import type { ReviewHistoryEntry, ReviewState } from "./types";
 
 /**
  * Regroupe les 5 états fins du moteur (`ReviewState`) en 3 catégories
- * compréhensibles pour l'apprenant sur `/progression` — aucune nouvelle
- * règle de classification, seulement un regroupement d'états déjà calculés
- * par `classifySkillState` :
- * - `maitrisee` -> Acquis.
+ * pédagogiques compréhensibles pour l'apprenant — aucune nouvelle règle de
+ * classification, seulement un regroupement d'états déjà calculés par
+ * `classifySkillState`. Source unique utilisée par `/progression` (compte
+ * global) et `/reviser` (retour immédiat pendant une séance) — jamais deux
+ * définitions de ce qu'"acquis"/"à consolider"/"à revoir" signifie :
+ * - `maitrisee` -> Acquis / Maîtrisé.
  * - `en_apprentissage` -> À consolider (en cours, pas encore fiable).
  * - `fragile` et `a_revoir` -> À revoir (les deux représentent un vrai
  *   problème actuel : série d'erreurs / effondrement récent pour `fragile`,
  *   erreur isolée / maîtrise éventée / laissé de côté pour `a_revoir`).
  * - `nouvelle` (jamais pratiquée) est exclu : rien à classer encore.
  */
+export type MasteryBucket = "acquis" | "aConsolider" | "aRevoir";
+
+export function bucketForState(state: ReviewState): MasteryBucket | null {
+  if (state === "maitrisee") return "acquis";
+  if (state === "en_apprentissage") return "aConsolider";
+  if (state === "fragile" || state === "a_revoir") return "aRevoir";
+  return null; // "nouvelle" : rien à classer encore.
+}
+
 export interface MasterySummary {
   acquis: number;
   aConsolider: number;
@@ -26,20 +37,10 @@ export function summarizeMastery(entries: ReviewHistoryEntry[], now: Date = new 
   let aRevoir = 0;
 
   for (const entry of entries) {
-    switch (classifySkillState(entry, now)) {
-      case "maitrisee":
-        acquis++;
-        break;
-      case "en_apprentissage":
-        aConsolider++;
-        break;
-      case "fragile":
-      case "a_revoir":
-        aRevoir++;
-        break;
-      default:
-        break;
-    }
+    const bucket = bucketForState(classifySkillState(entry, now));
+    if (bucket === "acquis") acquis++;
+    else if (bucket === "aConsolider") aConsolider++;
+    else if (bucket === "aRevoir") aRevoir++;
   }
 
   return { acquis, aConsolider, aRevoir, total: acquis + aConsolider + aRevoir };

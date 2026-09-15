@@ -15,7 +15,7 @@ export {
   getConsolidationSuggestion,
 } from "./engine";
 export { buildReviewHistory } from "./adapter";
-export { summarizeMastery } from "./summary";
+export { bucketForState, summarizeMastery } from "./summary";
 export type {
   ReviewState,
   ReviewPriorityBand,
@@ -23,7 +23,7 @@ export type {
   ReviewPriority,
   ReviewRecommendation,
 } from "./types";
-export type { MasterySummary } from "./summary";
+export type { MasteryBucket, MasterySummary } from "./summary";
 
 import type { PublicModule, UserProgress } from "@/lib/pedagogy/types";
 import { buildReviewHistory } from "./adapter";

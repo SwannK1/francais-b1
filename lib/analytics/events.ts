@@ -32,6 +32,8 @@ export const ANALYTICS_EVENTS = [
   "exercise_completed",
   // Révision espacée (chantier spaced-review)
   "review_page_viewed",
+  "review_session_started",
+  "review_session_completed",
   // Séance du jour (chantier daily-session)
   "daily_session_started",
   "daily_session_completed",
@@ -94,4 +96,5 @@ export interface AnalyticsProperties {
   selfRating?: string;
   assessmentId?: string;
   diagnosticLevel?: string;
+  itemCount?: number;
 }
