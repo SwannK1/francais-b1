@@ -9785,6 +9785,990 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-famille-et-relations",
+    slug: "famille-et-relations",
+    level: "B1",
+    title: "Parler de sa famille et de ses relations",
+    description:
+      "À la fin de ce module, tu pourras décrire ta famille et tes proches, et parler de tes relations avec eux.",
+    objectives: [
+      "Décrire une personne proche (caractère, lien avec toi)",
+      "Accorder correctement les adjectifs",
+      "Parler de ses relations avec sa famille et ses proches",
+    ],
+    domain: "grammaire",
+    stageId: "b1-debut",
+    estimatedMinutes: 22,
+    situation:
+      "Karim présente sa famille et parle de ses relations avec ses proches à Sami, un nouveau collègue, autour d'un café.",
+    vocabulary: [
+      { term: "un frère / une sœur", category: "principal" },
+      { term: "des parents", category: "principal" },
+      { term: "un cousin / une cousine", category: "principal" },
+      { term: "des grands-parents", category: "principal" },
+      { term: "un beau-frère / une belle-sœur", category: "principal" },
+      { term: "se disputer", category: "verbe" },
+      { term: "se réconcilier", category: "verbe" },
+      { term: "soutenir", category: "verbe" },
+      { term: "s'entendre bien/mal avec quelqu'un", category: "expression" },
+      { term: "compter sur quelqu'un", category: "expression" },
+      { term: "garder contact", category: "expression" },
+      { term: "être proche de quelqu'un", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "L'accord de l'adjectif",
+        explanation:
+          "L'adjectif s'accorde toujours en genre et en nombre avec le nom qu'il décrit, même s'il est loin dans la phrase. En général : masculin + e = féminin (grand → grande), + s = pluriel (grand → grands). Certains adjectifs ont un féminin irrégulier : heureux → heureuse, gentil → gentille, sportif → sportive, actif → active.",
+      },
+      {
+        title: "Le pronom relatif « dont »",
+        explanation:
+          "« Dont » remplace un complément introduit par « de » : Je suis proche de ma grand-mère. → Ma grand-mère, dont je suis proche, me raconte des histoires. Il évite de répéter « de + nom » et relie deux informations sur la même personne.",
+      },
+    ],
+    examLinks: ["DELF B1 — production orale (monologue suivi)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "famille-et-relations-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "famille-et-relations-comprendre-activite",
+            title: "Lire la présentation de la famille de Léa",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "rel-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez le message dans lequel Léa parle de sa famille, puis répondez.",
+                text:
+                  "Ma famille est assez grande : j'ai deux frères et une sœur. Mon frère aîné, Thomas, vit à " +
+                  "Toulouse avec sa femme et leurs deux enfants. On s'entend très bien, même si on ne se voit pas " +
+                  "souvent. Ma sœur, Camille, est plus jeune que moi ; on se dispute parfois pour des petites " +
+                  "choses, mais on se réconcilie toujours vite. Le dimanche, toute la famille se retrouve chez mes " +
+                  "parents pour déjeuner ensemble. C'est un moment que j'aime beaucoup, surtout depuis que mes " +
+                  "grands-parents ont déménagé près de chez nous. Ma grand-mère, dont je suis très proche, me " +
+                  "raconte toujours des histoires de son enfance.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "rel-e-q1",
+                    prompt: "Combien de frères et sœurs a Léa ?",
+                    choices: [
+                      { id: "a", text: "Un frère et une sœur" },
+                      { id: "b", text: "Deux frères et une sœur" },
+                      { id: "c", text: "Trois frères" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Deux frères et une sœur",
+                      explanation: "Elle le précise au début : « j'ai deux frères et une sœur ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "rel-e-q2",
+                    prompt: "Vrai ou faux : Léa et sa sœur ne se disputent jamais.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle dit qu'elles se disputent parfois, mais se réconcilient toujours vite.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "rel-e-q3",
+                    prompt: "Où habite le frère aîné de Léa ?",
+                    expectedAnswer: "À Toulouse.",
+                    correction: {
+                      correctAnswer: "À Toulouse.",
+                      explanation: "Elle le précise juste après avoir mentionné son frère aîné, Thomas.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "rel-e-q4",
+                    prompt: "Pourquoi Léa aime-t-elle particulièrement le déjeuner du dimanche maintenant ?",
+                    choices: [
+                      { id: "a", text: "Parce que ses parents cuisinent très bien" },
+                      { id: "b", text: "Parce que ses grands-parents ont déménagé près de chez elle" },
+                      { id: "c", text: "Parce qu'elle y voit son frère aîné" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Parce que ses grands-parents ont déménagé près de chez elle",
+                      explanation: "Elle le précise : « surtout depuis que mes grands-parents ont déménagé près de chez nous ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "famille-et-relations-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "famille-et-relations-entrainement-activite",
+            title: "Accorder les adjectifs et parler de ses relations",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "rel-g1",
+                type: "qcm",
+                skillId: "gr-accord-adjectifs",
+                difficulty: "B1",
+                instructions: "Choisis la forme correcte de l'adjectif.",
+                question: {
+                  kind: "qcm",
+                  id: "rel-g1-q",
+                  prompt: "« Ma sœur est très ___. » (heureux)",
+                  choices: [
+                    { id: "a", text: "heureux" },
+                    { id: "b", text: "heureuse" },
+                    { id: "c", text: "heureuses" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "heureuse",
+                    explanation: "« Sœur » est féminin singulier : « heureux » devient « heureuse » (cas irrégulier -x → -se).",
+                  },
+                },
+              },
+              {
+                id: "rel-g2",
+                type: "texte_a_trous",
+                skillId: "gr-accord-adjectifs",
+                difficulty: "B1",
+                instructions: "Accorde les adjectifs entre parenthèses.",
+                textWithBlanks:
+                  "Mon frère est très {{1}} (sportif). Mes deux sœurs sont {{2}} (actif) et très {{3}} (gentil). " +
+                  "Ma mère est {{4}} (heureux) quand toute la famille est réunie.",
+                blanks: [
+                  { id: "1", answer: "sportif" },
+                  { id: "2", answer: "actives" },
+                  { id: "3", answer: "gentilles" },
+                  { id: "4", answer: "heureuse" },
+                ],
+                correction: {
+                  correctAnswer: "sportif — actives — gentilles — heureuse",
+                  explanation:
+                    "« sportif » reste identique au masculin singulier ; « actif » devient « actives » au féminin pluriel ; « gentil » devient « gentilles » au féminin pluriel ; « heureux » devient « heureuse » au féminin singulier.",
+                },
+              },
+              {
+                id: "rel-g3",
+                type: "association",
+                skillId: "voc-relations",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "s'entendre bien avec quelqu'un", right: "Avoir une bonne relation avec cette personne." },
+                  { id: "2", left: "se réconcilier", right: "Redevenir amis après une dispute." },
+                  { id: "3", left: "compter sur quelqu'un", right: "Pouvoir demander de l'aide à cette personne en cas de besoin." },
+                ],
+                correction: {
+                  correctAnswer: "1 → bonne relation ; 2 → redevenir amis ; 3 → pouvoir demander de l'aide.",
+                  explanation: "Chaque expression décrit une facette différente d'une relation : la qualité, la réparation après un conflit, la confiance.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "famille-et-relations-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "famille-et-relations-ecriture-activite",
+            title: "Décrire une personne proche par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "rel-h",
+                type: "production_ecrite",
+                skillId: "pe-decrire-personne",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Décris une personne proche de toi (un membre de ta famille ou un ami/une amie) : qui c'est, " +
+                  "comment elle est physiquement et de caractère, et pourquoi cette personne compte pour toi. " +
+                  "Utilise au moins trois adjectifs correctement accordés.",
+                minWords: 40,
+                maxWords: 80,
+                correctionCriteria: [
+                  "Qui est la personne et quel est ton lien avec elle (/2)",
+                  "Au moins trois adjectifs correctement accordés (/3)",
+                  "Une raison claire pour laquelle cette personne compte pour toi (/2)",
+                  "Phrases bien construites (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "famille-et-relations-ecriture-activite-orale",
+            title: "Présenter une personne proche à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "rel-h-oral",
+                type: "production_orale",
+                skillId: "pe-decrire-personne",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Présente à voix haute une personne de ta famille ou un ami/une amie proche, comme si tu la " +
+                  "présentais à un nouveau collègue.",
+                context: "Tu retrouves la situation de Karim et Sami : c'est à ton tour de présenter quelqu'un d'important pour toi.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai dit qui est cette personne et quel est mon lien avec elle.",
+                  "J'ai utilisé au moins deux adjectifs de description.",
+                  "Mes phrases sont compréhensibles d'un bout à l'autre.",
+                  "J'ai donné une raison pour laquelle cette personne compte pour moi.",
+                ],
+                tips: "Reprends la structure de ta production écrite, à voix haute, sans la lire mot à mot.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "famille-et-relations-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "famille-et-relations-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "rel-i1",
+                type: "qcm",
+                skillId: "gr-accord-adjectifs",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "rel-i1-q",
+                  prompt: "Quelle phrase est correcte ?",
+                  choices: [
+                    { id: "a", text: "Mes sœurs sont très active." },
+                    { id: "b", text: "Mes sœurs sont très actives." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Mes sœurs sont très actives.",
+                    explanation: "« Sœurs » est féminin pluriel : « actif » devient « actives ».",
+                  },
+                },
+              },
+              {
+                id: "rel-i2",
+                type: "reponse_courte",
+                skillId: "voc-relations",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel verbe utiliser pour dire qu'on redevient amis après une dispute : « se ___ » ?",
+                acceptedAnswers: ["réconcilier", "reconcilier"],
+                correction: {
+                  correctAnswer: "se réconcilier",
+                  explanation: "« Se réconcilier » = redevenir amis après une dispute.",
+                },
+              },
+              {
+                id: "rel-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le texte de Léa.",
+                statement: "Les grands-parents de Léa ont récemment déménagé loin de chez elle.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Au contraire, ils ont déménagé près de chez elle, ce qu'elle apprécie beaucoup.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-reagir-face-a-un-imprevu",
+    slug: "reagir-face-a-un-imprevu",
+    level: "B1",
+    title: "Réagir face à un imprévu",
+    description:
+      "À la fin de ce module, tu pourras raconter un imprévu (retard, panne, changement de dernière minute) et expliquer comment tu as réagi.",
+    objectives: [
+      "Raconter un imprévu avec le bon enchaînement de temps",
+      "Former et utiliser des adverbes en -ment",
+      "Réagir à voix haute face à une situation inattendue",
+    ],
+    domain: "grammaire",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 22,
+    situation:
+      "Amina raconte à son amie Sophie ce qui lui est arrivé ce matin : son train a été annulé au dernier moment, et elle a dû réagir rapidement.",
+    vocabulary: [
+      { term: "un imprévu", category: "principal" },
+      { term: "une panne", category: "principal" },
+      { term: "annuler", category: "verbe" },
+      { term: "retarder", category: "verbe" },
+      { term: "rater (son train, son bus...)", category: "verbe" },
+      { term: "se débrouiller", category: "verbe" },
+      { term: "prévenir quelqu'un", category: "verbe" },
+      { term: "trouver une solution", category: "expression" },
+      { term: "heureusement", category: "connecteur" },
+      { term: "malheureusement", category: "connecteur" },
+      { term: "du coup", category: "connecteur" },
+      { term: "tout à coup", category: "connecteur" },
+    ],
+    languagePoints: [
+      {
+        title: "Les adverbes en -ment",
+        explanation:
+          "Pour former un adverbe de manière, on ajoute -ment à l'adjectif au féminin : rapide → rapidement (le masculin et le féminin sont identiques ici), heureux → heureuse → heureusement. Pour un adjectif qui se termine par -ent ou -ant, l'adverbe se termine par -emment ou -amment : patient → patiemment, évident → évidemment, courant → couramment.",
+      },
+      {
+        title: "Interrompre un récit au passé : imparfait + passé composé",
+        explanation:
+          "Pour raconter qu'un événement soudain interrompt une situation en cours, on utilise l'imparfait pour la situation (le décor) et le passé composé pour l'événement soudain : J'attendais tranquillement sur le quai quand j'ai entendu l'annonce. « Quand » introduit souvent cette rencontre entre les deux temps.",
+      },
+    ],
+    examLinks: ["DELF B1 — production écrite (récit)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "reagir-face-a-un-imprevu-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "reagir-face-a-un-imprevu-comprendre-activite",
+            title: "Lire le récit d'Amina",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "imp-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez le message qu'Amina envoie à Sophie, puis répondez.",
+                text:
+                  "Ce matin, j'étais tranquillement en train d'attendre sur le quai de la gare quand une annonce " +
+                  "a interrompu mes pensées : mon train était annulé à cause d'une panne. Au début, j'ai paniqué " +
+                  "un peu, parce que j'avais un rendez-vous important à 9h. Heureusement, une dame à côté de moi " +
+                  "m'a expliqué qu'un bus de remplacement partait dans dix minutes. Du coup, je me suis dépêchée " +
+                  "et j'ai réussi à l'attraper de justesse. Finalement, je suis arrivée avec seulement quinze " +
+                  "minutes de retard, et mon rendez-vous s'est très bien passé malgré tout.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "imp-e-q1",
+                    prompt: "Pourquoi le train d'Amina a-t-il été annulé ?",
+                    choices: [
+                      { id: "a", text: "Il y avait trop de monde" },
+                      { id: "b", text: "À cause d'une panne" },
+                      { id: "c", text: "À cause de la météo" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "À cause d'une panne",
+                      explanation: "L'annonce précise : « mon train était annulé à cause d'une panne ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "imp-e-q2",
+                    prompt: "Vrai ou faux : Amina est arrivée très en retard à son rendez-vous.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle n'a eu que quinze minutes de retard, et le rendez-vous s'est bien passé.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "imp-e-q3",
+                    prompt: "Comment Amina a-t-elle finalement rejoint son rendez-vous ?",
+                    expectedAnswer: "En prenant un bus de remplacement.",
+                    correction: {
+                      correctAnswer: "En prenant un bus de remplacement.",
+                      explanation: "Une dame lui a indiqué ce bus, et elle l'a attrapé de justesse.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "imp-e-q4",
+                    prompt: "Qui a aidé Amina à trouver une solution ?",
+                    choices: [
+                      { id: "a", text: "Le contrôleur du train" },
+                      { id: "b", text: "Une dame sur le quai" },
+                      { id: "c", text: "Son collègue" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Une dame sur le quai",
+                      explanation: "« Une dame à côté de moi m'a expliqué qu'un bus de remplacement partait. »",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "reagir-face-a-un-imprevu-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "reagir-face-a-un-imprevu-entrainement-activite",
+            title: "Adverbes en -ment et récit d'un imprévu",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "imp-g1",
+                type: "qcm",
+                skillId: "gr-adverbes-maniere",
+                difficulty: "B1",
+                instructions: "Quel est l'adverbe formé à partir de « rapide » ?",
+                question: {
+                  kind: "qcm",
+                  id: "imp-g1-q",
+                  prompt: "« rapide » →",
+                  choices: [
+                    { id: "a", text: "rapidement" },
+                    { id: "b", text: "rapidment" },
+                    { id: "c", text: "rapidemment" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "rapidement",
+                    explanation: "« Rapide » se termine déjà par -e : on ajoute simplement -ment.",
+                  },
+                },
+              },
+              {
+                id: "imp-g2",
+                type: "texte_a_trous",
+                skillId: "gr-adverbes-maniere",
+                difficulty: "B1",
+                instructions: "Complète avec l'adverbe formé à partir de l'adjectif entre parenthèses.",
+                textWithBlanks:
+                  "Elle a réagi très {{1}} (calme) face à l'imprévu. Il a {{2}} (évident) compris la situation. " +
+                  "Nous avons {{3}} (patient) attendu le bus. Heureusement, tout s'est {{4}} (final) bien passé.",
+                blanks: [
+                  { id: "1", answer: "calmement" },
+                  { id: "2", answer: "évidemment" },
+                  { id: "3", answer: "patiemment" },
+                  { id: "4", answer: "finalement" },
+                ],
+                correction: {
+                  correctAnswer: "calmement — évidemment — patiemment — finalement",
+                  explanation:
+                    "« calme » finit par -e : + ment. « évident » et « patient » finissent par -ent : → -emment. « final » → « finalement ».",
+                },
+              },
+              {
+                id: "imp-g3",
+                type: "remise_en_ordre",
+                skillId: "gr-passe-compose-imparfait",
+                difficulty: "B1",
+                instructions: "Remets les événements du récit d'Amina dans l'ordre chronologique.",
+                items: [
+                  { id: "1", text: "Amina attendait tranquillement sur le quai." },
+                  { id: "2", text: "Une annonce a interrompu ses pensées." },
+                  { id: "3", text: "Une dame lui a parlé d'un bus de remplacement." },
+                  { id: "4", text: "Amina s'est dépêchée pour attraper le bus." },
+                  { id: "5", text: "Elle est arrivée avec du retard, mais son rendez-vous s'est bien passé." },
+                ],
+                correctOrder: ["1", "2", "3", "4", "5"],
+                correction: {
+                  correctAnswer: "1 → 2 → 3 → 4 → 5",
+                  explanation: "L'imparfait pose le décor (elle attendait), puis le passé composé enchaîne les événements dans l'ordre où ils se sont produits.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "reagir-face-a-un-imprevu-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "reagir-face-a-un-imprevu-ecriture-activite",
+            title: "Raconter un imprévu par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "imp-h",
+                type: "production_ecrite",
+                skillId: "pe-raconter-imprevu",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Raconte un imprévu que tu as vécu récemment (un empêchement, un problème, une surprise) : ce " +
+                  "que tu faisais, ce qui s'est passé, et comment tu as réagi. Utilise au moins deux adverbes en " +
+                  "-ment et l'imparfait pour poser le décor.",
+                minWords: 40,
+                maxWords: 80,
+                correctionCriteria: [
+                  "Situation de départ posée à l'imparfait (/2)",
+                  "Événement imprévu raconté au passé composé (/2)",
+                  "Au moins deux adverbes en -ment (/2)",
+                  "Récit cohérent avec des connecteurs (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "reagir-face-a-un-imprevu-ecriture-activite-orale",
+            title: "Raconter un imprévu à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "imp-h-oral",
+                type: "production_orale",
+                skillId: "pe-raconter-imprevu",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Raconte à voix haute un imprévu que tu as vécu (retard, panne, changement de dernière minute...).",
+                context: "Comme Amina avec Sophie : tu racontes ce qui s'est passé à un ami ou une amie.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai posé la situation de départ à l'imparfait.",
+                  "J'ai raconté l'événement imprévu au passé composé.",
+                  "J'ai utilisé au moins un adverbe en -ment.",
+                  "Mon récit est compréhensible du début à la fin.",
+                ],
+                tips: "Réutilise les idées de ta production écrite, mais raconte-les naturellement, sans les lire.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "reagir-face-a-un-imprevu-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "reagir-face-a-un-imprevu-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "imp-i1",
+                type: "qcm",
+                skillId: "gr-adverbes-maniere",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "imp-i1-q",
+                  prompt: "Quel adverbe correspond à « heureux » ?",
+                  choices: [
+                    { id: "a", text: "heureusement" },
+                    { id: "b", text: "heureuxment" },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "heureusement",
+                    explanation: "« heureux » → féminin « heureuse » → adverbe « heureusement ».",
+                  },
+                },
+              },
+              {
+                id: "imp-i2",
+                type: "reponse_courte",
+                skillId: "voc-imprevus",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne un événement soudain et non prévu : « un ___ » ?",
+                acceptedAnswers: ["imprévu", "imprevu"],
+                correction: {
+                  correctAnswer: "un imprévu",
+                  explanation: "« Un imprévu » est un événement qu'on n'avait pas prévu, souvent une contrariété.",
+                },
+              },
+              {
+                id: "imp-i3",
+                type: "vrai_faux",
+                skillId: "gr-passe-compose-imparfait",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le récit d'Amina.",
+                statement: "Amina a raté son rendez-vous à cause du train annulé.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Elle est arrivée avec seulement quinze minutes de retard, et le rendez-vous s'est bien passé.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-medias-et-environnement",
+    slug: "medias-et-environnement",
+    level: "B1",
+    title: "S'informer et agir pour l'environnement",
+    description:
+      "À la fin de ce module, tu pourras parler des sources d'information et des fausses informations, et décrire des gestes écologiques du quotidien.",
+    objectives: [
+      "Comprendre un échange sur les médias et l'environnement",
+      "Utiliser le vocabulaire de l'information et des gestes écologiques",
+      "Informer ou sensibiliser quelqu'un sur un sujet simple",
+    ],
+    domain: "vocabulaire",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 22,
+    situation:
+      "Marion partage un article sur les fausses informations en ligne, et Karim lui parle des gestes écologiques qu'il essaie d'adopter au quotidien.",
+    vocabulary: [
+      { term: "une source d'information", category: "principal" },
+      { term: "un réseau social", category: "principal" },
+      { term: "une fausse information", category: "principal" },
+      { term: "vérifier", category: "verbe" },
+      { term: "partager (une information)", category: "verbe" },
+      { term: "informer", category: "verbe" },
+      { term: "le réchauffement climatique", category: "principal" },
+      { term: "trier ses déchets", category: "expression" },
+      { term: "gaspiller", category: "verbe" },
+      { term: "un geste écologique", category: "principal" },
+    ],
+    languagePoints: [
+      {
+        title: "Une famille de mots : informer",
+        explanation:
+          "À partir du verbe informer, on forme plusieurs mots utiles : une information (nom), informé(e) (adjectif), un informateur / une informatrice (personne qui informe). Reconnaître une famille de mots aide à deviner le sens d'un mot nouveau et à enrichir son vocabulaire plus vite.",
+      },
+      {
+        title: "Les verbes de l'écologie au quotidien",
+        explanation:
+          "trier (séparer les déchets pour le recyclage), économiser (consommer moins d'eau ou d'énergie), gaspiller (le contraire d'économiser : utiliser sans faire attention), réduire (diminuer une quantité). Ces verbes reviennent souvent dans les gestes écologiques du quotidien.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension écrite (texte informatif)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "medias-et-environnement-comprendre",
+        type: "comprendre",
+        title: "Compréhension écrite",
+        optional: false,
+        activities: [
+          {
+            id: "medias-et-environnement-comprendre-activite",
+            title: "Lire l'échange entre Marion et Karim",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "medi-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez l'échange entre Marion et Karim, puis répondez.",
+                text:
+                  "Marion : Je viens de lire un article très intéressant sur les fausses informations qui " +
+                  "circulent sur les réseaux sociaux. Apparemment, une fausse information se partage beaucoup " +
+                  "plus vite qu'une vraie, parce qu'elle est souvent plus surprenante. Moi, maintenant, avant de " +
+                  "partager quoi que ce soit, je vérifie toujours la source. — Karim : C'est une bonne habitude ! " +
+                  "De mon côté, je fais plus attention à l'environnement en ce moment. Je trie mes déchets, " +
+                  "j'essaie de ne plus gaspiller l'eau, et j'ai même commencé à prendre le vélo pour aller au " +
+                  "travail. Ce sont de petits gestes, mais je pense que si tout le monde s'y mettait, ça " +
+                  "changerait vraiment quelque chose pour le réchauffement climatique.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "medi-e-q1",
+                    prompt: "Pourquoi une fausse information se partage-t-elle vite, selon l'article que Marion a lu ?",
+                    choices: [
+                      { id: "a", text: "Parce qu'elle est courte" },
+                      { id: "b", text: "Parce qu'elle est souvent surprenante" },
+                      { id: "c", text: "Parce qu'elle est écrite simplement" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Parce qu'elle est souvent surprenante",
+                      explanation: "Marion le précise : « elle est souvent plus surprenante ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "medi-e-q2",
+                    prompt: "Vrai ou faux : Marion vérifie la source avant de partager une information.",
+                    correctAnswer: true,
+                    correction: {
+                      correctAnswer: "Vrai.",
+                      explanation: "Elle le dit directement : « avant de partager quoi que ce soit, je vérifie toujours la source ».",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "medi-e-q3",
+                    prompt: "Cite deux gestes écologiques mentionnés par Karim.",
+                    expectedAnswer: "Trier ses déchets et prendre le vélo (ou ne plus gaspiller l'eau).",
+                    correction: {
+                      correctAnswer: "Trier ses déchets, ne plus gaspiller l'eau, prendre le vélo.",
+                      explanation: "Karim mentionne les trois : trier ses déchets, ne plus gaspiller l'eau, et prendre le vélo pour aller au travail.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "medi-e-q4",
+                    prompt: "D'après Karim, qu'est-ce qui pourrait vraiment changer les choses pour le climat ?",
+                    choices: [
+                      { id: "a", text: "Que les gouvernements agissent seuls" },
+                      { id: "b", text: "Que tout le monde adopte ces petits gestes" },
+                      { id: "c", text: "Que les entreprises changent leurs produits" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Que tout le monde adopte ces petits gestes",
+                      explanation: "Il le dit : « si tout le monde s'y mettait, ça changerait vraiment quelque chose ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "medias-et-environnement-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "medias-et-environnement-entrainement-activite",
+            title: "Vocabulaire des médias et de l'environnement",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "medi-g1",
+                type: "qcm",
+                skillId: "voc-medias",
+                difficulty: "B1",
+                instructions: "Que signifie « vérifier une information » ?",
+                question: {
+                  kind: "qcm",
+                  id: "medi-g1-q",
+                  prompt: "« vérifier une information », c'est :",
+                  choices: [
+                    { id: "a", text: "La partager rapidement" },
+                    { id: "b", text: "S'assurer qu'elle est exacte" },
+                    { id: "c", text: "L'oublier" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "S'assurer qu'elle est exacte",
+                    explanation: "« Vérifier » = contrôler qu'une chose est vraie ou correcte avant d'y faire confiance.",
+                  },
+                },
+              },
+              {
+                id: "medi-g2",
+                type: "texte_a_trous",
+                skillId: "voc-environnement",
+                difficulty: "B1",
+                instructions: "Complète avec trier, gaspiller, économiser ou réduire.",
+                textWithBlanks:
+                  "Pour protéger l'environnement, on peut {{1}} ses déchets, {{2}} l'eau et l'électricité, et " +
+                  "éviter de {{3}} la nourriture. On peut aussi {{4}} sa consommation de plastique.",
+                blanks: [
+                  { id: "1", answer: "trier" },
+                  { id: "2", answer: "économiser" },
+                  { id: "3", answer: "gaspiller" },
+                  { id: "4", answer: "réduire" },
+                ],
+                correction: {
+                  correctAnswer: "trier — économiser — gaspiller — réduire",
+                  explanation: "trier ses déchets (les séparer), économiser (consommer moins), gaspiller (le contraire d'économiser), réduire (diminuer une quantité).",
+                },
+              },
+              {
+                id: "medi-g3",
+                type: "association",
+                skillId: "voc-medias",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "une fausse information", right: "Une information incorrecte présentée comme vraie." },
+                  { id: "2", left: "une source d'information", right: "Le site, journal ou personne d'où vient une information." },
+                  { id: "3", left: "partager une information", right: "La transmettre à d'autres personnes, par exemple sur les réseaux sociaux." },
+                ],
+                correction: {
+                  correctAnswer: "1 → information incorrecte ; 2 → d'où vient l'information ; 3 → la transmettre.",
+                  explanation: "Ces trois mots sont essentiels pour parler de la fiabilité d'une information.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "medias-et-environnement-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "medias-et-environnement-ecriture-activite",
+            title: "Informer par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "medi-h",
+                type: "production_ecrite",
+                skillId: "pe-informer-sensibiliser",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Rédige un court message (pour un groupe ou un réseau social) pour informer tes proches sur UN " +
+                  "sujet : soit comment reconnaître une fausse information, soit un geste écologique simple à " +
+                  "adopter. Utilise au moins trois mots de vocabulaire du module.",
+                minWords: 40,
+                maxWords: 80,
+                correctionCriteria: [
+                  "Sujet clairement annoncé (/2)",
+                  "Au moins trois mots de vocabulaire du module (/2)",
+                  "Message clair et utile pour le lecteur (/2)",
+                  "Phrases bien construites (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "medias-et-environnement-ecriture-activite-orale",
+            title: "Informer à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "medi-h-oral",
+                type: "production_orale",
+                skillId: "pe-informer-sensibiliser",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Présente à voix haute un conseil pour reconnaître une fausse information OU un geste " +
+                  "écologique simple, comme si tu en parlais à un ami ou une amie.",
+                context: "Comme Marion et Karim : partage une astuce utile que tu appliques ou que tu voudrais essayer.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai clairement présenté un conseil ou un geste.",
+                  "J'ai utilisé au moins deux mots de vocabulaire du module.",
+                  "Mes phrases sont compréhensibles d'un bout à l'autre.",
+                  "J'ai expliqué pourquoi ce conseil ou ce geste est utile.",
+                ],
+                tips: "Choisis un seul sujet (médias ou environnement) pour rester clair, comme dans ta production écrite.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "medias-et-environnement-evaluation",
+        type: "evaluation",
+        title: "Faire le point",
+        optional: false,
+        activities: [
+          {
+            id: "medias-et-environnement-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "vocabulaire",
+            exercises: [
+              {
+                id: "medi-i1",
+                type: "qcm",
+                skillId: "voc-medias",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "medi-i1-q",
+                  prompt: "Quel mot désigne une information fausse présentée comme vraie ?",
+                  choices: [
+                    { id: "a", text: "Une source" },
+                    { id: "b", text: "Une fausse information" },
+                    { id: "c", text: "Un article" },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Une fausse information",
+                    explanation: "C'est la définition même du terme.",
+                  },
+                },
+              },
+              {
+                id: "medi-i2",
+                type: "reponse_courte",
+                skillId: "voc-environnement",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel verbe signifie le contraire d'« économiser » : « ___ » ?",
+                acceptedAnswers: ["gaspiller"],
+                correction: {
+                  correctAnswer: "gaspiller",
+                  explanation: "« Gaspiller » = utiliser sans faire attention, le contraire d'« économiser ».",
+                },
+              },
+              {
+                id: "medi-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'échange entre Marion et Karim.",
+                statement: "Karim ne fait aucun geste pour l'environnement.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Il trie ses déchets, évite de gaspiller l'eau, et prend le vélo pour aller au travail.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   ...MODULES_A1,
   ...MODULES_A2,
 ];

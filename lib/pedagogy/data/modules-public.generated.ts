@@ -4153,6 +4153,423 @@ export const PUBLIC_MODULES: PublicModule[] = [
     "totalExercises": 10
   },
   {
+    "id": "b1-famille-et-relations",
+    "slug": "famille-et-relations",
+    "level": "B1",
+    "title": "Parler de sa famille et de ses relations",
+    "description": "À la fin de ce module, tu pourras décrire ta famille et tes proches, et parler de tes relations avec eux.",
+    "objectives": [
+      "Décrire une personne proche (caractère, lien avec toi)",
+      "Accorder correctement les adjectifs",
+      "Parler de ses relations avec sa famille et ses proches"
+    ],
+    "domain": "grammaire",
+    "stageId": "b1-debut",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "famille-et-relations-comprendre",
+        "type": "comprendre",
+        "title": "Compréhension écrite",
+        "optional": false,
+        "activities": [
+          {
+            "id": "famille-et-relations-comprendre-activite",
+            "title": "Lire la présentation de la famille de Léa",
+            "skillDomain": "comprehension_ecrite",
+            "exercises": [
+              {
+                "id": "rel-e",
+                "type": "comprehension_ecrite",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "famille-et-relations-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "famille-et-relations-entrainement-activite",
+            "title": "Accorder les adjectifs et parler de ses relations",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "rel-g1",
+                "type": "qcm",
+                "skillId": "gr-accord-adjectifs",
+                "difficulty": "B1"
+              },
+              {
+                "id": "rel-g2",
+                "type": "texte_a_trous",
+                "skillId": "gr-accord-adjectifs",
+                "difficulty": "B1"
+              },
+              {
+                "id": "rel-g3",
+                "type": "association",
+                "skillId": "voc-relations",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "famille-et-relations-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "famille-et-relations-ecriture-activite",
+            "title": "Décrire une personne proche par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "rel-h",
+                "type": "production_ecrite",
+                "skillId": "pe-decrire-personne",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "famille-et-relations-ecriture-activite-orale",
+            "title": "Présenter une personne proche à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "rel-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-decrire-personne",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "famille-et-relations-evaluation",
+        "type": "evaluation",
+        "title": "Faire le point",
+        "optional": false,
+        "activities": [
+          {
+            "id": "famille-et-relations-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "rel-i1",
+                "type": "qcm",
+                "skillId": "gr-accord-adjectifs",
+                "difficulty": "B1"
+              },
+              {
+                "id": "rel-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-relations",
+                "difficulty": "B1"
+              },
+              {
+                "id": "rel-i3",
+                "type": "vrai_faux",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-reagir-face-a-un-imprevu",
+    "slug": "reagir-face-a-un-imprevu",
+    "level": "B1",
+    "title": "Réagir face à un imprévu",
+    "description": "À la fin de ce module, tu pourras raconter un imprévu (retard, panne, changement de dernière minute) et expliquer comment tu as réagi.",
+    "objectives": [
+      "Raconter un imprévu avec le bon enchaînement de temps",
+      "Former et utiliser des adverbes en -ment",
+      "Réagir à voix haute face à une situation inattendue"
+    ],
+    "domain": "grammaire",
+    "stageId": "b1-intermediaire",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "reagir-face-a-un-imprevu-comprendre",
+        "type": "comprendre",
+        "title": "Compréhension écrite",
+        "optional": false,
+        "activities": [
+          {
+            "id": "reagir-face-a-un-imprevu-comprendre-activite",
+            "title": "Lire le récit d'Amina",
+            "skillDomain": "comprehension_ecrite",
+            "exercises": [
+              {
+                "id": "imp-e",
+                "type": "comprehension_ecrite",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "reagir-face-a-un-imprevu-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "reagir-face-a-un-imprevu-entrainement-activite",
+            "title": "Adverbes en -ment et récit d'un imprévu",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "imp-g1",
+                "type": "qcm",
+                "skillId": "gr-adverbes-maniere",
+                "difficulty": "B1"
+              },
+              {
+                "id": "imp-g2",
+                "type": "texte_a_trous",
+                "skillId": "gr-adverbes-maniere",
+                "difficulty": "B1"
+              },
+              {
+                "id": "imp-g3",
+                "type": "remise_en_ordre",
+                "skillId": "gr-passe-compose-imparfait",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "reagir-face-a-un-imprevu-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "reagir-face-a-un-imprevu-ecriture-activite",
+            "title": "Raconter un imprévu par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "imp-h",
+                "type": "production_ecrite",
+                "skillId": "pe-raconter-imprevu",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "reagir-face-a-un-imprevu-ecriture-activite-orale",
+            "title": "Raconter un imprévu à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "imp-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-raconter-imprevu",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "reagir-face-a-un-imprevu-evaluation",
+        "type": "evaluation",
+        "title": "Faire le point",
+        "optional": false,
+        "activities": [
+          {
+            "id": "reagir-face-a-un-imprevu-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "imp-i1",
+                "type": "qcm",
+                "skillId": "gr-adverbes-maniere",
+                "difficulty": "B1"
+              },
+              {
+                "id": "imp-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-imprevus",
+                "difficulty": "B1"
+              },
+              {
+                "id": "imp-i3",
+                "type": "vrai_faux",
+                "skillId": "gr-passe-compose-imparfait",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-medias-et-environnement",
+    "slug": "medias-et-environnement",
+    "level": "B1",
+    "title": "S'informer et agir pour l'environnement",
+    "description": "À la fin de ce module, tu pourras parler des sources d'information et des fausses informations, et décrire des gestes écologiques du quotidien.",
+    "objectives": [
+      "Comprendre un échange sur les médias et l'environnement",
+      "Utiliser le vocabulaire de l'information et des gestes écologiques",
+      "Informer ou sensibiliser quelqu'un sur un sujet simple"
+    ],
+    "domain": "vocabulaire",
+    "stageId": "b1-consolidation",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "medias-et-environnement-comprendre",
+        "type": "comprendre",
+        "title": "Compréhension écrite",
+        "optional": false,
+        "activities": [
+          {
+            "id": "medias-et-environnement-comprendre-activite",
+            "title": "Lire l'échange entre Marion et Karim",
+            "skillDomain": "comprehension_ecrite",
+            "exercises": [
+              {
+                "id": "medi-e",
+                "type": "comprehension_ecrite",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "medias-et-environnement-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "medias-et-environnement-entrainement-activite",
+            "title": "Vocabulaire des médias et de l'environnement",
+            "skillDomain": "vocabulaire",
+            "exercises": [
+              {
+                "id": "medi-g1",
+                "type": "qcm",
+                "skillId": "voc-medias",
+                "difficulty": "B1"
+              },
+              {
+                "id": "medi-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-environnement",
+                "difficulty": "B1"
+              },
+              {
+                "id": "medi-g3",
+                "type": "association",
+                "skillId": "voc-medias",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "medias-et-environnement-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "medias-et-environnement-ecriture-activite",
+            "title": "Informer par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "medi-h",
+                "type": "production_ecrite",
+                "skillId": "pe-informer-sensibiliser",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "medias-et-environnement-ecriture-activite-orale",
+            "title": "Informer à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "medi-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-informer-sensibiliser",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "medias-et-environnement-evaluation",
+        "type": "evaluation",
+        "title": "Faire le point",
+        "optional": false,
+        "activities": [
+          {
+            "id": "medias-et-environnement-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "vocabulaire",
+            "exercises": [
+              {
+                "id": "medi-i1",
+                "type": "qcm",
+                "skillId": "voc-medias",
+                "difficulty": "B1"
+              },
+              {
+                "id": "medi-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-environnement",
+                "difficulty": "B1"
+              },
+              {
+                "id": "medi-i3",
+                "type": "vrai_faux",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
     "id": "a1-se-presenter",
     "slug": "se-presenter-a1",
     "level": "A1",
