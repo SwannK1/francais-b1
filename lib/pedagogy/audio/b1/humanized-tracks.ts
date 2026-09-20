@@ -259,6 +259,66 @@ export const B1_HUMANIZED_TRACKS: B1HumanizedTrack[] = [
       { speaker: "Nadia", voiceId: "voix-b", text: "Parfait, je vais préparer ça dès cette semaine. Merci beaucoup pour ces informations !" },
     ],
   },
+  // 4 nouvelles pistes (pas des réécritures) — même pipeline de synthèse,
+  // chantier "première vague de nouveaux modules B1" (situations réelles :
+  // santé, transports, logement, travail).
+  {
+    id: "pharma-e",
+    filename: "comprendre-instructions-pharmacien.m4a",
+    rateWpm: 175,
+    turns: [
+      { speaker: "Marc", voiceId: "voix-a", text: "Bonjour, je viens chercher mon ordonnance, s'il vous plaît." },
+      { speaker: "Mme Rousseau", voiceId: "voix-c", text: "Bonjour ! Voilà, c'est pour trois médicaments. Alors, celui-ci, c'est un comprimé matin et soir, à prendre pendant les repas." },
+      { speaker: "Marc", voiceId: "voix-a", text: "D'accord. Et les deux autres ?" },
+      { speaker: "Mme Rousseau", voiceId: "voix-c", text: "Celui-là, c'est un seul comprimé le matin, à jeun, avant le petit-déjeuner. Et le dernier, seulement si vous avez de la fièvre, pas plus de trois fois par jour." },
+      { speaker: "Marc", voiceId: "voix-a", text: "Si je comprends bien, je dois prendre le premier avec les repas, et le deuxième avant de manger le matin ?" },
+      { speaker: "Mme Rousseau", voiceId: "voix-c", text: "Exactement. Et si les symptômes persistent après cinq jours, il faut consulter à nouveau votre médecin." },
+      { speaker: "Marc", voiceId: "voix-a", text: "Très bien, merci beaucoup pour ces explications." },
+    ],
+  },
+  {
+    id: "chemin-e",
+    filename: "demander-son-chemin.m4a",
+    rateWpm: 175,
+    turns: [
+      { speaker: "Sophie", voiceId: "voix-b", text: "Excusez-moi, je cherche la gare, je crois que je me suis perdue... vous pouvez m'aider ?" },
+      { speaker: "M. Diallo", voiceId: "voix-a", text: "Bien sûr ! Alors, vous continuez tout droit jusqu'au rond-point, là-bas." },
+      { speaker: "Sophie", voiceId: "voix-b", text: "D'accord, jusqu'au rond-point." },
+      { speaker: "M. Diallo", voiceId: "voix-a", text: "Oui, et au rond-point, vous prenez la deuxième sortie, la rue de la République. Vous la suivez jusqu'au bout." },
+      { speaker: "Sophie", voiceId: "voix-b", text: "Et ensuite ?" },
+      { speaker: "M. Diallo", voiceId: "voix-a", text: "Ensuite, vous verrez un grand carrefour avec des feux. La gare est juste en face, vous ne pouvez pas la rater." },
+      { speaker: "Sophie", voiceId: "voix-b", text: "Parfait, donc tout droit, rond-point, deuxième sortie, puis tout droit jusqu'aux feux ?" },
+      { speaker: "M. Diallo", voiceId: "voix-a", text: "C'est exactement ça ! Ça vous prendra environ dix minutes à pied." },
+      { speaker: "Sophie", voiceId: "voix-b", text: "Merci beaucoup, vous m'avez beaucoup aidée !" },
+    ],
+  },
+  {
+    id: "panne-e",
+    filename: "signaler-une-panne-logement.m4a",
+    rateWpm: 175,
+    turns: [
+      { speaker: "Julie", voiceId: "voix-b", text: "Bonjour Monsieur Petit, c'est Julie, la locataire du deuxième étage. Je vous appelle parce que le chauffe-eau est en panne." },
+      { speaker: "M. Petit", voiceId: "voix-a", text: "Ah, bonjour Julie. Depuis quand exactement ?" },
+      { speaker: "Julie", voiceId: "voix-b", text: "Depuis avant-hier soir. L'eau était chaude comme d'habitude, et puis d'un coup, elle est devenue froide." },
+      { speaker: "M. Petit", voiceId: "voix-a", text: "D'accord, je vois. Vous avez de l'eau froide qui fonctionne, au moins ?" },
+      { speaker: "Julie", voiceId: "voix-b", text: "Oui, ça, pas de problème. C'est juste l'eau chaude." },
+      { speaker: "M. Petit", voiceId: "voix-a", text: "Très bien, je vais appeler un artisan aujourd'hui même. Il devrait pouvoir passer demain matin, si ça vous va." },
+      { speaker: "Julie", voiceId: "voix-b", text: "Oui, parfait, je serai chez moi le matin. Merci beaucoup de réagir aussi vite." },
+      { speaker: "M. Petit", voiceId: "voix-a", text: "Je vous en prie, je m'en occupe. Je vous confirme l'heure de passage dès que je l'ai." },
+    ],
+  },
+  {
+    id: "absen-e",
+    filename: "prevenir-absence-travail.m4a",
+    rateWpm: 175,
+    turns: [
+      {
+        speaker: "Karim",
+        voiceId: "voix-a",
+        text: "Bonjour Madame Lefort, c'est Karim. Je suis désolé de vous prévenir si tard, mais je suis malade ce matin, j'ai beaucoup de fièvre. Je ne pourrai pas venir travailler aujourd'hui. Je pense que Marie pourrait peut-être me remplacer sur la réunion de dix heures, elle connaît bien le dossier. Je reste joignable par téléphone si besoin, et je vous tiens au courant dès que je vais mieux. Merci de votre compréhension, à bientôt.",
+      },
+    ],
+  },
 ];
 
 /**

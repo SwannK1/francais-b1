@@ -447,6 +447,42 @@ export const SKILLS: Skill[] = [
     name: "Demander des informations sur une formation",
     description: "Demander par écrit ou à l'oral des informations précises sur une formation avant de s'inscrire.",
   },
+  {
+    id: "pe-reformuler-consignes",
+    domain: "production_ecrite",
+    name: "Reformuler une consigne",
+    description: "Reformuler des instructions reçues pour vérifier qu'on les a bien comprises.",
+  },
+  {
+    id: "pe-demander-itineraire",
+    domain: "production_ecrite",
+    name: "Demander ou donner un itinéraire",
+    description: "Demander son chemin ou expliquer un itinéraire avec des indications précises.",
+  },
+  {
+    id: "pe-expliquer-situation-guichet",
+    domain: "production_ecrite",
+    name: "Expliquer sa situation à un guichet",
+    description: "Expliquer sa situation personnelle et formuler une demande précise dans un contexte administratif.",
+  },
+  {
+    id: "pe-signaler-panne-logement",
+    domain: "production_ecrite",
+    name: "Signaler une panne dans son logement",
+    description: "Décrire une panne à son propriétaire et demander une intervention.",
+  },
+  {
+    id: "pe-prevenir-absence",
+    domain: "production_ecrite",
+    name: "Prévenir d'une absence au travail",
+    description: "Prévenir un responsable d'une absence de façon professionnelle et proposer une solution.",
+  },
+  {
+    id: "pe-modifier-rdv",
+    domain: "production_ecrite",
+    name: "Déplacer ou annuler un rendez-vous",
+    description: "Demander poliment à déplacer ou annuler un rendez-vous, et réagir à une nouvelle proposition.",
+  },
   ...SKILLS_A1,
   ...SKILLS_A2,
 ];

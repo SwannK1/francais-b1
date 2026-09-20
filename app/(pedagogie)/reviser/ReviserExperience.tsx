@@ -153,9 +153,6 @@ export default function ReviserExperience() {
   const sessionCandidates: ReviewRecommendation[] =
     skillRecommendations.length > 0 ? skillRecommendations : consolidationSuggestion ? [consolidationSuggestion] : [];
 
-  const hasAnything =
-    flaggedModules.length > 0 || sessionCandidates.length > 0 || examSections.length > 0;
-
   // Le contenu réel des exercices vit dans le catalogue privé, jamais
   // exposé au client (voir docs/architecture/user-lifecycle.md § Premium
   // content boundary) : on ne peut proposer d'embarquer dans la séance que
@@ -168,6 +165,19 @@ export default function ReviserExperience() {
       return mod ? canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil) : false;
     })
     .slice(0, MAX_SESSION_SIZE);
+
+  // Basé sur ce qui va réellement s'afficher plus bas (`sessionPool`,
+  // `skillRecommendations`), pas sur `sessionCandidates` brut : une
+  // suggestion de consolidation unique dont le module n'est pas accessible
+  // à ce compte disparaît au filtrage `canAccess` ci-dessus sans qu'aucune
+  // autre section n'ait de contenu — sans ce garde-fou la page se
+  // retrouvait vide (ni séance, ni « Tu es à jour ») au lieu de retomber
+  // sur l'état "à jour".
+  const hasAnything =
+    flaggedModules.length > 0 ||
+    sessionPool.length > 0 ||
+    skillRecommendations.length > 0 ||
+    examSections.length > 0;
 
   const currentItem = sessionItems?.[sessionIndex] ?? null;
   const currentEntry = currentItem

@@ -11099,6 +11099,1984 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-comprendre-instructions-pharmacien",
+    slug: "comprendre-instructions-pharmacien",
+    level: "B1",
+    title: "Comprendre les instructions d'un pharmacien",
+    description:
+      "À la fin de ce module, tu pourras comprendre des instructions de posologie, reformuler une consigne médicale et poser une question de clarification.",
+    objectives: [
+      "Comprendre des instructions de posologie",
+      "Reformuler une consigne pour vérifier sa compréhension",
+      "Poser une question de clarification sur un traitement",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-debut",
+    estimatedMinutes: 22,
+    situation:
+      "Marc va chercher son traitement à la pharmacie. La pharmacienne lui explique comment prendre ses médicaments et quels effets surveiller.",
+    vocabulary: [
+      { term: "un comprimé", category: "principal" },
+      { term: "une ordonnance", category: "principal" },
+      { term: "la posologie", category: "principal" },
+      { term: "un effet secondaire", category: "principal" },
+      { term: "à jeun", category: "principal" },
+      { term: "« avant / après le repas »", category: "expression" },
+      { term: "« matin, midi et soir »", category: "expression" },
+      { term: "« si les symptômes persistent »", category: "expression" },
+      { term: "prendre (un médicament)", category: "verbe" },
+      { term: "avaler", category: "verbe" },
+      { term: "arrêter (un traitement)", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Donner une consigne avec l'impératif",
+        explanation:
+          "Pour donner une instruction claire, on utilise l'impératif : Prenez un comprimé matin et soir. N'arrêtez pas le traitement sans avis médical. Plus direct et plus clair qu'une phrase avec « il faut ».",
+      },
+      {
+        title: "Vérifier sa compréhension : reformuler",
+        explanation:
+          "Pour être sûr d'avoir bien compris, on peut reformuler ce qu'on a entendu : Si je comprends bien, je dois prendre un comprimé le matin ? Cette formule montre qu'on écoute activement, utile dans toute situation professionnelle.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral (dialogue médical simple)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "pharmacien-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "pharmacien-ecoute-activite",
+            title: "Écouter les instructions du pharmacien",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "pharma-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'échange entre Marc et sa pharmacienne (« Comprendre les instructions d'un pharmacien », 40 secondes), puis répondez.",
+                audioSrc: "/audio/b1/comprendre-instructions-pharmacien.m4a",
+                transcript:
+                  "Marc — Bonjour, je viens chercher mon ordonnance, s'il vous plaît.\n" +
+                  "Mme Rousseau — Bonjour ! Voilà, c'est pour trois médicaments. Alors, celui-ci, c'est un comprimé " +
+                  "matin et soir, à prendre pendant les repas.\n" +
+                  "Marc — D'accord. Et les deux autres ?\n" +
+                  "Mme Rousseau — Celui-là, c'est un seul comprimé le matin, à jeun, avant le petit-déjeuner. Et le " +
+                  "dernier, seulement si vous avez de la fièvre, pas plus de trois fois par jour.\n" +
+                  "Marc — Si je comprends bien, je dois prendre le premier avec les repas, et le deuxième avant de " +
+                  "manger le matin ?\n" +
+                  "Mme Rousseau — Exactement. Et si les symptômes persistent après cinq jours, il faut consulter à " +
+                  "nouveau votre médecin.\n" +
+                  "Marc — Très bien, merci beaucoup pour ces explications.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "pharma-e-q1",
+                    prompt: "Comment doit-on prendre le premier médicament ?",
+                    choices: [
+                      { id: "a", text: "Un comprimé matin et soir, pendant les repas." },
+                      { id: "b", text: "Un comprimé le matin, à jeun." },
+                      { id: "c", text: "Seulement en cas de fièvre." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Un comprimé matin et soir, pendant les repas.",
+                      explanation: "C'est la première instruction donnée par la pharmacienne.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "pharma-e-q2",
+                    prompt: "Le deuxième médicament se prend après le petit-déjeuner.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Il se prend à jeun, avant le petit-déjeuner.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "pharma-e-q3",
+                    prompt: "Que doit faire Marc si les symptômes persistent après cinq jours ?",
+                    expectedAnswer: "Consulter à nouveau son médecin.",
+                    correction: {
+                      correctAnswer: "Consulter à nouveau son médecin.",
+                      explanation: "La pharmacienne le précise à la fin de l'échange.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "pharma-e-q4",
+                    prompt: "Combien de fois par jour peut-on prendre le troisième médicament au maximum ?",
+                    choices: [
+                      { id: "a", text: "Une fois" },
+                      { id: "b", text: "Trois fois" },
+                      { id: "c", text: "Cinq fois" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Trois fois",
+                      explanation: "« Pas plus de trois fois par jour », en cas de fièvre uniquement.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "pharmacien-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "pharmacien-entrainement-activite",
+            title: "Consignes et vocabulaire de la santé",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "pharma-g1",
+                type: "qcm",
+                skillId: "gr-imperatif",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "pharma-g1-q",
+                  prompt: "Quelle phrase donne une instruction claire ?",
+                  choices: [
+                    { id: "a", text: "Vous devriez peut-être prendre un comprimé." },
+                    { id: "b", text: "Prenez un comprimé matin et soir." },
+                    { id: "c", text: "Il serait bien de prendre un comprimé." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Prenez un comprimé matin et soir.",
+                    explanation: "L'impératif donne une consigne directe et sans ambiguïté.",
+                  },
+                },
+              },
+              {
+                id: "pharma-g2",
+                type: "texte_a_trous",
+                skillId: "voc-sante",
+                difficulty: "B1",
+                instructions: "Complète avec : ordonnance, comprimé, posologie, effet secondaire.",
+                textWithBlanks:
+                  "Le pharmacien vérifie l'{{1}} avant de donner les médicaments. Il faut prendre un {{2}} par " +
+                  "jour. Respecter la {{3}} est important pour éviter un {{4}} désagréable.",
+                blanks: [
+                  { id: "1", answer: "ordonnance" },
+                  { id: "2", answer: "comprimé" },
+                  { id: "3", answer: "posologie" },
+                  { id: "4", answer: "effet secondaire" },
+                ],
+                correction: {
+                  correctAnswer: "ordonnance — comprimé — posologie — effet secondaire",
+                  explanation: "Chaque mot correspond à une étape de la prise en charge à la pharmacie.",
+                },
+              },
+              {
+                id: "pharma-g3",
+                type: "association",
+                skillId: "voc-sante",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "à jeun", right: "Sans avoir mangé." },
+                  { id: "2", left: "les symptômes persistent", right: "Le problème continue malgré le traitement." },
+                  { id: "3", left: "un effet secondaire", right: "Une réaction non voulue à un médicament." },
+                ],
+                correction: {
+                  correctAnswer: "1 → à jeun ; 2 → les symptômes persistent ; 3 → un effet secondaire",
+                  explanation: "Ces expressions reviennent souvent dans les explications d'un professionnel de santé.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "pharmacien-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "pharmacien-ecriture-ecrite",
+            title: "Reformuler une consigne par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "pharma-h",
+                type: "production_ecrite",
+                skillId: "pe-reformuler-consignes",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Un ami t'explique comment prendre un nouveau médicament. Écris un message pour reformuler ce " +
+                  "que tu as compris et vérifier que c'est correct.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Reformulation claire de la consigne reçue (/2)",
+                  "Formule de vérification utilisée, ex. « si j'ai bien compris » (/3)",
+                  "Question de clarification posée si besoin (/2)",
+                  "Message clair et bien construit (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "pharmacien-ecriture-orale",
+            title: "Reformuler à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "pharma-h-oral",
+                type: "production_orale",
+                skillId: "pe-reformuler-consignes",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "La pharmacienne vient de t'expliquer comment prendre un médicament (deux prises par jour, à " +
+                  "jeun). Reformule ces instructions à voix haute pour vérifier que tu as bien compris.",
+                context: "Comme Marc avec Mme Rousseau : à toi de reformuler pour être sûr·e d'avoir bien compris.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai reformulé la posologie correctement.",
+                  "J'ai utilisé une formule de vérification.",
+                  "J'ai parlé clairement.",
+                ],
+                tips: "Commence par « si je comprends bien... » avant de reformuler.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "pharmacien-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "pharmacien-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "pharma-i1",
+                type: "qcm",
+                skillId: "gr-imperatif",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "pharma-i1-q",
+                  prompt: "Quelle est la meilleure façon de donner une consigne médicale claire ?",
+                  choices: [
+                    { id: "a", text: "Vous pourriez prendre..." },
+                    { id: "b", text: "Prenez..." },
+                    { id: "c", text: "Il serait possible de prendre..." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Prenez...",
+                    explanation: "L'impératif est direct et évite toute ambiguïté sur un point important.",
+                  },
+                },
+              },
+              {
+                id: "pharma-i2",
+                type: "reponse_courte",
+                skillId: "voc-sante",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne le document qui liste les médicaments prescrits : une ___ ?",
+                acceptedAnswers: ["ordonnance"],
+                correction: {
+                  correctAnswer: "ordonnance",
+                  explanation: "Le médecin rédige une ordonnance, que le pharmacien utilise pour préparer les médicaments.",
+                },
+              },
+              {
+                id: "pharma-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le dialogue.",
+                statement: "Marc doit prendre le deuxième médicament après le petit-déjeuner.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Il doit le prendre à jeun, avant le petit-déjeuner.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-demander-son-chemin",
+    slug: "demander-son-chemin",
+    level: "B1",
+    title: "Demander son chemin",
+    description:
+      "À la fin de ce module, tu pourras demander et comprendre un itinéraire, et donner des indications claires à quelqu'un qui est perdu.",
+    objectives: [
+      "Demander et comprendre un itinéraire",
+      "Utiliser l'impératif pour donner des indications",
+      "Réagir si on ne comprend pas une explication",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-debut",
+    estimatedMinutes: 22,
+    situation:
+      "Sophie est perdue dans un quartier qu'elle ne connaît pas. Elle demande son chemin à un passant pour rejoindre la gare.",
+    vocabulary: [
+      { term: "un carrefour", category: "principal" },
+      { term: "un rond-point", category: "principal" },
+      { term: "un feu (rouge)", category: "principal" },
+      { term: "au bout de la rue", category: "principal" },
+      { term: "à deux pas", category: "principal" },
+      { term: "« vous n'avez qu'à... »", category: "expression" },
+      { term: "« c'est tout droit »", category: "expression" },
+      { term: "« vous ne pouvez pas la rater »", category: "expression" },
+      { term: "tourner", category: "verbe" },
+      { term: "continuer", category: "verbe" },
+      { term: "traverser", category: "verbe" },
+      { term: "se perdre", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Donner un itinéraire avec l'impératif",
+        explanation:
+          "Pour indiquer un chemin, on utilise l'impératif : Continuez tout droit, puis tournez à gauche au deuxième feu. C'est la forme la plus naturelle pour donner des indications, à l'oral comme à l'écrit.",
+      },
+      {
+        title: "Situer un lieu avec des expressions de position",
+        explanation:
+          "Au bout de, à côté de, en face de, à deux pas de... permettent de préciser un endroit par rapport à un repère connu : La gare est juste en face de la pharmacie.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral", "TCF IRN — compréhension de l'oral"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "chemin-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "chemin-ecoute-activite",
+            title: "Écouter des indications de chemin",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "chemin-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'échange entre Sophie et un passant (« Demander son chemin », 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/demander-son-chemin.m4a",
+                transcript:
+                  "Sophie — Excusez-moi, je cherche la gare, je crois que je me suis perdue... vous pouvez m'aider " +
+                  "?\n" +
+                  "M. Diallo — Bien sûr ! Alors, vous continuez tout droit jusqu'au rond-point, là-bas.\n" +
+                  "Sophie — D'accord, jusqu'au rond-point.\n" +
+                  "M. Diallo — Oui, et au rond-point, vous prenez la deuxième sortie, la rue de la République. Vous " +
+                  "la suivez jusqu'au bout.\n" +
+                  "Sophie — Et ensuite ?\n" +
+                  "M. Diallo — Ensuite, vous verrez un grand carrefour avec des feux. La gare est juste en face, " +
+                  "vous ne pouvez pas la rater.\n" +
+                  "Sophie — Parfait, donc tout droit, rond-point, deuxième sortie, puis tout droit jusqu'aux feux " +
+                  "?\n" +
+                  "M. Diallo — C'est exactement ça ! Ça vous prendra environ dix minutes à pied.\n" +
+                  "Sophie — Merci beaucoup, vous m'avez beaucoup aidée !",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "chemin-e-q1",
+                    prompt: "Que cherche Sophie ?",
+                    choices: [
+                      { id: "a", text: "La gare" },
+                      { id: "b", text: "Une pharmacie" },
+                      { id: "c", text: "Un rond-point" },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "La gare",
+                      explanation: "Elle le précise dès sa première phrase.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "chemin-e-q2",
+                    prompt: "Sophie doit prendre la première sortie du rond-point.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "M. Diallo lui indique la deuxième sortie.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "chemin-e-q3",
+                    prompt: "Où se trouve la gare par rapport au carrefour ?",
+                    expectedAnswer: "Juste en face.",
+                    correction: {
+                      correctAnswer: "Juste en face.",
+                      explanation: "M. Diallo le précise à la fin de ses indications.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "chemin-e-q4",
+                    prompt: "Combien de temps le trajet prend-il à pied ?",
+                    choices: [
+                      { id: "a", text: "Cinq minutes" },
+                      { id: "b", text: "Dix minutes" },
+                      { id: "c", text: "Vingt minutes" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Dix minutes",
+                      explanation: "M. Diallo l'annonce juste avant que Sophie le remercie.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "chemin-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "chemin-entrainement-activite",
+            title: "Indications et vocabulaire du trajet",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "chemin-g1",
+                type: "qcm",
+                skillId: "gr-imperatif",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "chemin-g1-q",
+                  prompt: "Quelle phrase donne correctement un itinéraire ?",
+                  choices: [
+                    { id: "a", text: "Vous devriez tourner à droite." },
+                    { id: "b", text: "Tournez à droite au carrefour." },
+                    { id: "c", text: "On pourrait tourner à droite." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Tournez à droite au carrefour.",
+                    explanation: "L'impératif est la forme naturelle pour indiquer un chemin.",
+                  },
+                },
+              },
+              {
+                id: "chemin-g2",
+                type: "texte_a_trous",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Complète avec : rond-point, sortie, feu, carrefour.",
+                textWithBlanks:
+                  "Au {{1}}, prenez la deuxième {{2}}. Continuez jusqu'au {{3}} rouge, puis traversez le {{4}}.",
+                blanks: [
+                  { id: "1", answer: "rond-point" },
+                  { id: "2", answer: "sortie" },
+                  { id: "3", answer: "feu" },
+                  { id: "4", answer: "carrefour" },
+                ],
+                correction: {
+                  correctAnswer: "rond-point — sortie — feu — carrefour",
+                  explanation: "Ces mots décrivent les repères les plus courants pour donner un itinéraire en ville.",
+                },
+              },
+              {
+                id: "chemin-g3",
+                type: "association",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "à deux pas", right: "Tout près." },
+                  { id: "2", left: "au bout de la rue", right: "À la fin de la rue." },
+                  { id: "3", left: "vous ne pouvez pas la rater", right: "C'est impossible de ne pas la voir." },
+                ],
+                correction: {
+                  correctAnswer: "1 → à deux pas ; 2 → au bout de la rue ; 3 → vous ne pouvez pas la rater",
+                  explanation: "Ces expressions reviennent souvent quand on donne ou reçoit un itinéraire.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "chemin-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "chemin-ecriture-ecrite",
+            title: "Expliquer un itinéraire par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "chemin-h",
+                type: "production_ecrite",
+                skillId: "pe-demander-itineraire",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Écris un message à un ami pour lui expliquer comment aller de chez toi à un lieu que tu " +
+                  "connais bien (au moins trois indications précises).",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Point de départ et destination clairs (/2)",
+                  "Au moins trois indications précises (/3)",
+                  "Impératif utilisé pour les indications (/2)",
+                  "Message clair et bien organisé (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "chemin-ecriture-orale",
+            title: "Indiquer un chemin à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "chemin-h-oral",
+                type: "production_orale",
+                skillId: "pe-demander-itineraire",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Un touriste te demande comment aller à la gare la plus proche. Explique-lui le chemin à voix " +
+                  "haute.",
+                context: "Comme M. Diallo avec Sophie : à toi de guider quelqu'un qui est perdu.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai donné au moins trois indications claires.",
+                  "J'ai utilisé l'impératif.",
+                  "Mon explication est facile à suivre.",
+                ],
+                tips: "Utilise des repères concrets (feu, carrefour, rond-point) plutôt que des distances exactes.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "chemin-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "chemin-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "chemin-i1",
+                type: "qcm",
+                skillId: "gr-imperatif",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "chemin-i1-q",
+                  prompt: "Quelle formule est la plus naturelle pour indiquer un chemin ?",
+                  choices: [
+                    { id: "a", text: "Continuez tout droit." },
+                    { id: "b", text: "Il faudrait continuer tout droit." },
+                    { id: "c", text: "Vous devez continuer tout droit." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Continuez tout droit.",
+                    explanation: "L'impératif seul est la forme la plus directe et la plus courante à l'oral.",
+                  },
+                },
+              },
+              {
+                id: "chemin-i2",
+                type: "reponse_courte",
+                skillId: "voc-transports",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne une intersection avec plusieurs sorties en cercle : un ___ ?",
+                acceptedAnswers: ["rond-point"],
+                correction: {
+                  correctAnswer: "rond-point",
+                  explanation: "On y indique la sortie à prendre par son numéro.",
+                },
+              },
+              {
+                id: "chemin-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le dialogue.",
+                statement: "La gare est juste en face du carrefour.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "M. Diallo le précise clairement.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-expliquer-situation-guichet",
+    slug: "expliquer-situation-guichet",
+    level: "B1",
+    title: "Expliquer sa situation à un guichet",
+    description:
+      "À la fin de ce module, tu pourras comprendre une réponse administrative, expliquer ta situation personnelle et demander la liste des documents nécessaires.",
+    objectives: [
+      "Comprendre une réponse administrative par écrit",
+      "Expliquer sa situation personnelle de façon claire",
+      "Demander la liste des documents nécessaires",
+    ],
+    domain: "comprehension_ecrite",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 22,
+    situation:
+      "Amadou doit renouveler sa carte de séjour. Il échange par email avec le service des étrangers de la préfecture pour savoir quels documents apporter.",
+    vocabulary: [
+      { term: "un justificatif", category: "principal" },
+      { term: "un récépissé", category: "principal" },
+      { term: "un dossier (complet/incomplet)", category: "principal" },
+      { term: "un délai", category: "principal" },
+      { term: "une pièce d'identité", category: "principal" },
+      { term: "« dans les meilleurs délais »", category: "expression" },
+      { term: "« votre dossier est incomplet »", category: "expression" },
+      { term: "« merci de joindre... »", category: "expression" },
+      { term: "renouveler", category: "verbe" },
+      { term: "joindre (un document)", category: "verbe" },
+      { term: "déposer (un dossier)", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Exprimer une nécessité administrative avec « il faut que »",
+        explanation:
+          "Dans un contexte formel, on utilise souvent le subjonctif après « il faut que » : Il faut que vous apportiez un justificatif de domicile. Plus soutenu que « il faut » + infinitif, fréquent dans les échanges administratifs.",
+      },
+      {
+        title: "Structurer une demande formelle par écrit",
+        explanation:
+          "Une demande administrative suit souvent ce plan : se présenter, expliquer sa situation, poser sa question précise, remercier. Cette structure rend le message clair pour la personne qui doit répondre.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension des écrits (courrier administratif)"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "guichet-comprendre",
+        type: "comprendre",
+        title: "Comprendre",
+        optional: false,
+        activities: [
+          {
+            id: "guichet-comprendre-activite",
+            title: "Lire la réponse de la préfecture",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "guich-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-courrier-administratif",
+                difficulty: "B1",
+                instructions: "Lisez l'email reçu par Amadou, puis répondez.",
+                text:
+                  "Objet : Renouvellement de votre carte de séjour\n\n" +
+                  "Bonjour Monsieur Amadou Diop,\n\n" +
+                  "Nous avons bien reçu votre demande de renouvellement. Cependant, votre dossier est " +
+                  "actuellement incomplet : il manque un justificatif de domicile de moins de trois mois et une " +
+                  "photo d'identité récente.\n\n" +
+                  "Merci de nous transmettre ces documents dans les meilleurs délais, par courrier ou directement " +
+                  "au guichet. Sans ces pièces, nous ne pourrons pas traiter votre dossier avant la fin de votre " +
+                  "récépissé actuel.\n\n" +
+                  "Pour toute question, vous pouvez nous contacter du lundi au vendredi, de 9h à 16h.\n\n" +
+                  "Cordialement,\nLe service des étrangers",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "guich-e-q1",
+                    prompt: "Pourquoi le dossier d'Amadou est-il incomplet ?",
+                    choices: [
+                      { id: "a", text: "Il manque un justificatif de domicile et une photo." },
+                      { id: "b", text: "Il n'a pas payé les frais." },
+                      { id: "c", text: "Sa carte de séjour est perdue." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Il manque un justificatif de domicile et une photo.",
+                      explanation: "L'email le précise dans le deuxième paragraphe.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "guich-e-q2",
+                    prompt: "Amadou peut envoyer les documents seulement par courrier.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Il peut les envoyer par courrier ou les déposer directement au guichet.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "guich-e-q3",
+                    prompt: "Que risque Amadou s'il n'envoie pas les documents à temps ?",
+                    expectedAnswer: "Son dossier ne sera pas traité avant la fin de son récépissé.",
+                    correction: {
+                      correctAnswer: "Son dossier ne sera pas traité avant la fin de son récépissé.",
+                      explanation: "C'est ce que précise l'email dans son deuxième paragraphe.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "guich-e-q4",
+                    prompt: "Comment peut-on contacter le service pour une question ?",
+                    choices: [
+                      { id: "a", text: "Seulement par email" },
+                      { id: "b", text: "Du lundi au vendredi, de 9h à 16h" },
+                      { id: "c", text: "24h/24" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Du lundi au vendredi, de 9h à 16h",
+                      explanation: "L'email précise ces horaires à la fin.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "guichet-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "guichet-entrainement-activite",
+            title: "Nécessité administrative et vocabulaire",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "guich-g1",
+                type: "qcm",
+                skillId: "gr-subjonctif-il-faut-que",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "guich-g1-q",
+                  prompt: "Quelle phrase est correcte ?",
+                  choices: [
+                    { id: "a", text: "Il faut que vous apportez un justificatif." },
+                    { id: "b", text: "Il faut que vous apportiez un justificatif." },
+                    { id: "c", text: "Il faut que vous apporter un justificatif." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Il faut que vous apportiez un justificatif.",
+                    explanation: "Après « il faut que », le verbe se conjugue au subjonctif : que vous apportiez.",
+                  },
+                },
+              },
+              {
+                id: "guich-g2",
+                type: "texte_a_trous",
+                skillId: "voc-administratif",
+                difficulty: "B1",
+                instructions: "Complète avec : justificatif, dossier, récépissé, délai.",
+                textWithBlanks:
+                  "Amadou doit fournir un {{1}} de domicile pour compléter son {{2}}. En attendant, son {{3}} " +
+                  "reste valable, mais il doit respecter le {{4}} indiqué.",
+                blanks: [
+                  { id: "1", answer: "justificatif" },
+                  { id: "2", answer: "dossier" },
+                  { id: "3", answer: "récépissé" },
+                  { id: "4", answer: "délai" },
+                ],
+                correction: {
+                  correctAnswer: "justificatif — dossier — récépissé — délai",
+                  explanation: "Ces quatre mots décrivent les étapes clés d'une démarche administrative.",
+                },
+              },
+              {
+                id: "guich-g3",
+                type: "association",
+                skillId: "voc-administratif",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "un justificatif de domicile", right: "Un document qui prouve où on habite." },
+                  { id: "2", left: "un dossier incomplet", right: "Il manque des documents dans la demande." },
+                  { id: "3", left: "dans les meilleurs délais", right: "Le plus vite possible." },
+                ],
+                correction: {
+                  correctAnswer: "1 → un justificatif de domicile ; 2 → un dossier incomplet ; 3 → dans les meilleurs délais",
+                  explanation: "Ce sont des expressions très fréquentes dans les échanges administratifs.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "guichet-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "guichet-ecriture-ecrite",
+            title: "Expliquer sa situation par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "guich-h",
+                type: "production_ecrite",
+                skillId: "pe-expliquer-situation-guichet",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Tu dois renouveler un document administratif (carte de séjour, passeport, carte grise...). " +
+                  "Écris un email pour expliquer ta situation et demander la liste exacte des documents à " +
+                  "fournir.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Situation expliquée clairement (/2)",
+                  "Document à renouveler identifié (/2)",
+                  "Demande précise formulée (/2)",
+                  "Formules de politesse administratives utilisées (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "guichet-ecriture-orale",
+            title: "Expliquer sa situation à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "guich-h-oral",
+                type: "production_orale",
+                skillId: "pe-expliquer-situation-guichet",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Tu es au guichet d'une administration et on te demande pourquoi tu viens. Explique ta " +
+                  "situation à voix haute.",
+                context: "Comme dans l'échange d'Amadou : à toi d'expliquer clairement ta démarche.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai expliqué clairement ma situation.",
+                  "J'ai précisé ce que je demande.",
+                  "J'ai utilisé un registre poli et formel.",
+                ],
+                tips: "Commence par te présenter et par nommer directement ta démarche.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "guichet-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "guichet-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "guich-i1",
+                type: "qcm",
+                skillId: "gr-subjonctif-il-faut-que",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "guich-i1-q",
+                  prompt: "Quelle formule est la plus formelle et correcte ?",
+                  choices: [
+                    { id: "a", text: "Il faut que vous venez au guichet." },
+                    { id: "b", text: "Il faut que vous veniez au guichet." },
+                    { id: "c", text: "Il faut vous venir au guichet." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Il faut que vous veniez au guichet.",
+                    explanation: "« Venir » se conjugue au subjonctif après « il faut que » : que vous veniez.",
+                  },
+                },
+              },
+              {
+                id: "guich-i2",
+                type: "reponse_courte",
+                skillId: "voc-administratif",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question:
+                  "Quel mot désigne un document provisoire qui remplace la carte pendant son renouvellement : un ___ ?",
+                acceptedAnswers: ["récépissé"],
+                correction: {
+                  correctAnswer: "récépissé",
+                  explanation: "Le récépissé prouve que la démarche est en cours.",
+                },
+              },
+              {
+                id: "guich-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'email.",
+                statement: "Le dossier d'Amadou est complet.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Il manque un justificatif de domicile et une photo d'identité.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-signaler-une-panne-logement",
+    slug: "signaler-une-panne-logement",
+    level: "B1",
+    title: "Signaler une panne à son propriétaire",
+    description:
+      "À la fin de ce module, tu pourras décrire une panne avec précision, comprendre la réponse d'un propriétaire et demander une intervention rapide.",
+    objectives: [
+      "Décrire une panne avec précision",
+      "Comprendre la réponse d'un propriétaire",
+      "Demander une intervention dans un délai raisonnable",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 23,
+    situation:
+      "Le chauffe-eau de l'appartement de Julie est en panne depuis deux jours. Elle appelle son propriétaire pour lui expliquer le problème et demander une réparation rapide.",
+    vocabulary: [
+      { term: "une panne", category: "principal" },
+      { term: "un chauffe-eau", category: "principal" },
+      { term: "une fuite", category: "principal" },
+      { term: "un artisan", category: "principal" },
+      { term: "une réparation", category: "principal" },
+      { term: "« ça ne fonctionne plus depuis... »", category: "expression" },
+      { term: "« au plus vite »", category: "expression" },
+      { term: "« je m'en occupe »", category: "expression" },
+      { term: "tomber en panne", category: "verbe" },
+      { term: "réparer", category: "verbe" },
+      { term: "intervenir", category: "verbe" },
+      { term: "prévenir", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Décrire une panne dans la durée avec « depuis »",
+        explanation:
+          "Pour dire depuis combien de temps un problème existe, on utilise depuis + durée ou date : Le chauffe-eau ne fonctionne plus depuis deux jours. Différent de « pendant », qui indique une durée terminée.",
+      },
+      {
+        title: "Passé composé et imparfait pour raconter un incident",
+        explanation:
+          "L'imparfait décrit la situation normale, le passé composé l'événement qui a tout changé : L'eau était chaude comme d'habitude, puis elle est devenue froide d'un coup.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral", "TCF IRN — compréhension de l'oral"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "panne-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "panne-ecoute-activite",
+            title: "Écouter un appel pour signaler une panne",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "panne-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'appel entre Julie et son propriétaire, M. Petit (« Signaler une panne », 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/signaler-une-panne-logement.m4a",
+                transcript:
+                  "Julie — Bonjour Monsieur Petit, c'est Julie, la locataire du deuxième étage. Je vous appelle " +
+                  "parce que le chauffe-eau est en panne.\n" +
+                  "M. Petit — Ah, bonjour Julie. Depuis quand exactement ?\n" +
+                  "Julie — Depuis avant-hier soir. L'eau était chaude comme d'habitude, et puis d'un coup, elle " +
+                  "est devenue froide.\n" +
+                  "M. Petit — D'accord, je vois. Vous avez de l'eau froide qui fonctionne, au moins ?\n" +
+                  "Julie — Oui, ça, pas de problème. C'est juste l'eau chaude.\n" +
+                  "M. Petit — Très bien, je vais appeler un artisan aujourd'hui même. Il devrait pouvoir passer " +
+                  "demain matin, si ça vous va.\n" +
+                  "Julie — Oui, parfait, je serai chez moi le matin. Merci beaucoup de réagir aussi vite.\n" +
+                  "M. Petit — Je vous en prie, je m'en occupe. Je vous confirme l'heure de passage dès que je " +
+                  "l'ai.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "panne-e-q1",
+                    prompt: "Depuis quand le chauffe-eau est-il en panne ?",
+                    choices: [
+                      { id: "a", text: "Depuis avant-hier soir." },
+                      { id: "b", text: "Depuis une semaine." },
+                      { id: "c", text: "Depuis ce matin." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Depuis avant-hier soir.",
+                      explanation: "Julie le précise dès le début de l'appel.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "panne-e-q2",
+                    prompt: "Julie n'a plus du tout d'eau, ni chaude ni froide.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle a toujours de l'eau froide, seule l'eau chaude ne fonctionne plus.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "panne-e-q3",
+                    prompt: "Quand l'artisan doit-il passer ?",
+                    expectedAnswer: "Demain matin.",
+                    correction: {
+                      correctAnswer: "Demain matin.",
+                      explanation: "M. Petit le propose et Julie confirme être disponible.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "panne-e-q4",
+                    prompt: "Que fait M. Petit tout de suite après l'appel ?",
+                    choices: [
+                      { id: "a", text: "Il vient réparer lui-même." },
+                      { id: "b", text: "Il appelle un artisan." },
+                      { id: "c", text: "Il demande à Julie de patienter une semaine." },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Il appelle un artisan.",
+                      explanation: "Il le dit explicitement : « je vais appeler un artisan aujourd'hui même ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "panne-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "panne-entrainement-activite",
+            title: "Raconter un incident et vocabulaire du logement",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "panne-g1",
+                type: "qcm",
+                skillId: "gr-passe-compose-imparfait",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "panne-g1-q",
+                  prompt: "Quelle phrase raconte correctement l'incident ?",
+                  choices: [
+                    { id: "a", text: "L'eau était chaude, puis elle est devenue froide." },
+                    { id: "b", text: "L'eau a été chaude, puis elle devenait froide." },
+                    { id: "c", text: "L'eau était chaude, puis elle devenait froide." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "L'eau était chaude, puis elle est devenue froide.",
+                    explanation: "Imparfait pour la situation habituelle, passé composé pour le changement soudain.",
+                  },
+                },
+              },
+              {
+                id: "panne-g2",
+                type: "texte_a_trous",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Complète avec : panne, artisan, réparation, fuite.",
+                textWithBlanks:
+                  "Le chauffe-eau est en {{1}} depuis deux jours. Le propriétaire appelle un {{2}} pour faire la " +
+                  "{{3}}. Heureusement, il n'y a pas de {{4}} d'eau.",
+                blanks: [
+                  { id: "1", answer: "panne" },
+                  { id: "2", answer: "artisan" },
+                  { id: "3", answer: "réparation" },
+                  { id: "4", answer: "fuite" },
+                ],
+                correction: {
+                  correctAnswer: "panne — artisan — réparation — fuite",
+                  explanation: "Ces mots décrivent le problème, la solution et un risque associé.",
+                },
+              },
+              {
+                id: "panne-g3",
+                type: "association",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "tomber en panne", right: "Arrêter de fonctionner soudainement." },
+                  { id: "2", left: "je m'en occupe", right: "Je vais résoudre le problème." },
+                  { id: "3", left: "au plus vite", right: "Le plus rapidement possible." },
+                ],
+                correction: {
+                  correctAnswer: "1 → tomber en panne ; 2 → je m'en occupe ; 3 → au plus vite",
+                  explanation: "Ces expressions sont très utiles pour décrire et faire résoudre un problème matériel.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "panne-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "panne-ecriture-ecrite",
+            title: "Signaler une panne par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "panne-h",
+                type: "production_ecrite",
+                skillId: "pe-signaler-panne-logement",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Un appareil de ton logement est en panne (chauffage, réfrigérateur, volet...). Écris un " +
+                  "message à ton propriétaire pour décrire le problème et demander une intervention.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Panne décrite précisément (/2)",
+                  "« Depuis » utilisé correctement (/2)",
+                  "Demande d'intervention formulée (/2)",
+                  "Message poli (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "panne-ecriture-orale",
+            title: "Signaler une panne à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "panne-h-oral",
+                type: "production_orale",
+                skillId: "pe-signaler-panne-logement",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Tu appelles ton propriétaire pour signaler une panne dans ton logement. Explique le problème à " +
+                  "voix haute.",
+                context: "Comme Julie avec M. Petit : à toi de décrire une panne et de demander une réparation.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai décrit la panne clairement.",
+                  "J'ai précisé depuis quand.",
+                  "J'ai demandé une intervention.",
+                ],
+                tips: "Précise ce qui fonctionne encore et ce qui ne fonctionne plus, comme Julie avec l'eau froide.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "panne-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "panne-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "panne-i1",
+                type: "qcm",
+                skillId: "gr-passe-compose-imparfait",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "panne-i1-q",
+                  prompt: "Quelle phrase est correcte ?",
+                  choices: [
+                    { id: "a", text: "Je dormais quand le bruit a commencé." },
+                    { id: "b", text: "J'ai dormi quand le bruit commençait." },
+                    { id: "c", text: "Je dormais quand le bruit commençait." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Je dormais quand le bruit a commencé.",
+                    explanation: "Imparfait pour la situation en cours, passé composé pour l'événement soudain.",
+                  },
+                },
+              },
+              {
+                id: "panne-i2",
+                type: "reponse_courte",
+                skillId: "voc-logement",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne une personne qui répare les pannes à domicile : un ___ ?",
+                acceptedAnswers: ["artisan"],
+                correction: {
+                  correctAnswer: "artisan",
+                  explanation: "Le propriétaire fait appel à un artisan pour intervenir.",
+                },
+              },
+              {
+                id: "panne-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le dialogue.",
+                statement: "Julie doit attendre une semaine avant la réparation.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "L'artisan doit passer dès le lendemain matin.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-prevenir-absence-travail",
+    slug: "prevenir-absence-travail",
+    level: "B1",
+    title: "Prévenir d'un retard ou d'une absence au travail",
+    description:
+      "À la fin de ce module, tu pourras prévenir un responsable d'une absence de façon professionnelle et proposer une solution.",
+    objectives: [
+      "Prévenir un responsable d'une absence de façon professionnelle",
+      "Comprendre un message vocal professionnel",
+      "Proposer une solution pour limiter les conséquences",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 22,
+    situation:
+      "Karim est malade ce matin et ne pourra pas aller travailler. Il laisse un message vocal à sa responsable pour la prévenir et proposer une solution.",
+    vocabulary: [
+      { term: "un arrêt de travail", category: "principal" },
+      { term: "un remplaçant", category: "principal" },
+      { term: "une urgence", category: "principal" },
+      { term: "un empêchement", category: "principal" },
+      { term: "« je suis désolé de vous prévenir si tard »", category: "expression" },
+      { term: "« je reste joignable »", category: "expression" },
+      { term: "« je vous tiens au courant »", category: "expression" },
+      { term: "prévenir", category: "verbe" },
+      { term: "remplacer", category: "verbe" },
+      { term: "rattraper (le travail)", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Le conditionnel de politesse dans un contexte professionnel",
+        explanation:
+          "Pour formuler une demande ou une excuse avec tact au travail, on utilise le conditionnel : Je voudrais vous prévenir que... Pourriez-vous informer l'équipe ? Plus poli et plus professionnel que le présent.",
+      },
+      {
+        title: "Proposer une solution avec « pourrait »",
+        explanation:
+          "Pour montrer qu'on prend ses responsabilités malgré une absence : Marie pourrait peut-être me remplacer sur ce dossier. Cette formule montre qu'on pense aux conséquences, pas seulement à l'absence elle-même.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral", "TCF IRN — compréhension de l'oral"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "absence-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "absence-ecoute-activite",
+            title: "Écouter un message vocal professionnel",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "absen-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez le message vocal que Karim laisse à sa responsable (« Prévenir d'une absence », 30 secondes), puis répondez.",
+                audioSrc: "/audio/b1/prevenir-absence-travail.m4a",
+                transcript:
+                  "Bonjour Madame Lefort, c'est Karim. Je suis désolé de vous prévenir si tard, mais je suis " +
+                  "malade ce matin, j'ai beaucoup de fièvre. Je ne pourrai pas venir travailler aujourd'hui. Je " +
+                  "pense que Marie pourrait peut-être me remplacer sur la réunion de dix heures, elle connaît " +
+                  "bien le dossier. Je reste joignable par téléphone si besoin, et je vous tiens au courant dès " +
+                  "que je vais mieux. Merci de votre compréhension, à bientôt.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "absen-e-q1",
+                    prompt: "Pourquoi Karim ne peut-il pas aller travailler ?",
+                    choices: [
+                      { id: "a", text: "Il est malade." },
+                      { id: "b", text: "Il a un problème de transport." },
+                      { id: "c", text: "Il a oublié un rendez-vous." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Il est malade.",
+                      explanation: "Il le dit dès le début de son message : « je suis malade ce matin ».",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "absen-e-q2",
+                    prompt: "Karim propose que Marie le remplace à la réunion de dix heures.",
+                    correctAnswer: true,
+                    correction: {
+                      correctAnswer: "Vrai.",
+                      explanation: "Il le propose explicitement, en précisant qu'elle connaît bien le dossier.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "absen-e-q3",
+                    prompt: "Comment Karim reste-t-il joignable ?",
+                    expectedAnswer: "Par téléphone.",
+                    correction: {
+                      correctAnswer: "Par téléphone.",
+                      explanation: "Il le précise vers la fin de son message.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "absen-e-q4",
+                    prompt: "Que va faire Karim dès qu'il ira mieux ?",
+                    choices: [
+                      { id: "a", text: "Il ne préviendra personne." },
+                      { id: "b", text: "Il tiendra sa responsable au courant." },
+                      { id: "c", text: "Il enverra sa démission." },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Il tiendra sa responsable au courant.",
+                      explanation: "Il le dit clairement : « je vous tiens au courant dès que je vais mieux ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "absence-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "absence-entrainement-activite",
+            title: "Politesse professionnelle et vocabulaire du travail",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "absen-g1",
+                type: "qcm",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "absen-g1-q",
+                  prompt: "Quelle phrase est la plus adaptée pour prévenir professionnellement ?",
+                  choices: [
+                    { id: "a", text: "Je viens pas aujourd'hui." },
+                    { id: "b", text: "Je voudrais vous prévenir que je suis malade." },
+                    { id: "c", text: "Faut que je reste chez moi." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Je voudrais vous prévenir que je suis malade.",
+                    explanation: "Le conditionnel de politesse est adapté à un contexte professionnel.",
+                  },
+                },
+              },
+              {
+                id: "absen-g2",
+                type: "texte_a_trous",
+                skillId: "voc-travail",
+                difficulty: "B1",
+                instructions: "Complète avec : urgence, remplaçant, arrêt, empêchement.",
+                textWithBlanks:
+                  "En cas d'{{1}}, il faut prévenir son responsable rapidement. Karim propose un {{2}} pour la " +
+                  "réunion, en attendant son {{3}} de travail officiel. Ce n'est pas la première fois qu'il a un " +
+                  "{{4}} le matin.",
+                blanks: [
+                  { id: "1", answer: "urgence" },
+                  { id: "2", answer: "remplaçant" },
+                  { id: "3", answer: "arrêt" },
+                  { id: "4", answer: "empêchement" },
+                ],
+                correction: {
+                  correctAnswer: "urgence — remplaçant — arrêt — empêchement",
+                  explanation: "Ces mots décrivent les situations et solutions les plus courantes en cas d'absence.",
+                },
+              },
+              {
+                id: "absen-g3",
+                type: "association",
+                skillId: "voc-travail",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "un arrêt de travail", right: "Un document médical qui justifie une absence." },
+                  { id: "2", left: "rester joignable", right: "Pouvoir être contacté facilement." },
+                  { id: "3", left: "rattraper le travail", right: "Faire plus tard ce qu'on n'a pas pu faire." },
+                ],
+                correction: {
+                  correctAnswer: "1 → un arrêt de travail ; 2 → rester joignable ; 3 → rattraper le travail",
+                  explanation: "Ce vocabulaire est très utile pour gérer une absence professionnelle avec tact.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "absence-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "absence-ecriture-ecrite",
+            title: "Prévenir d'une absence par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "absen-h",
+                type: "production_ecrite",
+                skillId: "pe-prevenir-absence",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Tu ne pourras pas aller travailler demain. Écris un message à ton responsable pour le " +
+                  "prévenir et proposer une solution.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Raison de l'absence expliquée (/2)",
+                  "Solution ou proposition formulée (/2)",
+                  "Conditionnel de politesse utilisé (/2)",
+                  "Message professionnel et poli (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "absence-ecriture-orale",
+            title: "Prévenir d'une absence à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "absen-h-oral",
+                type: "production_orale",
+                skillId: "pe-prevenir-absence",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Tu es malade et tu ne peux pas aller travailler. Laisse un message vocal à ton responsable " +
+                  "pour le prévenir.",
+                context: "Comme Karim avec Madame Lefort : à toi de prévenir et de proposer une solution.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai expliqué la raison de mon absence.",
+                  "J'ai proposé une solution.",
+                  "Mon message est professionnel.",
+                ],
+                tips: "Termine toujours par une formule qui montre que tu penses aux conséquences pour l'équipe.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "absence-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "absence-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "absen-i1",
+                type: "qcm",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "absen-i1-q",
+                  prompt: "Quelle phrase utilise correctement le conditionnel de politesse ?",
+                  choices: [
+                    { id: "a", text: "Pourriez-vous informer l'équipe ?" },
+                    { id: "b", text: "Vous pouvez informer l'équipe ?" },
+                    { id: "c", text: "Il faut informer l'équipe." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Pourriez-vous informer l'équipe ?",
+                    explanation: "Le conditionnel adoucit la demande dans un contexte professionnel.",
+                  },
+                },
+              },
+              {
+                id: "absen-i2",
+                type: "reponse_courte",
+                skillId: "voc-travail",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne une personne qui fait le travail de quelqu'un d'absent : un ___ ?",
+                acceptedAnswers: ["remplaçant", "remplacant"],
+                correction: {
+                  correctAnswer: "remplaçant",
+                  explanation: "Karim propose que Marie soit sa remplaçante pour la réunion.",
+                },
+              },
+              {
+                id: "absen-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le message.",
+                statement: "Karim va très bien mais ne veut pas travailler.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Il précise qu'il est malade et a beaucoup de fièvre.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-deplacer-un-rendez-vous",
+    slug: "deplacer-un-rendez-vous",
+    level: "B1",
+    title: "Déplacer ou annuler un rendez-vous",
+    description:
+      "À la fin de ce module, tu pourras demander à déplacer un rendez-vous poliment, comprendre une proposition de nouvelle date et confirmer ou refuser une proposition.",
+    objectives: [
+      "Demander à déplacer un rendez-vous poliment",
+      "Comprendre une proposition de nouvelle date",
+      "Confirmer ou refuser une nouvelle proposition",
+    ],
+    domain: "comprehension_ecrite",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 20,
+    situation:
+      "Nora a un rendez-vous chez le dentiste jeudi, mais elle a un imprévu. Elle échange des SMS avec le cabinet pour le déplacer à une autre date.",
+    vocabulary: [
+      { term: "un empêchement", category: "principal" },
+      { term: "un créneau", category: "principal" },
+      { term: "un report", category: "principal" },
+      { term: "un imprévu", category: "principal" },
+      { term: "« serait-il possible de... »", category: "expression" },
+      { term: "« ça ne me convient pas »", category: "expression" },
+      { term: "« ça me convient parfaitement »", category: "expression" },
+      { term: "déplacer", category: "verbe" },
+      { term: "reporter", category: "verbe" },
+      { term: "décaler", category: "verbe" },
+      { term: "confirmer", category: "verbe" },
+    ],
+    languagePoints: [
+      {
+        title: "Proposer une nouvelle date avec le conditionnel",
+        explanation:
+          "Serait-il possible de déplacer mon rendez-vous ? Pourriez-vous me proposer un autre créneau ? Le conditionnel adoucit la demande, essentiel dans un échange avec un professionnel.",
+      },
+      {
+        title: "Accepter ou refuser poliment une proposition",
+        explanation:
+          "Pour refuser sans être impoli : Ce créneau ne me convient malheureusement pas, auriez-vous autre chose ? Pour accepter : Cette date me convient parfaitement, merci.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension des écrits"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "deplacer-comprendre",
+        type: "comprendre",
+        title: "Comprendre",
+        optional: false,
+        activities: [
+          {
+            id: "deplacer-comprendre-activite",
+            title: "Lire l'échange de SMS avec le cabinet",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "depl-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez l'échange de SMS entre Nora et le cabinet dentaire, puis répondez.",
+                text:
+                  "Nora : Bonjour, j'ai rendez-vous jeudi à 14h mais j'ai un empêchement de dernière minute. " +
+                  "Serait-il possible de le déplacer ?\n\n" +
+                  "Cabinet : Bonjour, pas de souci. Nous avons un créneau libre vendredi à 10h, ou lundi prochain " +
+                  "à 16h.\n\n" +
+                  "Nora : Vendredi à 10h, malheureusement, ça ne me convient pas, je travaille. Lundi à 16h, en " +
+                  "revanche, ça me convient parfaitement.\n\n" +
+                  "Cabinet : Parfait, c'est noté ! Votre rendez-vous est reporté au lundi 16h. Merci de nous " +
+                  "prévenir si vous avez un nouvel imprévu.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "depl-e-q1",
+                    prompt: "Pourquoi Nora veut-elle déplacer son rendez-vous ?",
+                    choices: [
+                      { id: "a", text: "Elle a un empêchement de dernière minute." },
+                      { id: "b", text: "Elle a oublié la date." },
+                      { id: "c", text: "Le cabinet est fermé." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Elle a un empêchement de dernière minute.",
+                      explanation: "Elle le précise dans son premier message.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "depl-e-q2",
+                    prompt: "Nora accepte le créneau du vendredi à 10h.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Ce créneau ne lui convient pas car elle travaille.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "depl-e-q3",
+                    prompt: "À quelle nouvelle date le rendez-vous est-il reporté ?",
+                    expectedAnswer: "Lundi à 16h.",
+                    correction: {
+                      correctAnswer: "Lundi à 16h.",
+                      explanation: "C'est le créneau que Nora accepte et que le cabinet confirme.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "depl-e-q4",
+                    prompt: "Que doit faire Nora si elle a un nouvel imprévu ?",
+                    choices: [
+                      { id: "a", text: "Rien, ce n'est pas nécessaire." },
+                      { id: "b", text: "Prévenir le cabinet." },
+                      { id: "c", text: "Annuler définitivement." },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Prévenir le cabinet.",
+                      explanation: "Le cabinet le lui demande dans son dernier message.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "deplacer-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "deplacer-entrainement-activite",
+            title: "Politesse et vocabulaire du rendez-vous",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "depl-g1",
+                type: "qcm",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "depl-g1-q",
+                  prompt: "Quelle formule est la plus polie pour demander un changement de rendez-vous ?",
+                  choices: [
+                    { id: "a", text: "Je veux changer mon rendez-vous." },
+                    { id: "b", text: "Serait-il possible de déplacer mon rendez-vous ?" },
+                    { id: "c", text: "Il faut changer mon rendez-vous." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Serait-il possible de déplacer mon rendez-vous ?",
+                    explanation: "Le conditionnel rend la demande beaucoup plus polie.",
+                  },
+                },
+              },
+              {
+                id: "depl-g2",
+                type: "texte_a_trous",
+                skillId: "voc-rendez-vous",
+                difficulty: "B1",
+                instructions: "Complète avec : empêchement, report, créneau, imprévu.",
+                textWithBlanks:
+                  "Nora a un {{1}} de dernière minute. Elle demande un {{2}} de rendez-vous. Le cabinet lui " +
+                  "propose un nouveau {{3}} libre. Elle accepte, sauf en cas d'un autre {{4}}.",
+                blanks: [
+                  { id: "1", answer: "empêchement" },
+                  { id: "2", answer: "report" },
+                  { id: "3", answer: "créneau" },
+                  { id: "4", answer: "imprévu" },
+                ],
+                correction: {
+                  correctAnswer: "empêchement — report — créneau — imprévu",
+                  explanation: "Ces quatre mots décrivent une démarche complète de déplacement de rendez-vous.",
+                },
+              },
+              {
+                id: "depl-g3",
+                type: "association",
+                skillId: "voc-rendez-vous",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "ça ne me convient pas", right: "Cette proposition ne fonctionne pas pour moi." },
+                  { id: "2", left: "un créneau", right: "Un moment disponible dans un emploi du temps." },
+                  { id: "3", left: "un report", right: "Le déplacement d'un rendez-vous à une autre date." },
+                ],
+                correction: {
+                  correctAnswer: "1 → ça ne me convient pas ; 2 → un créneau ; 3 → un report",
+                  explanation: "Ce sont les expressions clés pour gérer un changement de rendez-vous.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "deplacer-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "deplacer-ecriture-ecrite",
+            title: "Demander un déplacement par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "depl-h",
+                type: "production_ecrite",
+                skillId: "pe-modifier-rdv",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Tu dois déplacer un rendez-vous important (médecin, coiffeur, administration...). Écris un " +
+                  "message pour demander poliment un changement de date.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Empêchement expliqué brièvement (/2)",
+                  "Demande de déplacement formulée poliment (/2)",
+                  "Conditionnel utilisé (/2)",
+                  "Message clair (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "deplacer-ecriture-orale",
+            title: "Demander un déplacement à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "depl-h-oral",
+                type: "production_orale",
+                skillId: "pe-modifier-rdv",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Tu appelles pour déplacer un rendez-vous. Explique ton empêchement et demande un nouveau " +
+                  "créneau à voix haute.",
+                context: "Comme Nora avec le cabinet : à toi de demander poliment un changement de date.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 45,
+                selfAssessmentCriteria: [
+                  "J'ai expliqué mon empêchement.",
+                  "J'ai demandé poliment un nouveau créneau.",
+                  "J'ai utilisé le conditionnel.",
+                ],
+                tips: "Propose toi-même un moment si tu en as un, ça facilite la réponse de ton interlocuteur.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "deplacer-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "deplacer-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "depl-i1",
+                type: "qcm",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "depl-i1-q",
+                  prompt: "Quelle phrase accepte poliment une proposition ?",
+                  choices: [
+                    { id: "a", text: "Ça me convient parfaitement." },
+                    { id: "b", text: "Ça me va." },
+                    { id: "c", text: "Ok." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Ça me convient parfaitement.",
+                    explanation: "C'est la formule la plus complète et la plus adaptée à un échange poli.",
+                  },
+                },
+              },
+              {
+                id: "depl-i2",
+                type: "reponse_courte",
+                skillId: "voc-rendez-vous",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne un moment libre dans un emploi du temps : un ___ ?",
+                acceptedAnswers: ["créneau"],
+                correction: {
+                  correctAnswer: "créneau",
+                  explanation: "Le cabinet propose deux créneaux différents à Nora.",
+                },
+              },
+              {
+                id: "depl-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'échange.",
+                statement: "Nora garde finalement son rendez-vous du jeudi.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Son rendez-vous est reporté au lundi 16h.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   ...MODULES_A1,
   ...MODULES_A2,
 ];

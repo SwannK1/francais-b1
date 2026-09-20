@@ -188,6 +188,35 @@ const AUDIO_PRODUCTION_META: Record<string, AudioProductionMeta> = {
     pace: "Naturel, ton professionnel mais accueillant (appel à un centre de formation).",
     pronunciationNotes: ["« 15 décembre » prononcé naturellement, pas épelé."],
   },
+  "pharma-e": {
+    speakers: [
+      { role: "Marc", voiceLabel: "Voix A", gender: "H" },
+      { role: "Mme Rousseau", voiceLabel: "Voix C", gender: "F" },
+    ],
+    pace: "Naturel, ton professionnel et rassurant (explications de pharmacie).",
+    pronunciationNotes: ["« matin et soir » et « à jeun » prononcés distinctement, ce sont des points clés."],
+  },
+  "chemin-e": {
+    speakers: [
+      { role: "Sophie", voiceLabel: "Voix B", gender: "F" },
+      { role: "M. Diallo", voiceLabel: "Voix A", gender: "H" },
+    ],
+    pace: "Naturel, débit un peu plus lent sur les indications de direction.",
+    pronunciationNotes: ["« rond-point » et « deuxième sortie » articulés clairement."],
+  },
+  "panne-e": {
+    speakers: [
+      { role: "Julie", voiceLabel: "Voix B", gender: "F" },
+      { role: "M. Petit", voiceLabel: "Voix A", gender: "H" },
+    ],
+    pace: "Naturel, conversationnel (appel téléphonique entre locataire et propriétaire).",
+    pronunciationNotes: ["« chauffe-eau » prononcé comme un seul mot composé."],
+  },
+  "absen-e": {
+    speakers: [{ role: "Karim", voiceLabel: "Voix A", gender: "H" }],
+    pace: "Naturel, débit de message vocal, ton un peu fatigué mais professionnel.",
+    pronunciationNotes: ["Pas de numéro à épeler dans cette piste."],
+  },
   "exam-b1-co-1": {
     speakers: [{ role: "Narrateur", voiceLabel: "Voix A", gender: "H" }],
     pace: "Soutenu mais intelligible, même registre que la piste transport.",

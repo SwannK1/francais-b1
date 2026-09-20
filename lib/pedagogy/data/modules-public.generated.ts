@@ -4709,6 +4709,840 @@ export const PUBLIC_MODULES: PublicModule[] = [
     "totalExercises": 9
   },
   {
+    "id": "b1-comprendre-instructions-pharmacien",
+    "slug": "comprendre-instructions-pharmacien",
+    "level": "B1",
+    "title": "Comprendre les instructions d'un pharmacien",
+    "description": "À la fin de ce module, tu pourras comprendre des instructions de posologie, reformuler une consigne médicale et poser une question de clarification.",
+    "objectives": [
+      "Comprendre des instructions de posologie",
+      "Reformuler une consigne pour vérifier sa compréhension",
+      "Poser une question de clarification sur un traitement"
+    ],
+    "domain": "comprehension_orale",
+    "stageId": "b1-debut",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "pharmacien-ecoute",
+        "type": "ecoute",
+        "title": "Écouter",
+        "optional": false,
+        "activities": [
+          {
+            "id": "pharmacien-ecoute-activite",
+            "title": "Écouter les instructions du pharmacien",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "pharma-e",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pharmacien-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "pharmacien-entrainement-activite",
+            "title": "Consignes et vocabulaire de la santé",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "pharma-g1",
+                "type": "qcm",
+                "skillId": "gr-imperatif",
+                "difficulty": "B1"
+              },
+              {
+                "id": "pharma-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-sante",
+                "difficulty": "B1"
+              },
+              {
+                "id": "pharma-g3",
+                "type": "association",
+                "skillId": "voc-sante",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pharmacien-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "pharmacien-ecriture-ecrite",
+            "title": "Reformuler une consigne par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "pharma-h",
+                "type": "production_ecrite",
+                "skillId": "pe-reformuler-consignes",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "pharmacien-ecriture-orale",
+            "title": "Reformuler à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "pharma-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-reformuler-consignes",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pharmacien-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "pharmacien-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "pharma-i1",
+                "type": "qcm",
+                "skillId": "gr-imperatif",
+                "difficulty": "B1"
+              },
+              {
+                "id": "pharma-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-sante",
+                "difficulty": "B1"
+              },
+              {
+                "id": "pharma-i3",
+                "type": "vrai_faux",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-demander-son-chemin",
+    "slug": "demander-son-chemin",
+    "level": "B1",
+    "title": "Demander son chemin",
+    "description": "À la fin de ce module, tu pourras demander et comprendre un itinéraire, et donner des indications claires à quelqu'un qui est perdu.",
+    "objectives": [
+      "Demander et comprendre un itinéraire",
+      "Utiliser l'impératif pour donner des indications",
+      "Réagir si on ne comprend pas une explication"
+    ],
+    "domain": "comprehension_orale",
+    "stageId": "b1-debut",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "chemin-ecoute",
+        "type": "ecoute",
+        "title": "Écouter",
+        "optional": false,
+        "activities": [
+          {
+            "id": "chemin-ecoute-activite",
+            "title": "Écouter des indications de chemin",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "chemin-e",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chemin-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "chemin-entrainement-activite",
+            "title": "Indications et vocabulaire du trajet",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "chemin-g1",
+                "type": "qcm",
+                "skillId": "gr-imperatif",
+                "difficulty": "B1"
+              },
+              {
+                "id": "chemin-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-transports",
+                "difficulty": "B1"
+              },
+              {
+                "id": "chemin-g3",
+                "type": "association",
+                "skillId": "voc-transports",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chemin-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "chemin-ecriture-ecrite",
+            "title": "Expliquer un itinéraire par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "chemin-h",
+                "type": "production_ecrite",
+                "skillId": "pe-demander-itineraire",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "chemin-ecriture-orale",
+            "title": "Indiquer un chemin à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "chemin-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-demander-itineraire",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chemin-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "chemin-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "chemin-i1",
+                "type": "qcm",
+                "skillId": "gr-imperatif",
+                "difficulty": "B1"
+              },
+              {
+                "id": "chemin-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-transports",
+                "difficulty": "B1"
+              },
+              {
+                "id": "chemin-i3",
+                "type": "vrai_faux",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-expliquer-situation-guichet",
+    "slug": "expliquer-situation-guichet",
+    "level": "B1",
+    "title": "Expliquer sa situation à un guichet",
+    "description": "À la fin de ce module, tu pourras comprendre une réponse administrative, expliquer ta situation personnelle et demander la liste des documents nécessaires.",
+    "objectives": [
+      "Comprendre une réponse administrative par écrit",
+      "Expliquer sa situation personnelle de façon claire",
+      "Demander la liste des documents nécessaires"
+    ],
+    "domain": "comprehension_ecrite",
+    "stageId": "b1-intermediaire",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "guichet-comprendre",
+        "type": "comprendre",
+        "title": "Comprendre",
+        "optional": false,
+        "activities": [
+          {
+            "id": "guichet-comprendre-activite",
+            "title": "Lire la réponse de la préfecture",
+            "skillDomain": "comprehension_ecrite",
+            "exercises": [
+              {
+                "id": "guich-e",
+                "type": "comprehension_ecrite",
+                "skillId": "ce-courrier-administratif",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "guichet-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "guichet-entrainement-activite",
+            "title": "Nécessité administrative et vocabulaire",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "guich-g1",
+                "type": "qcm",
+                "skillId": "gr-subjonctif-il-faut-que",
+                "difficulty": "B1"
+              },
+              {
+                "id": "guich-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-administratif",
+                "difficulty": "B1"
+              },
+              {
+                "id": "guich-g3",
+                "type": "association",
+                "skillId": "voc-administratif",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "guichet-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "guichet-ecriture-ecrite",
+            "title": "Expliquer sa situation par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "guich-h",
+                "type": "production_ecrite",
+                "skillId": "pe-expliquer-situation-guichet",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "guichet-ecriture-orale",
+            "title": "Expliquer sa situation à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "guich-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-expliquer-situation-guichet",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "guichet-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "guichet-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "guich-i1",
+                "type": "qcm",
+                "skillId": "gr-subjonctif-il-faut-que",
+                "difficulty": "B1"
+              },
+              {
+                "id": "guich-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-administratif",
+                "difficulty": "B1"
+              },
+              {
+                "id": "guich-i3",
+                "type": "vrai_faux",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-signaler-une-panne-logement",
+    "slug": "signaler-une-panne-logement",
+    "level": "B1",
+    "title": "Signaler une panne à son propriétaire",
+    "description": "À la fin de ce module, tu pourras décrire une panne avec précision, comprendre la réponse d'un propriétaire et demander une intervention rapide.",
+    "objectives": [
+      "Décrire une panne avec précision",
+      "Comprendre la réponse d'un propriétaire",
+      "Demander une intervention dans un délai raisonnable"
+    ],
+    "domain": "comprehension_orale",
+    "stageId": "b1-intermediaire",
+    "estimatedMinutes": 23,
+    "lessons": [
+      {
+        "id": "panne-ecoute",
+        "type": "ecoute",
+        "title": "Écouter",
+        "optional": false,
+        "activities": [
+          {
+            "id": "panne-ecoute-activite",
+            "title": "Écouter un appel pour signaler une panne",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "panne-e",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "panne-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "panne-entrainement-activite",
+            "title": "Raconter un incident et vocabulaire du logement",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "panne-g1",
+                "type": "qcm",
+                "skillId": "gr-passe-compose-imparfait",
+                "difficulty": "B1"
+              },
+              {
+                "id": "panne-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-logement",
+                "difficulty": "B1"
+              },
+              {
+                "id": "panne-g3",
+                "type": "association",
+                "skillId": "voc-logement",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "panne-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "panne-ecriture-ecrite",
+            "title": "Signaler une panne par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "panne-h",
+                "type": "production_ecrite",
+                "skillId": "pe-signaler-panne-logement",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "panne-ecriture-orale",
+            "title": "Signaler une panne à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "panne-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-signaler-panne-logement",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "panne-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "panne-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "panne-i1",
+                "type": "qcm",
+                "skillId": "gr-passe-compose-imparfait",
+                "difficulty": "B1"
+              },
+              {
+                "id": "panne-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-logement",
+                "difficulty": "B1"
+              },
+              {
+                "id": "panne-i3",
+                "type": "vrai_faux",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-prevenir-absence-travail",
+    "slug": "prevenir-absence-travail",
+    "level": "B1",
+    "title": "Prévenir d'un retard ou d'une absence au travail",
+    "description": "À la fin de ce module, tu pourras prévenir un responsable d'une absence de façon professionnelle et proposer une solution.",
+    "objectives": [
+      "Prévenir un responsable d'une absence de façon professionnelle",
+      "Comprendre un message vocal professionnel",
+      "Proposer une solution pour limiter les conséquences"
+    ],
+    "domain": "comprehension_orale",
+    "stageId": "b1-consolidation",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "absence-ecoute",
+        "type": "ecoute",
+        "title": "Écouter",
+        "optional": false,
+        "activities": [
+          {
+            "id": "absence-ecoute-activite",
+            "title": "Écouter un message vocal professionnel",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "absen-e",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "absence-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "absence-entrainement-activite",
+            "title": "Politesse professionnelle et vocabulaire du travail",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "absen-g1",
+                "type": "qcm",
+                "skillId": "gr-conditionnel-politesse",
+                "difficulty": "B1"
+              },
+              {
+                "id": "absen-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-travail",
+                "difficulty": "B1"
+              },
+              {
+                "id": "absen-g3",
+                "type": "association",
+                "skillId": "voc-travail",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "absence-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "absence-ecriture-ecrite",
+            "title": "Prévenir d'une absence par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "absen-h",
+                "type": "production_ecrite",
+                "skillId": "pe-prevenir-absence",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "absence-ecriture-orale",
+            "title": "Prévenir d'une absence à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "absen-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-prevenir-absence",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "absence-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "absence-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "absen-i1",
+                "type": "qcm",
+                "skillId": "gr-conditionnel-politesse",
+                "difficulty": "B1"
+              },
+              {
+                "id": "absen-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-travail",
+                "difficulty": "B1"
+              },
+              {
+                "id": "absen-i3",
+                "type": "vrai_faux",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-deplacer-un-rendez-vous",
+    "slug": "deplacer-un-rendez-vous",
+    "level": "B1",
+    "title": "Déplacer ou annuler un rendez-vous",
+    "description": "À la fin de ce module, tu pourras demander à déplacer un rendez-vous poliment, comprendre une proposition de nouvelle date et confirmer ou refuser une proposition.",
+    "objectives": [
+      "Demander à déplacer un rendez-vous poliment",
+      "Comprendre une proposition de nouvelle date",
+      "Confirmer ou refuser une nouvelle proposition"
+    ],
+    "domain": "comprehension_ecrite",
+    "stageId": "b1-consolidation",
+    "estimatedMinutes": 20,
+    "lessons": [
+      {
+        "id": "deplacer-comprendre",
+        "type": "comprendre",
+        "title": "Comprendre",
+        "optional": false,
+        "activities": [
+          {
+            "id": "deplacer-comprendre-activite",
+            "title": "Lire l'échange de SMS avec le cabinet",
+            "skillDomain": "comprehension_ecrite",
+            "exercises": [
+              {
+                "id": "depl-e",
+                "type": "comprehension_ecrite",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "deplacer-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "deplacer-entrainement-activite",
+            "title": "Politesse et vocabulaire du rendez-vous",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "depl-g1",
+                "type": "qcm",
+                "skillId": "gr-conditionnel-politesse",
+                "difficulty": "B1"
+              },
+              {
+                "id": "depl-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-rendez-vous",
+                "difficulty": "B1"
+              },
+              {
+                "id": "depl-g3",
+                "type": "association",
+                "skillId": "voc-rendez-vous",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "deplacer-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "deplacer-ecriture-ecrite",
+            "title": "Demander un déplacement par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "depl-h",
+                "type": "production_ecrite",
+                "skillId": "pe-modifier-rdv",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "deplacer-ecriture-orale",
+            "title": "Demander un déplacement à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "depl-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-modifier-rdv",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "deplacer-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "deplacer-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "depl-i1",
+                "type": "qcm",
+                "skillId": "gr-conditionnel-politesse",
+                "difficulty": "B1"
+              },
+              {
+                "id": "depl-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-rendez-vous",
+                "difficulty": "B1"
+              },
+              {
+                "id": "depl-i3",
+                "type": "vrai_faux",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
     "id": "a1-se-presenter",
     "slug": "se-presenter-a1",
     "level": "A1",
