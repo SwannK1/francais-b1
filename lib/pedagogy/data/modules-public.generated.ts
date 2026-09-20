@@ -4570,6 +4570,145 @@ export const PUBLIC_MODULES: PublicModule[] = [
     "totalExercises": 9
   },
   {
+    "id": "b1-se-renseigner-formation",
+    "slug": "se-renseigner-formation",
+    "level": "B1",
+    "title": "Se renseigner sur une formation",
+    "description": "À la fin de ce module, tu pourras te renseigner sur une formation, comprendre ses conditions d'inscription et demander les informations qu'il te manque.",
+    "objectives": [
+      "Comprendre un appel sur les conditions d'une formation",
+      "Exprimer une nécessité avec « il faut »",
+      "Demander des informations sur une formation"
+    ],
+    "domain": "comprehension_orale",
+    "stageId": "b1-consolidation",
+    "estimatedMinutes": 25,
+    "lessons": [
+      {
+        "id": "formation-ecoute",
+        "type": "ecoute",
+        "title": "Écouter",
+        "optional": false,
+        "activities": [
+          {
+            "id": "formation-ecoute-activite",
+            "title": "Écouter un appel à propos d'une formation",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "form-e",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "formation-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "formation-entrainement-activite",
+            "title": "Nécessité et vocabulaire de la formation",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "form-g1",
+                "type": "qcm",
+                "skillId": "gr-expression-necessite",
+                "difficulty": "B1"
+              },
+              {
+                "id": "form-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-formation",
+                "difficulty": "B1"
+              },
+              {
+                "id": "form-g3",
+                "type": "association",
+                "skillId": "voc-formation",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "formation-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "formation-ecriture-ecrite",
+            "title": "Demander des informations par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "form-h",
+                "type": "production_ecrite",
+                "skillId": "pe-demander-informations-formation",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "formation-ecriture-orale",
+            "title": "Se renseigner à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "form-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-demander-informations-formation",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "formation-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "formation-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "form-i1",
+                "type": "qcm",
+                "skillId": "gr-expression-necessite",
+                "difficulty": "B1"
+              },
+              {
+                "id": "form-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-formation",
+                "difficulty": "B1"
+              },
+              {
+                "id": "form-i3",
+                "type": "vrai_faux",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
     "id": "a1-se-presenter",
     "slug": "se-presenter-a1",
     "level": "A1",

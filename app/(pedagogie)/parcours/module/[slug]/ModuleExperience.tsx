@@ -287,7 +287,23 @@ export default function ModuleExperience({ mod }: { mod: Module }) {
 
           {step.kind === "lesson" ? (
             <>
-              {step.lesson.type === "comprendre" && mod.languagePoints && mod.languagePoints.length > 0 ? (
+              {/*
+                `languagePoints` s'affiche sur l'étape qui porte l'explication
+                de fond du module. La plupart des modules ont une étape
+                `comprendre` dédiée ; certains (contenu construit autour d'un
+                dialogue audio) n'ont qu'une étape `ecoute` et pas de
+                `comprendre` du tout — restreindre l'affichage à `comprendre`
+                seul rendait alors ces points de langue définis mais jamais
+                affichés (ex. `b1-discuter-avec-un-proprietaire`). On affiche
+                donc aussi sur `ecoute`, mais seulement quand le module n'a
+                pas déjà sa propre étape `comprendre` — sinon (ex.
+                `b1-prendre-rendez-vous`, qui a les deux étapes) les mêmes
+                points de langue apparaîtraient deux fois.
+              */}
+              {(step.lesson.type === "comprendre" ||
+                (step.lesson.type === "ecoute" && !mod.lessons.some((l) => l.type === "comprendre"))) &&
+              mod.languagePoints &&
+              mod.languagePoints.length > 0 ? (
                 <div className="space-y-3">
                   {mod.languagePoints.map((point) => (
                     <Card key={point.title}>

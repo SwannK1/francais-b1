@@ -180,6 +180,14 @@ const AUDIO_PRODUCTION_META: Record<string, AudioProductionMeta> = {
     pace: "Naturel, débit de message vocal (ni pressé ni traînant).",
     pronunciationNotes: ["Numéro de téléphone épelé chiffre par chiffre : « zéro-six, douze, trente-quatre, cinquante-six, soixante-dix-huit »"],
   },
+  "form-e": {
+    speakers: [
+      { role: "Nadia", voiceLabel: "Voix B", gender: "F" },
+      { role: "M. Girard", voiceLabel: "Voix A", gender: "H" },
+    ],
+    pace: "Naturel, ton professionnel mais accueillant (appel à un centre de formation).",
+    pronunciationNotes: ["« 15 décembre » prononcé naturellement, pas épelé."],
+  },
   "exam-b1-co-1": {
     speakers: [{ role: "Narrateur", voiceLabel: "Voix A", gender: "H" }],
     pace: "Soutenu mais intelligible, même registre que la piste transport.",

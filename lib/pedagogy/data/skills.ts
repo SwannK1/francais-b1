@@ -429,6 +429,24 @@ export const SKILLS: Skill[] = [
     name: "Informer et sensibiliser",
     description: "Rédiger un message court pour informer ou sensibiliser quelqu'un sur un sujet simple.",
   },
+  {
+    id: "voc-formation",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la formation",
+    description: "Mots pour parler d'une formation, d'une inscription et de ses conditions.",
+  },
+  {
+    id: "gr-expression-necessite",
+    domain: "grammaire",
+    name: "Exprimer une nécessité",
+    description: "Utiliser « il faut » + infinitif ou nom pour exprimer une nécessité, et la distinguer d'une simple possibilité.",
+  },
+  {
+    id: "pe-demander-informations-formation",
+    domain: "production_ecrite",
+    name: "Demander des informations sur une formation",
+    description: "Demander par écrit ou à l'oral des informations précises sur une formation avant de s'inscrire.",
+  },
   ...SKILLS_A1,
   ...SKILLS_A2,
 ];

@@ -10769,6 +10769,336 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-se-renseigner-formation",
+    slug: "se-renseigner-formation",
+    level: "B1",
+    title: "Se renseigner sur une formation",
+    description:
+      "À la fin de ce module, tu pourras te renseigner sur une formation, comprendre ses conditions d'inscription et demander les informations qu'il te manque.",
+    objectives: [
+      "Comprendre un appel sur les conditions d'une formation",
+      "Exprimer une nécessité avec « il faut »",
+      "Demander des informations sur une formation",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 25,
+    situation:
+      "Nadia envisage de reprendre une formation en comptabilité pour changer de métier. Elle appelle le centre de formation pour se renseigner avant de s'inscrire.",
+    vocabulary: [
+      { term: "une formation", category: "principal" },
+      { term: "une session", category: "principal" },
+      { term: "un diplôme", category: "principal" },
+      { term: "une lettre de motivation", category: "principal" },
+      { term: "un niveau (B1, B2...)", category: "principal" },
+      { term: "s'inscrire (à une formation)", category: "verbe" },
+      { term: "reprendre (ses études)", category: "verbe" },
+      { term: "proposer (une formation)", category: "verbe" },
+      { term: "« il reste des places »", category: "expression" },
+      { term: "« à raison de... par semaine »", category: "expression" },
+      { term: "« ça devrait aller »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Exprimer une nécessité : il faut",
+        explanation:
+          "« Il faut » + nom ou infinitif exprime une nécessité, une condition à remplir : Il faut un niveau B1. Il faut envoyer une lettre de motivation. Au négatif, « il ne faut pas » interdit — pour dire qu'une chose n'est pas obligatoire, on dit plutôt « ce n'est pas obligatoire » ou « ... n'est pas nécessaire ».",
+      },
+      {
+        title: "Indiquer une fréquence précise : à raison de",
+        explanation:
+          "« à raison de » + quantité introduit un rythme régulier et précis : La formation dure six mois, à raison de deux soirs par semaine. Plus précis que « souvent » ou « régulièrement », utile pour décrire un emploi du temps.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral", "TCF IRN — compréhension de l'oral"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "formation-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "formation-ecoute-activite",
+            title: "Écouter un appel à propos d'une formation",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "form-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'appel entre Nadia et M. Girard, du centre de formation (« Se renseigner sur une formation », 40 secondes), puis répondez.",
+                audioSrc: "/audio/b1/se-renseigner-formation.m4a",
+                transcript:
+                  "Nadia — Bonjour, je vous appelle au sujet de la formation en comptabilité que vous proposez " +
+                  "le soir... il reste des places ?\n" +
+                  "M. Girard — Bonjour ! Oui, il reste quelques places pour la session qui commence en janvier.\n" +
+                  "Nadia — Très bien. Il faut un diplôme particulier pour s'inscrire ?\n" +
+                  "M. Girard — Non, aucun diplôme n'est obligatoire, mais il faut un niveau B1 en français, parce " +
+                  "que les cours sont assez soutenus.\n" +
+                  "Nadia — D'accord, ça devrait aller. Et la formation dure combien de temps ?\n" +
+                  "M. Girard — Six mois, à raison de deux soirs par semaine. Vous pouvez vous inscrire en ligne, " +
+                  "mais il faut envoyer une lettre de motivation avant le 15 décembre.\n" +
+                  "Nadia — Parfait, je vais préparer ça dès cette semaine. Merci beaucoup pour ces informations !",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "form-e-q1",
+                    prompt: "Pourquoi Nadia appelle-t-elle le centre de formation ?",
+                    choices: [
+                      { id: "a", text: "Pour savoir s'il reste des places dans une formation." },
+                      { id: "b", text: "Pour annuler son inscription." },
+                      { id: "c", text: "Pour se plaindre d'un cours." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Pour savoir s'il reste des places dans une formation.",
+                      explanation: "C'est la première question qu'elle pose.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "form-e-q2",
+                    prompt: "Vrai ou faux : un diplôme est obligatoire pour s'inscrire à cette formation.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "M. Girard précise qu'aucun diplôme n'est obligatoire, seulement un niveau B1 en français.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "form-e-q3",
+                    prompt: "Que doit envoyer Nadia avant le 15 décembre ?",
+                    expectedAnswer: "Une lettre de motivation.",
+                    correction: {
+                      correctAnswer: "Une lettre de motivation.",
+                      explanation: "M. Girard le lui demande explicitement.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "form-e-q4",
+                    prompt: "Combien de temps dure la formation ?",
+                    choices: [
+                      { id: "a", text: "Trois mois" },
+                      { id: "b", text: "Six mois" },
+                      { id: "c", text: "Un an" },
+                    ],
+                    correctChoiceId: "b",
+                    correction: {
+                      correctAnswer: "Six mois",
+                      explanation: "M. Girard précise : « Six mois, à raison de deux soirs par semaine ».",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "formation-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "formation-entrainement-activite",
+            title: "Nécessité et vocabulaire de la formation",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "form-g1",
+                type: "qcm",
+                skillId: "gr-expression-necessite",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "form-g1-q",
+                  prompt: "Quelle phrase exprime une nécessité pour s'inscrire ?",
+                  choices: [
+                    { id: "a", text: "On pourrait envoyer une lettre de motivation." },
+                    { id: "b", text: "Il faut envoyer une lettre de motivation." },
+                    { id: "c", text: "Il serait possible d'envoyer une lettre de motivation." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Il faut envoyer une lettre de motivation.",
+                    explanation: "« Il faut » + infinitif exprime une condition à remplir, pas une simple possibilité.",
+                  },
+                },
+              },
+              {
+                id: "form-g2",
+                type: "texte_a_trous",
+                skillId: "voc-formation",
+                difficulty: "B1",
+                instructions: "Complète avec le mot qui convient : formation, diplôme, session, inscrire.",
+                textWithBlanks:
+                  "Nadia veut suivre une {{1}} en comptabilité. Il n'y a pas besoin de {{2}} particulier, " +
+                  "mais elle doit s'{{3}} avant le début de la {{4}}.",
+                blanks: [
+                  { id: "1", answer: "formation" },
+                  { id: "2", answer: "diplôme" },
+                  { id: "3", answer: "inscrire" },
+                  { id: "4", answer: "session" },
+                ],
+                correction: {
+                  correctAnswer: "formation — diplôme — inscrire — session",
+                  explanation: "Chaque mot correspond à une étape : le projet (formation), la condition (diplôme), la démarche (inscrire) et la période (session).",
+                },
+              },
+              {
+                id: "form-g3",
+                type: "association",
+                skillId: "voc-formation",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "il reste des places", right: "Il y a encore des inscriptions possibles." },
+                  { id: "2", left: "une lettre de motivation", right: "Un texte qui explique pourquoi on veut suivre une formation." },
+                  { id: "3", left: "un niveau soutenu", right: "Un rythme d'apprentissage exigeant." },
+                ],
+                correction: {
+                  correctAnswer: "1 → il reste des places ; 2 → une lettre de motivation ; 3 → un niveau soutenu",
+                  explanation: "Ces trois expressions reviennent souvent dans une démarche d'inscription à une formation.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "formation-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "formation-ecriture-ecrite",
+            title: "Demander des informations par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "form-h",
+                type: "production_ecrite",
+                skillId: "pe-demander-informations-formation",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Écris un message à un centre de formation pour demander des informations sur une formation qui " +
+                  "t'intéresse (durée, conditions d'inscription, date limite). Utilise au moins une fois « il faut ».",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Formation demandée clairement identifiée (/2)",
+                  "Au moins une question précise posée (/3)",
+                  "« Il faut » utilisé au moins une fois (/2)",
+                  "Message poli et bien construit (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "formation-ecriture-orale",
+            title: "Se renseigner à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "form-h-oral",
+                type: "production_orale",
+                skillId: "pe-demander-informations-formation",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Tu appelles un centre de formation pour te renseigner sur une formation qui t'intéresse. " +
+                  "Présente ta demande à voix haute : quelle formation, et quelles questions tu veux poser.",
+                context: "Comme Nadia avec M. Girard : c'est à ton tour de te renseigner sur une formation.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 60,
+                selfAssessmentCriteria: [
+                  "J'ai dit quelle formation m'intéresse.",
+                  "J'ai posé au moins une question précise.",
+                  "J'ai parlé de façon claire et compréhensible.",
+                ],
+                tips: "Pense à te présenter brièvement avant de poser tes questions, comme au téléphone.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "formation-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "formation-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "form-i1",
+                type: "qcm",
+                skillId: "gr-expression-necessite",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "form-i1-q",
+                  prompt: "Quelle phrase est correcte pour dire qu'une chose n'est pas obligatoire ?",
+                  choices: [
+                    { id: "a", text: "Il ne faut pas de diplôme." },
+                    { id: "b", text: "Un diplôme n'est pas nécessaire." },
+                    { id: "c", text: "Il faut un diplôme." },
+                  ],
+                  correctChoiceId: "b",
+                  correction: {
+                    correctAnswer: "Un diplôme n'est pas nécessaire.",
+                    explanation: "« Il ne faut pas » exprime une interdiction, pas une simple absence d'obligation.",
+                  },
+                },
+              },
+              {
+                id: "form-i2",
+                type: "reponse_courte",
+                skillId: "voc-formation",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel mot désigne le texte qu'on envoie pour expliquer pourquoi on veut suivre une formation : une lettre de ___ ?",
+                acceptedAnswers: ["motivation"],
+                correction: {
+                  correctAnswer: "motivation",
+                  explanation: "« Une lettre de motivation » explique les raisons et la motivation du candidat.",
+                },
+              },
+              {
+                id: "form-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après l'appel entre Nadia et M. Girard.",
+                statement: "La formation a lieu deux soirs par semaine.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "M. Girard le précise : « à raison de deux soirs par semaine ».",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   ...MODULES_A1,
   ...MODULES_A2,
 ];

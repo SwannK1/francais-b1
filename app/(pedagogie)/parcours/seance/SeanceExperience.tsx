@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Card from "@/components/ui/Card";
 import { buttonClasses } from "@/components/ui/button-styles";
@@ -36,13 +36,28 @@ export default function SeanceExperience({ mod }: { mod: Module }) {
   const { user } = useAuth();
 
   const isAccessible = (m: PublicModule) => canAccess({ kind: "module", slug: m.slug }, user?.premiumUntil);
-  // Niveau effectif, pas le seul `progress.level` brut — voir `getEffectiveLevel`
-  // et `lib/daily/session-engine.ts` (même raisonnement pour `buildDailySession`).
-  const levelModules = PUBLIC_MODULES.filter((m) => m.level === getEffectiveLevel(progress, PUBLIC_MODULES));
 
-  const mode = useMemo(() => determineDailySessionMode(progress, levelModules), [progress, levelModules]);
-  const reviewItem = useMemo(() => getReviewItems(progress, levelModules)[0] ?? null, [progress, levelModules]);
-  const steps = useMemo(() => buildSessionSteps(mod, progress, mode, reviewItem), [mod, progress, mode, reviewItem]);
+  // `mode`/`steps` sont figés au montage (lazy initializer), jamais
+  // recalculés en réaction à `progress` : `progress` change à chaque
+  // `recordResult()` (une réponse donnée plus loin dans cette même séance),
+  // et un `useMemo` gardé sur `progress` reconstruisait alors la liste des
+  // étapes EN PLEIN MILIEU de la séance (ex. une étape « Rappel rapide »
+  // apparaissant/disparaissant selon l'état de révision du moment) sans que
+  // `stepIndex` — un simple state local — ne soit jamais réconcilié avec le
+  // nouveau tableau : `steps[stepIndex]` pouvait alors pointer hors bornes
+  // (étape vide, « Étape 5 sur 4 », dernière étape indétectable). Un nouveau
+  // montage (rechargement, nouvel onglet) recalcule bien à partir de la
+  // progression à jour — c'était déjà l'intention du commentaire d'origine,
+  // seule la réaction en cours de séance était fautive.
+  const [{ mode, steps }] = useState(() => {
+    // Niveau effectif, pas le seul `progress.level` brut — voir
+    // `getEffectiveLevel` et `lib/daily/session-engine.ts` (même
+    // raisonnement pour `buildDailySession`).
+    const levelModules = PUBLIC_MODULES.filter((m) => m.level === getEffectiveLevel(progress, PUBLIC_MODULES));
+    const initialMode = determineDailySessionMode(progress, levelModules);
+    const initialReviewItem = getReviewItems(progress, levelModules)[0] ?? null;
+    return { mode: initialMode, steps: buildSessionSteps(mod, progress, initialMode, initialReviewItem) };
+  });
 
   const [stepIndex, setStepIndex] = useState(0);
   const [completedStepIds, setCompletedStepIds] = useState<string[]>([]);

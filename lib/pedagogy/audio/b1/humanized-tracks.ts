@@ -241,6 +241,24 @@ export const B1_HUMANIZED_TRACKS: B1HumanizedTrack[] = [
       },
     ],
   },
+  {
+    // Nouvelle piste (pas une réécriture) — même pipeline de synthèse que
+    // les pistes ci-dessus, chantier "combler le manque de compréhension
+    // orale du catalogue B1" (voir lib/pedagogy/data/modules.ts,
+    // module b1-se-renseigner-formation).
+    id: "form-e",
+    filename: "se-renseigner-formation.m4a",
+    rateWpm: 175,
+    turns: [
+      { speaker: "Nadia", voiceId: "voix-b", text: "Bonjour, je vous appelle au sujet de la formation en comptabilité que vous proposez le soir... il reste des places ?" },
+      { speaker: "M. Girard", voiceId: "voix-a", text: "Bonjour ! Oui, il reste quelques places pour la session qui commence en janvier." },
+      { speaker: "Nadia", voiceId: "voix-b", text: "Très bien. Il faut un diplôme particulier pour s'inscrire ?" },
+      { speaker: "M. Girard", voiceId: "voix-a", text: "Non, aucun diplôme n'est obligatoire, mais il faut un niveau B1 en français, parce que les cours sont assez soutenus." },
+      { speaker: "Nadia", voiceId: "voix-b", text: "D'accord, ça devrait aller. Et la formation dure combien de temps ?" },
+      { speaker: "M. Girard", voiceId: "voix-a", text: "Six mois, à raison de deux soirs par semaine. Vous pouvez vous inscrire en ligne, mais il faut envoyer une lettre de motivation avant le 15 décembre." },
+      { speaker: "Nadia", voiceId: "voix-b", text: "Parfait, je vais préparer ça dès cette semaine. Merci beaucoup pour ces informations !" },
+    ],
+  },
 ];
 
 /**
