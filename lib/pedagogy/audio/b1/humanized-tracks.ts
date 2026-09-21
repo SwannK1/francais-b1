@@ -319,6 +319,39 @@ export const B1_HUMANIZED_TRACKS: B1HumanizedTrack[] = [
       },
     ],
   },
+  {
+    id: "echange-e",
+    filename: "echanger-un-article.m4a",
+    rateWpm: 175,
+    turns: [
+      { speaker: "Léa", voiceId: "voix-c", text: "Bonjour, je voudrais échanger ces chaussures, elles sont un peu trop petites." },
+      { speaker: "M. Roche", voiceId: "voix-a", text: "Bien sûr, vous avez le ticket de caisse ?" },
+      { speaker: "Léa", voiceId: "voix-c", text: "Oui, le voilà. Je les ai achetées samedi dernier." },
+      { speaker: "M. Roche", voiceId: "voix-a", text: "Parfait, c'est dans les délais. Vous faisiez quelle taille, exactement ?" },
+      { speaker: "Léa", voiceId: "voix-c", text: "Du 38, mais je pense qu'il me faudrait plutôt du 39, elles me serrent un peu au bout." },
+      { speaker: "M. Roche", voiceId: "voix-a", text: "D'accord, je vais vérifier si on a la taille au-dessus en stock... Oui, il m'en reste une paire." },
+      { speaker: "Léa", voiceId: "voix-c", text: "Parfait, merci ! Et s'il n'y avait pas eu la bonne taille ?" },
+      { speaker: "M. Roche", voiceId: "voix-a", text: "Dans ce cas, je vous aurais proposé un avoir, valable un an dans tous nos magasins." },
+      { speaker: "Léa", voiceId: "voix-c", text: "Ah, très bien à savoir. Merci beaucoup pour votre aide." },
+      { speaker: "M. Roche", voiceId: "voix-a", text: "Je vous en prie, bonne journée !" },
+    ],
+  },
+  {
+    id: "abonn-e",
+    filename: "gerer-un-abonnement.m4a",
+    rateWpm: 175,
+    turns: [
+      { speaker: "Sarah", voiceId: "voix-b", text: "Bonjour, je voudrais résilier mon abonnement internet, je déménage à l'étranger le mois prochain." },
+      { speaker: "M. Fabre", voiceId: "voix-a", text: "D'accord, je comprends. Vous êtes engagée jusqu'à quand exactement ?" },
+      { speaker: "Sarah", voiceId: "voix-b", text: "Je ne suis plus engagée, mon contrat est sans engagement depuis six mois." },
+      { speaker: "M. Fabre", voiceId: "voix-a", text: "Parfait, dans ce cas il y a un préavis d'un mois. La résiliation prendra effet un mois à compter d'aujourd'hui." },
+      { speaker: "Sarah", voiceId: "voix-b", text: "D'accord. Est-ce que je serai encore facturée pendant ce mois-là ?" },
+      { speaker: "M. Fabre", voiceId: "voix-a", text: "Oui, le forfait est facturé normalement jusqu'à la date de résiliation. Ensuite, plus rien." },
+      { speaker: "Sarah", voiceId: "voix-b", text: "Très bien. Et je dois renvoyer la box internet ?" },
+      { speaker: "M. Fabre", voiceId: "voix-a", text: "Oui, vous avez quinze jours après la résiliation pour nous la retourner, sinon des frais s'appliquent." },
+      { speaker: "Sarah", voiceId: "voix-b", text: "Compris, merci beaucoup pour ces informations." },
+    ],
+  },
 ];
 
 /**

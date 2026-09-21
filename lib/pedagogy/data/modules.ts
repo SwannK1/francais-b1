@@ -13077,6 +13077,1645 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-prevenir-absence-ecole",
+    slug: "prevenir-absence-ecole",
+    level: "B1",
+    title: "Prévenir l'école de l'absence de son enfant",
+    description:
+      "À la fin de ce module, tu pourras prévenir l'école de l'absence de ton enfant, expliquer la raison par écrit et comprendre ce que l'école te demande en retour.",
+    objectives: [
+      "Prévenir l'école d'une absence par écrit",
+      "Expliquer la raison d'une absence",
+      "Comprendre une demande de justificatif",
+    ],
+    domain: "comprehension_ecrite",
+    stageId: "b1-debut",
+    estimatedMinutes: 20,
+    situation:
+      "La fille de Nadia, Léa, est malade ce matin. Nadia écrit à la maîtresse pour prévenir de son absence ; l'école lui répond pour lui indiquer ce qu'il faut faire.",
+    vocabulary: [
+      { term: "une absence", category: "principal" },
+      { term: "un certificat médical", category: "principal" },
+      { term: "un justificatif", category: "principal" },
+      { term: "rattraper (les cours)", category: "verbe" },
+      { term: "prévenir", category: "verbe" },
+      { term: "manquer (un cours)", category: "verbe" },
+      { term: "guérir", category: "verbe" },
+      { term: "« je vous informe que... »", category: "expression" },
+      { term: "« merci de nous transmettre... »", category: "expression" },
+      { term: "« bon rétablissement »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Prévenir par écrit : formules pour excuser une absence",
+        explanation:
+          "Pour excuser une absence à l'école, on peut écrire : Je vous informe que ma fille sera absente aujourd'hui. Une formule simple et directe, suivie de la raison.",
+      },
+      {
+        title: "Raconter avec le passé composé et l'imparfait",
+        explanation:
+          "Elle allait bien toute la journée, et le soir elle a eu de la fièvre. L'imparfait pour la situation normale, le passé composé pour l'événement soudain qui explique l'absence.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension des écrits"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "absecole-comprendre",
+        type: "comprendre",
+        title: "Comprendre",
+        optional: false,
+        activities: [
+          {
+            id: "absecole-comprendre-activite",
+            title: "Lire l'échange avec la maîtresse",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "abs-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez l'échange entre Nadia et la maîtresse de Léa, puis répondez.",
+                text:
+                  "Nadia : Bonjour Madame Foucher, je vous informe que Léa ne pourra pas venir à l'école " +
+                  "aujourd'hui. Elle allait bien toute la journée hier, et le soir elle a eu de la fièvre.\n\n" +
+                  "Mme Foucher : Merci de m'avoir prévenue. J'espère qu'elle va vite guérir ! Si elle est absente " +
+                  "plus de trois jours, merci de nous transmettre un certificat médical.\n\n" +
+                  "Nadia : D'accord, je vous tiens au courant. Est-ce qu'elle aura beaucoup de travail à " +
+                  "rattraper ?\n\n" +
+                  "Mme Foucher : Ne vous inquiétez pas, je lui donnerai les leçons manquées à son retour. Bon " +
+                  "rétablissement à elle !",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "abs-e-q1",
+                    prompt: "Pourquoi Léa est-elle absente aujourd'hui ?",
+                    choices: [
+                      { id: "a", text: "Elle est malade, elle a eu de la fièvre." },
+                      { id: "b", text: "Elle est partie en voyage." },
+                      { id: "c", text: "Elle a un rendez-vous chez le dentiste." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Elle est malade, elle a eu de la fièvre.",
+                      explanation: "Nadia le précise dans son premier message.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "abs-e-q2",
+                    prompt: "Nadia doit envoyer un certificat médical dès aujourd'hui.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Seulement si l'absence dure plus de trois jours.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "abs-e-q3",
+                    prompt: "Que fera Mme Foucher pour aider Léa à rattraper son retard ?",
+                    expectedAnswer: "Elle lui donnera les leçons manquées à son retour.",
+                    correction: {
+                      correctAnswer: "Elle lui donnera les leçons manquées à son retour.",
+                      explanation: "Mme Foucher le propose spontanément pour rassurer Nadia.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "abs-e-q4",
+                    prompt: "Qu'est-ce que Mme Foucher souhaite à Léa ?",
+                    choices: [
+                      { id: "a", text: "Bon rétablissement." },
+                      { id: "b", text: "Bonne chance." },
+                      { id: "c", text: "Bon appétit." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Bon rétablissement.",
+                      explanation: "Elle termine son message par cette formule attentionnée.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "absecole-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "absecole-entrainement-activite",
+            title: "Raconter une absence et vocabulaire de l'école",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "abs-g1",
+                type: "qcm",
+                skillId: "gr-passe-compose-imparfait",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "abs-g1-q",
+                  prompt: "Quelle phrase raconte correctement ce qui s'est passé ?",
+                  choices: [
+                    { id: "a", text: "Elle allait bien toute la journée, et le soir elle a eu de la fièvre." },
+                    { id: "b", text: "Elle est allée bien toute la journée, et le soir elle avait de la fièvre." },
+                    { id: "c", text: "Elle allait bien toute la journée, et le soir elle avait de la fièvre." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Elle allait bien toute la journée, et le soir elle a eu de la fièvre.",
+                    explanation:
+                      "Imparfait pour la situation normale (elle allait bien), passé composé pour l'événement soudain (elle a eu de la fièvre).",
+                  },
+                },
+              },
+              {
+                id: "abs-g2",
+                type: "texte_a_trous",
+                skillId: "voc-ecole",
+                difficulty: "B1",
+                instructions: "Complète avec : absence, certificat médical, rattraper, prévenir.",
+                textWithBlanks:
+                  "Nadia doit {{1}} l'école de l'{{2}} de sa fille. Si Léa est malade plus de trois jours, il " +
+                  "faudra un {{3}}. Elle pourra {{4}} les cours à son retour.",
+                blanks: [
+                  { id: "1", answer: "prévenir" },
+                  { id: "2", answer: "absence" },
+                  { id: "3", answer: "certificat médical" },
+                  { id: "4", answer: "rattraper" },
+                ],
+                correction: {
+                  correctAnswer: "prévenir — absence — certificat médical — rattraper",
+                  explanation: "Ces mots décrivent les étapes d'une absence gérée correctement avec l'école.",
+                },
+              },
+              {
+                id: "abs-g3",
+                type: "association",
+                skillId: "voc-ecole",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "bon rétablissement", right: "Se dit à quelqu'un de malade pour qu'il guérisse vite." },
+                  { id: "2", left: "manquer un cours", right: "Ne pas être présent à un cours." },
+                  { id: "3", left: "transmettre un document", right: "Envoyer un document à quelqu'un." },
+                ],
+                correction: {
+                  correctAnswer: "1 → bon rétablissement ; 2 → manquer un cours ; 3 → transmettre un document",
+                  explanation: "Ces expressions reviennent souvent dans les échanges avec l'école d'un enfant.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "absecole-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "absecole-ecriture-ecrite",
+            title: "Prévenir l'école par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "abs-h",
+                type: "production_ecrite",
+                skillId: "pe-prevenir-absence-ecole",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Ton enfant est malade et ne peut pas aller à l'école aujourd'hui. Écris un message à son " +
+                  "enseignant·e pour prévenir de son absence et expliquer la raison.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Absence clairement annoncée (/2)",
+                  "Raison de l'absence expliquée (/2)",
+                  "Message poli et bien formulé (/2)",
+                  "Formule de politesse ou de clôture adaptée (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "absecole-ecriture-orale",
+            title: "Prévenir l'école à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "abs-h-oral",
+                type: "production_orale",
+                skillId: "pe-prevenir-absence-ecole",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Tu téléphones à l'école pour prévenir de l'absence de ton enfant. Explique la situation à voix haute.",
+                context: "Comme Nadia avec Mme Foucher : à toi de prévenir et d'expliquer la raison.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 40,
+                selfAssessmentCriteria: [
+                  "J'ai annoncé l'absence clairement.",
+                  "J'ai expliqué la raison.",
+                  "J'ai été poli·e.",
+                ],
+                tips: "Commence par te présenter et nommer ton enfant, comme dans l'échange avec Mme Foucher.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "absecole-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "absecole-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "abs-i1",
+                type: "qcm",
+                skillId: "gr-passe-compose-imparfait",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "abs-i1-q",
+                  prompt: "Quelle phrase est correcte ?",
+                  choices: [
+                    { id: "a", text: "Il jouait dehors quand il est tombé." },
+                    { id: "b", text: "Il a joué dehors quand il tombait." },
+                    { id: "c", text: "Il jouait dehors quand il tombait." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Il jouait dehors quand il est tombé.",
+                    explanation: "Imparfait pour l'activité en cours, passé composé pour l'événement soudain.",
+                  },
+                },
+              },
+              {
+                id: "abs-i2",
+                type: "reponse_courte",
+                skillId: "voc-ecole",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel document faut-il parfois envoyer à l'école en cas d'absence prolongée : un ___ ___ ?",
+                acceptedAnswers: ["certificat médical", "certificat medical"],
+                correction: {
+                  correctAnswer: "certificat médical",
+                  explanation: "L'école le demande si l'absence dépasse trois jours.",
+                },
+              },
+              {
+                id: "abs-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le dialogue.",
+                statement: "Léa devra rattraper seule tout le travail manqué, sans aide de la maîtresse.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Mme Foucher lui donnera les leçons manquées à son retour.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-autorisation-sortie-scolaire",
+    slug: "autorisation-sortie-scolaire",
+    level: "B1",
+    title: "Comprendre une autorisation de sortie scolaire",
+    description:
+      "À la fin de ce module, tu pourras lire une note d'information de l'école, comprendre ce qu'on te demande et donner ton accord par écrit.",
+    objectives: [
+      "Comprendre une note d'information de l'école",
+      "Repérer les informations pratiques (date, coût, matériel)",
+      "Donner son accord par écrit",
+    ],
+    domain: "comprehension_ecrite",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 22,
+    situation:
+      "L'école de son fils Tom envoie à Marc une note sur une sortie scolaire au musée. Marc doit lire les informations, signer l'autorisation et répondre à une question.",
+    vocabulary: [
+      { term: "une autorisation", category: "principal" },
+      { term: "une sortie scolaire", category: "principal" },
+      { term: "un accompagnateur", category: "principal" },
+      { term: "une participation (financière)", category: "principal" },
+      { term: "un pique-nique", category: "principal" },
+      { term: "prévoir", category: "verbe" },
+      { term: "accompagner", category: "verbe" },
+      { term: "encadrer", category: "verbe" },
+      { term: "« merci de nous retourner... »", category: "expression" },
+      { term: "« daté et signé »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Comprendre des instructions avec l'impératif",
+        explanation:
+          "Merci de signer et de nous retourner ce coupon avant vendredi. Prévoyez un pique-nique et une bouteille d'eau. « Merci de » + infinitif (ou l'impératif) est la forme la plus courante pour donner des instructions écrites.",
+      },
+      {
+        title: "Donner son accord ou poser une question par écrit",
+        explanation:
+          "Pour répondre à une note de l'école : confirmer sa lecture, poser une question précise si besoin, et signer. Une réponse claire évite les allers-retours inutiles.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension des écrits"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "sortie-comprendre",
+        type: "comprendre",
+        title: "Comprendre",
+        optional: false,
+        activities: [
+          {
+            id: "sortie-comprendre-activite",
+            title: "Lire la note de l'école",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "sort-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez la note envoyée par l'école, puis répondez.",
+                text:
+                  "École Jules Ferry — Note aux familles\n\n" +
+                  "La classe de CE2 organise une sortie au musée des Sciences le jeudi 14 mai. Départ à 8h30, " +
+                  "retour prévu à 16h30.\n\n" +
+                  "Participation financière demandée : 5 €, à régler avant le 10 mai. Merci de prévoir un " +
+                  "pique-nique et une bouteille d'eau pour votre enfant.\n\n" +
+                  "Nous recherchons encore deux parents accompagnateurs pour encadrer le groupe. Si vous êtes " +
+                  "disponible, merci de nous le signaler.\n\n" +
+                  "Merci de signer et de nous retourner le coupon ci-dessous avant vendredi.\n\n" +
+                  "La directrice, Mme Charpentier",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "sort-e-q1",
+                    prompt: "Que doivent prévoir les parents pour leur enfant ?",
+                    choices: [
+                      { id: "a", text: "Un pique-nique et une bouteille d'eau." },
+                      { id: "b", text: "Un cadeau pour le musée." },
+                      { id: "c", text: "Des vêtements de sport." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Un pique-nique et une bouteille d'eau.",
+                      explanation: "La note le précise dans le deuxième paragraphe.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "sort-e-q2",
+                    prompt: "La sortie est entièrement gratuite.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Une participation de 5 € est demandée.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "sort-e-q3",
+                    prompt: "Avant quel jour faut-il retourner le coupon signé ?",
+                    expectedAnswer: "Avant vendredi.",
+                    correction: {
+                      correctAnswer: "Avant vendredi.",
+                      explanation: "C'est précisé à la fin de la note.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "sort-e-q4",
+                    prompt: "Que recherche encore l'école ?",
+                    choices: [
+                      { id: "a", text: "Deux parents accompagnateurs." },
+                      { id: "b", text: "Un bus supplémentaire." },
+                      { id: "c", text: "Un deuxième musée." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Deux parents accompagnateurs.",
+                      explanation: "L'école demande de l'aide pour encadrer le groupe.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "sortie-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "sortie-entrainement-activite",
+            title: "Instructions écrites et vocabulaire de l'école",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "sort-g1",
+                type: "qcm",
+                skillId: "gr-imperatif",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "sort-g1-q",
+                  prompt: "Quelle phrase donne correctement une instruction écrite ?",
+                  choices: [
+                    { id: "a", text: "Merci de signer le coupon avant vendredi." },
+                    { id: "b", text: "Vous pourriez peut-être signer le coupon." },
+                    { id: "c", text: "Il serait bien de penser à signer." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Merci de signer le coupon avant vendredi.",
+                    explanation:
+                      "« Merci de » + infinitif est la formule la plus naturelle et la plus courante dans une note destinée aux familles.",
+                  },
+                },
+              },
+              {
+                id: "sort-g2",
+                type: "texte_a_trous",
+                skillId: "voc-ecole",
+                difficulty: "B1",
+                instructions: "Complète avec : autorisation, accompagnateur, participation, pique-nique.",
+                textWithBlanks:
+                  "L'école demande une {{1}} de sortie signée par les parents. Un {{2}} supplémentaire est " +
+                  "recherché pour encadrer le groupe. Une {{3}} financière de 5 € est demandée, et chaque enfant " +
+                  "doit apporter un {{4}}.",
+                blanks: [
+                  { id: "1", answer: "autorisation" },
+                  { id: "2", answer: "accompagnateur" },
+                  { id: "3", answer: "participation" },
+                  { id: "4", answer: "pique-nique" },
+                ],
+                correction: {
+                  correctAnswer: "autorisation — accompagnateur — participation — pique-nique",
+                  explanation: "Ces mots reviennent dans la plupart des notes d'information sur une sortie scolaire.",
+                },
+              },
+              {
+                id: "sort-g3",
+                type: "association",
+                skillId: "voc-ecole",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "encadrer un groupe", right: "Surveiller et accompagner des enfants." },
+                  { id: "2", left: "un coupon-réponse", right: "Un petit papier à signer et à retourner." },
+                  { id: "3", left: "prévoir quelque chose", right: "Penser à l'apporter ou à l'organiser à l'avance." },
+                ],
+                correction: {
+                  correctAnswer: "1 → encadrer un groupe ; 2 → un coupon-réponse ; 3 → prévoir quelque chose",
+                  explanation: "Ces expressions sont utiles pour comprendre et répondre à une note de l'école.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "sortie-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "sortie-ecriture-ecrite",
+            title: "Répondre à l'école par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "sort-h",
+                type: "production_ecrite",
+                skillId: "pe-repondre-a-lecole",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Tu réponds à la note de l'école pour confirmer que tu as bien lu l'information, indiquer si tu " +
+                  "peux être accompagnateur·rice, et poser une question si besoin.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Confirmation de lecture claire (/2)",
+                  "Réponse sur le rôle d'accompagnateur (/2)",
+                  "Message bien structuré (/2)",
+                  "Formule de politesse adaptée (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "sortie-ecriture-orale",
+            title: "Résumer les informations à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "sort-h-oral",
+                type: "production_orale",
+                skillId: "pe-repondre-a-lecole",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Un autre parent te demande ce qu'il faut prévoir pour la sortie scolaire. Explique-lui à voix haute.",
+                context: "Comme dans la note de l'école : à toi de résumer les informations importantes.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 40,
+                selfAssessmentCriteria: [
+                  "J'ai donné la date et l'heure.",
+                  "J'ai mentionné le pique-nique et la participation.",
+                  "J'ai parlé clairement.",
+                ],
+                tips: "Reprends les informations dans l'ordre : date, matériel à apporter, coût.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "sortie-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "sortie-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "sort-i1",
+                type: "qcm",
+                skillId: "gr-imperatif",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "sort-i1-q",
+                  prompt: "Quelle phrase donne correctement une instruction écrite ?",
+                  choices: [
+                    { id: "a", text: "Merci de nous retourner ce document avant lundi." },
+                    { id: "b", text: "Vous devriez peut-être nous le retourner." },
+                    { id: "c", text: "On pourrait nous le retourner." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Merci de nous retourner ce document avant lundi.",
+                    explanation: "Formule directe et polie, la plus courante dans les notes officielles.",
+                  },
+                },
+              },
+              {
+                id: "sort-i2",
+                type: "reponse_courte",
+                skillId: "voc-ecole",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Comment appelle-t-on un parent qui accompagne une sortie scolaire : un ___ ?",
+                acceptedAnswers: ["accompagnateur"],
+                correction: {
+                  correctAnswer: "accompagnateur",
+                  explanation: "L'école en recherche deux dans la note.",
+                },
+              },
+              {
+                id: "sort-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après la note.",
+                statement: "L'école a déjà assez de parents accompagnateurs.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Elle en recherche encore deux.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-comprendre-une-garantie",
+    slug: "comprendre-une-garantie",
+    level: "B1",
+    title: "Comprendre une garantie et la faire jouer",
+    description:
+      "À la fin de ce module, tu pourras lire les conditions d'une garantie, savoir si un problème est couvert et écrire pour la faire jouer.",
+    objectives: [
+      "Comprendre les conditions d'une garantie",
+      "Savoir si une panne est couverte",
+      "Écrire pour faire jouer une garantie",
+    ],
+    domain: "comprehension_ecrite",
+    stageId: "b1-intermediaire",
+    estimatedMinutes: 22,
+    situation:
+      "Le mixeur de Leïla est tombé en panne après trois mois. Elle relit le document de garantie fourni avec l'appareil pour savoir si elle peut le faire réparer ou échanger gratuitement.",
+    vocabulary: [
+      { term: "une garantie", category: "principal" },
+      { term: "une pièce détachée", category: "principal" },
+      { term: "une facture", category: "principal" },
+      { term: "un délai", category: "principal" },
+      { term: "le service après-vente", category: "principal" },
+      { term: "couvrir", category: "verbe" },
+      { term: "conserver", category: "verbe" },
+      { term: "« être couvert par la garantie »", category: "expression" },
+      { term: "« à condition de... »", category: "expression" },
+      { term: "« à l'usure normale »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Exprimer une condition avec « si »",
+        explanation:
+          "Si l'appareil tombe en panne pendant la période de garantie, il est réparé ou remplacé gratuitement. Si vous n'avez plus la facture, la garantie ne peut pas être appliquée. Le présent après « si » pour une condition réelle et sa conséquence.",
+      },
+      {
+        title: "Poser une condition avec « à condition de »",
+        explanation:
+          "La garantie s'applique à condition de présenter la facture. « À condition de » + infinitif exprime une condition nécessaire, une alternative à « si » + présent.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension des écrits"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "garantie-comprendre",
+        type: "comprendre",
+        title: "Comprendre",
+        optional: false,
+        activities: [
+          {
+            id: "garantie-comprendre-activite",
+            title: "Lire le document de garantie",
+            skillDomain: "comprehension_ecrite",
+            exercises: [
+              {
+                id: "gar-e",
+                type: "comprehension_ecrite",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Lisez les conditions de garantie fournies avec le mixeur de Leïla, puis répondez.",
+                text:
+                  "Garantie constructeur — 2 ans\n\n" +
+                  "Cet appareil est garanti 2 ans à partir de la date d'achat. Si un défaut de fabrication " +
+                  "apparaît pendant cette période, l'appareil est réparé ou remplacé gratuitement.\n\n" +
+                  "La garantie s'applique à condition de présenter la facture d'achat. Elle ne couvre pas les " +
+                  "pannes dues à une mauvaise utilisation, à une chute, ou à l'usure normale des pièces (comme " +
+                  "les lames).\n\n" +
+                  "Pour faire jouer la garantie, contactez le service après-vente avec une description du " +
+                  "problème et une copie de votre facture. Le délai de traitement est d'environ deux semaines.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "gar-e-q1",
+                    prompt: "Que faut-il présenter pour faire jouer la garantie ?",
+                    choices: [
+                      { id: "a", text: "La facture d'achat." },
+                      { id: "b", text: "Le mode d'emploi." },
+                      { id: "c", text: "L'emballage d'origine." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "La facture d'achat.",
+                      explanation: "Le document le précise deux fois.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "gar-e-q2",
+                    prompt: "La garantie couvre une panne causée par une chute de l'appareil.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Les pannes dues à une mauvaise utilisation ou à une chute ne sont pas couvertes.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "gar-e-q3",
+                    prompt: "Combien de temps dure la garantie ?",
+                    expectedAnswer: "2 ans.",
+                    correction: {
+                      correctAnswer: "2 ans.",
+                      explanation: "C'est précisé dès le titre du document.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "gar-e-q4",
+                    prompt: "Que ne couvre pas la garantie ?",
+                    choices: [
+                      { id: "a", text: "L'usure normale des pièces comme les lames." },
+                      { id: "b", text: "Les défauts de fabrication." },
+                      { id: "c", text: "Les deux premières années d'utilisation." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "L'usure normale des pièces comme les lames.",
+                      explanation: "Le document l'exclut explicitement.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "garantie-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "garantie-entrainement-activite",
+            title: "Exprimer une condition et vocabulaire des achats",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "gar-g1",
+                type: "qcm",
+                skillId: "gr-si-condition",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "gar-g1-q",
+                  prompt: "Quelle phrase exprime correctement la condition de la garantie ?",
+                  choices: [
+                    { id: "a", text: "Si l'appareil tombe en panne pendant la garantie, il est réparé gratuitement." },
+                    { id: "b", text: "Si l'appareil tombait en panne, il serait réparé gratuitement." },
+                    { id: "c", text: "Si l'appareil est tombé en panne, il a été réparé gratuitement." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Si l'appareil tombe en panne pendant la garantie, il est réparé gratuitement.",
+                    explanation: "Si + présent pour une condition réelle et sa conséquence habituelle.",
+                  },
+                },
+              },
+              {
+                id: "gar-g2",
+                type: "texte_a_trous",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Complète avec : garantie, facture, pièce détachée, délai.",
+                textWithBlanks:
+                  "Le mixeur de Leïla est encore sous {{1}}. Elle doit conserver sa {{2}} pour faire une demande. " +
+                  "Les lames, une {{3}} qui s'use normalement, ne sont pas couvertes. Le {{4}} de traitement est " +
+                  "d'environ deux semaines.",
+                blanks: [
+                  { id: "1", answer: "garantie" },
+                  { id: "2", answer: "facture" },
+                  { id: "3", answer: "pièce détachée" },
+                  { id: "4", answer: "délai" },
+                ],
+                correction: {
+                  correctAnswer: "garantie — facture — pièce détachée — délai",
+                  explanation: "Ces mots reviennent dans la plupart des documents de garantie.",
+                },
+              },
+              {
+                id: "gar-g3",
+                type: "association",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "à l'usure normale", right: "Parce que la pièce s'est usée avec le temps normal d'utilisation." },
+                  { id: "2", left: "faire jouer la garantie", right: "Utiliser son droit à une réparation ou un remplacement gratuit." },
+                  { id: "3", left: "le service après-vente", right: "Le service qui s'occupe des réparations et des réclamations." },
+                ],
+                correction: {
+                  correctAnswer: "1 → à l'usure normale ; 2 → faire jouer la garantie ; 3 → le service après-vente",
+                  explanation: "Ces expressions sont essentielles pour comprendre un document de garantie.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "garantie-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "garantie-ecriture-ecrite",
+            title: "Faire jouer une garantie par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "gar-h",
+                type: "production_ecrite",
+                skillId: "pe-faire-jouer-garantie",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Un appareil que tu as acheté récemment est tombé en panne et il est encore sous garantie. " +
+                  "Écris un message au service après-vente pour décrire le problème et demander une réparation " +
+                  "ou un remplacement.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Panne décrite précisément (/2)",
+                  "Référence à la garantie ou à la facture (/2)",
+                  "Demande claire (réparation ou remplacement) (/2)",
+                  "Message poli (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "garantie-ecriture-orale",
+            title: "Faire jouer une garantie à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "gar-h-oral",
+                type: "production_orale",
+                skillId: "pe-faire-jouer-garantie",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne:
+                  "Tu appelles le service après-vente pour expliquer qu'un appareil encore sous garantie est " +
+                  "tombé en panne. Explique la situation à voix haute.",
+                context: "Comme Leïla avec son mixeur : à toi de décrire le problème et de demander l'application de la garantie.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 40,
+                selfAssessmentCriteria: [
+                  "J'ai décrit la panne.",
+                  "J'ai mentionné la garantie ou la facture.",
+                  "J'ai formulé une demande claire.",
+                ],
+                tips: "Précise depuis quand l'appareil ne fonctionne plus, comme dans le document de garantie.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "garantie-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "garantie-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "gar-i1",
+                type: "qcm",
+                skillId: "gr-si-condition",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "gar-i1-q",
+                  prompt: "Quelle phrase est correcte ?",
+                  choices: [
+                    { id: "a", text: "Si vous conservez la facture, la garantie s'applique." },
+                    { id: "b", text: "Si vous conserviez la facture, la garantie s'appliquerait." },
+                    { id: "c", text: "Si vous avez conservé la facture, la garantie s'est appliquée." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Si vous conservez la facture, la garantie s'applique.",
+                    explanation: "Si + présent, présent : condition réelle et sa conséquence habituelle.",
+                  },
+                },
+              },
+              {
+                id: "gar-i2",
+                type: "reponse_courte",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel document faut-il conserver pour faire jouer une garantie : une ___ ?",
+                acceptedAnswers: ["facture"],
+                correction: {
+                  correctAnswer: "facture",
+                  explanation: "Elle prouve la date et le lieu d'achat.",
+                },
+              },
+              {
+                id: "gar-i3",
+                type: "vrai_faux",
+                skillId: "ce-textes-courants",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le document.",
+                statement: "Le délai de traitement d'une demande de garantie est d'environ deux semaines.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "C'est précisé à la fin du document.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-echanger-un-article",
+    slug: "echanger-un-article",
+    level: "B1",
+    title: "Échanger un article en magasin",
+    description:
+      "À la fin de ce module, tu pourras expliquer pourquoi tu veux échanger un article, comprendre la politique d'échange d'un magasin et trouver un accord avec le vendeur.",
+    objectives: [
+      "Expliquer le problème avec un article acheté",
+      "Comprendre les conditions d'échange ou de remboursement",
+      "Trouver un accord avec le vendeur",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-debut",
+    estimatedMinutes: 22,
+    situation:
+      "Léa a acheté des chaussures qui sont trop petites. Elle retourne au magasin pour les échanger et discute avec le vendeur des conditions.",
+    vocabulary: [
+      { term: "un ticket de caisse", category: "principal" },
+      { term: "un avoir", category: "principal" },
+      { term: "une taille", category: "principal" },
+      { term: "échanger", category: "verbe" },
+      { term: "rembourser", category: "verbe" },
+      { term: "essayer (un vêtement)", category: "verbe" },
+      { term: "convenir", category: "verbe" },
+      { term: "« ça me serre un peu »", category: "expression" },
+      { term: "« vous avez le ticket ? »", category: "expression" },
+      { term: "au-dessus / en-dessous (une taille)", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Comparer pour expliquer un problème de taille",
+        explanation:
+          "Il me faudrait une taille plus grande que celle-ci. Elles sont plus petites que d'habitude. Le comparatif (plus/moins... que) est très utile pour préciser exactement ce qui ne va pas.",
+      },
+      {
+        title: "Demander poliment un échange ou un remboursement",
+        explanation:
+          "Serait-il possible de les échanger contre une taille au-dessus ? Le conditionnel adoucit la demande, même pour un problème simple.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral", "TCF IRN — compréhension de l'oral"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "echange-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "echange-ecoute-activite",
+            title: "Écouter un échange au magasin",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "echange-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'échange entre Léa et le vendeur, M. Roche (« Échanger un article », 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/echanger-un-article.m4a",
+                transcript:
+                  "Léa — Bonjour, je voudrais échanger ces chaussures, elles sont un peu trop petites.\n" +
+                  "M. Roche — Bien sûr, vous avez le ticket de caisse ?\n" +
+                  "Léa — Oui, le voilà. Je les ai achetées samedi dernier.\n" +
+                  "M. Roche — Parfait, c'est dans les délais. Vous faisiez quelle taille, exactement ?\n" +
+                  "Léa — Du 38, mais je pense qu'il me faudrait plutôt du 39, elles me serrent un peu au bout.\n" +
+                  "M. Roche — D'accord, je vais vérifier si on a la taille au-dessus en stock... Oui, il m'en " +
+                  "reste une paire.\n" +
+                  "Léa — Parfait, merci ! Et s'il n'y avait pas eu la bonne taille ?\n" +
+                  "M. Roche — Dans ce cas, je vous aurais proposé un avoir, valable un an dans tous nos magasins.\n" +
+                  "Léa — Ah, très bien à savoir. Merci beaucoup pour votre aide.\n" +
+                  "M. Roche — Je vous en prie, bonne journée !",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "echange-e-q1",
+                    prompt: "Pourquoi Léa veut-elle échanger ses chaussures ?",
+                    choices: [
+                      { id: "a", text: "Elles sont trop petites." },
+                      { id: "b", text: "Elles sont abîmées." },
+                      { id: "c", text: "Elle n'aime plus la couleur." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Elles sont trop petites.",
+                      explanation: "Léa le dit dès sa première phrase.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "echange-e-q2",
+                    prompt: "Léa a acheté les chaussures il y a plusieurs mois.",
+                    correctAnswer: false,
+                    correction: {
+                      correctAnswer: "Faux.",
+                      explanation: "Elle les a achetées samedi dernier.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "echange-e-q3",
+                    prompt: "Que propose M. Roche si la bonne taille n'est pas disponible ?",
+                    expectedAnswer: "Un avoir, valable un an.",
+                    correction: {
+                      correctAnswer: "Un avoir, valable un an.",
+                      explanation: "Il le précise pour rassurer Léa sur les autres options.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "echange-e-q4",
+                    prompt: "De quelle taille Léa a-t-elle finalement besoin ?",
+                    choices: [
+                      { id: "a", text: "Du 39." },
+                      { id: "b", text: "Du 37." },
+                      { id: "c", text: "Du 40." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Du 39.",
+                      explanation: "Elle demande la taille au-dessus du 38.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "echange-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "echange-entrainement-activite",
+            title: "Comparer et vocabulaire des achats",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "echange-g1",
+                type: "qcm",
+                skillId: "gr-comparatifs",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "echange-g1-q",
+                  prompt: "Quelle phrase compare correctement les deux tailles ?",
+                  choices: [
+                    { id: "a", text: "Il me faudrait une taille plus grande que celle-ci." },
+                    { id: "b", text: "Il me faudrait une taille aussi grande que celle-ci." },
+                    { id: "c", text: "Il me faudrait une taille la plus grande." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Il me faudrait une taille plus grande que celle-ci.",
+                    explanation: "Le comparatif de supériorité (plus... que) permet de préciser exactement quelle taille est nécessaire.",
+                  },
+                },
+              },
+              {
+                id: "echange-g2",
+                type: "texte_a_trous",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Complète avec : ticket de caisse, avoir, échanger, taille.",
+                textWithBlanks:
+                  "Pour {{1}} un article, il faut souvent présenter son {{2}}. Si la bonne {{3}} n'est pas " +
+                  "disponible, le magasin peut proposer un {{4}} à utiliser plus tard.",
+                blanks: [
+                  { id: "1", answer: "échanger" },
+                  { id: "2", answer: "ticket de caisse" },
+                  { id: "3", answer: "taille" },
+                  { id: "4", answer: "avoir" },
+                ],
+                correction: {
+                  correctAnswer: "échanger — ticket de caisse — taille — avoir",
+                  explanation: "Ces mots décrivent les étapes classiques d'un échange en magasin.",
+                },
+              },
+              {
+                id: "echange-g3",
+                type: "association",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "un avoir", right: "Un crédit à utiliser dans le magasin plus tard." },
+                  { id: "2", left: "ça me serre", right: "C'est trop petit ou trop étroit." },
+                  { id: "3", left: "être dans les délais", right: "Respecter la période autorisée pour un échange." },
+                ],
+                correction: {
+                  correctAnswer: "1 → un avoir ; 2 → ça me serre ; 3 → être dans les délais",
+                  explanation: "Ces expressions reviennent souvent lors d'un échange en magasin.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "echange-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "echange-ecriture-ecrite",
+            title: "Demander un échange par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "echange-h",
+                type: "production_ecrite",
+                skillId: "pe-echanger-un-article",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Un vêtement ou un objet que tu as acheté ne te convient pas (taille, couleur, défaut...). " +
+                  "Écris un message au magasin pour expliquer le problème et demander un échange.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Problème expliqué clairement (/2)",
+                  "Comparaison utilisée pour préciser (/2)",
+                  "Demande d'échange formulée (/2)",
+                  "Message poli (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "echange-ecriture-orale",
+            title: "Demander un échange à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "echange-h-oral",
+                type: "production_orale",
+                skillId: "pe-echanger-un-article",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne: "Tu es au magasin pour échanger un article. Explique le problème au vendeur à voix haute.",
+                context: "Comme Léa avec M. Roche : à toi d'expliquer le problème et de demander un échange.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 40,
+                selfAssessmentCriteria: [
+                  "J'ai expliqué le problème.",
+                  "J'ai précisé ce dont j'ai besoin.",
+                  "J'ai été poli·e.",
+                ],
+                tips: "Précise en quoi l'article ne convient pas, comme Léa avec la taille de ses chaussures.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "echange-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "echange-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "echange-i1",
+                type: "qcm",
+                skillId: "gr-comparatifs",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "echange-i1-q",
+                  prompt: "Quelle phrase est correcte ?",
+                  choices: [
+                    { id: "a", text: "Ce modèle est moins cher que l'autre." },
+                    { id: "b", text: "Ce modèle est moins cher de l'autre." },
+                    { id: "c", text: "Ce modèle est le moins cher de l'autre." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Ce modèle est moins cher que l'autre.",
+                    explanation: "Le comparatif d'infériorité se construit avec moins... que.",
+                  },
+                },
+              },
+              {
+                id: "echange-i2",
+                type: "reponse_courte",
+                skillId: "voc-achats",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Comment appelle-t-on le petit papier qui prouve un achat : un ___ ___ ?",
+                acceptedAnswers: ["ticket de caisse"],
+                correction: {
+                  correctAnswer: "ticket de caisse",
+                  explanation: "Le vendeur le demande pour vérifier la date d'achat.",
+                },
+              },
+              {
+                id: "echange-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le dialogue.",
+                statement: "M. Roche n'avait plus la bonne taille en stock.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Il lui restait une paire dans la taille au-dessus.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "b1-gerer-un-abonnement",
+    slug: "gerer-un-abonnement",
+    level: "B1",
+    title: "Prendre ou résilier un abonnement",
+    description:
+      "À la fin de ce module, tu pourras comprendre les conditions d'un abonnement, poser des questions sur l'engagement et demander poliment une résiliation.",
+    objectives: [
+      "Comprendre les conditions d'un abonnement",
+      "Poser des questions sur l'engagement et le préavis",
+      "Demander poliment une résiliation",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 23,
+    situation:
+      "Sarah déménage à l'étranger et appelle son opérateur internet pour résilier son abonnement. Le conseiller lui explique les conditions de résiliation.",
+    vocabulary: [
+      { term: "un abonnement", category: "principal" },
+      { term: "un engagement", category: "principal" },
+      { term: "un préavis", category: "principal" },
+      { term: "un forfait", category: "principal" },
+      { term: "résilier", category: "verbe" },
+      { term: "facturer", category: "verbe" },
+      { term: "reconduire (automatiquement)", category: "verbe" },
+      { term: "« je voudrais résilier... »", category: "expression" },
+      { term: "« sans engagement »", category: "expression" },
+      { term: "« à compter de... »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Demander poliment avec le conditionnel",
+        explanation:
+          "Je voudrais résilier mon abonnement. Pourriez-vous me confirmer la date de fin ? Le conditionnel reste la forme la plus naturelle pour une demande formelle, même par téléphone.",
+      },
+      {
+        title: "Comprendre un délai avec « à compter de »",
+        explanation:
+          "La résiliation prend effet un mois à compter de votre demande. « À compter de » introduit le point de départ d'un délai, fréquent dans les contrats et les services.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral", "TCF IRN — compréhension de l'oral"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "abonnement-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "abonnement-ecoute-activite",
+            title: "Écouter un appel de résiliation",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "abonn-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'appel entre Sarah et le conseiller, M. Fabre (« Résilier un abonnement », 45 secondes), puis répondez.",
+                audioSrc: "/audio/b1/gerer-un-abonnement.m4a",
+                transcript:
+                  "Sarah — Bonjour, je voudrais résilier mon abonnement internet, je déménage à l'étranger le " +
+                  "mois prochain.\n" +
+                  "M. Fabre — D'accord, je comprends. Vous êtes engagée jusqu'à quand exactement ?\n" +
+                  "Sarah — Je ne suis plus engagée, mon contrat est sans engagement depuis six mois.\n" +
+                  "M. Fabre — Parfait, dans ce cas il y a un préavis d'un mois. La résiliation prendra effet un " +
+                  "mois à compter d'aujourd'hui.\n" +
+                  "Sarah — D'accord. Est-ce que je serai encore facturée pendant ce mois-là ?\n" +
+                  "M. Fabre — Oui, le forfait est facturé normalement jusqu'à la date de résiliation. Ensuite, " +
+                  "plus rien.\n" +
+                  "Sarah — Très bien. Et je dois renvoyer la box internet ?\n" +
+                  "M. Fabre — Oui, vous avez quinze jours après la résiliation pour nous la retourner, sinon des " +
+                  "frais s'appliquent.\n" +
+                  "Sarah — Compris, merci beaucoup pour ces informations.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "abonn-e-q1",
+                    prompt: "Pourquoi Sarah veut-elle résilier son abonnement ?",
+                    choices: [
+                      { id: "a", text: "Elle déménage à l'étranger." },
+                      { id: "b", text: "Le prix a augmenté." },
+                      { id: "c", text: "Internet ne fonctionne plus." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Elle déménage à l'étranger.",
+                      explanation: "Sarah le précise dès le début de l'appel.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "abonn-e-q2",
+                    prompt: "Sarah doit encore payer pendant le mois de préavis.",
+                    correctAnswer: true,
+                    correction: {
+                      correctAnswer: "Vrai.",
+                      explanation: "Le forfait est facturé normalement jusqu'à la date de résiliation.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "abonn-e-q3",
+                    prompt: "Combien de temps Sarah a-t-elle pour renvoyer la box internet ?",
+                    expectedAnswer: "Quinze jours.",
+                    correction: {
+                      correctAnswer: "Quinze jours.",
+                      explanation: "Au-delà, des frais s'appliquent.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "abonn-e-q4",
+                    prompt: "Depuis combien de temps le contrat de Sarah est-il sans engagement ?",
+                    choices: [
+                      { id: "a", text: "Six mois." },
+                      { id: "b", text: "Un mois." },
+                      { id: "c", text: "Un an." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Six mois.",
+                      explanation: "Sarah le précise à M. Fabre.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "abonnement-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "abonnement-entrainement-activite",
+            title: "Demandes polies et vocabulaire de l'abonnement",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "abonn-g1",
+                type: "qcm",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "abonn-g1-q",
+                  prompt: "Quelle phrase est la plus adaptée pour demander une résiliation par téléphone ?",
+                  choices: [
+                    { id: "a", text: "Je voudrais résilier mon abonnement, s'il vous plaît." },
+                    { id: "b", text: "Je résilie mon abonnement maintenant." },
+                    { id: "c", text: "Il faut résilier mon abonnement." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Je voudrais résilier mon abonnement, s'il vous plaît.",
+                    explanation: "Le conditionnel de politesse reste la forme la plus naturelle pour une demande, même simple.",
+                  },
+                },
+              },
+              {
+                id: "abonn-g2",
+                type: "texte_a_trous",
+                skillId: "voc-abonnement",
+                difficulty: "B1",
+                instructions: "Complète avec : abonnement, résilier, préavis, forfait.",
+                textWithBlanks:
+                  "Sarah veut {{1}} son {{2}} internet avant son déménagement. Comme son contrat est sans " +
+                  "engagement, elle doit seulement respecter un {{3}} d'un mois. Le {{4}} reste facturé " +
+                  "normalement pendant cette période.",
+                blanks: [
+                  { id: "1", answer: "résilier" },
+                  { id: "2", answer: "abonnement" },
+                  { id: "3", answer: "préavis" },
+                  { id: "4", answer: "forfait" },
+                ],
+                correction: {
+                  correctAnswer: "résilier — abonnement — préavis — forfait",
+                  explanation: "Ces mots reviennent dans la plupart des démarches de résiliation.",
+                },
+              },
+              {
+                id: "abonn-g3",
+                type: "association",
+                skillId: "voc-abonnement",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "sans engagement", right: "On peut résilier à tout moment, sans durée minimum." },
+                  { id: "2", left: "un préavis", right: "Le délai à respecter avant que la résiliation prenne effet." },
+                  { id: "3", left: "être reconduit automatiquement", right: "Continuer sans qu'on ait besoin de le redemander." },
+                ],
+                correction: {
+                  correctAnswer: "1 → sans engagement ; 2 → un préavis ; 3 → être reconduit automatiquement",
+                  explanation: "Ces expressions sont essentielles pour comprendre un contrat d'abonnement.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "abonnement-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "abonnement-ecriture-ecrite",
+            title: "Demander une résiliation par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "abonn-h",
+                type: "production_ecrite",
+                skillId: "pe-gerer-un-abonnement",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Tu veux résilier un abonnement (téléphone, internet, salle de sport...). Écris un message à " +
+                  "ton opérateur pour demander la résiliation et connaître les conditions (préavis, matériel à " +
+                  "retourner...).",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Demande de résiliation claire (/2)",
+                  "Raison ou contexte mentionné (/2)",
+                  "Question sur les conditions posée (/2)",
+                  "Message poli (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "abonnement-ecriture-orale",
+            title: "Demander une résiliation à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "abonn-h-oral",
+                type: "production_orale",
+                skillId: "pe-gerer-un-abonnement",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne: "Tu appelles ton opérateur pour résilier un abonnement. Explique ta demande à voix haute.",
+                context: "Comme Sarah avec M. Fabre : à toi de demander la résiliation et de poser une question sur les conditions.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 40,
+                selfAssessmentCriteria: [
+                  "J'ai formulé ma demande poliment.",
+                  "J'ai posé une question sur les conditions.",
+                  "J'ai parlé clairement.",
+                ],
+                tips: "Commence par « Je voudrais résilier... », comme Sarah.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "abonnement-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "abonnement-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "abonn-i1",
+                type: "qcm",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "abonn-i1-q",
+                  prompt: "Quelle phrase est la plus polie ?",
+                  choices: [
+                    { id: "a", text: "Pourriez-vous m'indiquer le délai de préavis ?" },
+                    { id: "b", text: "Vous me dites le délai de préavis." },
+                    { id: "c", text: "Donnez-moi le délai de préavis." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Pourriez-vous m'indiquer le délai de préavis ?",
+                    explanation: "Le conditionnel adoucit la demande, même au téléphone avec un service client.",
+                  },
+                },
+              },
+              {
+                id: "abonn-i2",
+                type: "reponse_courte",
+                skillId: "voc-abonnement",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Quel est le délai à respecter avant qu'une résiliation prenne effet : un ___ ?",
+                acceptedAnswers: ["préavis"],
+                correction: {
+                  correctAnswer: "préavis",
+                  explanation: "Il est d'un mois dans l'appel de Sarah.",
+                },
+              },
+              {
+                id: "abonn-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le dialogue.",
+                statement: "Sarah devra payer des frais si elle ne renvoie pas la box internet à temps.",
+                correctAnswer: true,
+                correction: {
+                  correctAnswer: "Vrai.",
+                  explanation: "Des frais s'appliquent si la box n'est pas retournée dans les quinze jours.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   ...MODULES_A1,
   ...MODULES_A2,
 ];

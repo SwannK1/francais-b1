@@ -483,6 +483,48 @@ export const SKILLS: Skill[] = [
     name: "Déplacer ou annuler un rendez-vous",
     description: "Demander poliment à déplacer ou annuler un rendez-vous, et réagir à une nouvelle proposition.",
   },
+  {
+    id: "voc-ecole",
+    domain: "vocabulaire",
+    name: "Vocabulaire de l'école",
+    description: "Mots pour communiquer avec l'école de son enfant : absence, sortie scolaire, accompagnateur.",
+  },
+  {
+    id: "voc-abonnement",
+    domain: "vocabulaire",
+    name: "Vocabulaire de l'abonnement",
+    description: "Mots pour comprendre et gérer un abonnement : engagement, préavis, résiliation.",
+  },
+  {
+    id: "pe-prevenir-absence-ecole",
+    domain: "production_ecrite",
+    name: "Prévenir l'école d'une absence",
+    description: "Prévenir l'école de l'absence de son enfant par écrit et en expliquer la raison.",
+  },
+  {
+    id: "pe-repondre-a-lecole",
+    domain: "production_ecrite",
+    name: "Répondre à une communication de l'école",
+    description: "Répondre par écrit à une note de l'école : confirmer sa lecture, se proposer, poser une question.",
+  },
+  {
+    id: "pe-faire-jouer-garantie",
+    domain: "production_ecrite",
+    name: "Faire jouer une garantie",
+    description: "Décrire une panne et demander une réparation ou un remplacement au titre de la garantie.",
+  },
+  {
+    id: "pe-echanger-un-article",
+    domain: "production_ecrite",
+    name: "Échanger un article acheté",
+    description: "Expliquer pourquoi un article ne convient pas et demander un échange ou un remboursement.",
+  },
+  {
+    id: "pe-gerer-un-abonnement",
+    domain: "production_ecrite",
+    name: "Gérer un abonnement",
+    description: "Demander la résiliation d'un abonnement et se renseigner sur les conditions.",
+  },
   ...SKILLS_A1,
   ...SKILLS_A2,
 ];

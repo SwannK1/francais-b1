@@ -5543,6 +5543,701 @@ export const PUBLIC_MODULES: PublicModule[] = [
     "totalExercises": 9
   },
   {
+    "id": "b1-prevenir-absence-ecole",
+    "slug": "prevenir-absence-ecole",
+    "level": "B1",
+    "title": "Prévenir l'école de l'absence de son enfant",
+    "description": "À la fin de ce module, tu pourras prévenir l'école de l'absence de ton enfant, expliquer la raison par écrit et comprendre ce que l'école te demande en retour.",
+    "objectives": [
+      "Prévenir l'école d'une absence par écrit",
+      "Expliquer la raison d'une absence",
+      "Comprendre une demande de justificatif"
+    ],
+    "domain": "comprehension_ecrite",
+    "stageId": "b1-debut",
+    "estimatedMinutes": 20,
+    "lessons": [
+      {
+        "id": "absecole-comprendre",
+        "type": "comprendre",
+        "title": "Comprendre",
+        "optional": false,
+        "activities": [
+          {
+            "id": "absecole-comprendre-activite",
+            "title": "Lire l'échange avec la maîtresse",
+            "skillDomain": "comprehension_ecrite",
+            "exercises": [
+              {
+                "id": "abs-e",
+                "type": "comprehension_ecrite",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "absecole-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "absecole-entrainement-activite",
+            "title": "Raconter une absence et vocabulaire de l'école",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "abs-g1",
+                "type": "qcm",
+                "skillId": "gr-passe-compose-imparfait",
+                "difficulty": "B1"
+              },
+              {
+                "id": "abs-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-ecole",
+                "difficulty": "B1"
+              },
+              {
+                "id": "abs-g3",
+                "type": "association",
+                "skillId": "voc-ecole",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "absecole-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "absecole-ecriture-ecrite",
+            "title": "Prévenir l'école par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "abs-h",
+                "type": "production_ecrite",
+                "skillId": "pe-prevenir-absence-ecole",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "absecole-ecriture-orale",
+            "title": "Prévenir l'école à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "abs-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-prevenir-absence-ecole",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "absecole-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "absecole-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "abs-i1",
+                "type": "qcm",
+                "skillId": "gr-passe-compose-imparfait",
+                "difficulty": "B1"
+              },
+              {
+                "id": "abs-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-ecole",
+                "difficulty": "B1"
+              },
+              {
+                "id": "abs-i3",
+                "type": "vrai_faux",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-autorisation-sortie-scolaire",
+    "slug": "autorisation-sortie-scolaire",
+    "level": "B1",
+    "title": "Comprendre une autorisation de sortie scolaire",
+    "description": "À la fin de ce module, tu pourras lire une note d'information de l'école, comprendre ce qu'on te demande et donner ton accord par écrit.",
+    "objectives": [
+      "Comprendre une note d'information de l'école",
+      "Repérer les informations pratiques (date, coût, matériel)",
+      "Donner son accord par écrit"
+    ],
+    "domain": "comprehension_ecrite",
+    "stageId": "b1-intermediaire",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "sortie-comprendre",
+        "type": "comprendre",
+        "title": "Comprendre",
+        "optional": false,
+        "activities": [
+          {
+            "id": "sortie-comprendre-activite",
+            "title": "Lire la note de l'école",
+            "skillDomain": "comprehension_ecrite",
+            "exercises": [
+              {
+                "id": "sort-e",
+                "type": "comprehension_ecrite",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sortie-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "sortie-entrainement-activite",
+            "title": "Instructions écrites et vocabulaire de l'école",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "sort-g1",
+                "type": "qcm",
+                "skillId": "gr-imperatif",
+                "difficulty": "B1"
+              },
+              {
+                "id": "sort-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-ecole",
+                "difficulty": "B1"
+              },
+              {
+                "id": "sort-g3",
+                "type": "association",
+                "skillId": "voc-ecole",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sortie-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "sortie-ecriture-ecrite",
+            "title": "Répondre à l'école par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "sort-h",
+                "type": "production_ecrite",
+                "skillId": "pe-repondre-a-lecole",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "sortie-ecriture-orale",
+            "title": "Résumer les informations à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "sort-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-repondre-a-lecole",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sortie-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "sortie-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "sort-i1",
+                "type": "qcm",
+                "skillId": "gr-imperatif",
+                "difficulty": "B1"
+              },
+              {
+                "id": "sort-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-ecole",
+                "difficulty": "B1"
+              },
+              {
+                "id": "sort-i3",
+                "type": "vrai_faux",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-comprendre-une-garantie",
+    "slug": "comprendre-une-garantie",
+    "level": "B1",
+    "title": "Comprendre une garantie et la faire jouer",
+    "description": "À la fin de ce module, tu pourras lire les conditions d'une garantie, savoir si un problème est couvert et écrire pour la faire jouer.",
+    "objectives": [
+      "Comprendre les conditions d'une garantie",
+      "Savoir si une panne est couverte",
+      "Écrire pour faire jouer une garantie"
+    ],
+    "domain": "comprehension_ecrite",
+    "stageId": "b1-intermediaire",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "garantie-comprendre",
+        "type": "comprendre",
+        "title": "Comprendre",
+        "optional": false,
+        "activities": [
+          {
+            "id": "garantie-comprendre-activite",
+            "title": "Lire le document de garantie",
+            "skillDomain": "comprehension_ecrite",
+            "exercises": [
+              {
+                "id": "gar-e",
+                "type": "comprehension_ecrite",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "garantie-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "garantie-entrainement-activite",
+            "title": "Exprimer une condition et vocabulaire des achats",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "gar-g1",
+                "type": "qcm",
+                "skillId": "gr-si-condition",
+                "difficulty": "B1"
+              },
+              {
+                "id": "gar-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-achats",
+                "difficulty": "B1"
+              },
+              {
+                "id": "gar-g3",
+                "type": "association",
+                "skillId": "voc-achats",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "garantie-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "garantie-ecriture-ecrite",
+            "title": "Faire jouer une garantie par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "gar-h",
+                "type": "production_ecrite",
+                "skillId": "pe-faire-jouer-garantie",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "garantie-ecriture-orale",
+            "title": "Faire jouer une garantie à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "gar-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-faire-jouer-garantie",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "garantie-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "garantie-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "gar-i1",
+                "type": "qcm",
+                "skillId": "gr-si-condition",
+                "difficulty": "B1"
+              },
+              {
+                "id": "gar-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-achats",
+                "difficulty": "B1"
+              },
+              {
+                "id": "gar-i3",
+                "type": "vrai_faux",
+                "skillId": "ce-textes-courants",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-echanger-un-article",
+    "slug": "echanger-un-article",
+    "level": "B1",
+    "title": "Échanger un article en magasin",
+    "description": "À la fin de ce module, tu pourras expliquer pourquoi tu veux échanger un article, comprendre la politique d'échange d'un magasin et trouver un accord avec le vendeur.",
+    "objectives": [
+      "Expliquer le problème avec un article acheté",
+      "Comprendre les conditions d'échange ou de remboursement",
+      "Trouver un accord avec le vendeur"
+    ],
+    "domain": "comprehension_orale",
+    "stageId": "b1-debut",
+    "estimatedMinutes": 22,
+    "lessons": [
+      {
+        "id": "echange-ecoute",
+        "type": "ecoute",
+        "title": "Écouter",
+        "optional": false,
+        "activities": [
+          {
+            "id": "echange-ecoute-activite",
+            "title": "Écouter un échange au magasin",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "echange-e",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "echange-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "echange-entrainement-activite",
+            "title": "Comparer et vocabulaire des achats",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "echange-g1",
+                "type": "qcm",
+                "skillId": "gr-comparatifs",
+                "difficulty": "B1"
+              },
+              {
+                "id": "echange-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-achats",
+                "difficulty": "B1"
+              },
+              {
+                "id": "echange-g3",
+                "type": "association",
+                "skillId": "voc-achats",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "echange-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "echange-ecriture-ecrite",
+            "title": "Demander un échange par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "echange-h",
+                "type": "production_ecrite",
+                "skillId": "pe-echanger-un-article",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "echange-ecriture-orale",
+            "title": "Demander un échange à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "echange-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-echanger-un-article",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "echange-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "echange-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "echange-i1",
+                "type": "qcm",
+                "skillId": "gr-comparatifs",
+                "difficulty": "B1"
+              },
+              {
+                "id": "echange-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-achats",
+                "difficulty": "B1"
+              },
+              {
+                "id": "echange-i3",
+                "type": "vrai_faux",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
+    "id": "b1-gerer-un-abonnement",
+    "slug": "gerer-un-abonnement",
+    "level": "B1",
+    "title": "Prendre ou résilier un abonnement",
+    "description": "À la fin de ce module, tu pourras comprendre les conditions d'un abonnement, poser des questions sur l'engagement et demander poliment une résiliation.",
+    "objectives": [
+      "Comprendre les conditions d'un abonnement",
+      "Poser des questions sur l'engagement et le préavis",
+      "Demander poliment une résiliation"
+    ],
+    "domain": "comprehension_orale",
+    "stageId": "b1-consolidation",
+    "estimatedMinutes": 23,
+    "lessons": [
+      {
+        "id": "abonnement-ecoute",
+        "type": "ecoute",
+        "title": "Écouter",
+        "optional": false,
+        "activities": [
+          {
+            "id": "abonnement-ecoute-activite",
+            "title": "Écouter un appel de résiliation",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "abonn-e",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "abonnement-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "abonnement-entrainement-activite",
+            "title": "Demandes polies et vocabulaire de l'abonnement",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "abonn-g1",
+                "type": "qcm",
+                "skillId": "gr-conditionnel-politesse",
+                "difficulty": "B1"
+              },
+              {
+                "id": "abonn-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-abonnement",
+                "difficulty": "B1"
+              },
+              {
+                "id": "abonn-g3",
+                "type": "association",
+                "skillId": "voc-abonnement",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "abonnement-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "abonnement-ecriture-ecrite",
+            "title": "Demander une résiliation par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "abonn-h",
+                "type": "production_ecrite",
+                "skillId": "pe-gerer-un-abonnement",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "abonnement-ecriture-orale",
+            "title": "Demander une résiliation à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "abonn-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-gerer-un-abonnement",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "abonnement-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "abonnement-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "abonn-i1",
+                "type": "qcm",
+                "skillId": "gr-conditionnel-politesse",
+                "difficulty": "B1"
+              },
+              {
+                "id": "abonn-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-abonnement",
+                "difficulty": "B1"
+              },
+              {
+                "id": "abonn-i3",
+                "type": "vrai_faux",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
     "id": "a1-se-presenter",
     "slug": "se-presenter-a1",
     "level": "A1",

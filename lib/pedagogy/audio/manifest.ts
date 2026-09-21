@@ -217,6 +217,22 @@ const AUDIO_PRODUCTION_META: Record<string, AudioProductionMeta> = {
     pace: "Naturel, débit de message vocal, ton un peu fatigué mais professionnel.",
     pronunciationNotes: ["Pas de numéro à épeler dans cette piste."],
   },
+  "echange-e": {
+    speakers: [
+      { role: "Léa", voiceLabel: "Voix C", gender: "F" },
+      { role: "M. Roche", voiceLabel: "Voix A", gender: "H" },
+    ],
+    pace: "Naturel, conversationnel (cliente et vendeur dans un magasin).",
+    pronunciationNotes: ["« du 38 » / « du 39 » prononcés comme des pointures."],
+  },
+  "abonn-e": {
+    speakers: [
+      { role: "Sarah", voiceLabel: "Voix B", gender: "F" },
+      { role: "M. Fabre", voiceLabel: "Voix A", gender: "H" },
+    ],
+    pace: "Naturel, conversationnel (appel à un service client).",
+    pronunciationNotes: ["« quinze jours » articulé clairement."],
+  },
   "exam-b1-co-1": {
     speakers: [{ role: "Narrateur", voiceLabel: "Voix A", gender: "H" }],
     pace: "Soutenu mais intelligible, même registre que la piste transport.",
