@@ -525,6 +525,18 @@ export const SKILLS: Skill[] = [
     name: "Gérer un abonnement",
     description: "Demander la résiliation d'un abonnement et se renseigner sur les conditions.",
   },
+  {
+    id: "voc-banque",
+    domain: "vocabulaire",
+    name: "Vocabulaire de la banque",
+    description: "Mots pour lire un relevé de compte et signaler une opération bancaire non reconnue.",
+  },
+  {
+    id: "pe-contester-prelevement",
+    domain: "production_ecrite",
+    name: "Contester un prélèvement bancaire",
+    description: "Signaler à sa banque un prélèvement non reconnu et demander des explications.",
+  },
   ...SKILLS_A1,
   ...SKILLS_A2,
 ];

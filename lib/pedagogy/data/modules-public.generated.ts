@@ -6238,6 +6238,145 @@ export const PUBLIC_MODULES: PublicModule[] = [
     "totalExercises": 9
   },
   {
+    "id": "b1-comprendre-releve-compte",
+    "slug": "comprendre-releve-compte",
+    "level": "B1",
+    "title": "Comprendre un relevé de compte et signaler une erreur",
+    "description": "À la fin de ce module, tu pourras lire un relevé de compte, repérer une opération suspecte et la signaler à ta banque.",
+    "objectives": [
+      "Lire et comprendre un relevé de compte",
+      "Signaler un prélèvement non reconnu",
+      "Comprendre les démarches de contestation"
+    ],
+    "domain": "comprehension_orale",
+    "stageId": "b1-consolidation",
+    "estimatedMinutes": 23,
+    "lessons": [
+      {
+        "id": "compte-ecoute",
+        "type": "ecoute",
+        "title": "Écouter",
+        "optional": false,
+        "activities": [
+          {
+            "id": "compte-ecoute-activite",
+            "title": "Écouter un appel à la banque",
+            "skillDomain": "comprehension_orale",
+            "exercises": [
+              {
+                "id": "compte-e",
+                "type": "comprehension_orale",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "compte-entrainement",
+        "type": "entrainement",
+        "title": "S'entraîner",
+        "optional": false,
+        "activities": [
+          {
+            "id": "compte-entrainement-activite",
+            "title": "Demandes polies et vocabulaire de la banque",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "compte-g1",
+                "type": "qcm",
+                "skillId": "gr-conditionnel-politesse",
+                "difficulty": "B1"
+              },
+              {
+                "id": "compte-g2",
+                "type": "texte_a_trous",
+                "skillId": "voc-banque",
+                "difficulty": "B1"
+              },
+              {
+                "id": "compte-g3",
+                "type": "association",
+                "skillId": "voc-banque",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "compte-ecriture",
+        "type": "ecriture",
+        "title": "Produire",
+        "optional": false,
+        "activities": [
+          {
+            "id": "compte-ecriture-ecrite",
+            "title": "Signaler un prélèvement par écrit",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "compte-h",
+                "type": "production_ecrite",
+                "skillId": "pe-contester-prelevement",
+                "difficulty": "B1"
+              }
+            ]
+          },
+          {
+            "id": "compte-ecriture-orale",
+            "title": "Signaler un prélèvement à l'oral",
+            "skillDomain": "production_ecrite",
+            "exercises": [
+              {
+                "id": "compte-h-oral",
+                "type": "production_orale",
+                "skillId": "pe-contester-prelevement",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "compte-evaluation",
+        "type": "evaluation",
+        "title": "Valider",
+        "optional": false,
+        "activities": [
+          {
+            "id": "compte-evaluation-activite",
+            "title": "Bilan du module",
+            "skillDomain": "grammaire",
+            "exercises": [
+              {
+                "id": "compte-i1",
+                "type": "qcm",
+                "skillId": "gr-conditionnel-politesse",
+                "difficulty": "B1"
+              },
+              {
+                "id": "compte-i2",
+                "type": "reponse_courte",
+                "skillId": "voc-banque",
+                "difficulty": "B1"
+              },
+              {
+                "id": "compte-i3",
+                "type": "vrai_faux",
+                "skillId": "co-dialogues-simples",
+                "difficulty": "B1"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalExercises": 9
+  },
+  {
     "id": "a1-se-presenter",
     "slug": "se-presenter-a1",
     "level": "A1",

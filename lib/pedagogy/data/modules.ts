@@ -14716,6 +14716,339 @@ export const MODULES: Module[] = [
       },
     ],
   },
+  {
+    id: "b1-comprendre-releve-compte",
+    slug: "comprendre-releve-compte",
+    level: "B1",
+    title: "Comprendre un relevé de compte et signaler une erreur",
+    description:
+      "À la fin de ce module, tu pourras lire un relevé de compte, repérer une opération suspecte et la signaler à ta banque.",
+    objectives: [
+      "Lire et comprendre un relevé de compte",
+      "Signaler un prélèvement non reconnu",
+      "Comprendre les démarches de contestation",
+    ],
+    domain: "comprehension_orale",
+    stageId: "b1-consolidation",
+    estimatedMinutes: 23,
+    situation:
+      "Amara consulte son relevé de compte en ligne et remarque un prélèvement de 45 euros qu'elle ne reconnaît pas. Elle appelle sa banque pour comprendre et contester ce prélèvement.",
+    vocabulary: [
+      { term: "un relevé de compte", category: "principal" },
+      { term: "un prélèvement", category: "principal" },
+      { term: "un virement", category: "principal" },
+      { term: "un solde", category: "principal" },
+      { term: "des frais bancaires", category: "principal" },
+      { term: "contester", category: "verbe" },
+      { term: "rembourser", category: "verbe" },
+      { term: "reconnaître (une opération)", category: "verbe" },
+      { term: "« je ne reconnais pas... »", category: "expression" },
+      { term: "« dans un délai de... »", category: "expression" },
+    ],
+    languagePoints: [
+      {
+        title: "Demander poliment avec le conditionnel",
+        explanation:
+          "Je voudrais signaler un prélèvement que je ne reconnais pas. Pourriez-vous m'expliquer cette opération ? Le conditionnel reste la forme la plus naturelle pour signaler poliment un problème, même par téléphone.",
+      },
+      {
+        title: "Comprendre un délai avec « dans un délai de »",
+        explanation:
+          "Vous pouvez contester ce prélèvement dans un délai de treize mois. « Dans un délai de » introduit la durée pendant laquelle une démarche reste possible.",
+      },
+    ],
+    examLinks: ["DELF B1 — compréhension de l'oral", "TCF IRN — compréhension de l'oral"],
+    miniEvaluationThreshold: 2,
+    lessons: [
+      {
+        id: "compte-ecoute",
+        type: "ecoute",
+        title: "Écouter",
+        optional: false,
+        activities: [
+          {
+            id: "compte-ecoute-activite",
+            title: "Écouter un appel à la banque",
+            skillDomain: "comprehension_orale",
+            exercises: [
+              {
+                id: "compte-e",
+                type: "comprehension_orale",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions:
+                  "Écoutez l'appel entre Amara et le conseiller, M. Blanc (« Signaler un prélèvement », 55 secondes), puis répondez.",
+                audioSrc: "/audio/b1/comprendre-releve-compte.m4a",
+                transcript:
+                  "Amara — Bonjour, j'ai un prélèvement de 45 euros sur mon compte que je ne reconnais pas, le " +
+                  "15 du mois.\n" +
+                  "M. Blanc — D'accord, je vérifie ça avec vous. Vous avez le nom de l'entreprise indiqué sur " +
+                  "le relevé ?\n" +
+                  "Amara — Oui, c'est écrit « Fitplus Abonnement », mais je n'ai jamais été inscrite à cette " +
+                  "salle de sport.\n" +
+                  "M. Blanc — Je comprends. Souhaitez-vous que je fasse une demande de contestation pour ce " +
+                  "prélèvement ?\n" +
+                  "Amara — Oui, s'il vous plaît. Comment ça se passe ?\n" +
+                  "M. Blanc — Vous devez d'abord contacter l'entreprise pour lui demander de vous rembourser. " +
+                  "Si elle refuse, vous pouvez contester le prélèvement directement auprès de nous, dans un " +
+                  "délai de treize mois.\n" +
+                  "Amara — D'accord, je vais essayer de les contacter d'abord. Et si je n'ai pas de réponse ?\n" +
+                  "M. Blanc — Rappelez-nous, et nous ferons la demande de contestation officielle. Le " +
+                  "remboursement prend généralement une dizaine de jours.\n" +
+                  "Amara — Très bien, merci beaucoup pour ces explications.",
+                questions: [
+                  {
+                    kind: "qcm",
+                    id: "compte-e-q1",
+                    prompt: "Pourquoi Amara appelle-t-elle sa banque ?",
+                    choices: [
+                      { id: "a", text: "Elle ne reconnaît pas un prélèvement sur son compte." },
+                      { id: "b", text: "Elle veut ouvrir un nouveau compte." },
+                      { id: "c", text: "Elle a perdu sa carte bancaire." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Elle ne reconnaît pas un prélèvement sur son compte.",
+                      explanation: "Amara le précise dès le début de l'appel.",
+                    },
+                  },
+                  {
+                    kind: "vrai_faux",
+                    id: "compte-e-q2",
+                    prompt: "Amara doit d'abord contacter l'entreprise avant de contester le prélèvement auprès de la banque.",
+                    correctAnswer: true,
+                    correction: {
+                      correctAnswer: "Vrai.",
+                      explanation: "C'est la première étape recommandée par le conseiller.",
+                    },
+                  },
+                  {
+                    kind: "libre",
+                    id: "compte-e-q3",
+                    prompt: "Dans quel délai peut-on contester un prélèvement auprès de la banque ?",
+                    expectedAnswer: "Treize mois.",
+                    correction: {
+                      correctAnswer: "Treize mois.",
+                      explanation: "M. Blanc le précise s'il faut passer par la contestation officielle.",
+                    },
+                  },
+                  {
+                    kind: "qcm",
+                    id: "compte-e-q4",
+                    prompt: "Combien de temps prend généralement le remboursement ?",
+                    choices: [
+                      { id: "a", text: "Une dizaine de jours." },
+                      { id: "b", text: "Un mois." },
+                      { id: "c", text: "Vingt-quatre heures." },
+                    ],
+                    correctChoiceId: "a",
+                    correction: {
+                      correctAnswer: "Une dizaine de jours.",
+                      explanation: "M. Blanc le précise à la fin de l'appel.",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "compte-entrainement",
+        type: "entrainement",
+        title: "S'entraîner",
+        optional: false,
+        activities: [
+          {
+            id: "compte-entrainement-activite",
+            title: "Demandes polies et vocabulaire de la banque",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "compte-g1",
+                type: "qcm",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Choisis la phrase correcte.",
+                question: {
+                  kind: "qcm",
+                  id: "compte-g1-q",
+                  prompt: "Quelle phrase est la plus adaptée pour signaler un problème à sa banque ?",
+                  choices: [
+                    { id: "a", text: "Je voudrais signaler un prélèvement que je ne reconnais pas." },
+                    { id: "b", text: "Il y a un prélèvement bizarre sur mon compte." },
+                    { id: "c", text: "Vous devez m'expliquer ce prélèvement." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Je voudrais signaler un prélèvement que je ne reconnais pas.",
+                    explanation: "Le conditionnel de politesse reste la forme la plus adaptée pour une demande formelle, même pour signaler un problème.",
+                  },
+                },
+              },
+              {
+                id: "compte-g2",
+                type: "texte_a_trous",
+                skillId: "voc-banque",
+                difficulty: "B1",
+                instructions: "Complète avec : relevé de compte, prélèvement, contester, remboursement.",
+                textWithBlanks:
+                  "Amara consulte son {{1}} et remarque un {{2}} qu'elle ne reconnaît pas. Elle décide de le " +
+                  "{{3}}. Le {{4}} prend une dizaine de jours.",
+                blanks: [
+                  { id: "1", answer: "relevé de compte" },
+                  { id: "2", answer: "prélèvement" },
+                  { id: "3", answer: "contester" },
+                  { id: "4", answer: "remboursement" },
+                ],
+                correction: {
+                  correctAnswer: "relevé de compte — prélèvement — contester — remboursement",
+                  explanation: "Ces mots reviennent dans la plupart des démarches bancaires de ce type.",
+                },
+              },
+              {
+                id: "compte-g3",
+                type: "association",
+                skillId: "voc-banque",
+                difficulty: "B1",
+                instructions: "Associe chaque expression à sa définition.",
+                pairs: [
+                  { id: "1", left: "un prélèvement", right: "Une somme retirée automatiquement de son compte." },
+                  { id: "2", left: "contester une opération", right: "Signaler qu'on n'est pas d'accord avec une opération bancaire." },
+                  { id: "3", left: "un solde", right: "La somme d'argent disponible sur un compte." },
+                ],
+                correction: {
+                  correctAnswer: "1 → un prélèvement ; 2 → contester une opération ; 3 → un solde",
+                  explanation: "Ces mots sont essentiels pour lire un relevé de compte et échanger avec sa banque.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "compte-ecriture",
+        type: "ecriture",
+        title: "Produire",
+        optional: false,
+        activities: [
+          {
+            id: "compte-ecriture-ecrite",
+            title: "Signaler un prélèvement par écrit",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "compte-h",
+                type: "production_ecrite",
+                skillId: "pe-contester-prelevement",
+                difficulty: "B1",
+                instructions: "Rédige ta réponse.",
+                consigne:
+                  "Tu remarques un prélèvement que tu ne reconnais pas sur ton relevé de compte. Écris un " +
+                  "message à ta banque pour signaler le problème et demander des explications.",
+                minWords: 35,
+                maxWords: 70,
+                correctionCriteria: [
+                  "Prélèvement décrit précisément (/2)",
+                  "Demande d'explication ou de contestation formulée (/2)",
+                  "Message poli (/2)",
+                  "Structure claire (/1)",
+                ],
+                aiCorrectionAvailable: false,
+              },
+            ],
+          },
+          {
+            id: "compte-ecriture-orale",
+            title: "Signaler un prélèvement à l'oral",
+            skillDomain: "production_ecrite",
+            exercises: [
+              {
+                id: "compte-h-oral",
+                type: "production_orale",
+                skillId: "pe-contester-prelevement",
+                difficulty: "B1",
+                instructions: "Prépare-toi, puis enregistre-toi.",
+                consigne: "Tu appelles ta banque pour signaler un prélèvement que tu ne reconnais pas. Explique la situation à voix haute.",
+                context: "Comme Amara avec le conseiller : à toi de décrire le prélèvement et de demander une explication.",
+                prepSeconds: 30,
+                maxSpeakSeconds: 40,
+                selfAssessmentCriteria: [
+                  "J'ai décrit le prélèvement.",
+                  "J'ai demandé une explication ou une contestation.",
+                  "J'ai été poli·e.",
+                ],
+                tips: "Précise le montant et la date du prélèvement, comme Amara.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "compte-evaluation",
+        type: "evaluation",
+        title: "Valider",
+        optional: false,
+        activities: [
+          {
+            id: "compte-evaluation-activite",
+            title: "Bilan du module",
+            skillDomain: "grammaire",
+            exercises: [
+              {
+                id: "compte-i1",
+                type: "qcm",
+                skillId: "gr-conditionnel-politesse",
+                difficulty: "B1",
+                instructions: "Item 1.",
+                question: {
+                  kind: "qcm",
+                  id: "compte-i1-q",
+                  prompt: "Quelle phrase est la plus polie ?",
+                  choices: [
+                    { id: "a", text: "Pourriez-vous m'expliquer cette opération ?" },
+                    { id: "b", text: "Expliquez-moi cette opération." },
+                    { id: "c", text: "Vous m'expliquez cette opération." },
+                  ],
+                  correctChoiceId: "a",
+                  correction: {
+                    correctAnswer: "Pourriez-vous m'expliquer cette opération ?",
+                    explanation: "Le conditionnel adoucit la demande, même au téléphone avec un conseiller bancaire.",
+                  },
+                },
+              },
+              {
+                id: "compte-i2",
+                type: "reponse_courte",
+                skillId: "voc-banque",
+                difficulty: "B1",
+                instructions: "Item 2.",
+                question: "Comment appelle-t-on le document qui liste toutes les opérations d'un compte : un ___ ___ ?",
+                acceptedAnswers: ["relevé de compte", "releve de compte"],
+                correction: {
+                  correctAnswer: "relevé de compte",
+                  explanation: "Amara le consulte au début de la situation.",
+                },
+              },
+              {
+                id: "compte-i3",
+                type: "vrai_faux",
+                skillId: "co-dialogues-simples",
+                difficulty: "B1",
+                instructions: "Item 3. D'après le dialogue.",
+                statement: "Amara doit attendre un mois avant de pouvoir contester le prélèvement.",
+                correctAnswer: false,
+                correction: {
+                  correctAnswer: "Faux.",
+                  explanation: "Elle peut contester dans un délai de treize mois, mais doit d'abord essayer de contacter l'entreprise.",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   ...MODULES_A1,
   ...MODULES_A2,
 ];

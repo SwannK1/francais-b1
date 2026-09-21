@@ -233,6 +233,14 @@ const AUDIO_PRODUCTION_META: Record<string, AudioProductionMeta> = {
     pace: "Naturel, conversationnel (appel à un service client).",
     pronunciationNotes: ["« quinze jours » articulé clairement."],
   },
+  "compte-e": {
+    speakers: [
+      { role: "Amara", voiceLabel: "Voix B", gender: "F" },
+      { role: "M. Blanc", voiceLabel: "Voix A", gender: "H" },
+    ],
+    pace: "Naturel, conversationnel (appel à un conseiller bancaire).",
+    pronunciationNotes: ["« quarante-cinq euros » et « treize mois » articulés clairement."],
+  },
   "exam-b1-co-1": {
     speakers: [{ role: "Narrateur", voiceLabel: "Voix A", gender: "H" }],
     pace: "Soutenu mais intelligible, même registre que la piste transport.",

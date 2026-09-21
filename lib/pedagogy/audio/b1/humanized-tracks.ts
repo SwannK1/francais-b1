@@ -352,6 +352,22 @@ export const B1_HUMANIZED_TRACKS: B1HumanizedTrack[] = [
       { speaker: "Sarah", voiceId: "voix-b", text: "Compris, merci beaucoup pour ces informations." },
     ],
   },
+  {
+    id: "compte-e",
+    filename: "comprendre-releve-compte.m4a",
+    rateWpm: 175,
+    turns: [
+      { speaker: "Amara", voiceId: "voix-b", text: "Bonjour, j'ai un prélèvement de 45 euros sur mon compte que je ne reconnais pas, le 15 du mois." },
+      { speaker: "M. Blanc", voiceId: "voix-a", text: "D'accord, je vérifie ça avec vous. Vous avez le nom de l'entreprise indiqué sur le relevé ?" },
+      { speaker: "Amara", voiceId: "voix-b", text: "Oui, c'est écrit « Fitplus Abonnement », mais je n'ai jamais été inscrite à cette salle de sport." },
+      { speaker: "M. Blanc", voiceId: "voix-a", text: "Je comprends. Souhaitez-vous que je fasse une demande de contestation pour ce prélèvement ?" },
+      { speaker: "Amara", voiceId: "voix-b", text: "Oui, s'il vous plaît. Comment ça se passe ?" },
+      { speaker: "M. Blanc", voiceId: "voix-a", text: "Vous devez d'abord contacter l'entreprise pour lui demander de vous rembourser. Si elle refuse, vous pouvez contester le prélèvement directement auprès de nous, dans un délai de treize mois." },
+      { speaker: "Amara", voiceId: "voix-b", text: "D'accord, je vais essayer de les contacter d'abord. Et si je n'ai pas de réponse ?" },
+      { speaker: "M. Blanc", voiceId: "voix-a", text: "Rappelez-nous, et nous ferons la demande de contestation officielle. Le remboursement prend généralement une dizaine de jours." },
+      { speaker: "Amara", voiceId: "voix-b", text: "Très bien, merci beaucoup pour ces explications." },
+    ],
+  },
 ];
 
 /**
