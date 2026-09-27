@@ -225,7 +225,7 @@ export const MODULES_A1_BILAN_FINAL: A1Module[] = [
               {
                 id: "m23-h-oral",
                 type: "production_orale",
-                skillId: "a1-pe-decrire",
+                skillId: "po-parler-quotidien",
                 difficulty: "A1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Raconte à voix haute ta vie actuelle : qui tu es, où tu habites, ton quotidien et un projet.",

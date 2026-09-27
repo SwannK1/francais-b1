@@ -16,7 +16,7 @@ export async function generateMetadata({
   if (!exercise) return {};
 
   return {
-    title: `${exercise.title} — Expression orale`,
+    title: `${exercise.title} — Pratiquer l'oral`,
     description: exercise.instructions,
     alternates: { canonical: `/oral/${exercise.id}` },
   };
@@ -36,10 +36,11 @@ export default async function OralExercisePage({ params }: PageProps<"/oral/[id]
   if (!isFree) {
     return (
       <PremiumLock
+          context="speaking"
         title={exercise.title}
         description={exercise.instructions}
-        backHref="/oral"
-        backLabel="← Retour à l'expression orale"
+        backHref="/pratiquer"
+        backLabel="← Retour à Pratiquer"
       />
     );
   }
@@ -52,9 +53,8 @@ export default async function OralExercisePage({ params }: PageProps<"/oral/[id]
       />
       <Breadcrumbs
         items={[
-          { label: "Parcours", href: "/parcours" },
-          { label: "Expression orale", href: "/oral" },
-          { label: SPEAKING_KIND_LABELS[exercise.kind], href: "/oral" },
+          { label: "Pratiquer", href: "/pratiquer" },
+          { label: SPEAKING_KIND_LABELS[exercise.kind], href: "/pratiquer#parler" },
           { label: exercise.title },
         ]}
       />

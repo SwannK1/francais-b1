@@ -726,7 +726,7 @@ export const MODULES_A1_SORTIR_ET_BOUGER: A1Module[] = [
               {
                 id: "m12-h-oral",
                 type: "production_orale",
-                skillId: "a1-pe-message-simple",
+                skillId: "po-demander-information",
                 difficulty: "A1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Tu es au café. Commande un café et un croissant, puis demande l'addition.",

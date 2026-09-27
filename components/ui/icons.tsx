@@ -183,3 +183,40 @@ export function ClockIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function MapIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M9 4.5L3.5 6.5v13L9 17.5l6 2 5.5-2v-13L15 6.5z" />
+      <path d="M9 4.5v13M15 6.5v13" />
+    </svg>
+  );
+}
+
+export function RefreshIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M19.5 12a7.5 7.5 0 01-13.2 4.9" />
+      <path d="M4.5 12a7.5 7.5 0 0113.2-4.9" />
+      <path d="M18 3.5v4h-4M6 20.5v-4h4" />
+    </svg>
+  );
+}
+
+export function ChartIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M4 19.5h16" />
+      <path d="M7 16v-4M12 16V7M17 16v-6.5" />
+    </svg>
+  );
+}
+
+export function SunIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4" />
+    </svg>
+  );
+}

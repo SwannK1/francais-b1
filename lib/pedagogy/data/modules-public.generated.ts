@@ -103,7 +103,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "sp-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-se-presenter",
+                "skillId": "po-se-presenter",
                 "difficulty": "B1"
               }
             ]
@@ -242,7 +242,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "exp-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-recit",
+                "skillId": "po-raconter-experience",
                 "difficulty": "B1"
               }
             ]
@@ -582,7 +582,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "log-h-oral",
                 "type": "production_orale",
-                "skillId": "voc-logement",
+                "skillId": "po-demander-information",
                 "difficulty": "B1"
               }
             ]
@@ -1138,7 +1138,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "recit-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-recit",
+                "skillId": "po-raconter-experience",
                 "difficulty": "B1"
               }
             ]
@@ -1760,7 +1760,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "opinion-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-exprimer-avis",
+                "skillId": "po-exprimer-opinion",
                 "difficulty": "B1"
               }
             ]
@@ -2232,7 +2232,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "travail-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-presentation-professionnelle",
+                "skillId": "po-parler-travail",
                 "difficulty": "B1"
               }
             ]
@@ -2413,7 +2413,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "med-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-expliquer-probleme",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -2759,7 +2759,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "rec-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-expliquer-probleme",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -3432,7 +3432,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "emp-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-presentation-professionnelle",
+                "skillId": "po-parler-travail",
                 "difficulty": "B1"
               }
             ]
@@ -3949,7 +3949,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "soc-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-exprimer-avis",
+                "skillId": "po-exprimer-opinion",
                 "difficulty": "B1"
               }
             ]
@@ -4109,7 +4109,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "bil-h-oral",
                 "type": "production_orale",
-                "skillId": "exam-delf-b1",
+                "skillId": "po-exprimer-opinion",
                 "difficulty": "B1"
               }
             ]
@@ -4248,7 +4248,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "rel-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-decrire-personne",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "B1"
               }
             ]
@@ -4387,7 +4387,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "imp-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-raconter-imprevu",
+                "skillId": "po-raconter-experience",
                 "difficulty": "B1"
               }
             ]
@@ -4526,7 +4526,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "medi-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-informer-sensibiliser",
+                "skillId": "po-exprimer-opinion",
                 "difficulty": "B1"
               }
             ]
@@ -4665,7 +4665,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "form-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-demander-informations-formation",
+                "skillId": "po-demander-information",
                 "difficulty": "B1"
               }
             ]
@@ -4804,7 +4804,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "pharma-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-reformuler-consignes",
+                "skillId": "po-demander-information",
                 "difficulty": "B1"
               }
             ]
@@ -4943,7 +4943,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "chemin-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-demander-itineraire",
+                "skillId": "po-demander-information",
                 "difficulty": "B1"
               }
             ]
@@ -5082,7 +5082,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "guich-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-expliquer-situation-guichet",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -5221,7 +5221,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "panne-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-signaler-panne-logement",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -5360,7 +5360,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "absen-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-prevenir-absence",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -5499,7 +5499,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "depl-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-modifier-rdv",
+                "skillId": "po-prendre-rendez-vous",
                 "difficulty": "B1"
               }
             ]
@@ -5638,7 +5638,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "abs-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-prevenir-absence-ecole",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -5777,7 +5777,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "sort-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-repondre-a-lecole",
+                "skillId": "po-demander-information",
                 "difficulty": "B1"
               }
             ]
@@ -5916,7 +5916,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "gar-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-faire-jouer-garantie",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -6055,7 +6055,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "echange-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-echanger-un-article",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -6194,7 +6194,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "abonn-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-gerer-un-abonnement",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -6333,7 +6333,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "compte-h-oral",
                 "type": "production_orale",
-                "skillId": "pe-contester-prelevement",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "B1"
               }
             ]
@@ -6472,7 +6472,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "m01-h-oral",
                 "type": "production_orale",
-                "skillId": "a1-pe-se-presenter",
+                "skillId": "po-se-presenter",
                 "difficulty": "A1"
               }
             ]
@@ -6758,7 +6758,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "m03-h-oral",
                 "type": "production_orale",
-                "skillId": "a1-pe-se-presenter",
+                "skillId": "po-se-presenter",
                 "difficulty": "A1"
               }
             ]
@@ -7548,7 +7548,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "m09-h-oral",
                 "type": "production_orale",
-                "skillId": "a1-pe-decrire",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "A1"
               }
             ]
@@ -8131,7 +8131,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "m12-h-oral",
                 "type": "production_orale",
-                "skillId": "a1-pe-message-simple",
+                "skillId": "po-demander-information",
                 "difficulty": "A1"
               }
             ]
@@ -8804,7 +8804,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "m16-h-oral",
                 "type": "production_orale",
-                "skillId": "a1-pe-decrire",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "A1"
               }
             ]
@@ -9321,7 +9321,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "m20-h-oral",
                 "type": "production_orale",
-                "skillId": "a1-pe-message-simple",
+                "skillId": "po-prendre-rendez-vous",
                 "difficulty": "A1"
               }
             ]
@@ -9709,7 +9709,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "m22-i-oral",
                 "type": "production_orale",
-                "skillId": "a1-pe-se-presenter",
+                "skillId": "po-se-presenter",
                 "difficulty": "A1"
               },
               {
@@ -9827,7 +9827,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "m23-h-oral",
                 "type": "production_orale",
-                "skillId": "a1-pe-decrire",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "A1"
               }
             ]
@@ -10562,7 +10562,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "sped-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-se-presenter",
+                "skillId": "po-se-presenter",
                 "difficulty": "A2"
               }
             ]
@@ -10707,7 +10707,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "fam-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-decrire",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "A2"
               }
             ]
@@ -10852,7 +10852,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "quot-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-decrire",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "A2"
               }
             ]
@@ -10997,7 +10997,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "a2-log-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-decrire",
+                "skillId": "po-exprimer-opinion",
                 "difficulty": "A2"
               }
             ]
@@ -11142,7 +11142,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "logp-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-demander-information",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "A2"
               }
             ]
@@ -11287,7 +11287,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "cours-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-demander-information",
+                "skillId": "po-demander-information",
                 "difficulty": "A2"
               }
             ]
@@ -11432,7 +11432,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "ville-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-demander-information",
+                "skillId": "po-demander-information",
                 "difficulty": "A2"
               }
             ]
@@ -11571,7 +11571,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "gout-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-decrire",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "A2"
               }
             ]
@@ -11716,7 +11716,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "trans-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-message-informel",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "A2"
               }
             ]
@@ -11861,7 +11861,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "a2-voy-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-demander-information",
+                "skillId": "po-demander-information",
                 "difficulty": "A2"
               }
             ]
@@ -12006,7 +12006,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "sante-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-demander-information",
+                "skillId": "po-expliquer-probleme",
                 "difficulty": "A2"
               }
             ]
@@ -12151,7 +12151,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "trav-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-se-presenter",
+                "skillId": "po-parler-travail",
                 "difficulty": "A2"
               }
             ]
@@ -12296,7 +12296,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "a2-emp-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-message-informel",
+                "skillId": "po-parler-travail",
                 "difficulty": "A2"
               }
             ]
@@ -12441,7 +12441,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "etud-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-decrire",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "A2"
               }
             ]
@@ -12586,7 +12586,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "wknd-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-raconter-brievement",
+                "skillId": "po-raconter-experience",
                 "difficulty": "A2"
               }
             ]
@@ -12731,7 +12731,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "num-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-message-informel",
+                "skillId": "po-prendre-rendez-vous",
                 "difficulty": "A2"
               }
             ]
@@ -12876,7 +12876,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "meteo-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-decrire",
+                "skillId": "po-parler-quotidien",
                 "difficulty": "A2"
               }
             ]
@@ -13021,7 +13021,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "evt-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-repondre-invitation",
+                "skillId": "po-prendre-rendez-vous",
                 "difficulty": "A2"
               }
             ]
@@ -13166,7 +13166,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "proj-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-message-informel",
+                "skillId": "po-parler-travail",
                 "difficulty": "A2"
               }
             ]
@@ -13311,7 +13311,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "a2-exp-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-raconter-brievement",
+                "skillId": "po-raconter-experience",
                 "difficulty": "A2"
               }
             ]
@@ -13570,7 +13570,7 @@ export const PUBLIC_MODULES: PublicModule[] = [
               {
                 "id": "bilan-h-oral",
                 "type": "production_orale",
-                "skillId": "a2-pe-se-presenter",
+                "skillId": "po-se-presenter",
                 "difficulty": "A2"
               }
             ]

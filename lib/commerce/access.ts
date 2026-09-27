@@ -37,21 +37,33 @@ const FREE_STAGE_IDS: StageId[] = ["faire-le-point"];
 
 /**
  * Modules offerts en découverte gratuite, pour essayer réellement la
- * méthode avant de payer. Choisis parmi les modules fondateurs de la phase
- * "Poser les bases du B1" (voir `lib/pedagogy/data/modules.ts`), pas par
- * ordre arbitraire du tableau.
+ * méthode avant de payer — au moins un vrai module à chaque niveau, pour
+ * que tout apprenant puisse faire une vraie séance adaptée à son niveau
+ * estimé avant de voir un paywall.
  *
- * Asymétrie connue et volontairement non arbitrée ici : aucun module A1/A2
- * n'est gratuit, contrairement au B1 — un utilisateur diagnostiqué A1/A2
- * n'a donc aucun module réellement gratuit à son niveau, et
- * `getNextModule` (lib/pedagogy/logic/recommendation.ts) peut recommander
- * ce module B1 dès la première visite d'un utilisateur gratuit. Documenté
- * de façon répétée comme décision commerciale hors périmètre technique
- * (`docs/integration/product-v1.md` § 5, `docs/product/free-premium-audit.md`) —
- * voir `docs/product/release-candidate.md` § limites restantes avant de
- * rouvrir ce choix.
+ * Chaque module choisi est le PREMIER module de contenu de son niveau
+ * (`se-presenter-a1`, `se-presenter-en-detail`, `se-presenter`) : c'est
+ * précisément celui que `getNextModule` / `buildDailySession`
+ * (lib/pedagogy/logic/recommendation.ts, lib/daily/session-engine.ts)
+ * proposent comme première séance après le test de niveau — la découverte
+ * gratuite et la première séance recommandée coïncident donc par
+ * construction, sans aucun cas particulier dans les moteurs.
+ * `decrire-vie-quotidienne` (B1) reste offert comme avant : on ne retire
+ * jamais un accès gratuit déjà annoncé.
+ *
+ * Historique : jusqu'au chantier « coach quotidien », seuls deux modules B1
+ * étaient gratuits — un apprenant estimé A1/A2 tombait sur le paywall dès
+ * sa première séance (voir `docs/product/free-premium-audit.md`).
  */
-const FREE_MODULE_SLUGS: string[] = ["se-presenter", "decrire-vie-quotidienne"];
+const FREE_MODULE_SLUGS: string[] = [
+  "se-presenter-a1",
+  "se-presenter-en-detail",
+  "se-presenter",
+  "decrire-vie-quotidienne",
+];
+
+/** Exposé pour l'affichage (offre, paywall) — jamais pour une décision d'accès, qui passe par `canAccess`. */
+export const FREE_DISCOVERY_MODULE_SLUGS: readonly string[] = FREE_MODULE_SLUGS;
 
 /**
  * Exercices oraux offerts en découverte gratuite (chantier speaking-assessment,

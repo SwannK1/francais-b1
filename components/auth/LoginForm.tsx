@@ -13,7 +13,7 @@ export default function LoginForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(login, initialState);
   const { refresh } = useAuth();
   const router = useRouter();
-  const redirectTo = next ?? "/parcours";
+  const redirectTo = next ?? "/aujourdhui";
 
   useEffect(() => {
     if (!state.success) return;

@@ -265,7 +265,7 @@ export const MODULES_A2_PART1: Module[] = [
               {
                 id: "sped-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-se-presenter",
+                skillId: "po-se-presenter",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -604,7 +604,7 @@ export const MODULES_A2_PART1: Module[] = [
               {
                 id: "fam-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-decrire",
+                skillId: "po-parler-quotidien",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -933,7 +933,7 @@ export const MODULES_A2_PART1: Module[] = [
               {
                 id: "quot-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-decrire",
+                skillId: "po-parler-quotidien",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -1268,7 +1268,7 @@ export const MODULES_A2_PART1: Module[] = [
               {
                 id: "a2-log-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-decrire",
+                skillId: "po-exprimer-opinion",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -1601,7 +1601,7 @@ export const MODULES_A2_PART1: Module[] = [
               {
                 id: "logp-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-demander-information",
+                skillId: "po-expliquer-probleme",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -1919,7 +1919,7 @@ export const MODULES_A2_PART1: Module[] = [
               {
                 id: "cours-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-demander-information",
+                skillId: "po-demander-information",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi (jeu de rôle).",
                 consigne:
@@ -2239,7 +2239,7 @@ export const MODULES_A2_PART1: Module[] = [
               {
                 id: "ville-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-demander-information",
+                skillId: "po-demander-information",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi (jeu de rôle).",
                 consigne:
@@ -2538,7 +2538,7 @@ export const MODULES_A2_PART1: Module[] = [
               {
                 id: "gout-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-decrire",
+                skillId: "po-parler-quotidien",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:

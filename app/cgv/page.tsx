@@ -44,7 +44,7 @@ export default function CgvPage() {
                 ))}
               </ul>
               <p className="mt-2">
-                Un test de positionnement et deux modules complets restent accessibles gratuitement,
+                Un test de positionnement et un module complet à chaque niveau (A1, A2 et B1) restent accessibles gratuitement,
                 sans compte payant, pour essayer la méthode avant de souscrire.
               </p>
             </section>

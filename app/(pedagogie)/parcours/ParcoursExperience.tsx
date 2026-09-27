@@ -1,28 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import Card from "@/components/ui/Card";
-import { buttonClasses } from "@/components/ui/button-styles";
-import { ArrowRightIcon } from "@/components/ui/icons";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
-import StageCard from "@/components/pedagogy/StageCard";
-import GuidedSessionCard from "@/components/pedagogy/GuidedSessionCard";
-import ResumeCard from "@/components/pedagogy/ResumeCard";
+import { ArrowRightIcon, CheckIcon, ExamIcon, FlagIcon, SunIcon } from "@/components/ui/icons";
 import { PARCOURS_STAGES } from "@/lib/pedagogy/data/parcours-stages";
 import { getLearningGoalById } from "@/lib/pedagogy/data/goals";
-import { getNextModule } from "@/lib/pedagogy/logic/recommendation";
-import { buildDailySession } from "@/lib/daily/session-engine";
-import { getEffectiveLevel, getStageCompletionRate, getStageStatus } from "@/lib/pedagogy/logic/parcours";
-import { getModuleCompletionRate } from "@/lib/pedagogy/logic/progress";
-import { getReviewItems } from "@/lib/pedagogy/logic/review";
-import { getSkillReviewRecommendations } from "@/lib/review";
+import { getTodayOverview } from "@/lib/daily/today";
+import {
+  getEffectiveLevel,
+  getParcoursSummary,
+  getStageCompletionRate,
+  getStageStatus,
+  levelOfStage,
+  type StageStatus,
+} from "@/lib/pedagogy/logic/parcours";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
 import { cn } from "@/lib/cn";
 import ViewTracker from "@/lib/analytics/ViewTracker";
 import type { ParcoursStage } from "@/lib/pedagogy/data/parcours-stages";
-import type { PublicModule } from "@/lib/pedagogy/types";
+import type { CEFRLevel, PublicModule } from "@/lib/pedagogy/types";
 
 function stageHref(stage: ParcoursStage): string {
   switch (stage.kind) {
@@ -37,7 +35,21 @@ function stageHref(stage: ParcoursStage): string {
   }
 }
 
+const LEVEL_TITLES: Record<CEFRLevel, string> = {
+  A1: "A1 · Premiers pas",
+  A2: "A2 · Se débrouiller au quotidien",
+  B1: "B1 · Devenir autonome",
+  B2: "B2",
+};
+
+const NEXT_LEVEL: Partial<Record<CEFRLevel, CEFRLevel>> = { A1: "A2", A2: "B1" };
+
 /**
+ * `/parcours` = la carte du chemin A1 → A2 → B1 (les étapes de
+ * `PARCOURS_STAGES`, colonne vertébrale inchangée) : où j'en suis, ce qui est
+ * fait, ce qui vient. La séance du jour n'est plus ici qu'un rappel d'une
+ * ligne vers `/aujourdhui`, qui en est le vrai point d'entrée.
+ *
  * Reçoit `publicModules` (métadonnées de navigation, jamais le contenu
  * détaillé des exercices) depuis le Server Component `page.tsx` — voir
  * `docs/architecture/user-lifecycle.md` § Premium content boundary.
@@ -47,62 +59,27 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
   const { user } = useAuth();
   const stages = [...PARCOURS_STAGES].sort((a, b) => a.order - b.order);
   const goal = progress.goalId ? getLearningGoalById(progress.goalId) : undefined;
-  // "Où en suis-je maintenant" (niveau effectif), pas seulement le dernier
-  // résultat du test de positionnement — voir `getEffectiveLevel`.
   const effectiveLevel = getEffectiveLevel(progress, publicModules);
+  const summary = getParcoursSummary(progress, publicModules);
+  const isAccessible = (mod: PublicModule) => canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
+  const today = getTodayOverview(progress, publicModules, isAccessible);
+  const nextLevel = NEXT_LEVEL[effectiveLevel];
 
-  const isAccessible = (mod: PublicModule) =>
-    canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
-
-  // Séance guidée du jour (`lib/daily/`) : point d'entrée PRINCIPAL de cette
-  // page (section "Aujourd'hui" ci-dessous), jamais affichée à côté d'une
-  // seconde recommandation concurrente — elle construit une vraie séance à
-  // plusieurs étapes (durée, contenu détaillé), strictement plus informative
-  // qu'un simple lien "prochain module". `guidedSession` ignore les modules
-  // verrouillés ; `rawGuidedSession` sert uniquement à distinguer "rien à
-  // faire aujourd'hui" de "tout est verrouillé" (offre complète) — jamais
-  // affichés tous les deux à la fois.
-  const guidedSession = buildDailySession(progress, publicModules, { isAccessible });
-  const rawGuidedSession = guidedSession ? null : buildDailySession(progress, publicModules);
-  const sessionModule = guidedSession
-    ? publicModules.find((mod) => mod.id === guidedSession.moduleId)
-    : undefined;
-  const sessionCompletionRate = sessionModule
-    ? getModuleCompletionRate(progress, sessionModule.id, sessionModule.totalExercises)
-    : undefined;
-
-  // Repli vers l'ancienne recommandation "prochain module", uniquement pour
-  // le cas — distinct — où le moteur de séance ne peut rien construire (ex.
-  // module sans leçon exploitable) alors qu'il reste objectivement un
-  // prochain module : jamais affiché en plus de la séance guidée, seulement
-  // à sa place, pour ne jamais laisser "Aujourd'hui" vide.
-  const hasGuidedSessionOutcome = Boolean(guidedSession || rawGuidedSession);
-  const resumeTarget = hasGuidedSessionOutcome
-    ? null
-    : getNextModule(progress, publicModules, { isAccessible });
-  const rawTarget = hasGuidedSessionOutcome || resumeTarget
-    ? null
-    : getNextModule(progress, publicModules);
-
-  // Même décompte que /reviser (voir ReviserExperience) : modules marqués à
-  // revoir + épreuves sous le seuil (legacy `getReviewItems`) et compétences
-  // signalées par le moteur de révision espacée (`lib/review`) — jamais un
-  // second calcul divergent qui promettrait "N points" ici pour afficher
-  // "rien à réviser" une fois sur /reviser.
-  const legacyReviewItems = getReviewItems(progress, publicModules).filter(
-    (item) => item.kind === "module_flagged" || item.kind === "exam_section"
-  );
-  const skillReviewCount = getSkillReviewRecommendations(progress, publicModules).length;
-  const reviewCount = legacyReviewItems.length + skillReviewCount;
+  const levels: CEFRLevel[] = ["A1", "A2", "B1"];
+  const stagesByLevel = levels.map((level) => ({
+    level,
+    stages: stages.filter((stage) => levelOfStage(stage) === level),
+  }));
 
   return (
-    <div>
+    <div className="space-y-8">
       <ViewTracker event="journey_viewed" />
-      <header>
+      <header className="max-w-2xl">
         <LevelBadge level={effectiveLevel} />
-        <h1 className="mt-3 text-2xl font-bold text-foreground sm:text-3xl">Ton parcours {effectiveLevel}</h1>
-        <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-          Un chemin en {stages.length} étapes, de A1 à B1, pour progresser vers plus d&apos;autonomie en français.
+        <h1 className="mt-3 text-3xl font-bold text-foreground">Ton parcours</h1>
+        <p className="mt-2 text-base text-muted-foreground">
+          Tu es au niveau <strong className="text-foreground">{effectiveLevel}</strong>
+          {nextLevel ? <>, en route vers le {nextLevel}</> : null}.
           {goal ? (
             <>
               {" "}
@@ -112,127 +89,149 @@ export default function ParcoursExperience({ publicModules }: { publicModules: P
         </p>
       </header>
 
-      {/*
-        1. Aujourd'hui — point d'entrée PRINCIPAL de la page : une seule
-        recommandation à la fois (séance guidée si le moteur peut en
-        construire une, sinon repli sur le prochain module, sinon état "rien
-        à faire" honnête), jamais deux cartes concurrentes pour la même
-        action — voir le calcul de `guidedSession`/`resumeTarget` ci-dessus.
-      */}
-      <section aria-labelledby="today-title" className="mt-8">
-        <h2 id="today-title" className="mb-3 text-lg font-semibold text-foreground">
-          Aujourd&apos;hui
-        </h2>
-        {guidedSession || rawGuidedSession ? (
-          <GuidedSessionCard
-            plan={guidedSession ?? rawGuidedSession!}
-            href={guidedSession ? `/parcours/seance?module=${guidedSession.moduleSlug}` : "/offre"}
-            locked={!guidedSession}
-            prominent
-            completionRate={sessionCompletionRate}
-          />
-        ) : resumeTarget ? (
-          <ResumeCard
-            target={resumeTarget}
-            completionRate={getModuleCompletionRate(progress, resumeTarget.module.id, resumeTarget.module.totalExercises)}
-            href={`/parcours/module/${resumeTarget.module.slug}`}
-          />
-        ) : rawTarget ? (
-          <ResumeCard
-            target={rawTarget}
-            completionRate={getModuleCompletionRate(progress, rawTarget.module.id, rawTarget.module.totalExercises)}
-            href="/offre"
-            locked
-          />
-        ) : (
-          <Card>
-            <p className="text-sm font-semibold text-foreground">
-              Bravo, il n&apos;y a plus de nouveau module à ton niveau pour le moment !
-            </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Consulte ta progression, ou entraîne-toi librement en attendant la suite.
-            </p>
-            <Link href="/progression" className={cn(buttonClasses("primary", "md"), "mt-4 gap-1.5")}>
-              Voir ma progression
-              <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
-            </Link>
-          </Card>
-        )}
-      </section>
-
-      {/*
-        2. À revoir — secondaire par construction : un simple bandeau-lien,
-        jamais un `<Card>` de même poids visuel que le bloc "Aujourd'hui" au-dessus.
-      */}
-      {reviewCount > 0 ? (
-        <section aria-labelledby="review-title" className="mt-4">
-          <h2 id="review-title" className="sr-only">
-            À revoir
-          </h2>
-          <Link
-            href="/reviser"
-            className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            <span>
-              <span className="font-semibold text-foreground">À revoir</span>{" "}
-              <span className="text-muted-foreground">
-                — {reviewCount} point{reviewCount > 1 ? "s" : ""}{" "}
-                {reviewCount > 1 ? "méritent" : "mérite"} une nouvelle tentative
-              </span>
-            </span>
-            <ArrowRightIcon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-          </Link>
-        </section>
+      {today.plan || today.lockedPlan ? (
+        <Link
+          href="/aujourdhui"
+          className="flex items-center gap-3 rounded-2xl border border-primary/25 bg-primary/[0.04] px-4 py-3 transition-colors hover:bg-primary/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          <SunIcon className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+          <span className="min-w-0 flex-1 text-sm">
+            <span className="font-semibold text-foreground">Aujourd&apos;hui : </span>
+            <span className="text-muted-foreground">{(today.plan ?? today.lockedPlan)!.capability}</span>
+          </span>
+          <ArrowRightIcon className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+        </Link>
       ) : null}
 
-      {/*
-        3. Explorer librement — tertiaire : parcours par étapes, oral,
-        évaluations. Toujours accessible, jamais mis en avant visuellement
-        autant que "Aujourd'hui" ci-dessus (titre de section plus discret).
-      */}
-      <section aria-labelledby="explore-title" className="mt-10 border-t border-border pt-8">
-        <h2 id="explore-title" className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      <div className="space-y-4">
+        {stagesByLevel.map(({ level, stages: levelStages }) => {
+          const statuses = levelStages.map((stage) => getStageStatus(stage, progress, publicModules));
+          const contentStages = levelStages.filter((stage) => stage.kind === "content");
+          const doneContent = contentStages.filter(
+            (stage) => getStageStatus(stage, progress, publicModules) === "termine"
+          ).length;
+          const isCurrentLevel = level === effectiveLevel;
+          const levelDone = contentStages.length > 0 && doneContent === contentStages.length;
+          const levelLabel = levelDone ? "Terminé" : isCurrentLevel ? "En cours" : "À venir";
+
+          return (
+            <details
+              key={level}
+              open={isCurrentLevel}
+              className={cn(
+                "group rounded-2xl border bg-card",
+                isCurrentLevel ? "border-primary/30 shadow-sm" : "border-border"
+              )}
+            >
+              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 rounded-2xl px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-6 [&::-webkit-details-marker]:hidden">
+                <span>
+                  <span className="block text-lg font-bold text-foreground">{LEVEL_TITLES[level]}</span>
+                  <span className="block text-sm text-muted-foreground">
+                    {levelLabel} · {doneContent}/{contentStages.length} étapes terminées
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="text-muted-foreground transition-transform group-open:rotate-180"
+                >
+                  ▾
+                </span>
+              </summary>
+
+              <ol className="relative px-4 pb-5 sm:px-6">
+                {levelStages.map((stage, index) => {
+                  const status = statuses[index];
+                  const isCurrent = summary.currentStage?.id === stage.id;
+                  const rate = stage.kind === "content" ? getStageCompletionRate(stage, progress, publicModules) : null;
+                  return (
+                    <li key={stage.id} className="relative flex gap-4 pb-4 last:pb-0">
+                      {index < levelStages.length - 1 ? (
+                        <span aria-hidden="true" className="absolute left-[15px] top-8 h-[calc(100%-1.5rem)] w-px bg-border" />
+                      ) : null}
+                      <StageMarker status={status} isCurrent={isCurrent} kind={stage.kind} />
+                      <Link
+                        href={stageHref(stage)}
+                        className={cn(
+                          "min-w-0 flex-1 rounded-xl px-3 py-2 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                          isCurrent && "bg-primary/[0.05]"
+                        )}
+                      >
+                        <span className="flex flex-wrap items-baseline justify-between gap-x-3">
+                          <span className="text-sm font-semibold text-foreground">{stage.title}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {isCurrent ? "Étape actuelle" : STATUS_TEXT[status]}
+                            {rate !== null && rate > 0 && rate < 100 ? ` · ${rate} %` : ""}
+                          </span>
+                        </span>
+                        <span className="mt-0.5 block text-sm text-muted-foreground">{stage.objective}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ol>
+            </details>
+          );
+        })}
+      </div>
+
+      <section aria-labelledby="explore-title" className="border-t border-border pt-6">
+        <h2 id="explore-title" className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
           Explorer librement
         </h2>
-
-        <div className="grid gap-3 sm:grid-cols-2">
-          <Link
-            href="/oral"
-            className="block rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted"
-          >
-            <p className="font-semibold text-foreground">Expression orale</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Répétition, lecture, mini-réponses et mises en situation, avec auto-évaluation guidée.
-            </p>
-          </Link>
-          <Link
-            href="/parcours/evaluations"
-            className="block rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted"
-          >
-            <p className="font-semibold text-foreground">Évaluations de passage</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Bilans de fin A1/A2 et passages A1 → A2, A2 → B1, avec résultat détaillé par compétence.
-            </p>
-          </Link>
-        </div>
-
-        <div className="mt-6 space-y-4">
-          {stages.map((stage) => {
-            const status = getStageStatus(stage, progress, publicModules);
-            const completionRate = getStageCompletionRate(stage, progress, publicModules);
-            return (
-              <StageCard
-                key={stage.id}
-                stage={stage}
-                status={status}
-                completionRate={completionRate}
-                href={stageHref(stage)}
-                showProgress={stage.kind === "diagnostic" || stage.kind === "content"}
-              />
-            );
-          })}
-        </div>
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {[
+            { href: "/parcours/evaluations", label: "Évaluations de passage", Icon: FlagIcon },
+            { href: "/parcours/examens", label: "Examens blancs", Icon: ExamIcon },
+            { href: "/pratiquer#situations", label: "Situations de la vie réelle", Icon: SunIcon },
+          ].map(({ href, label, Icon }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <Icon className="h-4 w-4 text-primary" aria-hidden="true" />
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
+  );
+}
+
+const STATUS_TEXT: Record<StageStatus, string> = {
+  termine: "Terminée",
+  en_cours: "En cours",
+  a_commencer: "À venir",
+};
+
+function StageMarker({
+  status,
+  isCurrent,
+  kind,
+}: {
+  status: StageStatus;
+  isCurrent: boolean;
+  kind: ParcoursStage["kind"];
+}) {
+  if (status === "termine") {
+    return (
+      <span className="relative z-10 mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-success text-success-foreground">
+        <CheckIcon className="h-4 w-4" aria-hidden="true" />
+      </span>
+    );
+  }
+  return (
+    <span
+      aria-hidden="true"
+      className={cn(
+        "relative z-10 mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 bg-card",
+        isCurrent ? "border-primary" : status === "en_cours" ? "border-primary/50" : "border-border"
+      )}
+    >
+      {isCurrent ? <span className="h-3 w-3 rounded-full bg-primary" /> : null}
+      {!isCurrent && kind !== "content" ? <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40" /> : null}
+    </span>
   );
 }

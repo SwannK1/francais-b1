@@ -109,7 +109,7 @@ export function getParcoursSummary(progress: UserProgress, modules: PublicModule
 }
 
 /** Même convention que `readyForB1` ci-dessus : le préfixe d'id de l'étape porte le niveau, jamais déduit d'autre chose. */
-function levelOfStage(stage: ParcoursStage): CEFRLevel {
+export function levelOfStage(stage: ParcoursStage): CEFRLevel {
   if (stage.id.startsWith("a1-")) return "A1";
   if (stage.id.startsWith("a2-")) return "A2";
   return "B1";

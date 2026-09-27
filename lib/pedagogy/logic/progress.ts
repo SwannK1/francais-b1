@@ -1,6 +1,7 @@
 import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import { getSkillById } from "@/lib/pedagogy/data/skills";
 import { countModuleExercises } from "@/lib/pedagogy/logic/module-structure";
+import { normalizeDailyMinutes } from "@/lib/pedagogy/logic/preferences";
 import { CEFR_LEVELS } from "@/lib/pedagogy/types";
 import type {
   AssessmentEvidence,
@@ -197,6 +198,40 @@ function computeSkillProgress(
       recentOutcomes: history?.recentOutcomes ?? [],
     };
   });
+}
+
+/**
+ * Migration douce des données DÉRIVÉES d'une progression existante quand le
+ * catalogue gagne des compétences (ex. compétences orales `po-*`, chantier
+ * coach quotidien) : les stats par compétence sont recalculées depuis les
+ * exercices déjà faits (`moduleProgress`, jamais modifié), en conservant
+ * l'historique récent de chaque compétence. Rien n'est perdu ni
+ * réinitialisé ; sans compétence manquante (cas normal), la progression est
+ * renvoyée telle quelle, à l'identique (même référence).
+ */
+export function refreshSkillProgressForCatalog(progress: UserProgress): UserProgress {
+  if (progress.moduleProgress.length === 0) return progress;
+  const known = new Set(progress.skillProgress.map((sp) => sp.skillId));
+  const catalogSkillIds = countExercisesBySkill(PUBLIC_MODULES).keys();
+  if (Array.from(catalogSkillIds).every((skillId) => known.has(skillId))) return progress;
+
+  const history = new Map<string, SkillHistory>(
+    progress.skillProgress.map((sp) => [
+      sp.skillId,
+      { lastPracticedAt: sp.lastPracticedAt ?? null, recentOutcomes: sp.recentOutcomes ?? [] },
+    ])
+  );
+  const skillProgress = computeSkillProgress(progress.moduleProgress, history);
+  const totalCompleted = skillProgress.reduce((sum, sp) => sum + sp.completedExercises, 0);
+  const totalCorrect = skillProgress.reduce((sum, sp) => sum + sp.correctExercises, 0);
+  return {
+    ...progress,
+    skillProgress,
+    globalSuccessRate: totalCompleted > 0 ? Math.round((totalCorrect / totalCompleted) * 100) : 0,
+    weakSkillIds: skillProgress
+      .filter((sp) => sp.completedExercises > 0 && sp.successRate < WEAK_SKILL_THRESHOLD)
+      .map((sp) => sp.skillId),
+  };
 }
 
 export function getModuleProgress(
@@ -471,12 +506,18 @@ export function mergeUserProgress(local: UserProgress, remote: UserProgress): Us
   const weakSkillIds = skillProgress
     .filter((sp) => sp.completedExercises > 0 && sp.successRate < WEAK_SKILL_THRESHOLD)
     .map((sp) => sp.skillId);
+  const dailyMinutes = normalizeDailyMinutes(local.dailyMinutes) ?? normalizeDailyMinutes(remote.dailyMinutes);
 
   return {
     userId: remote.userId,
     ...placement,
     level,
     goalId: local.goalId ?? remote.goalId,
+    // Même règle que `goalId` : le choix de l'appareil courant l'emporte,
+    // sinon celui du compte — normalisé pour ne jamais propager une valeur
+    // hors liste. Absent des deux côtés (ancien compte) → champ omis,
+    // `getDailyMinutes()` appliquera la valeur par défaut.
+    ...(dailyMinutes ? { dailyMinutes } : {}),
     moduleProgress,
     skillProgress,
     globalSuccessRate,

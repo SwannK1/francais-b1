@@ -150,8 +150,34 @@ par question pour un premier chantier analytics sur cette fonctionnalité.
 
 | Événement | Déclencheur réel | Propriétés |
 |---|---|---|
-| `daily_session_started` | Montage de `SeanceExperience` (`/parcours/seance`) avec au moins une étape construite (jamais si `steps.length === 0`) | `moduleId` |
-| `daily_session_completed` | Clic sur "Terminer la séance" (dernière étape) | `moduleId` |
+| `today_viewed` | Montage de `/aujourdhui` (chantier coach quotidien) | `sessionMode` (mode du moteur, `locked` ou `none`), `dailyMinutes` |
+| `daily_session_started` | Montage de `SeanceExperience` (`/parcours/seance`) avec au moins une étape construite (jamais si `steps.length === 0`) | `moduleId`, `sessionMode`, `firstSession`, `dailyMinutes` |
+| `daily_session_completed` | Clic sur "Terminer la séance" (dernière étape) | `moduleId`, `sessionMode`, `firstSession`, `isPremium` |
+
+`firstSession: true` isole la toute première séance (aucun exercice fait
+avant) : funnel test → première séance commencée → terminée. Une première
+séance terminée avec `isPremium: false` = « séance découverte gratuite
+terminée ».
+
+### Onboarding (chantier coach quotidien)
+
+| Événement | Déclencheur réel | Propriétés |
+|---|---|---|
+| `onboarding_goal_selected` | Choix d'un objectif dans `/test-niveau` (étape 1, ou sous-objectif examen/démarche) | `goalId` (`LearningGoalId`) |
+| `daily_minutes_selected` | Choix du temps quotidien (onboarding ou `/compte`) | `dailyMinutes` (10/20/30), `source` (`onboarding`/`compte`) |
+| `onboarding_completed` | Affichage du résultat du test après la dernière question | `placementLevel`, `goalId`, `dailyMinutes` |
+
+### Pratiquer (chantier coach quotidien)
+
+| Événement | Déclencheur réel | Propriétés |
+|---|---|---|
+| `practice_hub_viewed` | Montage de `/pratiquer` | — |
+| `practice_activity_started` | Clic sur un exercice oral accessible depuis Pratiquer ou une page situation | `speakingExerciseId`, `speakingKind` |
+
+`paywall_viewed` porte désormais `source` = contexte du blocage (`module`,
+`seance`, `exam`, `speaking`, `assessment`, `today_discovery_ended`,
+`session_recap_discovery_ended`) ; `premium_cta_clicked` idem
+(`premium_lock_<contexte>`, `today_discovery_ended`, `compte`...).
 
 Distinct de `module_started`/`module_completed` : une séance du jour peut
 mélanger plusieurs types d'étapes (leçon, rappel de révision) sur un seul

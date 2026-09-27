@@ -15,6 +15,14 @@ export type SkillDomain =
   | "grammaire"
   | "vocabulaire"
   | "production_ecrite"
+  /**
+   * Capacités orales observables (se présenter, expliquer un problème...).
+   * Ajouté après le lancement : auparavant, les exercices `production_orale`
+   * des modules étaient rattachés à une compétence écrite (`pe-*`). Les
+   * compétences `po-*` (`data/skills-oral.ts`) les portent désormais — voir
+   * `docs/product/coach-quotidien.md` § oral.
+   */
+  | "production_orale"
   | "preparation_examen";
 
 export interface Skill {
@@ -401,10 +409,21 @@ export interface ModuleProgress {
   lastActivityAt: string | null;
 }
 
+/** Temps de travail habituel par jour, choisi à l'onboarding ou depuis le compte. */
+export type DailyMinutes = 10 | 20 | 30;
+
 export interface UserProgress {
   userId: string;
   level: CEFRLevel;
   goalId?: LearningGoalId;
+  /**
+   * Temps de travail habituel (minutes par jour) — dimensionne la séance du
+   * jour (`lib/daily/session-engine.ts`). Optionnel : une progression écrite
+   * avant l'ajout de ce champ n'en a pas, toujours lu via
+   * `getDailyMinutes()` (`logic/preferences.ts`), qui retombe sur une valeur
+   * par défaut — jamais d'erreur, jamais de réinitialisation.
+   */
+  dailyMinutes?: DailyMinutes;
   moduleProgress: ModuleProgress[];
   skillProgress: SkillProgress[];
   globalSuccessRate: number;

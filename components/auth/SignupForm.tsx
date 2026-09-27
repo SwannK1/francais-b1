@@ -9,7 +9,7 @@ import { trackEvent } from "@/lib/analytics/client";
 
 const initialState: AuthFormState = {};
 
-export default function SignupForm({ next = "/parcours" }: { next?: string }) {
+export default function SignupForm({ next = "/aujourdhui" }: { next?: string }) {
   const [state, action, pending] = useActionState(signup, initialState);
   const { refresh } = useAuth();
   const router = useRouter();

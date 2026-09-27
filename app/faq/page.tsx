@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "Qu'est-ce que je peux essayer gratuitement ?",
     answer:
-      "Le test de positionnement (ou le diagnostic détaillé) et 2 modules B1 complets, avec leurs exercices, audios et corrections — pas des versions tronquées. Si ton niveau estimé est A1 ou A2, tu peux consulter la fiche des modules correspondants, mais l'exercice lui-même reste réservé à l'offre complète : la découverte gratuite n'ouvre pour l'instant que 2 modules B1.",
+      "Le test de niveau (et le bilan approfondi), puis un module complet à chaque niveau — A1, A2 et B1 — avec ses exercices, audios et corrections, pas une version tronquée. Quel que soit ton niveau estimé, ta première séance est donc gratuite. Quelques exercices d'oral sont aussi ouverts pour essayer la pratique.",
   },
   {
     question: `Qu'est-ce que contient l'offre « ${MAIN_PLAN.name} » ?`,

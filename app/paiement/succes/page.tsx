@@ -53,8 +53,8 @@ export default async function PaiementSuccesPage() {
                 <PendingRefresh />
               </>
             )}
-            <Button href="/parcours" size="lg" className="mt-6">
-              Retourner au parcours
+            <Button href="/aujourdhui" size="lg" className="mt-6">
+              Aller à ma séance du jour
             </Button>
           </Card>
         </Container>

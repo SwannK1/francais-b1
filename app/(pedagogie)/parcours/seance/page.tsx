@@ -16,7 +16,7 @@ export const metadata: Metadata = {
  * Page d'exécution de la séance guidée du jour. La progression étant
  * propre au client (`localStorage`, voir `lib/pedagogy/useProgress.ts`), le
  * choix du module ciblé ne peut pas être décidé ici — il est calculé par
- * `/parcours` (`buildDailySession`) et transmis via `?module=<slug>`. Cette
+ * `/aujourdhui` (`buildDailySession`) et transmis via `?module=<slug>`. Cette
  * page ne fait qu'appliquer, côté serveur, la même vérification d'accès que
  * `/parcours/module/[slug]` avant de livrer le contenu complet du module.
  */
@@ -29,7 +29,7 @@ export default async function SeancePage({
   const slug = Array.isArray(moduleParam) ? moduleParam[0] : moduleParam;
 
   if (!slug) {
-    redirect("/parcours");
+    redirect("/aujourdhui");
   }
 
   const mod = getModuleBySlug(slug);
@@ -43,11 +43,12 @@ export default async function SeancePage({
   if (!isFree) {
     return (
       <PremiumLock
+          context="seance"
         title={mod.title}
-        description="Cette séance guidée fait partie de l'offre complète."
+        description={mod.description}
         objectives={mod.objectives}
-        backHref="/parcours"
-        backLabel="← Retour au parcours"
+        backHref="/aujourdhui"
+        backLabel="← Retour à Aujourd'hui"
       />
     );
   }

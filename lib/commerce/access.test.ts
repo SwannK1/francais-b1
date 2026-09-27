@@ -32,19 +32,23 @@ describe("isFreeResource", () => {
     expect(isFreeResource({ kind: "stage", stageId: "b1-debut" })).toBe(false);
   });
 
-  it("les 2 modules de découverte sont gratuits, les autres non", () => {
+  it("les modules de découverte sont gratuits, les autres non", () => {
     expect(isFreeResource({ kind: "module", slug: "se-presenter" })).toBe(true);
     expect(isFreeResource({ kind: "module", slug: "decrire-vie-quotidienne" })).toBe(true);
     expect(isFreeResource({ kind: "module", slug: "donner-son-opinion" })).toBe(false);
+    expect(isFreeResource({ kind: "module", slug: "nombres-et-age" })).toBe(false);
+    expect(isFreeResource({ kind: "module", slug: "parler-de-sa-famille" })).toBe(false);
   });
 
   /**
-   * Asymétrie connue (voir lib/commerce/access.ts) : aucun module A1/A2
-   * n'est gratuit, contrairement au B1. Documenté, pas arbitré ici.
+   * Ancienne asymétrie corrigée (chantier coach quotidien) : un apprenant
+   * estimé A1 ou A2 doit pouvoir faire une vraie séance à son niveau avant
+   * de payer — le premier module de chaque niveau est offert.
    */
-  it("aucun module A1/A2 n'est gratuit (asymétrie connue vs. B1)", () => {
-    expect(isFreeResource({ kind: "module", slug: "se-presenter-a1" })).toBe(false);
-    expect(isFreeResource({ kind: "module", slug: "se-presenter-en-detail" })).toBe(false);
+  it("un vrai module est gratuit à chaque niveau (A1, A2, B1)", () => {
+    expect(isFreeResource({ kind: "module", slug: "se-presenter-a1" })).toBe(true);
+    expect(isFreeResource({ kind: "module", slug: "se-presenter-en-detail" })).toBe(true);
+    expect(isFreeResource({ kind: "module", slug: "se-presenter" })).toBe(true);
   });
 
   it("aucun examen n'est gratuit (valeur centrale de l'offre payante)", () => {

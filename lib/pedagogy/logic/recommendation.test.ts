@@ -65,21 +65,23 @@ describe("getNextModule sur PUBLIC_MODULES", () => {
   });
 
   /**
-   * Asymétrie gratuit/premium connue et documentée (lib/commerce/access.ts,
-   * docs/product/free-premium-audit.md) : `FREE_MODULE_SLUGS` n'ouvre que 2
-   * modules B1, aucun A1/A2. Conséquence assumée, pas un bug : pour un
-   * utilisateur gratuit diagnostiqué A1, `getNextModule` ignore tous les
-   * modules A1/A2 (aucun n'est `isAccessible`) et atterrit sur ce module B1
-   * dès la première visite. Ce test documente le comportement réel — pas
-   * une régression à corriger ici, voir docs/product/release-candidate.md.
+   * Ancienne asymétrie corrigée (chantier coach quotidien) : le premier
+   * module de chaque niveau est offert, et c'est justement celui que le
+   * moteur recommande en premier — un utilisateur gratuit reste donc à SON
+   * niveau pour sa première séance, jamais renvoyé vers le B1.
    */
-  it("pour un utilisateur gratuit A1, la recommandation retombe sur le module B1 gratuit (asymétrie connue, pas une régression)", () => {
-    const result = getNextModule(emptyProgress({ level: "A1" }), PUBLIC_MODULES, {
+  it.each([
+    ["A1", "se-presenter-a1"],
+    ["A2", "se-presenter-en-detail"],
+    ["B1", "se-presenter"],
+  ] as const)("pour un utilisateur gratuit %s, la première recommandation est un module gratuit de son niveau (%s)", (level, slug) => {
+    const result = getNextModule(emptyProgress({ level }), PUBLIC_MODULES, {
       isAccessible: isAccessibleFree,
     });
     expect(result).not.toBeNull();
     expect(isAccessibleFree(result!.module)).toBe(true);
-    expect(result!.module.level).toBe("B1");
+    expect(result!.module.level).toBe(level);
+    expect(result!.module.slug).toBe(slug);
   });
 });
 

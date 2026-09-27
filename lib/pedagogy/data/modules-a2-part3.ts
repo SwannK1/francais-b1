@@ -249,7 +249,7 @@ export const MODULES_A2_PART3: Module[] = [
               {
                 id: "meteo-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-decrire",
+                skillId: "po-parler-quotidien",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -589,7 +589,7 @@ export const MODULES_A2_PART3: Module[] = [
               {
                 id: "evt-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-repondre-invitation",
+                skillId: "po-prendre-rendez-vous",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Appelle un ami pour l'inviter à ta fête : donne l'occasion, le jour, l'heure et le lieu.",
@@ -908,7 +908,7 @@ export const MODULES_A2_PART3: Module[] = [
               {
                 id: "proj-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-message-informel",
+                skillId: "po-parler-travail",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Présente tes projets de vacances comme Inès : la destination souhaitée et une condition pour que ça marche.",
@@ -1231,7 +1231,7 @@ export const MODULES_A2_PART3: Module[] = [
               {
                 id: "a2-exp-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-raconter-brievement",
+                skillId: "po-raconter-experience",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Raconte à voix haute le même souvenir que tu viens d'écrire, comme si tu le racontais à un ami.",
@@ -1852,7 +1852,7 @@ export const MODULES_A2_PART3: Module[] = [
               {
                 id: "bilan-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-se-presenter",
+                skillId: "po-se-presenter",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi — conditions proches de l'épreuve réelle.",
                 consigne:

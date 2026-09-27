@@ -34,6 +34,7 @@ export default async function AssessmentPage({ params }: PageProps<"/parcours/ev
   if (!isFree) {
     return (
       <PremiumLock
+          context="assessment"
         title={assessment.title}
         description={assessment.description}
         backHref="/parcours/evaluations"

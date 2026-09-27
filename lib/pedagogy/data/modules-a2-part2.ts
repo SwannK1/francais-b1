@@ -260,7 +260,7 @@ export const MODULES_A2_PART2: Module[] = [
               {
                 id: "trans-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-message-informel",
+                skillId: "po-expliquer-probleme",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -592,7 +592,7 @@ export const MODULES_A2_PART2: Module[] = [
               {
                 id: "a2-voy-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-demander-information",
+                skillId: "po-demander-information",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -898,7 +898,7 @@ export const MODULES_A2_PART2: Module[] = [
               {
                 id: "sante-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-demander-information",
+                skillId: "po-expliquer-probleme",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Comme Farid, décris tes symptômes à voix haute à un pharmacien imaginaire et demande-lui conseil.",
@@ -1216,7 +1216,7 @@ export const MODULES_A2_PART2: Module[] = [
               {
                 id: "trav-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-se-presenter",
+                skillId: "po-parler-travail",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Comme Diego, présente-toi à voix haute à une nouvelle équipe : ton poste, tes horaires, tes tâches.",
@@ -1522,7 +1522,7 @@ export const MODULES_A2_PART2: Module[] = [
               {
                 id: "a2-emp-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-message-informel",
+                skillId: "po-parler-travail",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "On te demande en entretien : « Parlez-moi de votre parcours et de vos disponibilités. » Réponds à voix haute.",
@@ -1834,7 +1834,7 @@ export const MODULES_A2_PART2: Module[] = [
               {
                 id: "etud-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-decrire",
+                skillId: "po-parler-quotidien",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Comme Karim, raconte à voix haute comment étaient tes études avant et comment elles sont maintenant.",
@@ -2136,7 +2136,7 @@ export const MODULES_A2_PART2: Module[] = [
               {
                 id: "wknd-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-raconter-brievement",
+                skillId: "po-raconter-experience",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Comme Yasmine et Camille, raconte ton week-end à voix haute à un ami imaginaire, et propose-lui une sortie.",
@@ -2432,7 +2432,7 @@ export const MODULES_A2_PART2: Module[] = [
               {
                 id: "num-h-oral",
                 type: "production_orale",
-                skillId: "a2-pe-message-informel",
+                skillId: "po-prendre-rendez-vous",
                 difficulty: "A2",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Laisse un message vocal à un ami pour annuler un rendez-vous et proposer un autre moment.",

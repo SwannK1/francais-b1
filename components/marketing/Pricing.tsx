@@ -20,7 +20,7 @@ export default function Pricing() {
           Un seul abonnement, tout inclus
         </h2>
         <p className="mt-3 max-w-md text-center text-sm text-muted-foreground">
-          Le test de niveau et 2 modules complets sont gratuits, pour essayer avant de t&apos;engager.
+          Le test de niveau et une vraie séance à ton niveau (A1, A2 ou B1) sont gratuits, pour essayer avant de t&apos;engager.
         </p>
 
         <Card className="mt-10 w-full max-w-md text-center">

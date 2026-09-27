@@ -10,7 +10,7 @@ import ProgressionExperience from "./ProgressionExperience";
  * aux pages de module.
  */
 export const metadata: Metadata = {
-  title: "Ton bilan",
+  title: "Ta progression",
   robots: { index: false, follow: true },
 };
 

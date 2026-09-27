@@ -35,16 +35,16 @@ async function answerCurrentQuestion(user: ReturnType<typeof userEvent.setup>, c
 describe("DiagnosticClient — route /diagnostic", () => {
   it("part de l'écran d'introduction sans jamais demander de choisir un niveau de départ", () => {
     render(<DiagnosticClient />);
-    expect(screen.getByRole("heading", { name: /diagnostic de niveau détaillé/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /bilan approfondi/i })).toBeInTheDocument();
     expect(screen.queryByText(/choisis ton niveau/i)).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /commencer le diagnostic/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /commencer le bilan/i })).toBeInTheDocument();
   });
 
   it("mène à un résultat exploitable (niveau, score, recommandation avec un lien réel) en répondant correctement à tout", async () => {
     const user = userEvent.setup();
     const { container } = render(<DiagnosticClient />);
 
-    await user.click(screen.getByRole("button", { name: /commencer le diagnostic/i }));
+    await user.click(screen.getByRole("button", { name: /commencer le bilan/i }));
 
     // Des réponses toutes correctes déclenchent l'arrêt anticipé "plafond" à
     // la 12e question (voir scoring.test.ts) : la boucle s'arrête dès que
@@ -70,7 +70,7 @@ describe("DiagnosticClient — route /diagnostic", () => {
     const user = userEvent.setup();
     render(<DiagnosticClient />);
 
-    await user.click(screen.getByRole("button", { name: /commencer le diagnostic/i }));
+    await user.click(screen.getByRole("button", { name: /commencer le bilan/i }));
 
     for (let i = 0; i < 6; i++) {
       await answerCurrentQuestion(user, false);
@@ -84,7 +84,7 @@ describe("DiagnosticClient — route /diagnostic", () => {
     const user = userEvent.setup();
     render(<DiagnosticClient />);
 
-    await user.click(screen.getByRole("button", { name: /commencer le diagnostic/i }));
+    await user.click(screen.getByRole("button", { name: /commencer le bilan/i }));
 
     const firstQuestion = DIAGNOSTIC_QUESTIONS[0];
     const firstChoice = firstQuestion.choices[0];

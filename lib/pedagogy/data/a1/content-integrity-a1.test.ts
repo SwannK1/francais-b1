@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { A1_PARCOURS_STAGES, EXAMS_A1, MODULES_A1, SKILLS_A1 } from "@/lib/pedagogy/data/a1";
+import { SKILLS_ORAL } from "@/lib/pedagogy/data/skills-oral";
 import { existsUnderPublic } from "@/lib/pedagogy/audio/status";
 import type { Exercise, ExamSection, Question } from "@/lib/pedagogy/types";
 
@@ -25,7 +26,9 @@ function duplicates(values: string[]): string[] {
 }
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-const skillDomainById = new Map(SKILLS_A1.map((s) => [s.id, s.domain]));
+// Les compétences orales `po-*` sont transversales à tous les niveaux (voir
+// `data/skills-oral.ts`) : un exercice oral A1 y est rattaché légitimement.
+const skillDomainById = new Map([...SKILLS_A1, ...SKILLS_ORAL].map((s) => [s.id, s.domain]));
 
 function questionsOf(exercise: Exercise): Question[] {
   if (exercise.type === "comprehension_ecrite" || exercise.type === "comprehension_orale") {

@@ -234,7 +234,7 @@ describe("SpeakingExerciseCard", () => {
     await finishSelfAssessment();
 
     const continueLink = screen.getByRole("link", { name: /^continuer →/i });
-    expect(continueLink).toHaveAttribute("href", "/oral");
+    expect(continueLink).toHaveAttribute("href", "/pratiquer#parler");
   });
 
   it("stops the microphone if the component unmounts while the permission request is still pending", async () => {

@@ -34,8 +34,8 @@ export default async function OffrePage() {
       <Header />
       <main id="main-content">
         <Container className="py-16 sm:py-24">
-          <Link href="/parcours" className="text-sm font-medium text-primary hover:underline">
-            ← Retour au parcours
+          <Link href="/aujourdhui" className="text-sm font-medium text-primary hover:underline">
+            ← Retour à Aujourd&apos;hui
           </Link>
 
           <div className="mx-auto mt-8 max-w-2xl text-center">
@@ -94,7 +94,7 @@ export default async function OffrePage() {
                   </p>
                   <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                     <Link
-                      href="/parcours"
+                      href="/aujourdhui"
                       className="text-sm font-semibold text-primary hover:underline"
                     >
                       Continuer mon parcours

@@ -5,6 +5,7 @@ import { EXAMS } from "@/lib/pedagogy/data/exams";
 import { SPEAKING_EXERCISES } from "@/lib/speaking/data/exercises";
 import { ASSESSMENTS } from "@/lib/assessment/data/index";
 import { SITE_URL } from "@/lib/seo/site";
+import { LIFE_SITUATIONS } from "@/lib/pedagogy/data/life-situations";
 
 /**
  * Sitemap généré depuis les mêmes données statiques que l'app (modules,
@@ -26,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/offre`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/parcours`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/parcours/examens`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${SITE_URL}/oral`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${SITE_URL}/pratiquer`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE_URL}/parcours/evaluations`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE_URL}/test-niveau`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/diagnostic`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
@@ -77,6 +78,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
+  const situationPages: MetadataRoute.Sitemap = LIFE_SITUATIONS.map((situation) => ({
+    url: `${SITE_URL}/pratiquer/situations/${situation.id}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
   const assessmentPages: MetadataRoute.Sitemap = ASSESSMENTS.map((assessment) => ({
     url: `${SITE_URL}/parcours/evaluations/${assessment.slug}`,
     lastModified: now,
@@ -90,6 +98,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...modulePages,
     ...examPages,
     ...speakingPages,
+    ...situationPages,
     ...assessmentPages,
   ];
 }

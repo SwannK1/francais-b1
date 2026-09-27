@@ -244,7 +244,7 @@ export const MODULES: Module[] = [
               {
                 id: "sp-h-oral",
                 type: "production_orale",
-                skillId: "pe-se-presenter",
+                skillId: "po-se-presenter",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -572,7 +572,7 @@ export const MODULES: Module[] = [
               {
                 id: "exp-h-oral",
                 type: "production_orale",
-                skillId: "pe-recit",
+                skillId: "po-raconter-experience",
                 difficulty: "B1",
                 instructions: "Prépare les étapes de ton récit, puis enregistre-toi.",
                 consigne: "Un proche te demande de raconter une expérience qui t'a marqué·e. Explique ce qui s'est passé, dans quel ordre, et comment tu t'es senti·e.",
@@ -1384,7 +1384,7 @@ export const MODULES: Module[] = [
               {
                 id: "log-h-oral",
                 type: "production_orale",
-                skillId: "voc-logement",
+                skillId: "po-demander-information",
                 difficulty: "B1",
                 instructions: "Prépare tes questions, puis joue ton côté de la conversation.",
                 consigne: "Tu téléphones au propriétaire du studio. Présente-toi, vérifie deux informations importantes et propose un horaire de visite.",
@@ -2736,7 +2736,7 @@ export const MODULES: Module[] = [
               {
                 id: "recit-h-oral",
                 type: "production_orale",
-                skillId: "pe-recit",
+                skillId: "po-raconter-experience",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -4217,7 +4217,7 @@ export const MODULES: Module[] = [
               {
                 id: "opinion-h-oral",
                 type: "production_orale",
-                skillId: "pe-exprimer-avis",
+                skillId: "po-exprimer-opinion",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -5328,7 +5328,7 @@ export const MODULES: Module[] = [
               {
                 id: "travail-h-oral",
                 type: "production_orale",
-                skillId: "pe-presentation-professionnelle",
+                skillId: "po-parler-travail",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -5730,7 +5730,7 @@ export const MODULES: Module[] = [
               {
                 id: "med-h-oral",
                 type: "production_orale",
-                skillId: "pe-expliquer-probleme",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare les informations essentielles, puis réponds au médecin.",
                 consigne: "Le médecin te demande ce qui ne va pas. Décris tes symptômes, précise depuis quand ils durent, explique leur évolution et pose une question sur la suite.",
@@ -6544,7 +6544,7 @@ export const MODULES: Module[] = [
               {
                 id: "rec-h-oral",
                 type: "production_orale",
-                skillId: "pe-expliquer-probleme",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Choisis un problème concret, puis enregistre ton appel.",
                 consigne: "Tu appelles le service client. Décris précisément le problème, explique pourquoi la première réponse ne te convient pas et propose une solution acceptable.",
@@ -8101,7 +8101,7 @@ export const MODULES: Module[] = [
               {
                 id: "emp-h-oral",
                 type: "production_orale",
-                skillId: "pe-presentation-professionnelle",
+                skillId: "po-parler-travail",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -9300,7 +9300,7 @@ export const MODULES: Module[] = [
               {
                 id: "soc-h-oral",
                 type: "production_orale",
-                skillId: "pe-exprimer-avis",
+                skillId: "po-exprimer-opinion",
                 difficulty: "B1",
                 instructions: "Choisis un sujet du module, puis formule une réponse orale structurée.",
                 consigne: "Dans une discussion, une personne défend une opinion différente de la tienne. Présente ta position, reconnais un argument valable de l'autre côté, puis justifie ton désaccord ou ta nuance.",
@@ -9697,7 +9697,7 @@ export const MODULES: Module[] = [
               {
                 id: "bil-h-oral",
                 type: "production_orale",
-                skillId: "exam-delf-b1",
+                skillId: "po-exprimer-opinion",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi — conditions proches de l'épreuve DELF B1.",
                 consigne:
@@ -10028,7 +10028,7 @@ export const MODULES: Module[] = [
               {
                 id: "rel-h-oral",
                 type: "production_orale",
-                skillId: "pe-decrire-personne",
+                skillId: "po-parler-quotidien",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -10358,7 +10358,7 @@ export const MODULES: Module[] = [
               {
                 id: "imp-h-oral",
                 type: "production_orale",
-                skillId: "pe-raconter-imprevu",
+                skillId: "po-raconter-experience",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -10683,7 +10683,7 @@ export const MODULES: Module[] = [
               {
                 id: "medi-h-oral",
                 type: "production_orale",
-                skillId: "pe-informer-sensibiliser",
+                skillId: "po-exprimer-opinion",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -11014,7 +11014,7 @@ export const MODULES: Module[] = [
               {
                 id: "form-h-oral",
                 type: "production_orale",
-                skillId: "pe-demander-informations-formation",
+                skillId: "po-demander-information",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -11345,7 +11345,7 @@ export const MODULES: Module[] = [
               {
                 id: "pharma-h-oral",
                 type: "production_orale",
-                skillId: "pe-reformuler-consignes",
+                skillId: "po-demander-information",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -11678,7 +11678,7 @@ export const MODULES: Module[] = [
               {
                 id: "chemin-h-oral",
                 type: "production_orale",
-                skillId: "pe-demander-itineraire",
+                skillId: "po-demander-information",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -12007,7 +12007,7 @@ export const MODULES: Module[] = [
               {
                 id: "guich-h-oral",
                 type: "production_orale",
-                skillId: "pe-expliquer-situation-guichet",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -12341,7 +12341,7 @@ export const MODULES: Module[] = [
               {
                 id: "panne-h-oral",
                 type: "production_orale",
-                skillId: "pe-signaler-panne-logement",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -12666,7 +12666,7 @@ export const MODULES: Module[] = [
               {
                 id: "absen-h-oral",
                 type: "production_orale",
-                skillId: "pe-prevenir-absence",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -12992,7 +12992,7 @@ export const MODULES: Module[] = [
               {
                 id: "depl-h-oral",
                 type: "production_orale",
-                skillId: "pe-modifier-rdv",
+                skillId: "po-prendre-rendez-vous",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -13318,7 +13318,7 @@ export const MODULES: Module[] = [
               {
                 id: "abs-h-oral",
                 type: "production_orale",
-                skillId: "pe-prevenir-absence-ecole",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -13645,7 +13645,7 @@ export const MODULES: Module[] = [
               {
                 id: "sort-h-oral",
                 type: "production_orale",
-                skillId: "pe-repondre-a-lecole",
+                skillId: "po-demander-information",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -13971,7 +13971,7 @@ export const MODULES: Module[] = [
               {
                 id: "gar-h-oral",
                 type: "production_orale",
-                skillId: "pe-faire-jouer-garantie",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:
@@ -14301,7 +14301,7 @@ export const MODULES: Module[] = [
               {
                 id: "echange-h-oral",
                 type: "production_orale",
-                skillId: "pe-echanger-un-article",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Tu es au magasin pour échanger un article. Explique le problème au vendeur à voix haute.",
@@ -14633,7 +14633,7 @@ export const MODULES: Module[] = [
               {
                 id: "abonn-h-oral",
                 type: "production_orale",
-                skillId: "pe-gerer-un-abonnement",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Tu appelles ton opérateur pour résilier un abonnement. Explique ta demande à voix haute.",
@@ -14966,7 +14966,7 @@ export const MODULES: Module[] = [
               {
                 id: "compte-h-oral",
                 type: "production_orale",
-                skillId: "pe-contester-prelevement",
+                skillId: "po-expliquer-probleme",
                 difficulty: "B1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Tu appelles ta banque pour signaler un prélèvement que tu ne reconnais pas. Explique la situation à voix haute.",

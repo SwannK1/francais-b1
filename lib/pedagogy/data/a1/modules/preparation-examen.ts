@@ -374,7 +374,7 @@ export const MODULES_A1_PREPARATION_EXAMEN: A1Module[] = [
               {
                 id: "m22-i-oral",
                 type: "production_orale",
-                skillId: "a1-pe-se-presenter",
+                skillId: "po-se-presenter",
                 difficulty: "A1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne:

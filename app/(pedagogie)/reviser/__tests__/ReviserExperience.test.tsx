@@ -136,7 +136,7 @@ describe("/reviser — ReviserExperience", () => {
     renderReviser();
 
     expect(await screen.findByText(/tu es à jour/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /continuer ma séance/i })).toHaveAttribute("href", "/parcours");
+    expect(screen.getByRole("link", { name: /continuer ma séance/i })).toHaveAttribute("href", "/aujourdhui");
   });
 
   it("propose une séance interactive quand une compétence d'un module gratuit est à revoir", async () => {
@@ -201,7 +201,7 @@ describe("/reviser — ReviserExperience", () => {
     expect(readProgress().reviewedModuleIds).toEqual([]);
   });
 
-  it("mène une séance de bout en bout : répond réellement à un vrai exercice, jusqu'au bilan, sans jamais perdre l'accès à /parcours", async () => {
+  it("mène une séance de bout en bout : répond réellement à un vrai exercice, jusqu'au bilan, sans jamais laisser l'apprenant sans suite (retour à Aujourd'hui)", async () => {
     const user = userEvent.setup();
     // Vrai exercice du catalogue (module gratuit) — voir le commentaire en tête de fichier
     // sur pourquoi on ne fabrique pas un SkillProgress à la main ici.
@@ -237,7 +237,7 @@ describe("/reviser — ReviserExperience", () => {
     const expectedRecapText =
       recapLine === "maîtrisé" ? /1 maîtrisées/i : recapLine === "à consolider" ? /1 à consolider/i : /1 à revoir/i;
     expect(screen.getByText(expectedRecapText)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /continuer mon parcours/i })).toHaveAttribute("href", "/parcours");
+    expect(screen.getByRole("link", { name: /retour à aujourd'hui/i })).toHaveAttribute("href", "/aujourdhui");
     expect(trackEvent).toHaveBeenCalledWith("review_session_completed", { itemCount: 1 });
 
     // La progression a vraiment été écrite (nouvelle réponse enregistrée)...

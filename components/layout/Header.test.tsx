@@ -12,6 +12,7 @@ import { AuthProvider } from "@/lib/auth/AuthProvider";
 // `useRouter` exige un vrai contexte App Router absent d'un rendu RTL isolé.
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn(), refresh: vi.fn(), back: vi.fn(), replace: vi.fn() }),
+  usePathname: () => "/aujourdhui",
 }));
 
 /**
@@ -76,13 +77,15 @@ describe.each([
 });
 
 describe("AppHeader (application) — navigation", () => {
-  it("donne accès aux fonctions principales du produit (parcours, révision, oral, progression, offre)", () => {
+  it("donne accès aux cinq destinations pédagogiques, sans l'offre dans la navigation principale", () => {
     renderWithMain(<AppHeader />);
     const nav = screen.getByRole("navigation", { name: "Navigation de l'application" });
-    expect(nav.querySelector('a[href="/parcours"]')).not.toBeNull();
-    expect(nav.querySelector('a[href="/reviser"]')).not.toBeNull();
-    expect(nav.querySelector('a[href="/oral"]')).not.toBeNull();
-    expect(nav.querySelector('a[href="/progression"]')).not.toBeNull();
-    expect(nav.querySelector('a[href="/offre"]')).not.toBeNull();
+    for (const href of ["/aujourdhui", "/parcours", "/pratiquer", "/reviser", "/progression"]) {
+      expect(nav.querySelector(`a[href="${href}"]`)).not.toBeNull();
+    }
+    expect(nav.querySelector('a[href="/offre"]')).toBeNull();
+    expect(nav.querySelector('a[href="/aujourdhui"]')).toHaveAttribute("aria-current", "page");
+    // L'offre reste accessible depuis le compte.
+    expect(screen.getByRole("link", { name: "Mon compte" })).toHaveAttribute("href", "/compte");
   });
 });

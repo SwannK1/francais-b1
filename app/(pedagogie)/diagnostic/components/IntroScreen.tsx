@@ -5,7 +5,12 @@ export default function IntroScreen({ onStart }: { onStart: () => void }) {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold text-foreground">Diagnostic de niveau détaillé</h1>
+        <p className="text-sm font-semibold uppercase tracking-wide text-primary">Facultatif</p>
+        <h1 className="mt-1 text-2xl font-bold text-foreground">Bilan approfondi</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Plus détaillé que le test de niveau : il montre tes points forts et fragiles, compétence par
+          compétence. Il ne modifie jamais ta progression.
+        </p>
         <p className="mt-2 text-sm text-muted-foreground">
           18 questions au maximum, environ 5 à 8 minutes. La difficulté augmente
           progressivement : commence simplement, sans te soucier de ton niveau de départ.
@@ -22,7 +27,7 @@ export default function IntroScreen({ onStart }: { onStart: () => void }) {
       </Card>
 
       <button type="button" onClick={onStart} className={buttonClasses("primary", "lg")}>
-        Commencer le diagnostic
+        Commencer le bilan
       </button>
     </div>
   );

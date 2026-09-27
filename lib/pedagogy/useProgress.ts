@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import { EMPTY_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
-import { recordExerciseResult, resolvePlacementLevel, toggleModuleReview } from "@/lib/pedagogy/logic/progress";
+import {
+  recordExerciseResult,
+  refreshSkillProgressForCatalog,
+  resolvePlacementLevel,
+  toggleModuleReview,
+} from "@/lib/pedagogy/logic/progress";
 import {
   abandonExamAttempt,
   completeExamAttempt,
@@ -10,7 +15,8 @@ import {
   startExamAttempt,
 } from "@/lib/pedagogy/logic/exam";
 import { useAuth } from "@/lib/auth/AuthProvider";
-import type { CEFRLevel, DelfSection, Exam, Exercise, LearningGoalId, Module, UserProgress } from "@/lib/pedagogy/types";
+import type { CEFRLevel, DailyMinutes, DelfSection, Exam, Exercise, LearningGoalId, Module, UserProgress } from "@/lib/pedagogy/types";
+import { normalizeDailyMinutes } from "@/lib/pedagogy/logic/preferences";
 import { recordAssessmentEvidence as applyAssessmentEvidence } from "@/lib/assessment/logic/progress-evidence";
 import type { AssessmentEvidence } from "@/lib/pedagogy/types";
 
@@ -113,7 +119,11 @@ function parseProgress(raw: string): UserProgress {
   try {
     // Fusionne avec l'état vide pour rester valide si de nouveaux champs ont
     // été ajoutés au type depuis la dernière visite de l'utilisateur.
-    return { ...EMPTY_USER_PROGRESS, ...(JSON.parse(raw) as Partial<UserProgress>) };
+    // `refreshSkillProgressForCatalog` : une progression enregistrée avant
+    // l'ajout de compétences au catalogue (ex. compétences orales) voit ses
+    // stats par compétence recalculées depuis ses exercices déjà faits —
+    // sans rien perdre, voir `logic/progress.ts`.
+    return refreshSkillProgressForCatalog({ ...EMPTY_USER_PROGRESS, ...(JSON.parse(raw) as Partial<UserProgress>) });
   } catch {
     return EMPTY_USER_PROGRESS;
   }
@@ -218,6 +228,19 @@ export function useProgress() {
     writeProgress({ ...current, goalId });
   }, []);
 
+  /**
+   * Temps de travail habituel (onboarding, page compte). Valeur hors liste
+   * ignorée : la séance du jour ne doit jamais être dimensionnée par une
+   * donnée invalide.
+   */
+  const setDailyMinutes = useCallback((minutes: DailyMinutes) => {
+    const normalized = normalizeDailyMinutes(minutes);
+    if (!normalized) return;
+    const current = parseProgress(readRaw());
+    if (current.dailyMinutes === normalized) return;
+    writeProgress({ ...current, dailyMinutes: normalized });
+  }, []);
+
   const recordAssessmentEvidence = useCallback((evidence: AssessmentEvidence) => {
     writeProgress(applyAssessmentEvidence(parseProgress(readRaw()), evidence));
   }, []);
@@ -232,6 +255,7 @@ export function useProgress() {
     abandonExam,
     toggleReview,
     setGoal,
+    setDailyMinutes,
     recordAssessmentEvidence,
   };
 }

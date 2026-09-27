@@ -1,6 +1,7 @@
 import type { Skill } from "@/lib/pedagogy/types";
 import { SKILLS_A1 } from "@/lib/pedagogy/data/a1/skills-a1";
 import { SKILLS_A2 } from "@/lib/pedagogy/data/skills-a2";
+import { SKILLS_ORAL } from "@/lib/pedagogy/data/skills-oral";
 
 export const SKILLS: Skill[] = [
   {
@@ -539,6 +540,7 @@ export const SKILLS: Skill[] = [
   },
   ...SKILLS_A1,
   ...SKILLS_A2,
+  ...SKILLS_ORAL,
 ];
 
 export function getSkillById(id: string): Skill | undefined {

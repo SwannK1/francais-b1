@@ -229,7 +229,7 @@ export const MODULES_A1_DECOUVERTE: A1Module[] = [
               {
                 id: "m01-h-oral",
                 type: "production_orale",
-                skillId: "a1-pe-se-presenter",
+                skillId: "po-se-presenter",
                 difficulty: "A1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Tu rencontres quelqu'un de nouveau. Dis bonjour et présente-toi (ton nom, épelle-le).",
@@ -825,7 +825,7 @@ export const MODULES_A1_DECOUVERTE: A1Module[] = [
               {
                 id: "m03-h-oral",
                 type: "production_orale",
-                skillId: "a1-pe-se-presenter",
+                skillId: "po-se-presenter",
                 difficulty: "A1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Dis d'où tu viens, ta nationalité, et une langue que tu parles.",

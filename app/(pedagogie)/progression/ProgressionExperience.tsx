@@ -1,258 +1,283 @@
 "use client";
 
 import Link from "next/link";
-import Card from "@/components/ui/Card";
-import Badge from "@/components/ui/Badge";
 import LevelBadge from "@/components/pedagogy/LevelBadge";
-import ProgressBar from "@/components/pedagogy/ProgressBar";
-import SkillReviewCard from "@/components/pedagogy/SkillReviewCard";
-import ModuleCard from "@/components/pedagogy/ModuleCard";
-import GuidedSessionCard from "@/components/pedagogy/GuidedSessionCard";
-import { CheckIcon } from "@/components/ui/icons";
-import {
-  getModuleCompletionRate,
-  isModuleReviewed,
-  statusFromCompletionRate,
-} from "@/lib/pedagogy/logic/progress";
-import { buildDailySession } from "@/lib/daily/session-engine";
+import LearningStateBadge from "@/components/pedagogy/LearningStateBadge";
+import { buttonClasses } from "@/components/ui/button-styles";
+import { ArrowRightIcon, CheckIcon } from "@/components/ui/icons";
+import { cn } from "@/lib/cn";
+import { getTodayOverview } from "@/lib/daily/today";
+import { LIFE_SITUATIONS } from "@/lib/pedagogy/data/life-situations";
+import { SKILLS_ORAL } from "@/lib/pedagogy/data/skills-oral";
+import { getModuleCapability } from "@/lib/pedagogy/logic/capability";
+import { getModuleLearningState, getSkillLearningState } from "@/lib/pedagogy/logic/learning-states";
 import { getEffectiveLevel, getParcoursSummary } from "@/lib/pedagogy/logic/parcours";
-import { getReviewItems } from "@/lib/pedagogy/logic/review";
-import {
-  buildReviewHistory,
-  buildReviewRecommendations,
-  classifySkillState,
-  getConsolidationSuggestion,
-  summarizeMastery,
-} from "@/lib/review";
+import { summarizeSituation } from "@/lib/pedagogy/logic/situations";
+import { buildReviewHistory, buildReviewRecommendations } from "@/lib/review";
 import { useProgress } from "@/lib/pedagogy/useProgress";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { canAccess } from "@/lib/commerce/access";
 import { useSpeakingPractice } from "@/lib/speaking/useSpeakingPractice";
-import { getSpeakingExerciseById } from "@/lib/speaking/logic/exercises";
-import type { PublicModule } from "@/lib/pedagogy/types";
+import { SPEAKING_EXERCISES } from "@/lib/speaking/data/exercises";
+import type { CEFRLevel, PublicModule } from "@/lib/pedagogy/types";
+
+const NEXT_LEVEL: Partial<Record<CEFRLevel, CEFRLevel>> = { A1: "A2", A2: "B1" };
+/** Au-delà, la liste « Je peux… » devient un inventaire : on montre les plus récents, le reste sur demande. */
+const MAX_CAN_DO = 8;
+
+/** « Expliquer un problème » → « expliquer un problème » (après « Je peux… »). */
+function lowerFirst(text: string): string {
+  return text.charAt(0).toLowerCase() + text.slice(1);
+}
 
 /**
+ * Progression — répond à trois questions : qu'est-ce que je sais faire,
+ * qu'est-ce qui reste fragile, quelle est ma prochaine étape. Aucun nouveau
+ * calcul de maîtrise : les états viennent du moteur de révision (`lib/review`)
+ * pour les compétences, du cycle de vie des modules pour les capacités, et
+ * des situations de vie (`data/life-situations.ts`) pour la lecture par
+ * situation. La grille de modules a quitté cette page (elle vit dans les
+ * étapes de `/parcours`).
+ *
  * Reçoit `publicModules` (métadonnées de navigation, jamais le contenu
  * détaillé des exercices) depuis le Server Component `page.tsx` — voir
  * `docs/architecture/user-lifecycle.md` § Premium content boundary.
  */
 export default function ProgressionExperience({ publicModules }: { publicModules: PublicModule[] }) {
-  const { progress, toggleReview } = useProgress();
+  const { progress } = useProgress();
   const { user } = useAuth();
   const { log: speakingLog } = useSpeakingPractice();
-  // Seul signal fiable de "cet apprenant a déjà fait quelque chose" — posé
-  // uniquement par `recordExerciseResult` (voir lib/pedagogy/logic/progress.ts),
-  // jamais par un simple affichage de page. Sert à masquer les statistiques
-  // (0 module, 0%...) pour un compte tout neuf plutôt que d'afficher des
-  // jauges vides — voir chantier "progression globale".
   const hasProgress = Boolean(progress.lastActivityAt);
-  // Niveau effectif ("où en suis-je maintenant"), pas le seul résultat brut
-  // du dernier test de positionnement — voir `getEffectiveLevel`. Sans ça,
-  // un apprenant qui avance naturellement au niveau suivant via `/parcours`
-  // voyait son propre bilan rester bloqué sur son ancien niveau, masquant sa
-  // vraie progression la plus récente.
   const effectiveLevel = getEffectiveLevel(progress, publicModules);
-  const modules = publicModules.filter((mod) => mod.level === effectiveLevel);
-  const isAccessible = (mod: PublicModule) =>
-    canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
-  // Même moteur que `/parcours` (`lib/daily/`, voir `ParcoursExperience.tsx`)
-  // — jamais un second moteur de séance concurrent (l'ancien
-  // `computeDailySession`/`DailySessionCard` a été retiré).
-  const guidedSession = buildDailySession(progress, publicModules, { isAccessible });
-  const rawGuidedSession = guidedSession ? null : buildDailySession(progress, publicModules);
+  const nextLevel = NEXT_LEVEL[effectiveLevel];
   const summary = getParcoursSummary(progress, publicModules);
-  const isReadyForB1 = summary.readyForB1;
+  const isAccessible = (mod: PublicModule) => canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
+  const today = getTodayOverview(progress, publicModules, isAccessible);
+  const now = new Date();
 
-  // Une seule dérivation de `progress.skillProgress` par le moteur de
-  // révision espacée (`lib/review/`, déjà utilisé par `/reviser` et par le
-  // CTA d'accueil) : jamais une deuxième règle de "maîtrise" — voir chantier
-  // "maîtrise et révisions ciblées". `nouvelle` (jamais pratiquée) reste
-  // exclue des trois catégories, il n'y a encore rien à y classer.
+  // Capacités acquises : modules terminés, formulés en « je peux… », du
+  // plus récemment travaillé au plus ancien.
+  const lastActivity = (mod: PublicModule): string =>
+    progress.moduleProgress.find((mp) => mp.moduleId === mod.id)?.lastActivityAt ?? "";
+  const acquiredModules = publicModules
+    .filter((mod) => getModuleLearningState(progress, mod) === "acquis")
+    .sort((a, b) => lastActivity(b).localeCompare(lastActivity(a)));
+
+  // Compétences : une seule dérivation par le moteur de révision espacée.
   const reviewHistory = buildReviewHistory(progress, publicModules);
-  const mastery = summarizeMastery(reviewHistory);
-  const skillRecommendations = buildReviewRecommendations(reviewHistory);
-  const toReview = skillRecommendations.filter(
-    (r) => r.priority.band === "haute" || r.priority.band === "a_revoir"
+  const recommendations = buildReviewRecommendations(reviewHistory, now);
+  const toReview = recommendations.filter((r) => r.priority.band === "haute" || r.priority.band === "a_revoir");
+  const toConsolidate = reviewHistory.filter(
+    (entry) => entry.domain !== "production_orale" && getSkillLearningState(entry, now) === "a_consolider"
   );
-  const toConsolidate = skillRecommendations.filter((r) => r.priority.band === "consolidation");
-  const consolidationSuggestion =
-    toReview.length === 0 && toConsolidate.length === 0 ? getConsolidationSuggestion(reviewHistory) : null;
-  const acquisNames = reviewHistory
-    .filter((entry) => classifySkillState(entry) === "maitrisee")
-    .map((entry) => entry.skillName);
 
-  const completedModulesCount = publicModules.filter(
-    (mod) =>
-      statusFromCompletionRate(getModuleCompletionRate(progress, mod.id, mod.totalExercises)) === "termine"
-  ).length;
-  const reviewItemsCount = getReviewItems(progress, publicModules).length;
+  // Oral : compétences `po-*` travaillées dans les modules, et exercices de
+  // la zone Pratiquer (auto-évaluation, jamais une note automatique).
+  const oralSkills = SKILLS_ORAL.map((skill) => {
+    const entry = reviewHistory.find((e) => e.skillId === skill.id);
+    const practicedInPractice = SPEAKING_EXERCISES.filter(
+      (exercise) => exercise.skillId === skill.id && speakingLog[exercise.id]
+    ).length;
+    const state =
+      entry && entry.completedExercises > 0
+        ? getSkillLearningState(entry, now)
+        : practicedInPractice > 0
+          ? ("en_cours" as const)
+          : ("a_decouvrir" as const);
+    return { skill, state, practicedInPractice };
+  }).filter((item) => item.state !== "a_decouvrir");
+  const practicedOralCount = Object.keys(speakingLog).length;
 
-  const practicedOralIds = Object.keys(speakingLog);
-  const practicedOralCount = practicedOralIds.length;
-  const lastOralEntryId = practicedOralIds.sort((a, b) =>
-    speakingLog[b].lastPracticedAt.localeCompare(speakingLog[a].lastPracticedAt)
-  )[0];
-  const lastOralExercise = lastOralEntryId ? getSpeakingExerciseById(lastOralEntryId) : undefined;
+  const situations = LIFE_SITUATIONS.map((situation) => summarizeSituation(situation, progress, publicModules));
+  const nextPlan = today.plan ?? today.lockedPlan;
 
   return (
-    <div className="space-y-8">
-      <header>
-        <LevelBadge level={effectiveLevel} />
-        <h1 className="mt-3 text-2xl font-bold text-foreground">Ton bilan</h1>
-        {hasProgress ? (
-          <>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <Badge variant="primary">
-                {completedModulesCount}/{publicModules.length} modules terminés
-              </Badge>
-              <Badge variant="neutral">
-                {summary.completedStages}/{summary.totalStages} étapes terminées
-              </Badge>
-            </div>
-            <ProgressBar
-              value={progress.globalSuccessRate}
-              label="Taux de réussite global"
-              className="mt-3 max-w-sm"
-            />
-            <p className="mt-2 text-xs text-muted-foreground">
-              Dernière activité : {new Date(progress.lastActivityAt!).toLocaleDateString("fr-FR")}
-            </p>
-            <p className="mt-3 text-sm text-foreground">
-              {summary.currentStage === null
-                ? "Tu as parcouru tout le contenu A1, A2 et B1 : tu es prêt·e à passer un examen blanc B1."
-                : isReadyForB1
-                  ? "A1 et A2 terminés : tu es prêt·e pour le B1."
-                  : `${summary.completedStages}/${summary.totalStages} étapes du parcours terminées.`}
-            </p>
-            {reviewItemsCount > 0 ? (
-              <p className="mt-3 text-sm text-foreground">
-                {reviewItemsCount} élément{reviewItemsCount > 1 ? "s" : ""} à réviser —{" "}
-                <Link href="/reviser" className="font-semibold text-primary hover:underline">
-                  voir la révision
-                </Link>
-              </p>
-            ) : null}
-          </>
-        ) : (
-          <p className="mt-3 max-w-md text-sm text-muted-foreground">
-            Ta progression apparaîtra ici au fil de tes séances. Commence par la séance recommandée
-            ci-dessous.
+    <div className="space-y-10">
+      {/* Bloc 1 — Niveau */}
+      <header className="rounded-2xl border border-border bg-card p-5 sm:p-8">
+        <p className="text-sm font-semibold text-muted-foreground">Ton niveau</p>
+        <div className="mt-1 flex items-center gap-3">
+          <h1 className="text-4xl font-bold text-foreground">{effectiveLevel}</h1>
+          <LevelBadge level={effectiveLevel} />
+        </div>
+        <p className="mt-2 text-base text-foreground">
+          {summary.currentStage === null
+            ? "Tu as parcouru tout le contenu A1, A2 et B1. Bravo !"
+            : nextLevel
+              ? `En route vers le ${nextLevel}.`
+              : "Tu travailles le niveau B1, le dernier niveau du parcours."}
+        </p>
+        {summary.currentStage ? (
+          <p className="mt-1 text-sm text-muted-foreground">
+            Étape actuelle : <strong className="text-foreground">{summary.currentStage.title}</strong>
           </p>
-        )}
-        {practicedOralCount > 0 ? (
-          <p className="mt-3 text-sm text-foreground">
-            {practicedOralCount} exercice{practicedOralCount > 1 ? "s" : ""}{" "}
-            {practicedOralCount > 1 ? "oraux" : "oral"} pratiqué{practicedOralCount > 1 ? "s" : ""}
-            {lastOralExercise ? ` — dernier : « ${lastOralExercise.title} »` : ""} —{" "}
-            <Link href="/oral" className="font-semibold text-primary hover:underline">
-              voir l&apos;entraînement oral
-            </Link>
+        ) : null}
+        {!hasProgress ? (
+          <p className="mt-3 text-sm text-muted-foreground">
+            Ce que tu sais faire apparaîtra ici après tes premières séances.
           </p>
         ) : null}
       </header>
 
-      {guidedSession || rawGuidedSession ? (
-        <section aria-labelledby="daily-session-title">
-          <h2 id="daily-session-title" className="mb-3 text-lg font-semibold text-foreground">
-            Séance recommandée
+      {/* Bloc 2 — Capacités acquises */}
+      {acquiredModules.length > 0 ? (
+        <section aria-labelledby="can-do-title">
+          <h2 id="can-do-title" className="text-xl font-bold text-foreground">
+            Je peux…
           </h2>
-          <GuidedSessionCard
-            plan={guidedSession ?? rawGuidedSession!}
-            href={guidedSession ? `/parcours/seance?module=${guidedSession.moduleSlug}` : "/offre"}
-            locked={!guidedSession}
-          />
+          <ul className="mt-3 space-y-2">
+            {acquiredModules.slice(0, MAX_CAN_DO).map((mod) => (
+              <li key={mod.id} className="flex items-start gap-3 rounded-xl bg-success/5 px-4 py-3">
+                <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
+                <span className="text-sm text-foreground">{lowerFirst(getModuleCapability(mod))}</span>
+              </li>
+            ))}
+          </ul>
+          {acquiredModules.length > MAX_CAN_DO ? (
+            <details className="mt-2">
+              <summary className="cursor-pointer py-2 text-sm font-medium text-primary">
+                Voir les {acquiredModules.length - MAX_CAN_DO} autres
+              </summary>
+              <ul className="mt-2 space-y-2">
+                {acquiredModules.slice(MAX_CAN_DO).map((mod) => (
+                  <li key={mod.id} className="flex items-start gap-3 px-4 py-1.5">
+                    <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                    <span className="text-sm text-foreground">{lowerFirst(getModuleCapability(mod))}</span>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ) : null}
         </section>
       ) : null}
 
-      {mastery.total > 0 ? (
-        <section aria-labelledby="mastery-title">
-          <h2 id="mastery-title" className="text-lg font-semibold text-foreground">
-            Votre progression
+      {/* Blocs 3 et 4 — À consolider / À revoir */}
+      {toConsolidate.length > 0 || toReview.length > 0 ? (
+        <div className="grid gap-6 md:grid-cols-2">
+          <section aria-labelledby="consolidate-title">
+            <h2 id="consolidate-title" className="text-lg font-bold text-foreground">
+              À consolider
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">En bonne voie, encore un peu de pratique.</p>
+            {toConsolidate.length > 0 ? (
+              <ul className="mt-3 divide-y divide-border rounded-2xl border border-border bg-card">
+                {toConsolidate.slice(0, 6).map((entry) => (
+                  <li key={entry.skillId} className="flex items-center justify-between gap-3 px-4 py-3">
+                    <span className="text-sm text-foreground">{entry.skillName}</span>
+                    <LearningStateBadge state="a_consolider" />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-3 text-sm text-muted-foreground">Rien pour l&apos;instant.</p>
+            )}
+          </section>
+
+          <section aria-labelledby="review-title">
+            <h2 id="review-title" className="text-lg font-bold text-foreground">
+              À revoir
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">Des erreurs récentes ou un oubli possible.</p>
+            {toReview.length > 0 ? (
+              <>
+                <ul className="mt-3 divide-y divide-border rounded-2xl border border-border bg-card">
+                  {toReview.slice(0, 6).map((recommendation) => (
+                    <li key={recommendation.key} className="px-4 py-3">
+                      <span className="flex items-center justify-between gap-3">
+                        <span className="text-sm font-medium text-foreground">{recommendation.title}</span>
+                        <LearningStateBadge state="a_revoir" />
+                      </span>
+                      <span className="mt-0.5 block text-xs text-muted-foreground">{recommendation.reason}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/reviser" className={cn(buttonClasses("secondary", "md"), "mt-3")}>
+                  Réviser maintenant
+                </Link>
+              </>
+            ) : (
+              <p className="mt-3 text-sm text-muted-foreground">Rien à revoir. Continue comme ça !</p>
+            )}
+          </section>
+        </div>
+      ) : null}
+
+      {/* Oral — capacités orales (auto-évaluation) */}
+      {oralSkills.length > 0 || practicedOralCount > 0 ? (
+        <section aria-labelledby="oral-title">
+          <h2 id="oral-title" className="text-lg font-bold text-foreground">
+            À l&apos;oral
           </h2>
-          <p className="mb-4 mt-1 text-sm text-muted-foreground">
-            {mastery.acquis} acquis · {mastery.aConsolider} à consolider · {mastery.aRevoir} à revoir
+          <p className="mt-1 text-sm text-muted-foreground">
+            D&apos;après tes auto-évaluations dans les séances et dans Pratiquer — pas une note de prononciation.
           </p>
-
-          {toReview.length > 0 ? (
-            <div className="mb-6">
-              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                À revoir
-              </h3>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {toReview.map((r) => (
-                  <SkillReviewCard key={r.key} recommendation={r} />
-                ))}
-              </div>
-            </div>
+          {oralSkills.length > 0 ? (
+            <ul className="mt-3 divide-y divide-border rounded-2xl border border-border bg-card">
+              {oralSkills.map(({ skill, state }) => (
+                <li key={skill.id} className="flex items-center justify-between gap-3 px-4 py-3">
+                  <span className="text-sm text-foreground">{skill.name}</span>
+                  <LearningStateBadge state={state} />
+                </li>
+              ))}
+            </ul>
           ) : null}
-
-          {toConsolidate.length > 0 ? (
-            <div className="mb-6">
-              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                À consolider
-              </h3>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {toConsolidate.map((r) => (
-                  <SkillReviewCard key={r.key} recommendation={r} />
-                ))}
-              </div>
-            </div>
-          ) : null}
-
-          {toReview.length === 0 && toConsolidate.length === 0 ? (
-            <Card className="mb-6">
-              <p className="text-sm text-foreground">
-                Tout est à jour. Continuez votre parcours pour découvrir de nouvelles notions.
-              </p>
-              {consolidationSuggestion ? (
-                <div className="mt-4">
-                  <p className="mb-2 text-xs font-medium text-muted-foreground">
-                    Ou faites une petite révision légère :
-                  </p>
-                  <SkillReviewCard recommendation={consolidationSuggestion} />
-                </div>
-              ) : null}
-            </Card>
-          ) : null}
-
-          {acquisNames.length > 0 ? (
-            <div>
-              <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Acquis
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {acquisNames.map((name) => (
-                  <Badge key={name} variant="success">
-                    <CheckIcon className="h-3 w-3" />
-                    {name}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ) : null}
+          <p className="mt-3 text-sm text-muted-foreground">
+            {practicedOralCount > 0
+              ? `${practicedOralCount} exercice${practicedOralCount > 1 ? "s" : ""} pratiqué${practicedOralCount > 1 ? "s" : ""} dans Pratiquer. `
+              : ""}
+            <Link href="/pratiquer#parler" className="font-semibold text-primary hover:underline">
+              Pratiquer l&apos;oral
+            </Link>
+          </p>
         </section>
       ) : null}
 
-      <section aria-labelledby="modules-title">
-        <h2 id="modules-title" className="mb-3 text-lg font-semibold text-foreground">
-          Modules — niveau {effectiveLevel}
+      {/* Bloc 5 — Situations de vie */}
+      <section aria-labelledby="situations-title">
+        <h2 id="situations-title" className="text-lg font-bold text-foreground">
+          Situations de vie
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {modules.map((mod) => {
-            const locked = !canAccess({ kind: "module", slug: mod.slug }, user?.premiumUntil);
-            const completionRate = getModuleCompletionRate(progress, mod.id, mod.totalExercises);
-            return (
-              <ModuleCard
-                key={mod.id}
-                module={mod}
-                completionRate={completionRate}
-                href={`/parcours/module/${mod.slug}`}
-                locked={locked}
-                reviewed={isModuleReviewed(progress, mod.id)}
-                onToggleReview={locked ? undefined : () => toggleReview(mod.id)}
-              />
-            );
-          })}
+        <ul className="mt-3 divide-y divide-border rounded-2xl border border-border bg-card">
+          {situations.map((item) => (
+            <li key={item.situation.id}>
+              <Link
+                href={`/pratiquer/situations/${item.situation.id}`}
+                className="flex min-h-14 items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+              >
+                <span className="min-w-0">
+                  <span className="block text-sm font-semibold text-foreground">{item.situation.title}</span>
+                  <span className="block text-xs text-muted-foreground">
+                    {item.acquiredCount} sur {item.modules.length} acquis
+                  </span>
+                </span>
+                <LearningStateBadge state={item.overall} />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Bloc 6 — Prochaine étape */}
+      <section aria-labelledby="next-step-title" className="rounded-2xl border border-primary/25 bg-primary/[0.03] p-5 sm:p-8">
+        <h2 id="next-step-title" className="text-sm font-semibold uppercase tracking-wide text-primary">
+          Prochaine étape
+        </h2>
+        {nextPlan ? (
+          <>
+            <p className="mt-2 text-xl font-bold text-foreground">{nextPlan.capability}</p>
+            <p className="mt-1 text-sm text-muted-foreground">Environ {nextPlan.totalEstimatedMinutes} min</p>
+          </>
+        ) : (
+          <p className="mt-2 text-base text-foreground">Entraîne-toi avec un examen blanc pour faire le point.</p>
+        )}
+        <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+          <Link href={nextPlan ? "/aujourdhui" : "/parcours/examens"} className={buttonClasses("primary", "lg")}>
+            {nextPlan ? "Aller à ma séance" : "Voir les examens blancs"}
+            <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <Link href="/diagnostic" className={buttonClasses("secondary", "lg")}>
+            Faire un bilan approfondi
+          </Link>
         </div>
       </section>
     </div>

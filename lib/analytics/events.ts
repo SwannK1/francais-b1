@@ -21,6 +21,10 @@ export const ANALYTICS_EVENTS = [
   "placement_question_answered",
   "placement_completed",
   "placement_cta_clicked",
+  // Onboarding (chantier coach quotidien) : objectif → temps → test → première séance
+  "onboarding_goal_selected",
+  "daily_minutes_selected",
+  "onboarding_completed",
   // Diagnostic de niveau (chantier diagnostic-level)
   "diagnostic_started",
   "diagnostic_completed",
@@ -34,9 +38,14 @@ export const ANALYTICS_EVENTS = [
   "review_page_viewed",
   "review_session_started",
   "review_session_completed",
-  // Séance du jour (chantier daily-session)
+  // Séance du jour (chantier daily-session) — `firstSession: true` isole la
+  // toute première séance (funnel test → première séance → séance terminée).
+  "today_viewed",
   "daily_session_started",
   "daily_session_completed",
+  // Pratiquer (hub oral/écoute/situations)
+  "practice_hub_viewed",
+  "practice_activity_started",
   // Audio (compréhension orale — modules et examens)
   "audio_play_started",
   "audio_completed",
@@ -97,4 +106,10 @@ export interface AnalyticsProperties {
   assessmentId?: string;
   diagnosticLevel?: string;
   itemCount?: number;
+  /** Choix d'onboarding — valeurs fixes du produit (`LearningGoalId`, 10/20/30), jamais une saisie libre. */
+  goalId?: string;
+  dailyMinutes?: number;
+  firstSession?: boolean;
+  sessionMode?: string;
+  situationId?: string;
 }

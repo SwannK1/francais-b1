@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { DOMAIN_LABELS } from "@/lib/pedagogy/data/domain-labels";
 import { SKILLS_A2 } from "@/lib/pedagogy/data/skills-a2";
+import { SKILLS_ORAL } from "@/lib/pedagogy/data/skills-oral";
 import { MODULES_A2 } from "@/lib/pedagogy/data/modules-a2";
 import { EXAMS_A2 } from "@/lib/pedagogy/data/exams-a2";
 import { PARCOURS_STAGES_A2 } from "@/lib/pedagogy/data/parcours-stages-a2";
@@ -28,7 +29,8 @@ function duplicates(values: string[]): string[] {
 }
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-const skillDomainById = new Map(SKILLS_A2.map((s) => [s.id, s.domain]));
+// Compétences orales `po-*` : transversales à tous les niveaux (voir `data/skills-oral.ts`).
+const skillDomainById = new Map([...SKILLS_A2, ...SKILLS_ORAL].map((s) => [s.id, s.domain]));
 
 function questionsOf(exercise: Exercise): Question[] {
   if (exercise.type === "comprehension_ecrite" || exercise.type === "comprehension_orale") {

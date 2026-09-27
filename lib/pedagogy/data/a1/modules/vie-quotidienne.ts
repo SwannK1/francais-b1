@@ -1127,7 +1127,7 @@ export const MODULES_A1_VIE_QUOTIDIENNE: A1Module[] = [
               {
                 id: "m09-h-oral",
                 type: "production_orale",
-                skillId: "a1-pe-decrire",
+                skillId: "po-parler-quotidien",
                 difficulty: "A1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Quelqu'un te demande l'heure et à quelle heure commence ton cours de français. Réponds à voix haute.",

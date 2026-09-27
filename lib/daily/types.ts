@@ -1,4 +1,4 @@
-import type { LessonStepType } from "@/lib/pedagogy/types";
+import type { DailyMinutes, LessonStepType } from "@/lib/pedagogy/types";
 
 /**
  * Types de la séance guidée du jour — chantier indépendant du diagnostic
@@ -27,10 +27,27 @@ export type DailySessionMode =
 
 export type DailySessionStepKind = "rappel" | "lesson";
 
+/**
+ * Ce que l'apprenant fait pendant l'étape, en un mot simple (« Réviser »,
+ * « Comprendre », « Parler »...) — dérivé du type de leçon et, pour une
+ * leçon de production, de la présence d'un exercice oral. Sert uniquement
+ * à l'affichage du déroulé de séance (`/aujourdhui`), jamais à la sélection.
+ */
+export type DailySessionStepFocus =
+  | "reviser"
+  | "decouvrir"
+  | "comprendre"
+  | "entrainer"
+  | "ecouter"
+  | "ecrire"
+  | "parler"
+  | "evaluer";
+
 export interface DailySessionStep {
   /** Stable au sein d'une séance : l'id de la leçon réelle, ou `"rappel"`. Jamais un id inventé. */
   id: string;
   kind: DailySessionStepKind;
+  focus: DailySessionStepFocus;
   title: string;
   description: string;
   estimatedMinutes: number;
@@ -46,7 +63,16 @@ export interface DailySessionPlan {
   moduleId: string;
   moduleSlug: string;
   moduleTitle: string;
+  /**
+   * Ce que la séance permet de savoir FAIRE (« Expliquer un problème et
+   * demander une solution »), dérivé de la description du module — le
+   * message principal affiché, le titre du module restant secondaire.
+   * Voir `lib/pedagogy/logic/capability.ts`.
+   */
+  capability: string;
   stageTitle: string;
+  /** Temps de travail habituel retenu pour dimensionner cette séance (`getDailyMinutes`). */
+  dailyMinutes: DailyMinutes;
   /** true si ce module était déjà commencé (reprise), false pour une découverte. */
   isResuming: boolean;
   /** Jamais vide : `buildDailySession` retourne `null` plutôt qu'une séance sans étape. */
@@ -60,6 +86,10 @@ export interface DailySessionPlan {
 export interface DailySessionRecap {
   mode: DailySessionMode;
   moduleTitle: string;
+  /** Même formulation que `DailySessionPlan.capability` : « Aujourd'hui, tu sais mieux… ». */
+  capability: string;
+  /** Compétences réellement travaillées pendant la séance (noms lisibles, dédoublonnés). */
+  skillsWorked: string[];
   /** Titres des étapes effectivement parcourues pendant la séance. */
   workedOnTitles: string[];
   attemptedCount: number;
@@ -93,5 +123,7 @@ export interface SessionModuleLike {
   id: string;
   slug: string;
   title: string;
+  /** « À la fin de ce module, tu pourras… » — source de `capability`. */
+  description?: string;
   lessons: SessionLessonLike[];
 }

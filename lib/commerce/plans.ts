@@ -33,14 +33,13 @@ export const MAIN_PLAN: Plan = {
 };
 
 /**
- * "2 modules B1 complets" reste exact et volontaire, pas une erreur de
- * wording : la découverte gratuite n'ouvre aucun module A1/A2 (asymétrie
- * documentée, décision commerciale hors périmètre technique — voir
- * `docs/product/free-premium-audit.md` et `docs/product/release-candidate.md`).
- * Ne pas généraliser en "à ton niveau" sans rouvrir ce choix produit.
+ * La découverte gratuite ouvre un vrai module à chaque niveau (A1, A2, B1 —
+ * voir `FREE_MODULE_SLUGS`, lib/commerce/access.ts) : « une vraie séance à
+ * ton niveau » est donc exact quel que soit le résultat du test.
  */
 export const FREE_PLAN_FEATURES: string[] = [
-  "Diagnostic de niveau détaillé et test de positionnement (A1 à B2)",
-  "2 modules B1 complets pour essayer la méthode",
+  "Test de niveau et bilan approfondi (A1 à B2)",
+  "Une vraie séance à ton niveau, en A1, A2 ou B1",
+  "Des exercices d'oral pour essayer la pratique",
   "Aperçu de ta progression",
 ];

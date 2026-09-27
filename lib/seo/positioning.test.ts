@@ -49,10 +49,10 @@ const checks: Array<{
   },
   {
     file: "lib/commerce/plans.ts",
-    // "2 modules B1 complets" reste volontaire : la découverte gratuite est
-    // toujours B1-only (asymétrie connue, voir lib/commerce/access.ts) —
-    // seul le chiffre de modules premium codé en dur ("26") est banni ici.
-    mustNotMatch: [/26 modules du parcours B1/],
+    // La découverte gratuite couvre désormais A1, A2 et B1 (voir
+    // lib/commerce/access.ts) : l'ancien libellé B1-only ne doit pas revenir,
+    // ni le chiffre de modules premium codé en dur ("26").
+    mustNotMatch: [/26 modules du parcours B1/, /2 modules B1 complets/],
   },
   {
     file: "app/faq/page.tsx",

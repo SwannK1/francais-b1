@@ -9,7 +9,14 @@ import { clearLocalProgressOnLogout } from "@/lib/pedagogy/useProgress";
 import { cn } from "@/lib/cn";
 
 /** Bloc compte partagé entre le header marketing et le header de l'application. */
-export default function AccountStatus({ className }: { className?: string }) {
+export default function AccountStatus({
+  className,
+  showEmail = true,
+}: {
+  className?: string;
+  /** L'en-tête de l'application affiche déjà « Mon compte » : l'email y serait redondant. */
+  showEmail?: boolean;
+}) {
   const { user, loading, refresh } = useAuth();
   const [pending, startTransition] = useTransition();
   const router = useRouter();
@@ -51,9 +58,11 @@ export default function AccountStatus({ className }: { className?: string }) {
 
   return (
     <div className={cn("flex items-center gap-4", className)}>
-      <span className="max-w-[14ch] truncate text-sm text-muted-foreground" title={user.email}>
-        {user.email}
-      </span>
+      {showEmail ? (
+        <span className="max-w-[14ch] truncate text-sm text-muted-foreground" title={user.email}>
+          {user.email}
+        </span>
+      ) : null}
       <button
         type="button"
         onClick={handleLogout}

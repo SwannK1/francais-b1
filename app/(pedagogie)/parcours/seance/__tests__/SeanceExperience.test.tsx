@@ -10,8 +10,10 @@ import { EMPTY_USER_PROGRESS } from "@/lib/pedagogy/data/initial-user-progress";
 import { getModuleBySlug } from "@/lib/pedagogy/data/modules";
 import { PUBLIC_MODULES } from "@/lib/pedagogy/data/modules-public";
 import { getEffectiveLevel } from "@/lib/pedagogy/logic/parcours";
-import { getReviewItems } from "@/lib/pedagogy/logic/review";
-import { determineDailySessionMode, buildSessionSteps } from "@/lib/daily/session-engine";
+import { getModuleCapability } from "@/lib/pedagogy/logic/capability";
+import { canAccess } from "@/lib/commerce/access";
+import { determineDailySessionMode, buildSessionSteps, pickSessionReview } from "@/lib/daily/session-engine";
+import { STEP_FOCUS_LABELS } from "@/components/pedagogy/GuidedSessionCard";
 import type { UserProgress, VraiFauxExercise } from "@/lib/pedagogy/types";
 
 vi.mock("@/lib/analytics/client", () => ({ trackEvent: vi.fn() }));
@@ -59,7 +61,9 @@ function mockAuthFetch() {
 function computeExpectedSteps(progress: UserProgress) {
   const levelModules = PUBLIC_MODULES.filter((m) => m.level === getEffectiveLevel(progress, PUBLIC_MODULES));
   const mode = determineDailySessionMode(progress, levelModules);
-  const reviewItem = getReviewItems(progress, levelModules)[0] ?? null;
+  const { reviewItem } = pickSessionReview(progress, levelModules, (m) =>
+    canAccess({ kind: "module", slug: m.slug }, null)
+  );
   const mod = getModuleBySlug(MODULE_SLUG)!;
   return { mode, steps: buildSessionSteps(mod, progress, mode, reviewItem) };
 }
@@ -118,11 +122,18 @@ describe("/parcours/seance — SeanceExperience", () => {
     const { steps } = computeExpectedSteps(progress);
     renderSeance();
 
-    expect(await screen.findByRole("heading", { name: /séance du jour/i, level: 1 })).toBeInTheDocument();
-    expect(screen.getByText("Se présenter")).toBeInTheDocument();
+    // Le titre principal est ce que la séance permet de FAIRE ; le module reste secondaire.
+    const capability = getModuleCapability(getModuleBySlug(MODULE_SLUG)!);
+    expect(await screen.findByRole("heading", { name: capability, level: 1 })).toBeInTheDocument();
+    expect(screen.getByText("Module : Se présenter")).toBeInTheDocument();
     expect(screen.getByText(new RegExp(`étape 1 sur ${steps.length}`, "i"))).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: new RegExp(`^1\\. ${steps[0].title}$`) })).toBeInTheDocument();
-    expect(trackEvent).toHaveBeenCalledWith("daily_session_started", { moduleId: "b1-se-presenter" });
+    expect(
+      screen.getByRole("heading", { level: 2, name: `${STEP_FOCUS_LABELS[steps[0].focus]} · ${steps[0].title}` })
+    ).toBeInTheDocument();
+    expect(trackEvent).toHaveBeenCalledWith(
+      "daily_session_started",
+      expect.objectContaining({ moduleId: "b1-se-presenter", firstSession: true, dailyMinutes: 20 })
+    );
   });
 
   it("navigue entre les étapes (Suivant, Précédent, clic direct sur une puce) sans jamais sortir des bornes", async () => {
@@ -137,7 +148,9 @@ describe("/parcours/seance — SeanceExperience", () => {
 
     await user.click(screen.getByRole("button", { name: /suivant/i }));
     expect(await screen.findByText(new RegExp(`étape 2 sur ${steps.length}`, "i"))).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: new RegExp(`^2\\. ${steps[1].title}$`) })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 2, name: `${STEP_FOCUS_LABELS[steps[1].focus]} · ${steps[1].title}` })
+    ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /précédent/i })).toBeEnabled();
 
     await user.click(screen.getByRole("button", { name: /précédent/i }));
@@ -150,13 +163,15 @@ describe("/parcours/seance — SeanceExperience", () => {
     expect(await screen.findByText(new RegExp(`étape ${lastIndex + 1} sur ${steps.length}`, "i"))).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /terminer la séance/i })).toBeInTheDocument();
 
-    expect(screen.getByRole("link", { name: /quitter la séance/i })).toHaveAttribute("href", "/parcours");
+    expect(screen.getByRole("link", { name: /^quitter$/i })).toHaveAttribute("href", "/aujourdhui");
   });
 
   it("garde le nombre d'étapes strictement figé après avoir répondu à un exercice, même si le mode recalculé changerait", async () => {
     const user = userEvent.setup();
     mockAuthFetch();
-    const progress = seedProgress();
+    // 30 min : la séance va jusqu'à la leçon qui contient l'exercice vrai/faux
+    // (avec 10 ou 20 min, elle s'arrête plus tôt — voir `pickLessonsForBudget`).
+    const progress = seedProgress({ dailyMinutes: 30 });
     const { mode: initialMode, steps: initialSteps } = computeExpectedSteps(progress);
     expect(initialMode).toBe("decouverte"); // garanti par EMPTY_USER_PROGRESS — voir determineDailySessionMode
 
@@ -194,9 +209,10 @@ describe("/parcours/seance — SeanceExperience", () => {
   it("mène la séance jusqu'au bilan de fin, avec un résultat cohérent et la progression réellement écrite", async () => {
     const user = userEvent.setup();
     mockAuthFetch();
-    const progress = seedProgress();
+    const progress = seedProgress({ dailyMinutes: 30 });
     const { steps } = computeExpectedSteps(progress);
     const { lesson, exercise } = findVraiFauxExercise();
+    expect(steps.findIndex((s) => s.lessonId === lesson.id)).toBeGreaterThanOrEqual(0);
     const exerciseStepIndex = steps.findIndex((s) => s.lessonId === lesson.id);
 
     renderSeance();
@@ -210,10 +226,18 @@ describe("/parcours/seance — SeanceExperience", () => {
       await user.click(screen.getByRole("button", { name: isLast ? /terminer la séance/i : /^suivant/i }));
     }
 
-    expect(await screen.findByRole("heading", { name: /bravo, séance complétée/i })).toBeInTheDocument();
-    expect(screen.getByText(/réussite globale sur cette séance/i)).toBeInTheDocument();
+    // Le bilan dit d'abord ce que l'apprenant sait mieux faire, puis les détails.
+    expect(await screen.findByRole("heading", { name: /aujourd'hui, tu sais mieux/i })).toBeInTheDocument();
+    const recap = screen.getByRole("region", { name: /aujourd'hui, tu sais mieux/i });
+    expect(within(recap).getByText(getModuleCapability(getModuleBySlug(MODULE_SLUG)!))).toBeInTheDocument();
+    // Et termine toujours par une prochaine étape explicite.
+    expect(screen.getByRole("region", { name: /prochaine étape/i })).toBeInTheDocument();
     expect(screen.getByText(/1\/1 \(100%\)/)).toBeInTheDocument();
-    expect(trackEvent).toHaveBeenCalledWith("daily_session_completed", { moduleId: "b1-se-presenter" });
+    expect(screen.getByRole("heading", { name: /compétences travaillées/i })).toBeInTheDocument();
+    expect(trackEvent).toHaveBeenCalledWith(
+      "daily_session_completed",
+      expect.objectContaining({ moduleId: "b1-se-presenter", firstSession: true })
+    );
 
     const finalProgress = readProgress();
     const moduleProgress = finalProgress.moduleProgress.find((mp) => mp.moduleId === "b1-se-presenter");
@@ -233,6 +257,6 @@ describe("/parcours/seance — SeanceExperience", () => {
     );
 
     expect(await screen.findByText(/aucune séance disponible/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /retour au parcours/i })).toHaveAttribute("href", "/parcours");
+    expect(screen.getByRole("link", { name: /retour à aujourd'hui/i })).toHaveAttribute("href", "/aujourdhui");
   });
 });

@@ -268,8 +268,8 @@ export default function ReviserExperience() {
                 </li>
               ))}
           </ul>
-          <Link href="/parcours" className={cn(buttonClasses("primary", "md"), "mt-4")}>
-            Continuer mon parcours
+          <Link href="/aujourdhui" className={cn(buttonClasses("primary", "md"), "mt-4")}>
+            Retour à Aujourd&apos;hui
           </Link>
         </Card>
       </div>
@@ -323,10 +323,9 @@ export default function ReviserExperience() {
     <div className="space-y-8">
       <ViewTracker event="review_page_viewed" />
       <header>
-        <h1 className="text-2xl font-bold text-foreground">Réviser</h1>
-        <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-          Ce qui mérite d&apos;être revu maintenant, classé par urgence — erreurs répétées, temps
-          écoulé depuis la dernière pratique, et ce que tu as marqué à revoir toi-même.
+        <h1 className="text-3xl font-bold text-foreground">Réviser</h1>
+        <p className="mt-2 max-w-xl text-base text-muted-foreground">
+          Quelques minutes pour revoir ce qui est fragile ou ancien, avant de l&apos;oublier.
         </p>
       </header>
 
@@ -334,7 +333,7 @@ export default function ReviserExperience() {
         <Card>
           <p className="text-sm font-semibold text-foreground">Tu es à jour</p>
           <p className="mt-1 text-sm text-muted-foreground">Aucune révision importante pour le moment.</p>
-          <Link href="/parcours" className={cn(buttonClasses("primary", "md"), "mt-4")}>
+          <Link href="/aujourdhui" className={cn(buttonClasses("primary", "md"), "mt-4")}>
             Continuer ma séance
           </Link>
         </Card>
@@ -354,6 +353,20 @@ export default function ReviserExperience() {
               <ClockIcon className="h-4 w-4" aria-hidden="true" />
               ≈ {estimatedMinutes} min
             </p>
+            {/* Pourquoi ça revient — la raison du moteur, en clair, sans l'algorithme. */}
+            <ul className="mt-4 space-y-2">
+              {sessionPool.slice(0, 3).map((recommendation) => (
+                <li key={recommendation.key} className="text-sm">
+                  <span className="font-semibold text-foreground">{recommendation.title}</span>
+                  <span className="block text-muted-foreground">{recommendation.reason}</span>
+                </li>
+              ))}
+              {sessionPool.length > 3 ? (
+                <li className="text-sm text-muted-foreground">
+                  et {sessionPool.length - 3} autre{sessionPool.length - 3 > 1 ? "s" : ""}
+                </li>
+              ) : null}
+            </ul>
             {sessionError ? (
               <p className="mt-3 text-sm text-red-600">
                 La révision n&apos;a pas pu démarrer. Réessaie dans un instant.

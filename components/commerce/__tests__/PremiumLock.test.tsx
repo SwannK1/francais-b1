@@ -14,7 +14,17 @@ describe("PremiumLock", () => {
   it("tracks paywall_viewed once on mount", () => {
     render(<PremiumLock title="Module test" backHref="/parcours" backLabel="← Retour" />);
     expect(trackEvent).toHaveBeenCalledTimes(1);
-    expect(trackEvent).toHaveBeenCalledWith("paywall_viewed");
+    expect(trackEvent).toHaveBeenCalledWith("paywall_viewed", { source: "module" });
+  });
+
+  it("adapte son message au contexte (examen, oral) et le transmet au tracking", () => {
+    render(<PremiumLock title="DELF B1" context="exam" backHref="/parcours/examens" backLabel="← Retour" />);
+    expect(screen.getByText("Cet examen fait partie de l'accès complet.")).toBeInTheDocument();
+    expect(trackEvent).toHaveBeenCalledWith("paywall_viewed", { source: "exam" });
+    cleanup();
+
+    render(<PremiumLock title="Prendre rendez-vous" context="speaking" backHref="/pratiquer" backLabel="← Retour" />);
+    expect(screen.getByText("Cette pratique orale fait partie de l'accès complet.")).toBeInTheDocument();
   });
 
 

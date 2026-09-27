@@ -9,6 +9,7 @@ const PROGRESS_DOMAINS = new Set<SkillDomain>([
   "grammaire",
   "vocabulaire",
   "production_ecrite",
+  "production_orale",
   "preparation_examen",
 ]);
 

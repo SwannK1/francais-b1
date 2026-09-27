@@ -17,6 +17,14 @@ interface SpeakingExerciseBase {
   id: string;
   kind: SpeakingExerciseKind;
   level: CEFRLevel;
+  /**
+   * Compétence orale travaillée (`po-*`, `lib/pedagogy/data/skills-oral.ts`)
+   * — uniquement pour les exercices qui mobilisent une vraie capacité
+   * (mini-réponse, situation). Absent pour la répétition et la lecture à voix
+   * haute, qui entraînent la prononciation sans correspondre à une tâche de
+   * la vie réelle.
+   */
+  skillId?: string;
   title: string;
   instructions: string;
   /** 0 = pas de temps de préparation, on enregistre directement. */

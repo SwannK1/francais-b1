@@ -5,13 +5,16 @@ import { findModuleForSkill } from "@/lib/pedagogy/logic/module-structure";
 import { getNextModule, type NextModuleTarget } from "@/lib/pedagogy/logic/recommendation";
 import { getEffectiveLevel, getStageCompletionRate, getParcoursSummary } from "@/lib/pedagogy/logic/parcours";
 import { getReviewItems, type ReviewItem } from "@/lib/pedagogy/logic/review";
+import { getDailyMinutes } from "@/lib/pedagogy/logic/preferences";
+import { getModuleCapability } from "@/lib/pedagogy/logic/capability";
 import { getSkillReviewRecommendations } from "@/lib/review";
-import type { PublicModule, UserProgress } from "@/lib/pedagogy/types";
+import type { DailyMinutes, PublicModule, UserProgress } from "@/lib/pedagogy/types";
 import type {
   DailySessionMode,
   DailySessionPlan,
   DailySessionRecap,
   DailySessionStep,
+  DailySessionStepFocus,
   SessionLessonLike,
   SessionModuleLike,
 } from "@/lib/daily/types";
@@ -32,9 +35,22 @@ const CONSOLIDATION_SUCCESS_THRESHOLD = 70;
 /** Complétion de la dernière étape de contenu à partir de laquelle on bascule en mode "fin de niveau". */
 const END_OF_LEVEL_COMPLETION_THRESHOLD = 80;
 
-const MAX_LESSON_STEPS = 4;
-/** Cible indicative (la séance type dure 10 à 25 minutes) — pas une limite stricte : voir `pickLessonsForBudget`. */
-const TARGET_SESSION_MINUTES = 18;
+/**
+ * Nombre maximal de leçons selon le temps de travail habituel
+ * (`UserProgress.dailyMinutes`) — une seule logique de séance, simplement
+ * dimensionnée, jamais trois moteurs :
+ * - 10 min : un rappel et une activité prioritaire ;
+ * - 20 min : un rappel, une leçon, un entraînement ;
+ * - 30 min : séance complète, qui atteint le plus souvent la leçon de
+ *   production (oral/écrit) du module.
+ */
+const MAX_LESSON_STEPS_BY_BUDGET: Record<DailyMinutes, number> = { 10: 1, 20: 3, 30: 4 };
+/**
+ * Dépassement toléré avant de renoncer à la leçon suivante : on n'ajoute
+ * jamais une leçon qui ferait nettement déborder la séance, et on ne la
+ * coupe jamais en deux non plus (une leçon est prise entière ou pas du tout).
+ */
+const BUDGET_TOLERANCE_MINUTES = 3;
 const MIN_LESSON_MINUTES = 2;
 const MAX_LESSON_MINUTES = 8;
 const PER_EXERCISE_MINUTES = 1.5;
@@ -146,17 +162,59 @@ function estimateLessonMinutes(lesson: SessionLessonLike): number {
   return Math.round(Math.min(Math.max(raw, MIN_LESSON_MINUTES), MAX_LESSON_MINUTES));
 }
 
-/** Prend les leçons dans leur ordre pédagogique d'origine (jamais réordonnées) jusqu'à couvrir la cible de durée. */
-function pickLessonsForBudget(lessons: SessionLessonLike[]): SessionLessonLike[] {
+/**
+ * Prend les leçons dans leur ordre pédagogique d'origine (jamais réordonnées,
+ * jamais sautées) jusqu'à couvrir le temps disponible. La première leçon est
+ * toujours retenue, même longue : une séance sans activité n'aurait pas de
+ * sens. `reservedMinutes` = temps déjà pris par le rappel.
+ */
+function pickLessonsForBudget(
+  lessons: SessionLessonLike[],
+  dailyMinutes: DailyMinutes,
+  reservedMinutes: number
+): SessionLessonLike[] {
+  const maxLessons = MAX_LESSON_STEPS_BY_BUDGET[dailyMinutes];
   const picked: SessionLessonLike[] = [];
-  let minutes = 0;
+  let minutes = reservedMinutes;
   for (const lesson of lessons) {
-    if (picked.length >= MAX_LESSON_STEPS) break;
+    if (picked.length >= maxLessons) break;
+    const lessonMinutes = estimateLessonMinutes(lesson);
+    if (picked.length > 0) {
+      if (minutes >= dailyMinutes) break;
+      if (minutes + lessonMinutes > dailyMinutes + BUDGET_TOLERANCE_MINUTES) break;
+    }
     picked.push(lesson);
-    minutes += estimateLessonMinutes(lesson);
-    if (minutes >= TARGET_SESSION_MINUTES && picked.length >= 2) break;
+    minutes += lessonMinutes;
   }
   return picked;
+}
+
+function lessonHasSpeaking(lesson: SessionLessonLike): boolean {
+  return lesson.activities.some((activity) =>
+    activity.exercises.some(
+      (exercise) => (exercise as { type?: unknown } | null)?.type === "production_orale"
+    )
+  );
+}
+
+function lessonFocus(lesson: SessionLessonLike): DailySessionStepFocus {
+  switch (lesson.type) {
+    case "decouvrir":
+      return "decouvrir";
+    case "comprendre":
+      return "comprendre";
+    case "ecoute":
+      return "ecouter";
+    case "ecriture":
+      // Leçon de production : « Parler » dès qu'elle contient un exercice
+      // oral (auto-évalué), sinon « Écrire ».
+      return lessonHasSpeaking(lesson) ? "parler" : "ecrire";
+    case "evaluation":
+      return "evaluer";
+    case "entrainement":
+    default:
+      return "entrainer";
+  }
 }
 
 /**
@@ -179,6 +237,9 @@ export function buildSessionSteps(
   mode: DailySessionMode,
   reviewItem: SessionReviewTarget | null
 ): DailySessionStep[] {
+  const dailyMinutes = getDailyMinutes(progress);
+  // Pas de rappel en mode découverte : rien à se remémorer pour un nouvel apprenant.
+  const includesRappel = Boolean(reviewItem) && mode !== "decouverte";
   const moduleProgress = getModuleProgress(progress, mod.id);
   const completedLessonIds = moduleProgress?.completedLessonIds ?? [];
   const pendingLessons = mod.lessons.filter((lesson) => !completedLessonIds.includes(lesson.id));
@@ -191,15 +252,15 @@ export function buildSessionSteps(
     return true;
   });
 
-  const chosenLessons = pickLessonsForBudget(dedupedCandidates);
+  const chosenLessons = pickLessonsForBudget(dedupedCandidates, dailyMinutes, includesRappel ? RAPPEL_MINUTES : 0);
 
   const steps: DailySessionStep[] = [];
 
-  // Pas de rappel en mode découverte : rien à se remémorer pour un nouvel apprenant.
-  if (reviewItem && mode !== "decouverte") {
+  if (reviewItem && includesRappel) {
     steps.push({
       id: "rappel",
       kind: "rappel",
+      focus: "reviser",
       title: "Rappel rapide",
       description: reviewItem.description,
       estimatedMinutes: RAPPEL_MINUTES,
@@ -213,6 +274,7 @@ export function buildSessionSteps(
     steps.push({
       id: lesson.id,
       kind: "lesson",
+      focus: lessonFocus(lesson),
       title: lesson.title,
       description: LESSON_KIND_DESCRIPTIONS[lesson.type] ?? "Poursuis ton apprentissage.",
       estimatedMinutes: estimateLessonMinutes(lesson),
@@ -225,24 +287,52 @@ export function buildSessionSteps(
   return steps;
 }
 
+/**
+ * Le « pourquoi » de la séance, en phrases courtes et en français simple :
+ * le public apprend encore le français (voir `docs/product/coach-quotidien.md`).
+ */
 function buildReason(mode: DailySessionMode, target: NextModuleTarget, focusSkillName: string | null): string {
   switch (mode) {
     case "decouverte":
-      return `Séance de découverte pour commencer « ${target.module.title} ».`;
+      return "Ta première séance : on commence par les bases de ton niveau.";
     case "retour_apres_absence":
-      return `Une reprise en douceur avec « ${target.module.title} » après une pause.`;
+      return "Content de te revoir ! Une reprise en douceur, sans pression.";
     case "fin_de_niveau":
-      return `Tu es presque prêt·e — encore un peu de « ${target.module.title} » avant la préparation à l'examen.`;
+      return "Tu arrives à la fin de ton niveau. Encore un effort avant les examens d'entraînement.";
     case "consolidation":
       return focusSkillName
-        ? `Séance choisie pour retravailler : ${focusSkillName}.`
-        : `Séance de consolidation avec « ${target.module.title} ».`;
+        ? `Cette séance t'aide à retravailler un point encore fragile : ${focusSkillName}.`
+        : "Cette séance t'aide à retravailler ce qui est encore fragile.";
     case "reprise":
-      return `Reprends là où tu t'es arrêté·e dans « ${target.module.title} ».`;
+      return `Tu reprends là où tu t'es arrêté·e, dans « ${target.module.title} ».`;
     case "apprentissage":
     default:
-      return target.reason ?? `Séance choisie pour continuer « ${target.module.title} », ta prochaine étape.`;
+      return target.reason ?? "C'est la prochaine étape de ton parcours.";
   }
+}
+
+/**
+ * Rappel de début de séance : d'abord une compétence signalée par le moteur
+ * de révision espacée (dont le module est accessible), sinon le premier
+ * élément de révision « historique ». Exporté pour que le runner
+ * (`/parcours/seance`) reconstruise EXACTEMENT le même rappel que la carte
+ * affichée sur `/aujourdhui` — jamais deux règles différentes.
+ */
+export function pickSessionReview(
+  progress: UserProgress,
+  levelModules: PublicModule[],
+  isAccessible: (mod: PublicModule) => boolean = () => true,
+  now: Date = new Date()
+): { skillReview: ReturnType<typeof getSkillReviewRecommendations>[number] | null; reviewItem: SessionReviewTarget | null } {
+  const skillReview =
+    getSkillReviewRecommendations(progress, levelModules, now).find((recommendation) => {
+      const reviewModule = findModuleForSkill(levelModules, recommendation.skillId);
+      return !!reviewModule && isAccessible(reviewModule);
+    }) ?? null;
+  const reviewItem: SessionReviewTarget | null = skillReview
+    ? { description: `${skillReview.title} — ${skillReview.reason}.`, href: skillReview.href }
+    : (getReviewItems(progress, levelModules)[0] ?? null);
+  return { skillReview, reviewItem };
 }
 
 /**
@@ -277,17 +367,9 @@ export function buildDailySession(
   if (levelModules.length === 0) return null;
 
   const mode = determineDailySessionMode(progress, levelModules, now);
-  const skillReview = getSkillReviewRecommendations(progress, levelModules, now).find((recommendation) => {
-    const reviewModule = findModuleForSkill(levelModules, recommendation.skillId);
-    return !!reviewModule && isAccessible(reviewModule);
-  }) ?? null;
+  const { skillReview, reviewItem } = pickSessionReview(progress, levelModules, isAccessible, now);
   const target = pickTargetModule(mode, progress, levelModules, isAccessible, skillReview?.skillId ?? null);
   if (!target) return null;
-
-  const reviewItems = getReviewItems(progress, levelModules);
-  const reviewItem: SessionReviewTarget | null = skillReview
-    ? { description: `${skillReview.title} — ${skillReview.reason}.`, href: skillReview.href }
-    : (reviewItems[0] ?? null);
 
   const steps = buildSessionSteps(target.module, progress, mode, reviewItem);
   if (steps.length === 0) return null;
@@ -303,7 +385,9 @@ export function buildDailySession(
     moduleId: target.module.id,
     moduleSlug: target.module.slug,
     moduleTitle: target.module.title,
+    capability: getModuleCapability(target.module),
     stageTitle: target.stage.title,
+    dailyMinutes: getDailyMinutes(progress),
     isResuming: target.isResuming,
     steps,
     totalEstimatedMinutes,
@@ -323,7 +407,8 @@ export function buildDailySession(
 export function buildDailySessionRecap(params: {
   plan: DailySessionPlan;
   completedStepIds: string[];
-  results: { correct: boolean }[];
+  /** `skillId` optionnel : permet de nommer les compétences travaillées dans le bilan. */
+  results: { correct: boolean; skillId?: string }[];
   progress: UserProgress;
   modules: PublicModule[];
   isAccessible?: (mod: PublicModule) => boolean;
@@ -346,13 +431,27 @@ export function buildDailySessionRecap(params: {
     : "Voir ma progression";
   const nextStepHref = next ? `/parcours/module/${next.module.slug}` : "/progression";
 
-  const weakSkillId = progress.weakSkillIds[0] ?? null;
+  // Compétences réellement travaillées (dans l'ordre de première rencontre).
+  const workedSkillIds = Array.from(
+    new Set(results.map((result) => result.skillId).filter((id): id is string => Boolean(id)))
+  );
+  const skillsWorked = workedSkillIds
+    .map((id) => getSkillById(id)?.name)
+    .filter((name): name is string => Boolean(name));
+
+  // Point à consolider : d'abord une compétence de CETTE séance restée
+  // fragile (plus parlant que la plus faible de tout l'historique), sinon la
+  // plus faible connue.
+  const weakSkillId =
+    workedSkillIds.find((id) => progress.weakSkillIds.includes(id)) ?? progress.weakSkillIds[0] ?? null;
   const skill = weakSkillId ? getSkillById(weakSkillId) : undefined;
   const skillToReview = skill ? { id: skill.id, name: skill.name } : null;
 
   return {
     mode: plan.mode,
     moduleTitle: plan.moduleTitle,
+    capability: plan.capability,
+    skillsWorked,
     workedOnTitles,
     attemptedCount,
     correctCount,

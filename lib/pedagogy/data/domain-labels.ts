@@ -7,6 +7,7 @@ export const DOMAIN_LABELS: Record<SkillDomain, string> = {
   grammaire: "Grammaire",
   vocabulaire: "Vocabulaire",
   production_ecrite: "Production écrite",
+  production_orale: "Production orale",
   preparation_examen: "Préparation examen",
 };
 

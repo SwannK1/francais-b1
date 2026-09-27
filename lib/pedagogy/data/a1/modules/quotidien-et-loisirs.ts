@@ -413,7 +413,7 @@ export const MODULES_A1_QUOTIDIEN_ET_LOISIRS: A1Module[] = [
               {
                 id: "m16-h-oral",
                 type: "production_orale",
-                skillId: "a1-pe-decrire",
+                skillId: "po-parler-quotidien",
                 difficulty: "A1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Dis à un ami ce que tu aimes faire le week-end et pourquoi.",
@@ -1366,7 +1366,7 @@ export const MODULES_A1_QUOTIDIEN_ET_LOISIRS: A1Module[] = [
               {
                 id: "m20-h-oral",
                 type: "production_orale",
-                skillId: "a1-pe-message-simple",
+                skillId: "po-prendre-rendez-vous",
                 difficulty: "A1",
                 instructions: "Prépare-toi, puis enregistre-toi.",
                 consigne: "Propose un rendez-vous à un ami à l'oral : jour, heure et lieu.",

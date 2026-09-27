@@ -84,11 +84,11 @@ export default function DiagnosticClient() {
     setResult(null);
   }
 
-  const breadcrumbLabel = phase === "result" ? "Ton résultat" : "Diagnostic de niveau";
+  const breadcrumbLabel = phase === "result" ? "Ton résultat" : "Bilan approfondi";
 
   return (
     <div className="space-y-6">
-      <Breadcrumbs items={[{ label: "Parcours", href: "/parcours" }, { label: breadcrumbLabel }]} />
+      <Breadcrumbs items={[{ label: "Progression", href: "/progression" }, { label: breadcrumbLabel }]} />
 
       {phase === "intro" ? <IntroScreen onStart={start} /> : null}
 

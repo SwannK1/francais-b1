@@ -519,7 +519,7 @@ export default function SpeakingExerciseCard({ exercise }: { exercise: SpeakingE
               </div>
             ) : null}
             <div className="flex flex-wrap gap-2">
-              <Link href="/oral" className={buttonClasses("primary", "md")}>
+              <Link href="/pratiquer#parler" className={buttonClasses("primary", "md")}>
                 Continuer →
               </Link>
               <button type="button" onClick={restartExercise} className={buttonClasses("secondary", "md")}>
